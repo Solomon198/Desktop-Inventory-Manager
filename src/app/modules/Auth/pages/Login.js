@@ -19,7 +19,7 @@ import { login } from "../_redux/authCrud";
 
 const initialValues = {
   email: "admin@demo.com",
-  password: "demo",
+  password: "demo"
 };
 
 function Login(props) {
@@ -32,7 +32,7 @@ function Login(props) {
       .max(50, "Maximum 50 symbols")
       .required(
         intl.formatMessage({
-          id: "AUTH.VALIDATION.REQUIRED_FIELD",
+          id: "AUTH.VALIDATION.REQUIRED_FIELD"
         })
       ),
     password: Yup.string()
@@ -40,9 +40,9 @@ function Login(props) {
       .max(50, "Maximum 50 symbols")
       .required(
         intl.formatMessage({
-          id: "AUTH.VALIDATION.REQUIRED_FIELD",
+          id: "AUTH.VALIDATION.REQUIRED_FIELD"
         })
-      ),
+      )
   });
 
   const enableLoading = () => {
@@ -53,7 +53,7 @@ function Login(props) {
     setLoading(false);
   };
 
-  const getInputClasses = (fieldname) => {
+  const getInputClasses = fieldname => {
     if (formik.touched[fieldname] && formik.errors[fieldname]) {
       return "is-invalid";
     }
@@ -81,12 +81,12 @@ function Login(props) {
             setSubmitting(false);
             setStatus(
               intl.formatMessage({
-                id: "AUTH.VALIDATION.INVALID_LOGIN",
+                id: "AUTH.VALIDATION.INVALID_LOGIN"
               })
             );
           });
       }, 1000);
-    },
+    }
   });
 
   return (

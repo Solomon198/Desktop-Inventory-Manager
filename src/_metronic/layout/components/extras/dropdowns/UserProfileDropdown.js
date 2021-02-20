@@ -10,13 +10,13 @@ import { toAbsoluteUrl } from "../../../../_helpers";
 import { DropdownTopbarItemToggler } from "../../../../_partials/dropdowns";
 
 export function UserProfileDropdown() {
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector(state => state.auth);
   const uiService = useHtmlClassService();
   const layoutProps = useMemo(() => {
     return {
       light:
         objectPath.get(uiService.config, "extras.user.dropdown.style") ===
-        "light",
+        "light"
     };
   }, [uiService]);
 
@@ -68,9 +68,7 @@ export function UserProfileDropdown() {
             <div
               className="d-flex align-items-center justify-content-between flex-wrap p-8 bgi-size-cover bgi-no-repeat rounded-top"
               style={{
-                backgroundImage: `url(${toAbsoluteUrl(
-                  "/media/misc/bg-1.jpg"
-                )})`,
+                backgroundImage: `url(${toAbsoluteUrl("/media/misc/bg-1.jpg")})`
               }}
             >
               <div className="symbol bg-white-o-15 mr-3">

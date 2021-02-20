@@ -12,7 +12,7 @@ const QuickActionsDropdownToggle = forwardRef((props, ref) => {
     <a
       href="#"
       ref={ref}
-      onClick={(e) => {
+      onClick={e => {
         e.preventDefault();
         props.onClick(e);
       }}

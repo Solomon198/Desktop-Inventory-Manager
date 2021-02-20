@@ -53,7 +53,7 @@ export function PaginationLinks({ paginationProps }) {
                 ...
               </a>
             )}
-            {pages.map((p) => (
+            {pages.map(p => (
               <a
                 key={p}
                 onClick={() => handleSelectedPage(paginationProps, p)}

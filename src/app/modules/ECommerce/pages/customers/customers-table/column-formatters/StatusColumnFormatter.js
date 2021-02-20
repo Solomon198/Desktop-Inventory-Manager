@@ -3,7 +3,7 @@
 import React from "react";
 import {
   CustomerStatusCssClasses,
-  CustomerStatusTitles,
+  CustomerStatusTitles
 } from "../../CustomersUIHelpers";
 
 export function StatusColumnFormatter(cellContent, row) {

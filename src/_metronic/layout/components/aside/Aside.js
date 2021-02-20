@@ -46,19 +46,16 @@ export function Aside() {
         uiService.config,
         "extras.languages.display"
       ),
-      extrasUserDisplay: objectPath.get(
-        uiService.config,
-        "extras.user.display"
-      ),
+      extrasUserDisplay: objectPath.get(uiService.config, "extras.user.display")
     };
   }, [uiService]);
 
   const tabs = {
     tabId1: "kt_aside_tab_1",
-    tabId2: "kt_aside_tab_2",
+    tabId2: "kt_aside_tab_2"
   };
   const [activeTab, setActiveTab] = useState(tabs.tabId1);
-  const handleTabChange = (id) => {
+  const handleTabChange = id => {
     setActiveTab(id);
     const asideWorkspace = KTUtil.find(
       document.getElementById("kt_aside"),

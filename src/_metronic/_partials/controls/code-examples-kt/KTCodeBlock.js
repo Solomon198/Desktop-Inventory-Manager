@@ -3,9 +3,9 @@
 import React from "react";
 import clsx from "clsx";
 // https://github.com/conorhastings/react-syntax-highlighter#prism
-import {Prism as SyntaxHighlighter} from "react-syntax-highlighter";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 // See https://github.com/PrismJS/prism-themes
-import {coy as highlightStyle} from "react-syntax-highlighter/dist/esm/styles/prism";
+import { coy as highlightStyle } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 export const KTCodeBlock = ({ languages, tabs, codeShown, customStyle }) => {
   const { isCodeBlockShown } = codeShown;
@@ -82,7 +82,6 @@ export const KTCodeBlock = ({ languages, tabs, codeShown, customStyle }) => {
           </div>
         </>
       )}
-      
     </>
   );
 };

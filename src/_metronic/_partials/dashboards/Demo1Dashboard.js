@@ -10,7 +10,7 @@ import {
   AdvanceTablesWidget4,
   ListsWidget3,
   ListsWidget4,
-  ListsWidget8,
+  ListsWidget8
 } from "../widgets";
 export function Demo1Dashboard() {
   return (

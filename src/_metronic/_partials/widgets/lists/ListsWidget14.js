@@ -41,7 +41,7 @@ export function ListsWidget14({ className }) {
                 style={{
                   backgroundImage: `url('${toAbsoluteUrl(
                     "/media/stock-600x400/img-17.jpg"
-                  )}')`,
+                  )}')`
                 }}
               ></div>
             </div>
@@ -89,7 +89,7 @@ export function ListsWidget14({ className }) {
                 style={{
                   backgroundImage: `url('${toAbsoluteUrl(
                     "/media/stock-600x400/img-10.jpg"
-                  )}')`,
+                  )}')`
                 }}
               ></div>
             </div>
@@ -139,7 +139,7 @@ export function ListsWidget14({ className }) {
                 style={{
                   backgroundImage: `url('${toAbsoluteUrl(
                     "/media/stock-600x400/img-1.jpg"
-                  )}')`,
+                  )}')`
                 }}
               ></div>
             </div>
@@ -189,7 +189,7 @@ export function ListsWidget14({ className }) {
                 style={{
                   backgroundImage: `url('${toAbsoluteUrl(
                     "/media/stock-600x400/img-9.jpg"
-                  )}')`,
+                  )}')`
                 }}
               ></div>
             </div>
@@ -239,7 +239,7 @@ export function ListsWidget14({ className }) {
                 style={{
                   backgroundImage: `url('${toAbsoluteUrl(
                     "/media/stock-600x400/img-12.jpg"
-                  )}')`,
+                  )}')`
                 }}
               ></div>
             </div>

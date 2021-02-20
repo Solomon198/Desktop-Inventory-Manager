@@ -1,12 +1,15 @@
 /* eslint-disable no-restricted-imports */
 import React from "react";
 import PropTypes from "prop-types";
-import {makeStyles, withStyles} from "@material-ui/core/styles";
-import {Typography, Grid, Tooltip, Paper, Input} from "@material-ui/core";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { Typography, Grid, Tooltip, Paper, Input } from "@material-ui/core";
 import VolumeDown from "@material-ui/icons/VolumeDown";
 import VolumeUp from "@material-ui/icons/VolumeUp";
 import Slider from "@material-ui/core/Slider";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 1
 const useStyles1 = makeStyles({
@@ -342,7 +345,9 @@ export default function SliderExamplesPage() {
   return (
     <>
       <Notice icon="flaticon-warning font-primary">
-        <span>Sliders allow users to make selections from a range of values.</span>{" "}
+        <span>
+          Sliders allow users to make selections from a range of values.
+        </span>{" "}
         For more info please check the components's official{" "}
         <a
           target="_blank"

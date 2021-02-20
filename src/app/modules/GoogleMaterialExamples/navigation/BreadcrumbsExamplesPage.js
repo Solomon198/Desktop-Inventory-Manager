@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-restricted-imports */
 import React from "react";
-import {makeStyles, emphasize, withStyles} from "@material-ui/core/styles";
+import { makeStyles, emphasize, withStyles } from "@material-ui/core/styles";
 import {
   Paper,
   Breadcrumbs,
@@ -15,7 +15,10 @@ import HomeIcon from "@material-ui/icons/Home";
 import WhatshotIcon from "@material-ui/icons/Whatshot";
 import GrainIcon from "@material-ui/icons/Grain";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example1
 const useStyles1 = makeStyles(theme => ({

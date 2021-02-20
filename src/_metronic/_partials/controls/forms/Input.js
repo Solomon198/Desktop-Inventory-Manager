@@ -1,5 +1,5 @@
 import React from "react";
-import {FieldFeedbackLabel} from "./FieldFeedbackLabel";
+import { FieldFeedbackLabel } from "./FieldFeedbackLabel";
 
 const getFieldCSSClasses = (touched, errors) => {
   const classes = ["form-control"];

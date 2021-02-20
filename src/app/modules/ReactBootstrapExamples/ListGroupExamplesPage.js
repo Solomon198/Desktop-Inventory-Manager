@@ -1,6 +1,6 @@
 import React from "react";
-import {ListGroup, Row, Col, Tab} from "react-bootstrap";
-import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
+import { ListGroup, Row, Col, Tab } from "react-bootstrap";
+import { Notice, KTCodeExample } from "../../../_metronic/_partials/controls";
 
 function alertClicked() {
   alert("You clicked the third ListGroupItem");

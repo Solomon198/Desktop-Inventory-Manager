@@ -6,15 +6,15 @@
 @import "../../init";
 
 .error.error-6 {
-	.error-title {
-		font-size: 5rem !important;
-	}
+  .error-title {
+    font-size: 5rem !important;
+  }
 }
 
 @include media-breakpoint-up(md) {
-	.error.error-6 {
-		.error-title {
-			font-size: 10rem !important;
-		}
-	}
+  .error.error-6 {
+    .error-title {
+      font-size: 10rem !important;
+    }
+  }
 }

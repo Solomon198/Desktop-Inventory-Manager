@@ -1,6 +1,6 @@
 import React from "react";
-import {Button, Toast, Col, Row} from "react-bootstrap";
-import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
+import { Button, Toast, Col, Row } from "react-bootstrap";
+import { Notice, KTCodeExample } from "../../../_metronic/_partials/controls";
 
 class Example extends React.Component {
   constructor(props) {

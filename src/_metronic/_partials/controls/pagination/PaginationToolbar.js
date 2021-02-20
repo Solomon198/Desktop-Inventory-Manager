@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import {PaginationTotalStandalone} from "react-bootstrap-table2-paginator";
+import { PaginationTotalStandalone } from "react-bootstrap-table2-paginator";
 
 export function PaginationToolbar(props) {
   const { isLoading, paginationProps } = props;

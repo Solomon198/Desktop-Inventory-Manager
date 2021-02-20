@@ -1,9 +1,9 @@
-import React, {useMemo} from "react";
+import React, { useMemo } from "react";
 import {
   Card,
   CardBody,
   CardHeader,
-  CardHeaderToolbar,
+  CardHeaderToolbar
 } from "../../../../../_metronic/_partials/controls";
 import { ProductsFilter } from "./products-filter/ProductsFilter";
 import { ProductsTable } from "./products-table/ProductsTable";
@@ -22,7 +22,7 @@ export function ProductsCard() {
       openEditProductPage: productsUIContext.openEditProductPage,
       openUpdateProductsStatusDialog:
         productsUIContext.openUpdateProductsStatusDialog,
-      openFetchProductsDialog: productsUIContext.openFetchProductsDialog,
+      openFetchProductsDialog: productsUIContext.openFetchProductsDialog
     };
   }, [productsUIContext]);
 

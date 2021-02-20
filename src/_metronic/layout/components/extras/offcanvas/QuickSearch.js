@@ -175,7 +175,7 @@ export function QuickSearch() {
                         style={{
                           backgroundImage: `url("${toAbsoluteUrl(
                             "/media/users/300_20.jpg"
-                          )}")`,
+                          )}")`
                         }}
                       />
                     </div>
@@ -198,7 +198,7 @@ export function QuickSearch() {
                         style={{
                           backgroundImage: `url("${toAbsoluteUrl(
                             "/media/users/300_15.jpg"
-                          )}")`,
+                          )}")`
                         }}
                       />
                     </div>
@@ -221,7 +221,7 @@ export function QuickSearch() {
                         style={{
                           backgroundImage: `url("${toAbsoluteUrl(
                             "/media/users/300_12.jpg"
-                          )}")`,
+                          )}")`
                         }}
                       />
                     </div>
@@ -244,7 +244,7 @@ export function QuickSearch() {
                         style={{
                           backgroundImage: `url("${toAbsoluteUrl(
                             "/media/users/300_16.jpg"
-                          )}")`,
+                          )}")`
                         }}
                       />
                     </div>

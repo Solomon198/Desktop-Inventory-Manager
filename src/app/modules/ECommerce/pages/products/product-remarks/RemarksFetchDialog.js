@@ -5,8 +5,8 @@ import { useRemarksUIContext } from "./RemarksUIContext";
 
 const selectedRemarks = (entities, ids) => {
   const _remarks = [];
-  ids.forEach((id) => {
-    const remark = entities.find((el) => el.id === id);
+  ids.forEach(id => {
+    const remark = entities.find(el => el.id === id);
     if (remark) {
       _remarks.push(remark);
     }
@@ -22,13 +22,13 @@ export function RemarksFetchDialog() {
       ids: remarksUIContext.ids,
       queryParams: remarksUIContext.queryParams,
       showFetchRemarksDialog: remarksUIContext.showFetchRemarksDialog,
-      closeFetchRemarksDialog: remarksUIContext.closeFetchRemarksDialog,
+      closeFetchRemarksDialog: remarksUIContext.closeFetchRemarksDialog
     };
   }, [remarksUIContext]);
 
   const { remarks } = useSelector(
-    (state) => ({
-      remarks: selectedRemarks(state.remarks.entities, remarksUIProps.ids),
+    state => ({
+      remarks: selectedRemarks(state.remarks.entities, remarksUIProps.ids)
     }),
     shallowEqual
   );
@@ -54,7 +54,7 @@ export function RemarksFetchDialog() {
       <Modal.Body>
         <div className="list-timeline list-timeline-skin-light padding-30">
           <div className="list-timeline-items">
-            {remarks.map((remark) => (
+            {remarks.map(remark => (
               <div className="list-timeline-item mb-3" key={remark.id}>
                 <span className="list-timeline-text">
                   <span

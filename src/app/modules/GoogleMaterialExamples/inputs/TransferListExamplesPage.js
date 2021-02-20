@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-imports */
 import React from "react";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Paper,
   List,
@@ -14,7 +14,10 @@ import {
   CardHeader,
   Divider
 } from "@material-ui/core";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 const useStyles = makeStyles(theme => ({
   root: {

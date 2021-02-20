@@ -1,6 +1,6 @@
 import React from "react";
-import {Table} from "react-bootstrap";
-import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
+import { Table } from "react-bootstrap";
+import { Notice, KTCodeExample } from "../../../_metronic/_partials/controls";
 
 export default class TableExamplesPage extends React.Component {
   render() {

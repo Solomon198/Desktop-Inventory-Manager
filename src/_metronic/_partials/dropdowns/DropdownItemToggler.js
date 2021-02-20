@@ -15,4 +15,4 @@ export const DropdownItemToggler = React.forwardRef((props, ref) => {
   );
 });
 
-DropdownItemToggler.displayName = 'DropdownItemToggler';
+DropdownItemToggler.displayName = "DropdownItemToggler";

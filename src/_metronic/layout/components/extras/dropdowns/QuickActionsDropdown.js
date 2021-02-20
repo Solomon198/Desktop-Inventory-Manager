@@ -16,7 +16,7 @@ export function QuickActionsDropdown() {
     return {
       offcanvas:
         objectPath.get(uiService.config, "extras.quick-actions.layout") ===
-        "offcanvas",
+        "offcanvas"
     };
   }, [uiService]);
 

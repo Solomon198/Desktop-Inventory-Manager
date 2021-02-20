@@ -8,9 +8,9 @@ export function RemarkEditDialogHeader({ id }) {
   const [title, setTitle] = useState("");
   // Remarks Redux state
   const { remarkForEdit, actionsLoading } = useSelector(
-    (state) => ({
+    state => ({
       remarkForEdit: state.remarks.remarkForEdit,
-      actionsLoading: state.remarks.actionsLoading,
+      actionsLoading: state.remarks.actionsLoading
     }),
     shallowEqual
   );

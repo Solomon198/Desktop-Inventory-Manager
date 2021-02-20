@@ -1,5 +1,5 @@
 import React from "react";
-import {SVGInjector} from "@tanem/svg-injector";
+import { SVGInjector } from "@tanem/svg-injector";
 
 export function SVGIcon({ src, className, parentElementId }) {
   const parentElement = document.getElementById(parentElementId);

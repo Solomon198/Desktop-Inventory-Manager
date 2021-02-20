@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import copy from "clipboard-copy";
-import {Tooltip} from "@material-ui/core";
+import { Tooltip } from "@material-ui/core";
 
 export function CodeBlockToolbar({
   showViewCode = false,

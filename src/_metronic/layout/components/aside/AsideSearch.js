@@ -7,7 +7,7 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { toAbsoluteUrl } from "../../../_helpers";
 import {
   DropdownItemToggler,
-  DropdownMenu4,
+  DropdownMenu4
 } from "../../../_partials/dropdowns";
 
 export function AsideSearch({ isActive }) {

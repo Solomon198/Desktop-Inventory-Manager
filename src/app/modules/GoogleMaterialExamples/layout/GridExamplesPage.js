@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-target-blank */
 import React from "react";
-import {makeStyles} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import {
   Grid,
   FormLabel,
@@ -15,7 +15,10 @@ import {
   Avatar,
   Divider
 } from "@material-ui/core";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 const jsCode1 = `
 import React from 'react';
@@ -630,7 +633,11 @@ export default function GridExamplesPage() {
         </span>
       </Notice>
 
-      <KTCodeExample jsCode={jsCode1} beforeCodeTitle="Spacing" codeBlockHeight="400px">
+      <KTCodeExample
+        jsCode={jsCode1}
+        beforeCodeTitle="Spacing"
+        codeBlockHeight="400px"
+      >
         <span>
           The responsive grid focuses on consistent spacing widths, rather than
           column width. Material Design margins and columns follow an 8px square
@@ -680,7 +687,11 @@ export default function GridExamplesPage() {
 
       <div className="row">
         <div className="col-md-6">
-          <KTCodeExample jsCode={jsCode2} beforeCodeTitle="Basic Grid" codeBlockHeight="400px">
+          <KTCodeExample
+            jsCode={jsCode2}
+            beforeCodeTitle="Basic Grid"
+            codeBlockHeight="400px"
+          >
             <span>
               The column widths apply at all breakpoints (i.e. <code>xs</code>{" "}
               and up).
@@ -753,7 +764,11 @@ export default function GridExamplesPage() {
         </div>
       </div>
 
-      <KTCodeExample jsCode={jsCode4} beforeCodeTitle="Auto-layout" codeBlockHeight="400px">
+      <KTCodeExample
+        jsCode={jsCode4}
+        beforeCodeTitle="Auto-layout"
+        codeBlockHeight="400px"
+      >
         <span>
           The Auto-layout makes the items equitably share the available space.
           That also means you can set the width of one item and the others will
@@ -788,7 +803,11 @@ export default function GridExamplesPage() {
 
       <div className="row">
         <div className="col-md-6">
-          <KTCodeExample jsCode={jsCode5} beforeCodeTitle="Complex Grid" codeBlockHeight="400px">
+          <KTCodeExample
+            jsCode={jsCode5}
+            beforeCodeTitle="Complex Grid"
+            codeBlockHeight="400px"
+          >
             <span>
               The following demo doesn't follow the Material Design
               specification, but illustrates how the grid can be used to build
@@ -839,7 +858,11 @@ export default function GridExamplesPage() {
           </KTCodeExample>
         </div>
         <div className="col-md-6">
-          <KTCodeExample jsCode={jsCode6} beforeCodeTitle="Nested Grid" codeBlockHeight="400px">
+          <KTCodeExample
+            jsCode={jsCode6}
+            beforeCodeTitle="Nested Grid"
+            codeBlockHeight="400px"
+          >
             <span className="pb-3">
               The <code>container</code> and <code>item</code> properties are
               two independent booleans. They can be combined.
@@ -868,7 +891,11 @@ export default function GridExamplesPage() {
         </div>
       </div>
 
-      <KTCodeExample jsCode={jsCode8} beforeCodeTitle="Negative margin" codeBlockHeight="400px">
+      <KTCodeExample
+        jsCode={jsCode8}
+        beforeCodeTitle="Negative margin"
+        codeBlockHeight="400px"
+      >
         <span>
           There is one limitation with the negative margin we use to implement
           the spacing between items. A horizontal scroll will appear if a
@@ -916,7 +943,11 @@ export default function GridExamplesPage() {
         </div>
       </KTCodeExample>
 
-      <KTCodeExample jsCode={jsCode7} beforeCodeTitle="CSS Grid Layout" codeBlockHeight="400px">
+      <KTCodeExample
+        jsCode={jsCode7}
+        beforeCodeTitle="CSS Grid Layout"
+        codeBlockHeight="400px"
+      >
         <span>
           Material-UI doesn't provide any CSS Grid functionality itself, but as
           seen below you can easily use CSS Grid to layout your pages.

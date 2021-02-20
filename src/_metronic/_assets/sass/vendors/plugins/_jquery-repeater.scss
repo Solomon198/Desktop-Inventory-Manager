@@ -2,50 +2,49 @@
 // jQuery Repeater
 //
 
-
 .repeater {
-	.repeater-row{
-		display:flex;
-		flex-wrap:wrap;
+  .repeater-row {
+    display: flex;
+    flex-wrap: wrap;
 
-		> input {
-			flex: 1;
-		}
+    > input {
+      flex: 1;
+    }
 
-		.repeater-close{
-			background-color: transparent;
-			border: none;
-		}
+    .repeater-close {
+      background-color: transparent;
+      border: none;
+    }
 
-		.form-text {
-			flex-basis: 100%;
-		}
-	}
+    .form-text {
+      flex-basis: 100%;
+    }
+  }
 
-	.repeater-item {
-		position:relative;
+  .repeater-item {
+    position: relative;
 
-		.btn-icon{
-			height: auto;
-		}
+    .btn-icon {
+      height: auto;
+    }
 
-		&:first-child {
-			.form-control{
-				border-top-right-radius: 0.25rem;
-				border-bottom-right-radius: 0.25rem;
-			}
+    &:first-child {
+      .form-control {
+        border-top-right-radius: 0.25rem;
+        border-bottom-right-radius: 0.25rem;
+      }
 
-			.input-group-append{
-				display:none;
-			}
-		}
-	}
+      .input-group-append {
+        display: none;
+      }
+    }
+  }
 
-	.repeater-close {
-		&-align-right{
-			position: absolute;
-			top: 0;
-			right:0;
-		}
-	}
+  .repeater-close {
+    &-align-right {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
 }

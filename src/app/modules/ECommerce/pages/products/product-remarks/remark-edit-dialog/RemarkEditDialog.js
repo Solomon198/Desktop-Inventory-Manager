@@ -33,16 +33,16 @@ export function RemarkEditDialog() {
       queryParams: remarksUIContext.queryParams,
       showEditRemarkDialog: remarksUIContext.showEditRemarkDialog,
       closeEditRemarkDialog: remarksUIContext.closeEditRemarkDialog,
-      initRemark: remarksUIContext.initRemark,
+      initRemark: remarksUIContext.initRemark
     };
   }, [remarksUIContext]);
 
   // Remarks Redux state
   const dispatch = useDispatch();
   const { actionsLoading, remarkForEdit } = useSelector(
-    (state) => ({
+    state => ({
       actionsLoading: state.remarks.actionsLoading,
-      remarkForEdit: state.remarks.remarkForEdit,
+      remarkForEdit: state.remarks.remarkForEdit
     }),
     shallowEqual
   );
@@ -52,7 +52,7 @@ export function RemarkEditDialog() {
     dispatch(actions.fetchRemark(remarksUIProps.id));
   }, [remarksUIProps.id, dispatch]);
 
-  const saveRemark = (remark) => {
+  const saveRemark = remark => {
     remark.dueDate = getFormattedDate(remark.dueDate);
     if (!remarksUIProps.id) {
       // server request for creating remarks

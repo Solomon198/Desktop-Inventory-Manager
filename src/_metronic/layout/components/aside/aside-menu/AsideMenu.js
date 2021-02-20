@@ -9,7 +9,7 @@ export function AsideMenu({ isActive }) {
       layoutConfig: uiService.config,
       asideMenuAttr: uiService.getAttributes("aside_menu"),
       ulClasses: uiService.getClasses("aside_menu_nav", true),
-      asideClassesFromConfig: uiService.getClasses("aside_menu", true),
+      asideClassesFromConfig: uiService.getClasses("aside_menu", true)
     };
   }, [uiService]);
 

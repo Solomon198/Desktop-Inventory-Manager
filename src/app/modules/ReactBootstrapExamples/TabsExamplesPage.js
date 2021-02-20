@@ -1,6 +1,6 @@
 import React from "react";
-import {Tab, Tabs, Nav, Col, Row} from "react-bootstrap";
-import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
+import { Tab, Tabs, Nav, Col, Row } from "react-bootstrap";
+import { Notice, KTCodeExample } from "../../../_metronic/_partials/controls";
 
 class ControlledTabs extends React.Component {
   constructor(props, context) {

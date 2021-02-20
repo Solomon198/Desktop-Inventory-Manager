@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import clsx from "clsx";
 import SVG from "react-inlinesvg";
-import {toAbsoluteUrl} from "../../_helpers";
+import { toAbsoluteUrl } from "../../_helpers";
 
 export const Notice = forwardRef(
   (

@@ -1,9 +1,9 @@
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
 import React from "react";
 import SVG from "react-inlinesvg";
-import {Dropdown} from "react-bootstrap";
-import {toAbsoluteUrl} from "../../../_helpers";
-import {DropdownCustomToggler, DropdownMenu2} from "../../dropdowns";
+import { Dropdown } from "react-bootstrap";
+import { toAbsoluteUrl } from "../../../_helpers";
+import { DropdownCustomToggler, DropdownMenu2 } from "../../dropdowns";
 
 export function ListsWidget8({ className }) {
   return (
@@ -18,7 +18,8 @@ export function ListsWidget8({ className }) {
                 variant="transparent"
                 id="dropdown-toggle-top"
                 className="btn btn-clean btn-hover-light-primary btn-sm btn-icon"
-                as={DropdownCustomToggler}>
+                as={DropdownCustomToggler}
+              >
                 <i className="ki ki-bold-more-hor" />
               </Dropdown.Toggle>
               <Dropdown.Menu className="dropdown-menu dropdown-menu-sm dropdown-menu-right">

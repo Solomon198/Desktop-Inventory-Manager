@@ -1,6 +1,6 @@
 import React from "react";
-import {ProgressBar} from "react-bootstrap";
-import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
+import { ProgressBar } from "react-bootstrap";
+import { Notice, KTCodeExample } from "../../../_metronic/_partials/controls";
 
 const now = 60;
 const progressInstance = <ProgressBar now={now} label={`${now}%`} />;

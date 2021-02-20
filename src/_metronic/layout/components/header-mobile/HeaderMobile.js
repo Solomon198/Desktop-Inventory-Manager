@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 import objectPath from "object-path";
-import {toAbsoluteUrl} from "../../../_helpers";
+import { toAbsoluteUrl } from "../../../_helpers";
 import { useHtmlClassService } from "../../_core/MetronicLayout";
 
 export function HeaderMobile() {
@@ -11,7 +11,7 @@ export function HeaderMobile() {
     return {
       asideDisplay: objectPath.get(uiService.config, "aside.self.display"),
       headerMobileCssClasses: uiService.getClasses("header_mobile", true),
-      headerMobileAttributes: uiService.getAttributes("header_mobile"),
+      headerMobileAttributes: uiService.getAttributes("header_mobile")
     };
   }, [uiService]);
 

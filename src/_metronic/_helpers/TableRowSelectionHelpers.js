@@ -14,8 +14,8 @@ function SelectionCheckbox({ isSelected, onChange }) {
 
 function groupingItemOnSelect(props) {
   const { ids, setIds, customerId } = props;
-  if (ids.some((id) => id === customerId)) {
-    setIds(ids.filter((id) => id !== customerId));
+  if (ids.some(id => id === customerId)) {
+    setIds(ids.filter(id => id !== customerId));
   } else {
     const newIds = [...ids];
     newIds.push(customerId);
@@ -27,7 +27,7 @@ function groupingAllOnSelect(props) {
   const { isSelected, setIds, entities } = props;
   if (!isSelected) {
     const allIds = [];
-    entities.forEach((el) => allIds.push(el.id));
+    entities.forEach(el => allIds.push(el.id));
     setIds(allIds);
   } else {
     setIds([]);
@@ -55,7 +55,7 @@ export function getSelectRow(props) {
       );
     },
     selectionRenderer: ({ rowIndex }) => {
-      const isSelected = ids.some((el) => el === entities[rowIndex].id);
+      const isSelected = ids.some(el => el === entities[rowIndex].id);
       const props = { ids, setIds, customerId: entities[rowIndex].id };
       return (
         <SelectionCheckbox
@@ -63,6 +63,6 @@ export function getSelectRow(props) {
           onChange={() => groupingItemOnSelect(props)}
         />
       );
-    },
+    }
   };
 }

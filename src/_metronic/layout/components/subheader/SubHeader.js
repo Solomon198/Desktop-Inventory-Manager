@@ -8,7 +8,7 @@ import { QuickActions } from "./components/QuickActions";
 import { BreadCrumbs } from "./components/BreadCrumbs";
 import {
   getBreadcrumbsAndTitle,
-  useSubheader,
+  useSubheader
 } from "../../_core/MetronicSubheader";
 import { useHtmlClassService } from "../../_core/MetronicLayout";
 
@@ -29,7 +29,7 @@ export function SubHeader() {
       subheaderContainerCssClasses: uiService.getClasses(
         "subheader_container",
         true
-      ),
+      )
     };
   }, [uiService]);
 

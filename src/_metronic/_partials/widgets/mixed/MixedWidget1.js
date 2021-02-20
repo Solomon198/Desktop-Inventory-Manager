@@ -1,13 +1,13 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
-import React, {useMemo, useEffect} from "react";
+import React, { useMemo, useEffect } from "react";
 import SVG from "react-inlinesvg";
 import objectPath from "object-path";
 import ApexCharts from "apexcharts";
-import {Dropdown} from "react-bootstrap";
-import {toAbsoluteUrl} from "../../../_helpers";
-import {useHtmlClassService} from "../../../layout";
-import {DropdownMenu2} from "../../dropdowns";
+import { Dropdown } from "react-bootstrap";
+import { toAbsoluteUrl } from "../../../_helpers";
+import { useHtmlClassService } from "../../../layout";
+import { DropdownMenu2 } from "../../dropdowns";
 
 export function MixedWidget1({ className }) {
   const uiService = useHtmlClassService();
@@ -59,7 +59,8 @@ export function MixedWidget1({ className }) {
             <Dropdown.Toggle
               className="btn btn-transparent-white btn-sm font-weight-bolder dropdown-toggle px-5"
               variant="transparent"
-              id="dropdown-toggle-top">
+              id="dropdown-toggle-top"
+            >
               Export
             </Dropdown.Toggle>
             <Dropdown.Menu className="dropdown-menu dropdown-menu-sm dropdown-menu-right">

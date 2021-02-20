@@ -7,8 +7,8 @@ import { useProductsUIContext } from "../ProductsUIContext";
 
 const selectedProducts = (entities, ids) => {
   const _products = [];
-  ids.forEach((id) => {
-    const product = entities.find((el) => el.id === id);
+  ids.forEach(id => {
+    const product = entities.find(el => el.id === id);
     if (product) {
       _products.push(product);
     }
@@ -23,15 +23,15 @@ export function ProductsUpdateStatusDialog({ show, onHide }) {
     return {
       ids: productsUIContext.ids,
       setIds: productsUIContext.setIds,
-      queryParams: productsUIContext.queryParams,
+      queryParams: productsUIContext.queryParams
     };
   }, [productsUIContext]);
 
   // Products Redux state
   const { products, isLoading } = useSelector(
-    (state) => ({
+    state => ({
       products: selectedProducts(state.products.entities, productsUIProps.ids),
-      isLoading: state.products.actionsLoading,
+      isLoading: state.products.actionsLoading
     }),
     shallowEqual
   );
@@ -83,7 +83,7 @@ export function ProductsUpdateStatusDialog({ show, onHide }) {
         )}
         <div className="list-timeline list-timeline-skin-light padding-30">
           <div className="list-timeline-items">
-            {products.map((product) => (
+            {products.map(product => (
               <div className="list-timeline-item mb-3" key={product.id}>
                 <span className="list-timeline-text">
                   <span
@@ -108,7 +108,7 @@ export function ProductsUpdateStatusDialog({ show, onHide }) {
           <select
             className={`form-control ${ProductStatusCssClasses[status]}`}
             value={status}
-            onChange={(e) => setStatus(+e.target.value)}
+            onChange={e => setStatus(+e.target.value)}
           >
             <option value="0">Selling</option>
             <option value="1">Sold</option>

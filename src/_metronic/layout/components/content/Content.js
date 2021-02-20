@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {useRouteMatch} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useRouteMatch } from "react-router-dom";
 
 export function Content({ children }) {
   const match = useRouteMatch() || {};

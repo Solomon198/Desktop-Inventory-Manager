@@ -7,7 +7,7 @@ import {
   ToggleButton,
   ToggleButtonGroup
 } from "react-bootstrap";
-import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
+import { Notice, KTCodeExample } from "../../../_metronic/_partials/controls";
 
 function simulateNetworkRequest() {
   return new Promise(resolve => setTimeout(resolve, 2000));

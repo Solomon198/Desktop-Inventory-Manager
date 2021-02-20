@@ -1,6 +1,6 @@
 import React from "react";
-import {Route} from "react-router-dom";
-import {Content} from "./Content";
+import { Route } from "react-router-dom";
+import { Content } from "./Content";
 
 export function ContentRoute({ children, component, render, ...props }) {
   return (

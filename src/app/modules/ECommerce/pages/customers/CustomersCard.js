@@ -3,7 +3,7 @@ import {
   Card,
   CardBody,
   CardHeader,
-  CardHeaderToolbar,
+  CardHeaderToolbar
 } from "../../../../../_metronic/_partials/controls";
 import { CustomersFilter } from "./customers-filter/CustomersFilter";
 import { CustomersTable } from "./customers-table/CustomersTable";
@@ -15,7 +15,7 @@ export function CustomersCard() {
   const customersUIProps = useMemo(() => {
     return {
       ids: customersUIContext.ids,
-      newCustomerButtonClick: customersUIContext.newCustomerButtonClick,
+      newCustomerButtonClick: customersUIContext.newCustomerButtonClick
     };
   }, [customersUIContext]);
 

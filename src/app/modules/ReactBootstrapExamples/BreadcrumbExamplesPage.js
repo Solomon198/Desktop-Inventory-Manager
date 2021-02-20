@@ -1,6 +1,6 @@
 import React from "react";
-import {Breadcrumb} from "react-bootstrap";
-import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
+import { Breadcrumb } from "react-bootstrap";
+import { Notice, KTCodeExample } from "../../../_metronic/_partials/controls";
 
 export default class BreadcrumbExamplesPage extends React.Component {
   render() {

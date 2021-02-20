@@ -16,14 +16,14 @@ export function SpecificationsDeleteDialog() {
       show: specsUIContext.showDeleteSpecificationsDialog,
       onHide: specsUIContext.closeDeleteSpecificationsDialog,
       setIds: specsUIContext.setIds,
-      queryParams: specsUIContext.queryParams,
+      queryParams: specsUIContext.queryParams
     };
   }, [specsUIContext]);
 
   // Specs Redux state
   const dispatch = useDispatch();
   const { isLoading } = useSelector(
-    (state) => ({ isLoading: state.specifications.actionsLoading }),
+    state => ({ isLoading: state.specifications.actionsLoading }),
     shallowEqual
   );
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-restricted-imports */
 import React from "react";
-import {emphasize, makeStyles, useTheme} from "@material-ui/core/styles";
+import { emphasize, makeStyles, useTheme } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Select from "react-select";
 import deburr from "lodash/deburr";
@@ -17,7 +17,10 @@ import {
 } from "@material-ui/core";
 import PropTypes from "prop-types";
 import CancelIcon from "@material-ui/icons/Cancel";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 const suggestions = [
   { label: "Afghanistan" },

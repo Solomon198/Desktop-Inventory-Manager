@@ -9,7 +9,7 @@ import {
   InputGroup,
   Container
 } from "react-bootstrap";
-import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
+import { Notice, KTCodeExample } from "../../../_metronic/_partials/controls";
 
 export default class NavbarExamplesPage extends React.Component {
   render() {

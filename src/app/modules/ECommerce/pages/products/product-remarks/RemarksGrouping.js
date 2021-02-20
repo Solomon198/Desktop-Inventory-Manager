@@ -8,7 +8,7 @@ export function RemarksGrouping() {
     return {
       ids: remarksUIContext.ids,
       openDeleteRemarksDialog: remarksUIContext.openDeleteRemarksDialog,
-      openFetchRemarksDialog: remarksUIContext.openFetchRemarksDialog,
+      openFetchRemarksDialog: remarksUIContext.openFetchRemarksDialog
     };
   }, [remarksUIContext]);
 

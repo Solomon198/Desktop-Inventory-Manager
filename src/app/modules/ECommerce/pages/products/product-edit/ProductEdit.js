@@ -7,7 +7,7 @@ import {
   Card,
   CardBody,
   CardHeader,
-  CardHeaderToolbar,
+  CardHeaderToolbar
 } from "../../../../../../_metronic/_partials/controls";
 import { ProductEditForm } from "./ProductEditForm";
 import { Specifications } from "../product-specifications/Specifications";
@@ -28,14 +28,14 @@ const initProduct = {
   price: 10000,
   condition: 1,
   status: 0,
-  VINCode: "",
+  VINCode: ""
 };
 
 export function ProductEdit({
   history,
   match: {
-    params: { id },
-  },
+    params: { id }
+  }
 }) {
   // Subheader
   const suhbeader = useSubheader();
@@ -46,9 +46,9 @@ export function ProductEdit({
   const dispatch = useDispatch();
   // const layoutDispatch = useContext(LayoutContext.Dispatch);
   const { actionsLoading, productForEdit } = useSelector(
-    (state) => ({
+    state => ({
       actionsLoading: state.products.actionsLoading,
-      productForEdit: state.products.productForEdit,
+      productForEdit: state.products.productForEdit
     }),
     shallowEqual
   );
@@ -68,7 +68,7 @@ export function ProductEdit({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productForEdit, id]);
 
-  const saveProduct = (values) => {
+  const saveProduct = values => {
     if (!id) {
       dispatch(actions.createProduct(values)).then(() => backToProductsList());
     } else {
@@ -76,7 +76,7 @@ export function ProductEdit({
     }
   };
 
-  const btnRef = useRef();  
+  const btnRef = useRef();
   const saveProductClick = () => {
     if (btnRef && btnRef.current) {
       btnRef.current.click();

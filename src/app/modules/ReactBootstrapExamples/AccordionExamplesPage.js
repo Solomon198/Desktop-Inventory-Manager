@@ -1,6 +1,6 @@
 import React from "react";
-import {Button, Card, Accordion} from "react-bootstrap";
-import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
+import { Button, Card, Accordion } from "react-bootstrap";
+import { Notice, KTCodeExample } from "../../../_metronic/_partials/controls";
 
 export default class AccordionExamplesPage extends React.Component {
   render() {

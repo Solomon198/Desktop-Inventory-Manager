@@ -26,7 +26,7 @@ export function Layout({ children }) {
       subheaderDisplay: objectPath.get(uiService.config, "subheader.display"),
       contentCssClasses: uiService.getClasses("content", true),
       contentContainerClasses: uiService.getClasses("content_container", true),
-      contentExtended: objectPath.get(uiService.config, "content.extended"),
+      contentExtended: objectPath.get(uiService.config, "content.extended")
     };
   }, [uiService]);
 

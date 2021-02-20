@@ -11,7 +11,7 @@ export function TilesWidget14({ className }) {
       <div
         className={`card card-custom bgi-no-repeat bgi-size-cover ${className}`}
         style={{
-          backgroundImage: `url("${backgroundImageUrl}")`,
+          backgroundImage: `url("${backgroundImageUrl}")`
         }}
       >
         {/* begin::Body */}

@@ -1,10 +1,10 @@
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
-import React, {useMemo, useEffect} from "react";
+import React, { useMemo, useEffect } from "react";
 import objectPath from "object-path";
 import ApexCharts from "apexcharts";
 import SVG from "react-inlinesvg";
-import {useHtmlClassService} from "../../../layout";
-import {toAbsoluteUrl} from "../../../_helpers";
+import { useHtmlClassService } from "../../../layout";
+import { toAbsoluteUrl } from "../../../_helpers";
 
 export function StatsWidget12({ className }) {
   const uiService = useHtmlClassService();

@@ -11,7 +11,7 @@ export function CustomersGrouping() {
       openDeleteCustomersDialog: customersUIContext.openDeleteCustomersDialog,
       openFetchCustomersDialog: customersUIContext.openFetchCustomersDialog,
       openUpdateCustomersStatusDialog:
-        customersUIContext.openUpdateCustomersStatusDialog,
+        customersUIContext.openUpdateCustomersStatusDialog
     };
   }, [customersUIContext]);
 

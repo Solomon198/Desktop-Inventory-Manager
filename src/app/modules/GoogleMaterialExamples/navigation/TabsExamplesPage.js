@@ -1,9 +1,9 @@
 /* eslint-disable no-restricted-imports */
 import React from "react";
-import {makeStyles, withStyles} from "@material-ui/core/styles";
-import {useTheme} from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { useTheme } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import {Tab, AppBar, Tabs, Typography, Paper} from "@material-ui/core";
+import { Tab, AppBar, Tabs, Typography, Paper } from "@material-ui/core";
 import SwipeableViews from "react-swipeable-views";
 import PhoneIcon from "@material-ui/icons/Phone";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -12,7 +12,10 @@ import HelpIcon from "@material-ui/icons/Help";
 import ShoppingBasket from "@material-ui/icons/ShoppingBasket";
 import ThumbDown from "@material-ui/icons/ThumbDown";
 import ThumbUp from "@material-ui/icons/ThumbUp";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 function TabContainer1(props) {
   return (

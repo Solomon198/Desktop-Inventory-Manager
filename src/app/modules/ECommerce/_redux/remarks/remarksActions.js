@@ -1,7 +1,7 @@
 import * as requestFromServer from "./remarksCrud";
-import {remarksSlice, callTypes} from "./remarksSlice";
+import { remarksSlice, callTypes } from "./remarksSlice";
 
-const {actions} = remarksSlice;
+const { actions } = remarksSlice;
 
 export const fetchRemarks = (queryParams, productId) => dispatch => {
   dispatch(actions.startCall({ callType: callTypes.list }));

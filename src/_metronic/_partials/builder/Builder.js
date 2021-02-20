@@ -11,7 +11,7 @@ import { coy as highlightStyle } from "react-syntax-highlighter/dist/esm/styles/
 import {
   useHtmlClassService,
   setLayoutConfig,
-  getInitLayoutConfig,
+  getInitLayoutConfig
 } from "../../layout";
 import { Card, CardBody, CardHeader, Notice } from "../controls";
 
@@ -32,7 +32,7 @@ export function Builder() {
     [htmlClassService.config]
   );
 
-  const saveCurrentTab = (_tab) => {
+  const saveCurrentTab = _tab => {
     localStorage.setItem(localStorageActiveTabKey, _tab);
   };
 
@@ -50,7 +50,7 @@ export function Builder() {
       {/*Formic off site: https://jaredpalmer.com/formik/docs/overview*/}
       <Formik
         initialValues={initialValues}
-        onSubmit={(values) => {
+        onSubmit={values => {
           setIsLoading(true);
           setLayoutConfig(values);
         }}
@@ -308,21 +308,19 @@ export function Builder() {
                       </div>
                     </div>
                     <div className={`tab-pane ${key === 4 ? "active" : ""}`}>
-                    <div className="form-group row">
+                      <div className="form-group row">
                         <label className="col-lg-3 col-form-label pt-4 text-lg-right">
-                        Fixed Footer:
+                          Fixed Footer:
                         </label>
                         <div className="col-lg-9 col-xl-4">
                           <Switch
                             onBlur={handleBlur}
                             onChange={handleChange}
                             name="footer.fixed"
-                            checked={
-                              !!get(values, "footer.fixed")
-                            }
+                            checked={!!get(values, "footer.fixed")}
                           />
                           <FormHelperText>
-                          Set fixed footer for desktop mode only
+                            Set fixed footer for desktop mode only
                           </FormHelperText>
                         </div>
                       </div>
@@ -371,7 +369,7 @@ export function Builder() {
                       </button>{" "}
                       <span
                         className={`ml-3 ${clsx({
-                          spinner: isLoading,
+                          spinner: isLoading
                         })}`}
                       />
                     </div>
@@ -399,7 +397,7 @@ export function Builder() {
                   language="json"
                   style={highlightStyle}
                   customStyle={{
-                    background: `none transparent !important`,
+                    background: `none transparent !important`
                   }}
                 >
                   {JSON.stringify(values, null, 2)}

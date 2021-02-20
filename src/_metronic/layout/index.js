@@ -1,6 +1,6 @@
-export {Layout} from "./components/Layout";
-export {ContentRoute} from "./components/content/ContentRoute";
-export {Content} from "./components/content/Content";
+export { Layout } from "./components/Layout";
+export { ContentRoute } from "./components/content/ContentRoute";
+export { Content } from "./components/content/Content";
 
 // core
 export * from "./_core/LayoutConfig";

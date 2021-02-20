@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-imports */
 import React from "react";
 import clsx from "clsx";
-import {makeStyles, withStyles, lighten} from "@material-ui/core/styles";
+import { makeStyles, withStyles, lighten } from "@material-ui/core/styles";
 import {
   CircularProgress,
   Fab,
@@ -12,8 +12,11 @@ import {
 } from "@material-ui/core";
 import CheckIcon from "@material-ui/icons/Check";
 import SaveIcon from "@material-ui/icons/Save";
-import {green} from "@material-ui/core/colors";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import { green } from "@material-ui/core/colors";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 1
 const useStyles1 = makeStyles(theme => ({

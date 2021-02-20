@@ -26,7 +26,7 @@ export function MixedWidget4({ className, chartColor = "danger" }) {
         uiService.config,
         `js.colors.theme.light.${chartColor}`
       ),
-      fontFamily: objectPath.get(uiService.config, "js.fontFamily"),
+      fontFamily: objectPath.get(uiService.config, "js.fontFamily")
     };
   }, [uiService, chartColor]);
 
@@ -133,56 +133,56 @@ function getChartOption(layoutProps) {
     series: [
       {
         name: "Net Profit",
-        data: [35, 65, 75, 55, 45, 60, 55],
+        data: [35, 65, 75, 55, 45, 60, 55]
       },
       {
         name: "Revenue",
-        data: [40, 70, 80, 60, 50, 65, 60],
-      },
+        data: [40, 70, 80, 60, 50, 65, 60]
+      }
     ],
     chart: {
       type: "bar",
       height: "200px",
       toolbar: {
-        show: false,
+        show: false
       },
       sparkline: {
-        enabled: true,
-      },
+        enabled: true
+      }
     },
     plotOptions: {
       bar: {
         horizontal: false,
         columnWidth: ["30%"],
-        endingShape: "rounded",
-      },
+        endingShape: "rounded"
+      }
     },
     legend: {
-      show: false,
+      show: false
     },
     dataLabels: {
-      enabled: false,
+      enabled: false
     },
     stroke: {
       show: true,
       width: 1,
-      colors: ["transparent"],
+      colors: ["transparent"]
     },
     xaxis: {
       categories: ["Feb", "Mar", "Apr", "May", "Jun", "Jul"],
       axisBorder: {
-        show: false,
+        show: false
       },
       axisTicks: {
-        show: false,
+        show: false
       },
       labels: {
         style: {
           colors: layoutProps.colorsGrayGray500,
           fontSize: "12px",
-          fontFamily: layoutProps.fontFamily,
-        },
-      },
+          fontFamily: layoutProps.fontFamily
+        }
+      }
     },
     yaxis: {
       min: 0,
@@ -191,48 +191,48 @@ function getChartOption(layoutProps) {
         style: {
           colors: layoutProps.colorsGrayGray500,
           fontSize: "12px",
-          fontFamily: layoutProps.fontFamily,
-        },
-      },
+          fontFamily: layoutProps.fontFamily
+        }
+      }
     },
     fill: {
       type: ["solid", "solid"],
-      opacity: [0.25, 1],
+      opacity: [0.25, 1]
     },
     states: {
       normal: {
         filter: {
           type: "none",
-          value: 0,
-        },
+          value: 0
+        }
       },
       hover: {
         filter: {
           type: "none",
-          value: 0,
-        },
+          value: 0
+        }
       },
       active: {
         allowMultipleDataPointsSelection: false,
         filter: {
           type: "none",
-          value: 0,
-        },
-      },
+          value: 0
+        }
+      }
     },
     tooltip: {
       style: {
         fontSize: "12px",
-        fontFamily: layoutProps.fontFamily,
+        fontFamily: layoutProps.fontFamily
       },
       y: {
         formatter: function(val) {
           return "$" + val + " thousands";
-        },
+        }
       },
       marker: {
-        show: false,
-      },
+        show: false
+      }
     },
     colors: ["#ffffff", "#ffffff"],
     grid: {
@@ -240,14 +240,14 @@ function getChartOption(layoutProps) {
       strokeDashArray: 4,
       yaxis: {
         lines: {
-          show: true,
-        },
+          show: true
+        }
       },
       padding: {
         left: 20,
-        right: 20,
-      },
-    },
+        right: 20
+      }
+    }
   };
   return options;
 }

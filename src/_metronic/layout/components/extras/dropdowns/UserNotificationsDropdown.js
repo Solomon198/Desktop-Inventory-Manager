@@ -11,7 +11,7 @@ import { DropdownItemToggler } from "../../../../_partials/dropdowns";
 
 const perfectScrollbarOptions = {
   wheelSpeed: 2,
-  wheelPropagation: false,
+  wheelPropagation: false
 };
 
 export function UserNotificationsDropdown() {
@@ -23,7 +23,7 @@ export function UserNotificationsDropdown() {
     return {
       offcanvas:
         objectPath.get(uiService.config, "extras.notifications.layout") ===
-        "offcanvas",
+        "offcanvas"
     };
   }, [uiService]);
 
@@ -88,7 +88,7 @@ export function UserNotificationsDropdown() {
                   <Nav
                     as="ul"
                     className="nav nav-bold nav-tabs nav-tabs-line nav-tabs-line-3x nav-tabs-line-transparent-white nav-tabs-line-active-border-success mt-3 px-8"
-                    onSelect={(_key) => setKey(_key)}
+                    onSelect={_key => setKey(_key)}
                   >
                     <Nav.Item className="nav-item" as="li">
                       <Nav.Link

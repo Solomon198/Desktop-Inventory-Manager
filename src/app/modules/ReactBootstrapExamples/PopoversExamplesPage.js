@@ -5,7 +5,7 @@ import {
   OverlayTrigger,
   ButtonToolbar
 } from "react-bootstrap";
-import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
+import { Notice, KTCodeExample } from "../../../_metronic/_partials/controls";
 
 const popover = (
   <Popover id="popover-basic" title="Popover right">

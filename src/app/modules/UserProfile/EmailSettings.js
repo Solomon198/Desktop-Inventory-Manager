@@ -10,7 +10,7 @@ function EmailSettings(props) {
   // Fields
   const [loading, setloading] = useState(false);
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user, shallowEqual);
+  const user = useSelector(state => state.auth.user, shallowEqual);
   useEffect(() => {}, [user]);
   // Methods
   const saveUser = (values, setStatus, setSubmitting) => {
@@ -25,7 +25,7 @@ function EmailSettings(props) {
           someoneAddsYouAsAsAConnection: values.someoneAddsYouAsAsAConnection,
           uponNewOrder: values.uponNewOrder,
           newMembershipApproval: values.newMembershipApproval,
-          memberRegistration: values.memberRegistration,
+          memberRegistration: values.memberRegistration
         },
         updatesFromKeenthemes: {
           newsAboutKeenthemesProductsAndFeatureUpdates:
@@ -35,9 +35,9 @@ function EmailSettings(props) {
             values.thingsYouMissedSindeYouLastLoggedIntoKeen,
           newsAboutMetronicOnPartnerProductsAndOtherServices:
             values.newsAboutMetronicOnPartnerProductsAndOtherServices,
-          tipsOnMetronicBusinessProducts: values.tipsOnMetronicBusinessProducts,
-        },
-      },
+          tipsOnMetronicBusinessProducts: values.tipsOnMetronicBusinessProducts
+        }
+      }
     });
     // user for update preparation
     dispatch(props.setUser(updatedUser));
@@ -83,7 +83,7 @@ function EmailSettings(props) {
       user.emailSettings.updatesFromKeenthemes
         .newsAboutMetronicOnPartnerProductsAndOtherServices,
     tipsOnMetronicBusinessProducts:
-      user.emailSettings.updatesFromKeenthemes.tipsOnMetronicBusinessProducts,
+      user.emailSettings.updatesFromKeenthemes.tipsOnMetronicBusinessProducts
   };
   const Schema = Yup.object().shape({
     emailNotification: Yup.bool(),
@@ -98,7 +98,7 @@ function EmailSettings(props) {
     tipsOnGettingMoreOutOfKeen: Yup.bool(),
     thingsYouMissedSindeYouLastLoggedIntoKeen: Yup.bool(),
     newsAboutMetronicOnPartnerProductsAndOtherServices: Yup.bool(),
-    tipsOnMetronicBusinessProducts: Yup.bool(),
+    tipsOnMetronicBusinessProducts: Yup.bool()
   });
   const formik = useFormik({
     initialValues,
@@ -108,7 +108,7 @@ function EmailSettings(props) {
     },
     onReset: (values, { resetForm }) => {
       resetForm();
-    },
+    }
   });
   return (
     <form className="card card-custom" onSubmit={formik.handleSubmit}>

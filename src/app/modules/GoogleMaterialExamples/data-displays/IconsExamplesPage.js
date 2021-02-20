@@ -1,10 +1,10 @@
 /* eslint-disable no-restricted-imports */
 import React from "react";
 import clsx from "clsx";
-import {loadCSS} from "fg-loadcss";
-import {makeStyles} from "@material-ui/core/styles";
-import {SvgIcon, Grid, Typography, Icon} from "@material-ui/core";
-import {blue, red} from "@material-ui/core/colors";
+import { loadCSS } from "fg-loadcss";
+import { makeStyles } from "@material-ui/core/styles";
+import { SvgIcon, Grid, Typography, Icon } from "@material-ui/core";
+import { blue, red } from "@material-ui/core/colors";
 import DeleteIcon from "@material-ui/icons/Delete";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import DeleteRoundedIcon from "@material-ui/icons/DeleteRounded";
@@ -18,7 +18,10 @@ import DeleteForeverSharpIcon from "@material-ui/icons/DeleteForeverSharp";
 import ThreeDRotationIcon from "@material-ui/icons/ThreeDRotation";
 import FourKIcon from "@material-ui/icons/FourK";
 import ThreeSixtyIcon from "@material-ui/icons/ThreeSixty";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 1
 const useStyles1 = makeStyles(theme => ({

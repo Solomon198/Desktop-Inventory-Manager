@@ -1,7 +1,7 @@
 import * as requestFromServer from "./specificationsCrud";
-import {specificationsSlice, callTypes} from "./specificationsSlice";
+import { specificationsSlice, callTypes } from "./specificationsSlice";
 
-const {actions} = specificationsSlice;
+const { actions } = specificationsSlice;
 
 export const fetchSpecifications = (queryParams, productId) => dispatch => {
   dispatch(actions.startCall({ callType: callTypes.list }));

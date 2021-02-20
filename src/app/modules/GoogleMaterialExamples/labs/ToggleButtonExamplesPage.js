@@ -1,8 +1,8 @@
 /* eslint-disable no-restricted-imports */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import {makeStyles} from "@material-ui/core/styles";
-import {Grid, Typography} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { Grid, Typography } from "@material-ui/core";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import FormatAlignLeftIcon from "@material-ui/icons/FormatAlignLeft";
@@ -14,7 +14,10 @@ import FormatItalicIcon from "@material-ui/icons/FormatItalic";
 import FormatUnderlinedIcon from "@material-ui/icons/FormatUnderlined";
 import FormatColorFillIcon from "@material-ui/icons/FormatColorFill";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 1
 const useStyles1 = makeStyles(theme => ({

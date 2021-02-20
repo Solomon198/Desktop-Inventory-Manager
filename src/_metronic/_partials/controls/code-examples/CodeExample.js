@@ -1,6 +1,6 @@
 import React from "react";
-import {Card, CardBody, CardHeader} from "../Card";
-import {CodeBlock} from "./CodeBlock";
+import { Card, CardBody, CardHeader } from "../Card";
+import { CodeBlock } from "./CodeBlock";
 
 export function CodeExample({
   languages,

@@ -2,14 +2,25 @@
 // Type
 //
 
-
 // Headings
-.h1 { @include font-size($h1-font-size, true); }
-.h2 { @include font-size($h2-font-size, true); }
-.h3 { @include font-size($h3-font-size, true); }
-.h4 { @include font-size($h4-font-size, true); }
-.h5 { @include font-size($h5-font-size, true); }
-.h6 { @include font-size($h6-font-size, true); }
+.h1 {
+  @include font-size($h1-font-size, true);
+}
+.h2 {
+  @include font-size($h2-font-size, true);
+}
+.h3 {
+  @include font-size($h3-font-size, true);
+}
+.h4 {
+  @include font-size($h4-font-size, true);
+}
+.h5 {
+  @include font-size($h5-font-size, true);
+}
+.h6 {
+  @include font-size($h6-font-size, true);
+}
 
 // Lead
 .lead {
@@ -33,5 +44,5 @@
 // Reset global outline
 a,
 button {
-    outline: 0 !important;
+  outline: 0 !important;
 }

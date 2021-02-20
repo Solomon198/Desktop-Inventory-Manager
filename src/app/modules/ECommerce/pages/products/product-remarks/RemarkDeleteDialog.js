@@ -16,14 +16,14 @@ export function RemarkDeleteDialog() {
       productId: remarksUIContext.productId,
       queryParams: remarksUIContext.queryParams,
       showDeleteRemarkDialog: remarksUIContext.showDeleteRemarkDialog,
-      closeDeleteRemarkDialog: remarksUIContext.closeDeleteRemarkDialog,
+      closeDeleteRemarkDialog: remarksUIContext.closeDeleteRemarkDialog
     };
   }, [remarksUIContext]);
 
   // Remarks Redux state
   const dispatch = useDispatch();
   const { isLoading } = useSelector(
-    (state) => ({ isLoading: state.remarks.actionsLoading }),
+    state => ({ isLoading: state.remarks.actionsLoading }),
     shallowEqual
   );
 

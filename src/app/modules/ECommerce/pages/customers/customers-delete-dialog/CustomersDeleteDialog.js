@@ -3,7 +3,7 @@ import { Modal } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import * as actions from "../../../_redux/customers/customersActions";
 import { useCustomersUIContext } from "../CustomersUIContext";
-import {ModalProgressBar} from "../../../../../../_metronic/_partials/controls";
+import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
 
 export function CustomersDeleteDialog({ show, onHide }) {
   // Customers UI Context
@@ -12,14 +12,14 @@ export function CustomersDeleteDialog({ show, onHide }) {
     return {
       ids: customersUIContext.ids,
       setIds: customersUIContext.setIds,
-      queryParams: customersUIContext.queryParams,
+      queryParams: customersUIContext.queryParams
     };
   }, [customersUIContext]);
 
   // Customers Redux state
   const dispatch = useDispatch();
   const { isLoading } = useSelector(
-    (state) => ({ isLoading: state.customers.actionsLoading }),
+    state => ({ isLoading: state.customers.actionsLoading }),
     shallowEqual
   );
 

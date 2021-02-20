@@ -7,7 +7,7 @@ import SVG from "react-inlinesvg";
 import { toAbsoluteUrl } from "../../../../_metronic/_helpers";
 import {
   DropdownCustomToggler,
-  DropdownMenu4,
+  DropdownMenu4
 } from "../../../../_metronic/_partials/dropdowns";
 
 export function ProfileCard() {

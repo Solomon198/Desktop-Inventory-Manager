@@ -3,7 +3,7 @@ import React, { createContext, useState, useContext } from "react";
 export function getBreadcrumbsAndTitle(menuId, pathName) {
   const result = {
     breadcrumbs: [],
-    title: "",
+    title: ""
   };
   const menu = document.getElementById(menuId);
   if (!menu) {
@@ -13,22 +13,22 @@ export function getBreadcrumbsAndTitle(menuId, pathName) {
   const activeLinksArray = Array.from(
     menu.getElementsByClassName("active") || []
   );
-  const activeLinks = activeLinksArray.filter((el) => el.tagName === "A");
+  const activeLinks = activeLinksArray.filter(el => el.tagName === "A");
   if (!activeLinks) {
     return result;
   }
 
-  activeLinks.forEach((link) => {
+  activeLinks.forEach(link => {
     const titleSpans = link.getElementsByClassName("menu-text");
 
     if (titleSpans) {
       const titleSpan = Array.from(titleSpans).find(
-        (t) => t.innerHTML && t.innerHTML.trim().length > 0
+        t => t.innerHTML && t.innerHTML.trim().length > 0
       );
       if (titleSpan) {
         result.breadcrumbs.push({
           pathname: link.pathname.replace(process.env.PUBLIC_URL, ""),
-          title: titleSpan.innerHTML,
+          title: titleSpan.innerHTML
         });
       }
     }

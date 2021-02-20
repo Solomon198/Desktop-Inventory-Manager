@@ -1,9 +1,12 @@
 /* eslint-disable no-restricted-imports */
 import React from "react";
-import {makeStyles} from "@material-ui/core/styles";
-import {ClickAwayListener, Button, Paper} from "@material-ui/core";
-import {grey} from "@material-ui/core/colors";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import { makeStyles } from "@material-ui/core/styles";
+import { ClickAwayListener, Button, Paper } from "@material-ui/core";
+import { grey } from "@material-ui/core/colors";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 1
 const useStyles = makeStyles(theme => ({

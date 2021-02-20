@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo } from "react";
 import { Modal } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import {ModalProgressBar} from "../../../../../../_metronic/_partials/controls";
+import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
 import * as actions from "../../../_redux/customers/customersActions";
-import {useCustomersUIContext} from "../CustomersUIContext";
+import { useCustomersUIContext } from "../CustomersUIContext";
 
 export function CustomerDeleteDialog({ id, show, onHide }) {
   // Customers UI Context
@@ -18,7 +18,7 @@ export function CustomerDeleteDialog({ id, show, onHide }) {
   // Customers Redux state
   const dispatch = useDispatch();
   const { isLoading } = useSelector(
-    (state) => ({ isLoading: state.customers.actionsLoading }),
+    state => ({ isLoading: state.customers.actionsLoading }),
     shallowEqual
   );
 

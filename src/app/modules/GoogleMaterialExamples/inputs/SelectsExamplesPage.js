@@ -2,7 +2,7 @@
 /* eslint-disable no-restricted-imports */
 import React from "react";
 import clsx from "clsx";
-import {makeStyles, withStyles, useTheme} from "@material-ui/core/styles";
+import { makeStyles, withStyles, useTheme } from "@material-ui/core/styles";
 import {
   Input,
   OutlinedInput,
@@ -23,7 +23,10 @@ import {
   DialogContent,
   DialogTitle
 } from "@material-ui/core";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 1
 const useStyles = makeStyles(theme => ({

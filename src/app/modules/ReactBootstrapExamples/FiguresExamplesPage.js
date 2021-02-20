@@ -1,6 +1,6 @@
 import React from "react";
-import {Figure} from "react-bootstrap";
-import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
+import { Figure } from "react-bootstrap";
+import { Notice, KTCodeExample } from "../../../_metronic/_partials/controls";
 
 export default class FiguresExamplesPage extends React.Component {
   render() {

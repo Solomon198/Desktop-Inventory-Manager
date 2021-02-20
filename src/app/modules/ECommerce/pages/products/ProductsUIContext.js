@@ -13,8 +13,8 @@ export const ProductsUIConsumer = ProductsUIContext.Consumer;
 export function ProductsUIProvider({ productsUIEvents, children }) {
   const [queryParams, setQueryParamsBase] = useState(initialFilter);
   const [ids, setIds] = useState([]);
-  const setQueryParams = useCallback((nextQueryParams) => {
-    setQueryParamsBase((prevQueryParams) => {
+  const setQueryParams = useCallback(nextQueryParams => {
+    setQueryParamsBase(prevQueryParams => {
       if (isFunction(nextQueryParams)) {
         nextQueryParams = nextQueryParams(prevQueryParams);
       }
@@ -39,7 +39,7 @@ export function ProductsUIProvider({ productsUIEvents, children }) {
     openDeleteProductsDialog: productsUIEvents.openDeleteProductsDialog,
     openFetchProductsDialog: productsUIEvents.openFetchProductsDialog,
     openUpdateProductsStatusDialog:
-      productsUIEvents.openUpdateProductsStatusDialog,
+      productsUIEvents.openUpdateProductsStatusDialog
   };
 
   return (

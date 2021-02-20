@@ -10,7 +10,7 @@ export function Footer() {
     return {
       footerLayout: objectPath.get(uiService.config, "footer.layout"),
       footerClasses: uiService.getClasses("footer", true),
-      footerContainerClasses: uiService.getClasses("footer_container", true),
+      footerContainerClasses: uiService.getClasses("footer_container", true)
     };
   }, [uiService]);
 

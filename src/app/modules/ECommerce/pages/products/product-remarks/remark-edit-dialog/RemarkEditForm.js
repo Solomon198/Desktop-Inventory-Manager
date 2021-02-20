@@ -9,7 +9,7 @@ import * as Yup from "yup";
 import {
   Input,
   Select,
-  DatePickerField,
+  DatePickerField
 } from "../../../../../../../_metronic/_partials/controls";
 
 // Validation schema
@@ -21,7 +21,7 @@ const RemarkEditSchema = Yup.object().shape({
   type: Yup.number().required("Type is required"),
   dueDate: Yup.mixed()
     .nullable(false)
-    .required("Due date is required"),
+    .required("Due date is required")
 });
 
 export function RemarkEditForm({ saveRemark, remark, actionsLoading, onHide }) {
@@ -31,7 +31,7 @@ export function RemarkEditForm({ saveRemark, remark, actionsLoading, onHide }) {
         enableReinitialize={true}
         initialValues={remark}
         validationSchema={RemarkEditSchema}
-        onSubmit={(values) => saveRemark(values)}
+        onSubmit={values => saveRemark(values)}
       >
         {({ handleSubmit }) => (
           <>

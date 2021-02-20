@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-imports */
 import React from "react";
 import clsx from "clsx";
-import {makeStyles, withStyles} from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import {
   ExpansionPanel,
   ExpansionPanelSummary,
@@ -13,7 +13,10 @@ import {
   ExpansionPanelDetails
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 1
 const useStyles1 = makeStyles(theme => ({

@@ -11,16 +11,16 @@ export function CustomerEditDialog({ id, show, onHide }) {
   const customersUIContext = useCustomersUIContext();
   const customersUIProps = useMemo(() => {
     return {
-      initCustomer: customersUIContext.initCustomer,
+      initCustomer: customersUIContext.initCustomer
     };
   }, [customersUIContext]);
 
   // Customers Redux state
   const dispatch = useDispatch();
   const { actionsLoading, customerForEdit } = useSelector(
-    (state) => ({
+    state => ({
       actionsLoading: state.customers.actionsLoading,
-      customerForEdit: state.customers.customerForEdit,
+      customerForEdit: state.customers.customerForEdit
     }),
     shallowEqual
   );
@@ -31,7 +31,7 @@ export function CustomerEditDialog({ id, show, onHide }) {
   }, [id, dispatch]);
 
   // server request for saving customer
-  const saveCustomer = (customer) => {
+  const saveCustomer = customer => {
     if (!id) {
       // server request for creating customer
       dispatch(actions.createCustomer(customer)).then(() => onHide());

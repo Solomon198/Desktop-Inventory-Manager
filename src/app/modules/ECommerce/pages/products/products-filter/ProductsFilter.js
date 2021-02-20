@@ -27,11 +27,11 @@ export function ProductsFilter({ listLoading }) {
   const productsUIProps = useMemo(() => {
     return {
       setQueryParams: productsUIContext.setQueryParams,
-      queryParams: productsUIContext.queryParams,
+      queryParams: productsUIContext.queryParams
     };
   }, [productsUIContext]);
 
-  const applyFilter = (values) => {
+  const applyFilter = values => {
     const newQueryParams = prepareFilter(productsUIProps.queryParams, values);
     if (!isEqual(newQueryParams, productsUIProps.queryParams)) {
       newQueryParams.pageNumber = 1;
@@ -45,9 +45,9 @@ export function ProductsFilter({ listLoading }) {
         initialValues={{
           status: "", // values => All=""/Selling=0/Sold=1
           condition: "", // values => All=""/New=0/Used=1
-          searchText: "",
+          searchText: ""
         }}
-        onSubmit={(values) => {
+        onSubmit={values => {
           applyFilter(values);
         }}
       >
@@ -56,7 +56,7 @@ export function ProductsFilter({ listLoading }) {
           handleSubmit,
           handleBlur,
           handleChange,
-          setFieldValue,
+          setFieldValue
         }) => (
           <form onSubmit={handleSubmit} className="form form-label-right">
             <div className="form-group row">
@@ -65,7 +65,7 @@ export function ProductsFilter({ listLoading }) {
                   className="form-control"
                   name="status"
                   placeholder="Filter by Status"
-                  onChange={(e) => {
+                  onChange={e => {
                     setFieldValue("status", e.target.value);
                     handleSubmit();
                   }}
@@ -86,7 +86,7 @@ export function ProductsFilter({ listLoading }) {
                   placeholder="Filter by Type"
                   name="condition"
                   onBlur={handleBlur}
-                  onChange={(e) => {
+                  onChange={e => {
                     setFieldValue("condition", e.target.value);
                     handleSubmit();
                   }}
@@ -108,7 +108,7 @@ export function ProductsFilter({ listLoading }) {
                   placeholder="Search"
                   onBlur={handleBlur}
                   value={values.searchText}
-                  onChange={(e) => {
+                  onChange={e => {
                     setFieldValue("searchText", e.target.value);
                     handleSubmit();
                   }}

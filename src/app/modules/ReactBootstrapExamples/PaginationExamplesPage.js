@@ -1,6 +1,6 @@
 import React from "react";
-import {Pagination} from "react-bootstrap";
-import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
+import { Pagination } from "react-bootstrap";
+import { Notice, KTCodeExample } from "../../../_metronic/_partials/controls";
 
 let active = 2;
 let items = [];

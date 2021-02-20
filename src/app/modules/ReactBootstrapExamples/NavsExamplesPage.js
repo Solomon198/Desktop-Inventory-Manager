@@ -1,6 +1,6 @@
 import React from "react";
-import {Nav, NavDropdown} from "react-bootstrap";
-import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
+import { Nav, NavDropdown } from "react-bootstrap";
+import { Notice, KTCodeExample } from "../../../_metronic/_partials/controls";
 
 class NavDropdownExample extends React.Component {
   handleSelect(eventKey) {

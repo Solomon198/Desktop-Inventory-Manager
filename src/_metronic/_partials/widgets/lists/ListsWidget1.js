@@ -1,9 +1,9 @@
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
 import React from "react";
 import SVG from "react-inlinesvg";
-import {Dropdown} from "react-bootstrap";
-import {toAbsoluteUrl} from "../../../_helpers";
-import {DropdownCustomToggler, DropdownMenu4} from "../../dropdowns";
+import { Dropdown } from "react-bootstrap";
+import { toAbsoluteUrl } from "../../../_helpers";
+import { DropdownCustomToggler, DropdownMenu4 } from "../../dropdowns";
 
 export function ListsWidget1({ className }) {
   return (
@@ -21,13 +21,13 @@ export function ListsWidget1({ className }) {
                 variant="transparent"
                 id="dropdown-toggle-top"
                 as={DropdownCustomToggler}
-               >
+              >
                 <i className="ki ki-bold-more-hor" />
               </Dropdown.Toggle>
               <Dropdown.Menu className="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                 <DropdownMenu4 />
               </Dropdown.Menu>
-            </Dropdown>            
+            </Dropdown>
           </div>
         </div>
 

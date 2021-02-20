@@ -5,7 +5,10 @@ export function QuickNotification() {
   return (
     <>
       {/* begin::Notifications Panel */}
-      <div id="kt_quick_notifications" className="offcanvas offcanvas-left p-10">
+      <div
+        id="kt_quick_notifications"
+        className="offcanvas offcanvas-left p-10"
+      >
         {/* begin::Header */}
         <div className="offcanvas-header d-flex align-items-center justify-content-between mb-10">
           <h3 className="font-weight-bold m-0">
@@ -128,7 +131,9 @@ export function QuickNotification() {
                   <div className="font-weight-bold  font-size-lg">
                     3 Defence alerts
                   </div>
-                  <div className="text-muted">40% less alerts thar last week</div>
+                  <div className="text-muted">
+                    40% less alerts thar last week
+                  </div>
                 </div>
               </div>
             </a>

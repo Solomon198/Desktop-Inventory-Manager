@@ -5,7 +5,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Button,
   Snackbar,
@@ -25,10 +25,13 @@ import WarningIcon from "@material-ui/icons/Warning";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import ErrorIcon from "@material-ui/icons/Error";
 import InfoIcon from "@material-ui/icons/Info";
-import {amber, green} from "@material-ui/core/colors";
+import { amber, green } from "@material-ui/core/colors";
 import AddIcon from "@material-ui/icons/Add";
 import MenuIcon from "@material-ui/icons/Menu";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 1
 const useStyles1 = makeStyles(theme => ({

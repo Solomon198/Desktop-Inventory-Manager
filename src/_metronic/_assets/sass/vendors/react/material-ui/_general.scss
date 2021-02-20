@@ -7,7 +7,7 @@
 
 // Global link cursor
 a {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 // Auth form
@@ -34,7 +34,9 @@ a {
   }
 }
 
-.MuiFormControl-marginNormal { width: 100%; }
+.MuiFormControl-marginNormal {
+  width: 100%;
+}
 
 .MuiSwitch-colorSecondary.Mui-checked {
   color: #5867dd !important;
@@ -51,8 +53,8 @@ a {
 // Partials
 // notice
 .notice__paragraph {
-    font-weight: 400;
-    font-size: 17px;
+  font-weight: 400;
+  font-size: 17px;
 }
 
 // animated-loading
@@ -63,10 +65,9 @@ a {
   width: 100%;
 }
 
-
 // quick-actions-panel
 .MuiBackdrop-root {
-  background: rgba(0,0,0,.05) !important;
+  background: rgba(0, 0, 0, 0.05) !important;
 }
 
 // Demos examples toolbar
@@ -112,9 +113,12 @@ a {
   }
 }
 .select_input-h {
-  .MuiSelect-select { height: 41px; box-sizing: border-box;}
+  .MuiSelect-select {
+    height: 41px;
+    box-sizing: border-box;
+  }
 }
 
 .MuiPaper-elevation1 {
-  box-shadow: 0 0 50px 0 rgba(82,63,105,.15) !important;
+  box-shadow: 0 0 50px 0 rgba(82, 63, 105, 0.15) !important;
 }

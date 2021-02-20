@@ -1,6 +1,6 @@
 import React from "react";
-import {Spinner, Button, ButtonToolbar} from "react-bootstrap";
-import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
+import { Spinner, Button, ButtonToolbar } from "react-bootstrap";
+import { Notice, KTCodeExample } from "../../../_metronic/_partials/controls";
 
 export default class SpinnersExamplesPage extends React.Component {
   render() {

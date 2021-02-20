@@ -11,38 +11,38 @@ const languages = [
   {
     lang: "en",
     name: "English",
-    flag: toAbsoluteUrl("/media/svg/flags/226-united-states.svg"),
+    flag: toAbsoluteUrl("/media/svg/flags/226-united-states.svg")
   },
   {
     lang: "zh",
     name: "Mandarin",
-    flag: toAbsoluteUrl("/media/svg/flags/015-china.svg"),
+    flag: toAbsoluteUrl("/media/svg/flags/015-china.svg")
   },
   {
     lang: "es",
     name: "Spanish",
-    flag: toAbsoluteUrl("/media/svg/flags/128-spain.svg"),
+    flag: toAbsoluteUrl("/media/svg/flags/128-spain.svg")
   },
   {
     lang: "ja",
     name: "Japanese",
-    flag: toAbsoluteUrl("/media/svg/flags/063-japan.svg"),
+    flag: toAbsoluteUrl("/media/svg/flags/063-japan.svg")
   },
   {
     lang: "de",
     name: "German",
-    flag: toAbsoluteUrl("/media/svg/flags/162-germany.svg"),
+    flag: toAbsoluteUrl("/media/svg/flags/162-germany.svg")
   },
   {
     lang: "fr",
     name: "French",
-    flag: toAbsoluteUrl("/media/svg/flags/195-france.svg"),
-  },
+    flag: toAbsoluteUrl("/media/svg/flags/195-france.svg")
+  }
 ];
 
 export function LanguageSelectorDropdown() {
   const lang = useLang();
-  const currentLanguage = languages.find((x) => x.lang === lang);
+  const currentLanguage = languages.find(x => x.lang === lang);
   return (
     <Dropdown drop="down" alignRight>
       <Dropdown.Toggle
@@ -67,11 +67,11 @@ export function LanguageSelectorDropdown() {
       </Dropdown.Toggle>
       <Dropdown.Menu className="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-left">
         <ul className="navi navi-hover py-4">
-          {languages.map((language) => (
+          {languages.map(language => (
             <li
               key={language.lang}
               className={clsx("navi-item", {
-                active: language.lang === currentLanguage.lang,
+                active: language.lang === currentLanguage.lang
               })}
             >
               <a

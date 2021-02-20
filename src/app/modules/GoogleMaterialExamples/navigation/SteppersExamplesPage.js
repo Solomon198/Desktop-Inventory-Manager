@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-imports */
 import React from "react";
-import {makeStyles, useTheme} from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import {
   Stepper,
   Typography,
@@ -15,9 +15,12 @@ import {
 } from "@material-ui/core";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
-import {autoPlay} from "react-swipeable-views-utils";
+import { autoPlay } from "react-swipeable-views-utils";
 import SwipeableViews from "react-swipeable-views";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 1
 const useStyles1 = makeStyles(theme => ({

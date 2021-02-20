@@ -1,9 +1,12 @@
 /* eslint-disable no-restricted-imports */
 import React from "react";
 import PropTypes from "prop-types";
-import {makeStyles, withStyles} from "@material-ui/core/styles";
-import {NoSsr, Button} from "@material-ui/core";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { NoSsr, Button } from "@material-ui/core";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 1
 const styles = theme => ({

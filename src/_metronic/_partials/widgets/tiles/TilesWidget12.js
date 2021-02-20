@@ -6,7 +6,7 @@ import { toAbsoluteUrl } from "../../../_helpers";
 export function TilesWidget12({
   className,
   iconColor = "success",
-  widgetHeight = "150px",
+  widgetHeight = "150px"
 }) {
   return (
     <>

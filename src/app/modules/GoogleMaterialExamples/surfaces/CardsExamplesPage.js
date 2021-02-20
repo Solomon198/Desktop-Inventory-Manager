@@ -14,8 +14,8 @@ import {
   Collapse,
   CardActionArea
 } from "@material-ui/core";
-import {makeStyles, useTheme} from "@material-ui/core/styles";
-import {red} from "@material-ui/core/colors";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -23,7 +23,10 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 1
 const useStyles1 = makeStyles({

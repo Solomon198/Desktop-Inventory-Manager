@@ -89,5 +89,4 @@ export default function mockAuth(mock) {
     const maxId = Math.max(...ids);
     return maxId + 1;
   }
-  
 }

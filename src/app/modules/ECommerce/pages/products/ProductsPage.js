@@ -13,10 +13,10 @@ export function ProductsPage({ history }) {
     newProductButtonClick: () => {
       history.push("/e-commerce/products/new");
     },
-    openEditProductPage: (id) => {
+    openEditProductPage: id => {
       history.push(`/e-commerce/products/${id}/edit`);
     },
-    openDeleteProductDialog: (id) => {
+    openDeleteProductDialog: id => {
       history.push(`/e-commerce/products/${id}/delete`);
     },
     openDeleteProductsDialog: () => {
@@ -27,7 +27,7 @@ export function ProductsPage({ history }) {
     },
     openUpdateProductsStatusDialog: () => {
       history.push("/e-commerce/products/updateStatus");
-    },
+    }
   };
 
   return (

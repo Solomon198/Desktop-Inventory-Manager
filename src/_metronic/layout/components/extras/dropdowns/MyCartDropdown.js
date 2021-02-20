@@ -10,7 +10,7 @@ import { DropdownItemToggler } from "../../../../_partials/dropdowns";
 
 const perfectScrollbarOptions = {
   wheelSpeed: 2,
-  wheelPropagation: false,
+  wheelPropagation: false
 };
 
 export function MyCartDropdown() {

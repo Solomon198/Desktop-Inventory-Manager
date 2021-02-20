@@ -9,7 +9,7 @@ import * as Yup from "yup";
 import {
   Input,
   Select,
-  DatePickerField,
+  DatePickerField
 } from "../../../../../../_metronic/_partials/controls";
 
 // Validation schema
@@ -29,14 +29,14 @@ const CustomerEditSchema = Yup.object().shape({
   dateOfBbirth: Yup.mixed()
     .nullable(false)
     .required("Date of Birth is required"),
-  ipAddress: Yup.string().required("IP Address is required"),
+  ipAddress: Yup.string().required("IP Address is required")
 });
 
 export function CustomerEditForm({
   saveCustomer,
   customer,
   actionsLoading,
-  onHide,
+  onHide
 }) {
   return (
     <>
@@ -44,7 +44,7 @@ export function CustomerEditForm({
         enableReinitialize={true}
         initialValues={customer}
         validationSchema={CustomerEditSchema}
-        onSubmit={(values) => {
+        onSubmit={values => {
           saveCustomer(values);
         }}
       >

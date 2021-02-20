@@ -8,7 +8,7 @@ import { toAbsoluteUrl } from "../../../../_helpers";
 
 export function QuickUser() {
   const history = useHistory();
-  const user = useSelector((state) => state.auth.user, shallowEqual);
+  const user = useSelector(state => state.auth.user, shallowEqual);
 
   const logoutClick = () => {
     const toggle = document.getElementById("kt_quick_user_toggle");
@@ -42,7 +42,7 @@ export function QuickUser() {
               style={{
                 backgroundImage: `url(${toAbsoluteUrl(
                   "/media/users/300_21.jpg"
-                )})`,
+                )})`
               }}
             />
             <i className="symbol-badge bg-success" />

@@ -2,16 +2,16 @@ export const defaultSorted = [{ dataField: "id", order: "asc" }];
 export const sizePerPageList = [
   { text: "1", value: 1 },
   { text: "3", value: 3 },
-  { text: "5", value: 5 },
+  { text: "5", value: 5 }
 ];
 export const initialFilter = {
   filter: {
-    value: "",
+    value: ""
   },
   sortOrder: "asc", // asc||desc
   sortField: "name",
   pageNumber: 1,
-  pageSize: 5,
+  pageSize: 5
 };
 
 export const SPECIFICATIONS_DICTIONARY = [
@@ -24,5 +24,5 @@ export const SPECIFICATIONS_DICTIONARY = [
   { id: 6, name: "Drivetrain" },
   { id: 7, name: "Combined MPG" },
   { id: 8, name: "Warranty" },
-  { id: 9, name: "Wheels" },
+  { id: 9, name: "Wheels" }
 ];

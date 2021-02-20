@@ -5,11 +5,14 @@ import {
   BottomNavigationAction,
   Icon
 } from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import RestoreIcon from "@material-ui/icons/Restore";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 1
 const useStyles = makeStyles({

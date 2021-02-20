@@ -13,10 +13,13 @@ import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import Favorite from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
-import {withStyles} from "@material-ui/core/styles";
-import {green} from "@material-ui/core/colors";
-import {makeStyles} from "@material-ui/core/styles";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import { withStyles } from "@material-ui/core/styles";
+import { green } from "@material-ui/core/colors";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 2
 const GreenCheckbox = withStyles({

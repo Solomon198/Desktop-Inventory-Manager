@@ -22,11 +22,11 @@ export function SpecificationsFilter() {
     return {
       openNewSpecificationDialog: specsUIContext.openNewSpecificationDialog,
       setQueryParams: specsUIContext.setQueryParams,
-      queryParams: specsUIContext.queryParams,
+      queryParams: specsUIContext.queryParams
     };
   }, [specsUIContext]);
 
-  const applyFilter = (values) => {
+  const applyFilter = values => {
     const newQueryParams = prepareFilter(specsUIProps.queryParams, values);
     if (!isEqual(newQueryParams, specsUIProps.queryParams)) {
       newQueryParams.pageNumber = 1;
@@ -41,9 +41,9 @@ export function SpecificationsFilter() {
           <div className="col-md-2 margin-bottom-10-mobile">
             <Formik
               initialValues={{
-                searchText: "",
+                searchText: ""
               }}
-              onSubmit={(values) => {
+              onSubmit={values => {
                 applyFilter(values);
               }}
             >
@@ -52,7 +52,7 @@ export function SpecificationsFilter() {
                 handleSubmit,
                 handleBlur,
                 handleChange,
-                setFieldValue,
+                setFieldValue
               }) => (
                 <form onSubmit={handleSubmit}>
                   <div>
@@ -63,7 +63,7 @@ export function SpecificationsFilter() {
                       placeholder="Search"
                       onBlur={handleBlur}
                       value={values.searchText}
-                      onChange={(e) => {
+                      onChange={e => {
                         setFieldValue("searchText", e.target.value);
                         handleSubmit();
                       }}

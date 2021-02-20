@@ -16,16 +16,16 @@ export function SpecificationEditDialog() {
       onHide: specsUIContext.closeEditSpecificationDialog,
       productId: specsUIContext.productId,
       queryParams: specsUIContext.queryParams,
-      initSpecification: specsUIContext.initSpecification,
+      initSpecification: specsUIContext.initSpecification
     };
   }, [specsUIContext]);
 
   // Specifications Redux state
   const dispatch = useDispatch();
   const { actionsLoading, specificationForEdit } = useSelector(
-    (state) => ({
+    state => ({
       actionsLoading: state.specifications.actionsLoading,
-      specificationForEdit: state.specifications.specificationForEdit,
+      specificationForEdit: state.specifications.specificationForEdit
     }),
     shallowEqual
   );
@@ -35,7 +35,7 @@ export function SpecificationEditDialog() {
     dispatch(actions.fetchSpecification(specsUIProps.id));
   }, [specsUIProps.id, dispatch]);
 
-  const saveSpecification = (specification) => {
+  const saveSpecification = specification => {
     if (!specsUIProps.id) {
       dispatch(actions.createSpecification(specification)).then(() => {
         dispatch(

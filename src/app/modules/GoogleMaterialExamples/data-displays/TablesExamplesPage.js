@@ -32,7 +32,10 @@ import FirstPageIcon from "@material-ui/icons/FirstPage";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import LastPageIcon from "@material-ui/icons/LastPage";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 const useStyles1 = makeStyles(theme => ({
   root: {

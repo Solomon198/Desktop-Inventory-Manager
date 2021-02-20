@@ -6,7 +6,7 @@ import { toAbsoluteUrl } from "../../../../../_helpers";
 
 const perfectScrollbarOptions = {
   wheelSpeed: 2,
-  wheelPropagation: false,
+  wheelPropagation: false
 };
 
 export function SearchResult({ data }) {
@@ -125,7 +125,7 @@ export function SearchResult({ data }) {
                   style={{
                     backgroundImage: `url(${toAbsoluteUrl(
                       "/media/users/300_20.jpg"
-                    )})`,
+                    )})`
                   }}
                 />
               </div>
@@ -148,7 +148,7 @@ export function SearchResult({ data }) {
                   style={{
                     backgroundImage: `url(${toAbsoluteUrl(
                       "/media/users/300_15.jpg"
-                    )}`,
+                    )}`
                   }}
                 />
               </div>
@@ -171,7 +171,7 @@ export function SearchResult({ data }) {
                   style={{
                     backgroundImage: `url(${toAbsoluteUrl(
                       "/media/users/300_12.jpg"
-                    )})`,
+                    )})`
                   }}
                 />
               </div>
@@ -194,7 +194,7 @@ export function SearchResult({ data }) {
                   style={{
                     backgroundImage: `url(${toAbsoluteUrl(
                       "/media/users/300_16.jpg"
-                    )})`,
+                    )})`
                   }}
                 />
               </div>

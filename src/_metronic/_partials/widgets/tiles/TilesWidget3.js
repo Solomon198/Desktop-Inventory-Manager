@@ -11,7 +11,7 @@ export function TilesWidget3({ className, widgetHeight = "175px" }) {
         className={`card card-custom bgi-no-repeat bgi-no-repeat bgi-size-cover ${className}`}
         style={{
           height: widgetHeight,
-          backgroundImage: `url("${backgroundImageUrl}")`,
+          backgroundImage: `url("${backgroundImageUrl}")`
         }}
       >
         {/* begin::Body */}

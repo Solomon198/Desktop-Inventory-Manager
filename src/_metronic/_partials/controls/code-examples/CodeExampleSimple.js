@@ -3,11 +3,11 @@
 import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import copy from "clipboard-copy";
-import {Tooltip} from "@material-ui/core";
+import { Tooltip } from "@material-ui/core";
 // https://github.com/conorhastings/react-syntax-highlighter#prism
-import {Prism as SyntaxHighlighter} from "react-syntax-highlighter";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 // See https://github.com/PrismJS/prism-themes
-import {coy as highlightStyle} from "react-syntax-highlighter/dist/esm/styles/prism";
+import { coy as highlightStyle } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 export function CodeExampleSimple({ languages, children, codeBlockHeight }) {
   const [isCopySucceed, setIsCopySucceed] = useState(false);

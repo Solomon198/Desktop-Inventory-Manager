@@ -17,7 +17,7 @@ export function Header() {
       menuHeaderDisplay: objectPath.get(
         uiService.config,
         "header.menu.self.display"
-      ),
+      )
     };
   }, [uiService]);
 

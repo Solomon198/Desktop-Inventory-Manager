@@ -8,7 +8,7 @@ export function ErrorPage5() {
       <div
         className="error error-5 d-flex flex-row-fluid bgi-size-cover bgi-position-center"
         style={{
-          backgroundImage: `url(${toAbsoluteUrl("/media/error/bg5.jpg")})`,
+          backgroundImage: `url(${toAbsoluteUrl("/media/error/bg5.jpg")})`
         }}
       >
         <div className="container d-flex flex-row-fluid flex-column justify-content-md-center p-12">

@@ -10,88 +10,88 @@ import { DropdownItemToggler } from "../../../../../_partials/dropdowns";
 const fakeData = [
   {
     type: 0,
-    text: "Reports",
+    text: "Reports"
   },
   {
     type: 1,
     text: "AirPlus Requirements",
     description: "by Grog John",
-    iconImage: toAbsoluteUrl("/media/files/doc.svg"),
+    iconImage: toAbsoluteUrl("/media/files/doc.svg")
   },
   {
     type: 1,
     text: "TechNav Documentation",
     description: "by Mary Brown",
-    iconImage: toAbsoluteUrl("/media/files/pdf.svg"),
+    iconImage: toAbsoluteUrl("/media/files/pdf.svg")
   },
   {
     type: 1,
     text: "All Framework Docs",
     description: "by Grog John",
-    iconImage: toAbsoluteUrl("/media/files/zip.svg"),
+    iconImage: toAbsoluteUrl("/media/files/zip.svg")
   },
   {
     type: 1,
     text: "AirPlus Requirements",
     description: "by Tim Hardy",
-    iconImage: toAbsoluteUrl("/media/files/xml.svg"),
+    iconImage: toAbsoluteUrl("/media/files/xml.svg")
   },
   {
     text: "Customers",
-    type: 0,
+    type: 0
   },
   {
     type: 1,
     text: "Jimmy Curry",
     description: "Software Developer",
-    iconImage: toAbsoluteUrl("/media/users/300_11.jpg"),
+    iconImage: toAbsoluteUrl("/media/users/300_11.jpg")
   },
   {
     type: 1,
     text: "Milena Gibson",
     description: "UI Designer",
-    iconImage: toAbsoluteUrl("/media/users/300_16.jpg"),
+    iconImage: toAbsoluteUrl("/media/users/300_16.jpg")
   },
   {
     type: 1,
     text: "Stefan JohnStefan",
     description: "Marketing Manager",
-    iconImage: toAbsoluteUrl("/media/users/300_22.jpg"),
+    iconImage: toAbsoluteUrl("/media/users/300_22.jpg")
   },
   {
     type: 1,
     text: "Anna Strong",
     description: "Software Developer",
-    iconImage: toAbsoluteUrl("/media/users/300_5.jpg"),
+    iconImage: toAbsoluteUrl("/media/users/300_5.jpg")
   },
   {
     type: 0,
-    text: "Files",
+    text: "Files"
   },
   {
     type: 1,
     text: "2 New items submitted",
     description: "Marketing Manager",
-    iconClassName: "flaticon2-box font-danger",
+    iconClassName: "flaticon2-box font-danger"
   },
   {
     type: 1,
     text: "79 PSD files generated",
     description: "by Grog John",
-    iconClassName: "flaticon-psd font-brand",
+    iconClassName: "flaticon-psd font-brand"
   },
   {
     type: 1,
     text: "$2900 worth products sold",
     description: "Total 234 items",
-    iconClassName: "flaticon2-supermarket font-warning",
+    iconClassName: "flaticon2-supermarket font-warning"
   },
   {
     type: 1,
     text: "4 New items submitted",
     description: "Marketing Manager",
-    iconClassName: "flaticon-safe-shield-protection font-info",
-  },
+    iconClassName: "flaticon-safe-shield-protection font-info"
+  }
 ];
 
 export function SearchDropdown() {
@@ -107,7 +107,7 @@ export function SearchDropdown() {
     }
   };
 
-  const handleSearchChange = (event) => {
+  const handleSearchChange = event => {
     setData(null);
     setSearchValue(event.target.value);
 
@@ -140,8 +140,7 @@ export function SearchDropdown() {
   const layoutProps = useMemo(() => {
     return {
       offcanvas:
-        objectPath.get(uiService.config, "extras.search.layout") ===
-        "offcanvas",
+        objectPath.get(uiService.config, "extras.search.layout") === "offcanvas"
     };
   }, [uiService]);
 
@@ -173,7 +172,9 @@ export function SearchDropdown() {
           <Dropdown.Toggle as={DropdownItemToggler}>
             <OverlayTrigger
               placement="bottom"
-              overlay={<Tooltip id="search-panel-tooltip">Quick search</Tooltip>}
+              overlay={
+                <Tooltip id="search-panel-tooltip">Quick search</Tooltip>
+              }
             >
               <div className="btn btn-icon btn-hover-transparent-white btn-lg btn-dropdown mr-1">
                 <span className="svg-icon svg-icon-xl">
@@ -188,7 +189,7 @@ export function SearchDropdown() {
             <div
               id="kt_quick_search_dropdown"
               className={clsx("quick-search quick-search-dropdown", {
-                "quick-search-has-result": data && data.length,
+                "quick-search-has-result": data && data.length
               })}
             >
               <form className="quick-search-form">
@@ -224,7 +225,7 @@ export function SearchDropdown() {
                           display:
                             loading && searchValue && searchValue.length > 0
                               ? "none"
-                              : "flex",
+                              : "flex"
                         }}
                         onClick={clear}
                         className="quick-search-close ki ki-close icon-sm text-muted"

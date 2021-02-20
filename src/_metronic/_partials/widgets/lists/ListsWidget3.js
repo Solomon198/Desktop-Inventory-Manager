@@ -1,9 +1,13 @@
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
 import React from "react";
 import SVG from "react-inlinesvg";
-import {Dropdown} from "react-bootstrap";
-import {toAbsoluteUrl} from "../../../_helpers";
-import {DropdownCustomToggler, DropdownMenu1, DropdownMenu2} from "../../dropdowns";
+import { Dropdown } from "react-bootstrap";
+import { toAbsoluteUrl } from "../../../_helpers";
+import {
+  DropdownCustomToggler,
+  DropdownMenu1,
+  DropdownMenu2
+} from "../../dropdowns";
 
 export function ListsWidget3({ className }) {
   return (
@@ -17,7 +21,8 @@ export function ListsWidget3({ className }) {
               <Dropdown.Toggle
                 id="dropdown-toggle-top2"
                 variant="transparent"
-                className="btn btn-light-primary btn-sm font-weight-bolder dropdown-toggle">
+                className="btn btn-light-primary btn-sm font-weight-bolder dropdown-toggle"
+              >
                 Create
               </Dropdown.Toggle>
               <Dropdown.Menu className="dropdown-menu dropdown-menu-sm dropdown-menu-right">
@@ -137,17 +142,17 @@ export function ListsWidget3({ className }) {
   );
 }
 
-const ItemDropdown = ({item}) => {
-  return (<>
-  <Dropdown className="dropdown-inline" alignRight>
-    <Dropdown.Toggle
-      id="dropdown-toggle-top"
-      as={DropdownCustomToggler}>
-      <i className="ki ki-bold-more-hor" />
-    </Dropdown.Toggle>
-    <Dropdown.Menu className="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-      <DropdownMenu1 />
-    </Dropdown.Menu>
-  </Dropdown>
-  </>);
+const ItemDropdown = ({ item }) => {
+  return (
+    <>
+      <Dropdown className="dropdown-inline" alignRight>
+        <Dropdown.Toggle id="dropdown-toggle-top" as={DropdownCustomToggler}>
+          <i className="ki ki-bold-more-hor" />
+        </Dropdown.Toggle>
+        <Dropdown.Menu className="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+          <DropdownMenu1 />
+        </Dropdown.Menu>
+      </Dropdown>
+    </>
+  );
 };

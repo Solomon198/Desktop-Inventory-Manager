@@ -1,7 +1,13 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useContext, createContext, useState, useCallback } from "react";
-import {isEqual, isFunction} from "lodash";
-import {initialFilter} from "./RemarksUIHelper";
+import React, {
+  useEffect,
+  useContext,
+  createContext,
+  useState,
+  useCallback
+} from "react";
+import { isEqual, isFunction } from "lodash";
+import { initialFilter } from "./RemarksUIHelper";
 
 const RemarksUIContext = createContext();
 
@@ -37,11 +43,11 @@ export function RemarksUIProvider({ currentProductId, children }) {
     dueDate: "01/07/2020",
     carId: productId
   };
-  useEffect(()=> {
+  useEffect(() => {
     initRemark.productId = currentProductId;
     initRemark.carId = currentProductId;
     setProductId(currentProductId);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentProductId]);
   const openNewRemarkDialog = () => {
     setSelectedId(undefined);
@@ -91,7 +97,7 @@ export function RemarksUIProvider({ currentProductId, children }) {
     initRemark,
     selectedId,
     showEditRemarkDialog,
-    openNewRemarkDialog,    
+    openNewRemarkDialog,
     openEditRemarkDialog,
     closeEditRemarkDialog,
     showDeleteRemarkDialog,
@@ -104,7 +110,7 @@ export function RemarksUIProvider({ currentProductId, children }) {
     closeFetchRemarksDialog,
     showFetchRemarksDialog
   };
-  
+
   return (
     <RemarksUIContext.Provider value={value}>
       {children}

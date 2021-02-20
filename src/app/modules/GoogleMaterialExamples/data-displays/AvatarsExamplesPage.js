@@ -1,12 +1,15 @@
 /* eslint-disable no-restricted-imports */
 import React from "react";
-import {makeStyles} from "@material-ui/core/styles";
-import {Grid, Avatar} from "@material-ui/core";
-import {deepOrange, deepPurple, green, pink} from "@material-ui/core/colors";
+import { makeStyles } from "@material-ui/core/styles";
+import { Grid, Avatar } from "@material-ui/core";
+import { deepOrange, deepPurple, green, pink } from "@material-ui/core/colors";
 import FolderIcon from "@material-ui/icons/Folder";
 import PageviewIcon from "@material-ui/icons/Pageview";
 import AssignmentIcon from "@material-ui/icons/Assignment";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 1
 const useStyles1 = makeStyles({

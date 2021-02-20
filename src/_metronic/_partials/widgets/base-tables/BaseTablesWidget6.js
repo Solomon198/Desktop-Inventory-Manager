@@ -7,7 +7,7 @@ export function BaseTablesWidget6({ className }) {
   const tabs = {
     tab1: "kt_tab_pane_3_1",
     tab2: "kt_tab_pane_3_2",
-    tab3: "kt_tab_pane_3_3",
+    tab3: "kt_tab_pane_3_3"
   };
   const [activeTab, setActiveTab] = useState(tabs.tab1);
 

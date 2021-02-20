@@ -1,6 +1,6 @@
 import React from "react";
-import {Badge, Button} from "react-bootstrap";
-import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
+import { Badge, Button } from "react-bootstrap";
+import { Notice, KTCodeExample } from "../../../_metronic/_partials/controls";
 
 export default class BadgeExamplesPage extends React.Component {
   render() {

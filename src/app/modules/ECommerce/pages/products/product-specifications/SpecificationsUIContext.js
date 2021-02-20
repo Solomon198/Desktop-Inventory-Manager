@@ -4,7 +4,7 @@ import React, {
   useContext,
   createContext,
   useState,
-  useCallback,
+  useCallback
 } from "react";
 import { isEqual, isFunction } from "lodash";
 import { initialFilter } from "./SpecificationsUIHelper";
@@ -21,8 +21,8 @@ export function SpecificationsUIProvider({ currentProductId, children }) {
   const [productId, setProductId] = useState(currentProductId);
   const [queryParams, setQueryParamsBase] = useState(initialFilter);
   const [ids, setIds] = useState([]);
-  const setQueryParams = useCallback((nextQueryParams) => {
-    setQueryParamsBase((prevQueryParams) => {
+  const setQueryParams = useCallback(nextQueryParams => {
+    setQueryParamsBase(prevQueryParams => {
       if (isFunction(nextQueryParams)) {
         nextQueryParams = nextQueryParams(prevQueryParams);
       }
@@ -39,7 +39,7 @@ export function SpecificationsUIProvider({ currentProductId, children }) {
     id: undefined,
     value: "",
     specId: 0,
-    carId: productId,
+    carId: productId
   };
   useEffect(() => {
     initSpecification.carId = currentProductId;
@@ -49,13 +49,13 @@ export function SpecificationsUIProvider({ currentProductId, children }) {
   }, [currentProductId]);
   const [
     showEditSpecificationDialog,
-    setShowEditSpecificationDialog,
+    setShowEditSpecificationDialog
   ] = useState(false);
   const openNewSpecificationDialog = () => {
     setSelectedId(undefined);
     setShowEditSpecificationDialog(true);
   };
-  const openEditSpecificationDialog = (id) => {
+  const openEditSpecificationDialog = id => {
     setSelectedId(id);
     setShowEditSpecificationDialog(true);
   };
@@ -65,9 +65,9 @@ export function SpecificationsUIProvider({ currentProductId, children }) {
   };
   const [
     showDeleteSpecificationDialog,
-    setShowDeleteSpecificationDialog,
+    setShowDeleteSpecificationDialog
   ] = useState(false);
-  const openDeleteSpecificationDialog = (id) => {
+  const openDeleteSpecificationDialog = id => {
     setSelectedId(id);
     setShowDeleteSpecificationDialog(true);
   };
@@ -77,7 +77,7 @@ export function SpecificationsUIProvider({ currentProductId, children }) {
   };
   const [
     showDeleteSpecificationsDialog,
-    setShowDeleteSpecificationsDialog,
+    setShowDeleteSpecificationsDialog
   ] = useState(false);
   const openDeleteSpecificationsDialog = () => {
     setShowDeleteSpecificationsDialog(true);
@@ -87,7 +87,7 @@ export function SpecificationsUIProvider({ currentProductId, children }) {
   };
   const [
     showFetchSpecificationsDialog,
-    setShowFetchSpecificationsDialog,
+    setShowFetchSpecificationsDialog
   ] = useState(false);
   const openFetchSpecificationsDialog = () => {
     setShowFetchSpecificationsDialog(true);
@@ -116,7 +116,7 @@ export function SpecificationsUIProvider({ currentProductId, children }) {
     closeDeleteSpecificationsDialog,
     showFetchSpecificationsDialog,
     openFetchSpecificationsDialog,
-    closeFetchSpecificationsDialog,
+    closeFetchSpecificationsDialog
   };
 
   return (

@@ -3,69 +3,69 @@
 //
 
 .list {
-    // Item hover
+  // Item hover
+  .list-item {
+    .list-title {
+      transition: $transition;
+    }
+
+    .list-hidden {
+      opacity: 0;
+      transition: $transition;
+    }
+
+    &.active,
+    &:hover {
+      .list-title {
+        transition: $transition;
+        color: $primary !important;
+      }
+
+      .list-hidden {
+        opacity: 1;
+        transition: $transition;
+      }
+    }
+  }
+
+  // Border Style
+  &.list-border {
     .list-item {
-        .list-title {
-            transition: $transition;
-        }
+      border-bottom: 1px solid $border-color;
 
-        .list-hidden {
-            opacity: 0;
-            transition: $transition;
-        }
-
-        &.active,
-        &:hover {
-            .list-title {
-                transition: $transition;
-                color: $primary !important;
-            }
-
-            .list-hidden {
-                opacity: 1;
-                transition: $transition;
-            }
-        }
+      &:last-child {
+        border-bottom: 0;
+      }
     }
+  }
 
-    // Border Style
-    &.list-border {
-        .list-item {
-            border-bottom: 1px solid $border-color;
+  // Dashed Style
+  &.list-dashed {
+    .list-item {
+      border-bottom: 1px dashed $border-color;
 
-            &:last-child {
-                border-bottom: 0;
-            }
-        }
+      &:last-child {
+        border-bottom: 0;
+      }
     }
+  }
 
-    // Dashed Style
-    &.list-dashed {
-        .list-item {
-            border-bottom: 1px dashed $border-color;
+  // Hover Style
+  &.list-hover {
+    .list-item {
+      cursor: pointer;
+      @include border-radius($border-radius);
 
-            &:last-child {
-                border-bottom: 0;
-            }
-        }
+      &:hover {
+        transition: $transition;
+        background-color: $hover-bg;
+        cursor: pointer;
+      }
+
+      &.active {
+        transition: $transition;
+        background-color: $active-bg;
+      }
     }
-
-    // Hover Style
-    &.list-hover {
-        .list-item {
-            cursor: pointer;
-            @include border-radius($border-radius);
-
-            &:hover {
-                transition: $transition;
-                background-color: $hover-bg;
-                cursor: pointer;
-            }
-
-            &.active {
-                transition: $transition;
-                background-color: $active-bg;
-            }
-        }
-    }
+  }
 }

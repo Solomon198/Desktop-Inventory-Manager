@@ -19,11 +19,11 @@ export function RemarksFilter() {
     return {
       setQueryParams: remarksUIContext.setQueryParams,
       openNewRemarkDialog: remarksUIContext.openNewRemarkDialog,
-      queryParams: remarksUIContext.queryParams,
+      queryParams: remarksUIContext.queryParams
     };
   }, [remarksUIContext]);
 
-  const applyFilter = (values) => {
+  const applyFilter = values => {
     const newQueryParams = prepareFilter(remarksUIProps.queryParams, values);
     if (!isEqual(newQueryParams, remarksUIProps.queryParams)) {
       newQueryParams.pageNumber = 1;
@@ -38,9 +38,9 @@ export function RemarksFilter() {
           <div className="col-md-2 margin-bottom-10-mobile">
             <Formik
               initialValues={{
-                searchText: "",
+                searchText: ""
               }}
-              onSubmit={(values) => {
+              onSubmit={values => {
                 applyFilter(values);
               }}
             >
@@ -49,7 +49,7 @@ export function RemarksFilter() {
                 handleSubmit,
                 handleBlur,
                 handleChange,
-                setFieldValue,
+                setFieldValue
               }) => (
                 <form onSubmit={handleSubmit}>
                   <div>
@@ -60,7 +60,7 @@ export function RemarksFilter() {
                       placeholder="Search"
                       onBlur={handleBlur}
                       value={values.searchText}
-                      onChange={(e) => {
+                      onChange={e => {
                         setFieldValue("searchText", e.target.value);
                         handleSubmit();
                       }}

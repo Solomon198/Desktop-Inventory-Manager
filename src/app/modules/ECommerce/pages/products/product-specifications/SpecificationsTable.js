@@ -5,7 +5,7 @@ import React, { useEffect, useMemo } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory, {
-  PaginationProvider,
+  PaginationProvider
 } from "react-bootstrap-table2-paginator";
 import * as actions from "../../../_redux/specifications/specificationsActions";
 import { ActionsColumnFormatter } from "./column-formatters/ActionsColumnFormatter";
@@ -16,7 +16,7 @@ import {
   getHandlerTableChange,
   NoRecordsFoundMessage,
   PleaseWaitMessage,
-  sortCaret,
+  sortCaret
 } from "../../../../../../_metronic/_helpers";
 import { useSpecificationsUIContext } from "./SpecificationsUIContext";
 
@@ -32,14 +32,14 @@ export function SpecificationsTable() {
         specsUIContext.openDeleteSpecificationDialog,
       ids: specsUIContext.ids,
       setIds: specsUIContext.setIds,
-      productId: specsUIContext.productId,
+      productId: specsUIContext.productId
     };
   }, [specsUIContext]);
 
   // Specs Redux state
   // Getting curret state of products list from store (Redux)
   const { currentState } = useSelector(
-    (state) => ({ currentState: state.specifications }),
+    state => ({ currentState: state.specifications }),
     shallowEqual
   );
   const { totalCount, entities, listLoading } = currentState;
@@ -47,7 +47,10 @@ export function SpecificationsTable() {
   useEffect(() => {
     specsUIProps.setIds([]);
     dispatch(
-      actions.fetchSpecifications(specsUIProps.queryParams,specsUIProps.productId)
+      actions.fetchSpecifications(
+        specsUIProps.queryParams,
+        specsUIProps.productId
+      )
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [specsUIProps.queryParams, dispatch, specsUIProps.productId]);
@@ -57,13 +60,13 @@ export function SpecificationsTable() {
       dataField: "name",
       text: "Specification Type",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
       dataField: "value",
       text: "Value",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
       dataField: "action",
@@ -72,14 +75,14 @@ export function SpecificationsTable() {
       formatExtraData: {
         openEditSpecificationDialog: specsUIProps.openEditSpecificationDialog,
         openDeleteSpecificationDialog:
-          specsUIProps.openDeleteSpecificationDialog,
+          specsUIProps.openDeleteSpecificationDialog
       },
       classes: "text-right pr-0",
       headerClasses: "text-right pr-3",
       style: {
-        minWidth: "100px",
-      },
-    },
+        minWidth: "100px"
+      }
+    }
   ];
   // Table pagination properties
   const paginationOptions = {
@@ -87,7 +90,7 @@ export function SpecificationsTable() {
     totalSize: totalCount,
     sizePerPageList: uiHelpers.sizePerPageList,
     sizePerPage: specsUIProps.queryParams.pageSize,
-    page: specsUIProps.queryParams.pageNumber,
+    page: specsUIProps.queryParams.pageNumber
   };
   return (
     <>
@@ -114,7 +117,7 @@ export function SpecificationsTable() {
                 selectRow={getSelectRow({
                   entities,
                   ids: specsUIProps.ids,
-                  setIds: specsUIProps.setIds,
+                  setIds: specsUIProps.setIds
                 })}
                 {...paginationTableProps}
               >

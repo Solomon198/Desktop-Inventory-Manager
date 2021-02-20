@@ -1,11 +1,14 @@
 /* eslint-disable no-restricted-imports */
 import React from "react";
-import {makeStyles} from "@material-ui/core/styles";
-import {Chip, Avatar, Paper} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { Chip, Avatar, Paper } from "@material-ui/core";
 import FaceIcon from "@material-ui/icons/Face";
 import DoneIcon from "@material-ui/icons/Done";
 import TagFacesIcon from "@material-ui/icons/TagFaces";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 1
 const useStyles1 = makeStyles(theme => ({

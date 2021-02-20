@@ -1,6 +1,6 @@
 import React from "react";
-import {Image, Container, Row, Col} from "react-bootstrap";
-import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
+import { Image, Container, Row, Col } from "react-bootstrap";
+import { Notice, KTCodeExample } from "../../../_metronic/_partials/controls";
 
 export default class ImagesExamplesPage extends React.Component {
   render() {

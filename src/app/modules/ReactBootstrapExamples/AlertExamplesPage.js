@@ -1,6 +1,6 @@
 import React from "react";
-import {Alert, Button} from "react-bootstrap";
-import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
+import { Alert, Button } from "react-bootstrap";
+import { Notice, KTCodeExample } from "../../../_metronic/_partials/controls";
 
 class AlertDismissible extends React.Component {
   constructor(props) {

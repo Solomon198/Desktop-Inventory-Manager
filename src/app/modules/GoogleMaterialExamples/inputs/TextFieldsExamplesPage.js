@@ -17,18 +17,21 @@ import {
   InputAdornment,
   Grid
 } from "@material-ui/core";
-import {green} from "@material-ui/core/colors";
+import { green } from "@material-ui/core/colors";
 import {
   fade,
   withStyles,
   makeStyles,
   createMuiTheme
 } from "@material-ui/core/styles";
-import {ThemeProvider} from "@material-ui/styles";
+import { ThemeProvider } from "@material-ui/styles";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 1
 const useStyles = makeStyles(theme => ({

@@ -1,6 +1,6 @@
 import React from "react";
-import {Carousel} from "react-bootstrap";
-import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
+import { Carousel } from "react-bootstrap";
+import { Notice, KTCodeExample } from "../../../_metronic/_partials/controls";
 
 class ControlledCarousel extends React.Component {
   constructor(props, context) {

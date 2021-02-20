@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-imports */
 import React from "react";
-import {makeStyles, withStyles} from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import {
   Tooltip,
   Fab,
@@ -15,7 +15,10 @@ import {
 import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
 import PropTypes from "prop-types";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 1
 const useStyles1 = makeStyles(theme => ({

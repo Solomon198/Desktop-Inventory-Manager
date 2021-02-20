@@ -3,7 +3,7 @@
 import React from "react";
 import {
   CustomerTypeCssClasses,
-  CustomerTypeTitles,
+  CustomerTypeTitles
 } from "../../CustomersUIHelpers";
 
 export function TypeColumnFormatter(cellContent, row) {

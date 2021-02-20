@@ -16,13 +16,13 @@ export function RemarksDeleteDialog() {
       productId: remarksUIContext.productId,
       queryParams: remarksUIContext.queryParams,
       showDeleteRemarksDialog: remarksUIContext.showDeleteRemarksDialog,
-      closeDeleteRemarksDialog: remarksUIContext.closeDeleteRemarksDialog,
+      closeDeleteRemarksDialog: remarksUIContext.closeDeleteRemarksDialog
     };
   }, [remarksUIContext]);
 
   const dispatch = useDispatch();
   const { isLoading } = useSelector(
-    (state) => ({ isLoading: state.remarks.actionsLoading }),
+    state => ({ isLoading: state.remarks.actionsLoading }),
     shallowEqual
   );
 

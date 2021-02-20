@@ -1,5 +1,5 @@
 import React from "react";
-import {toAbsoluteUrl} from "../../../_metronic/_helpers";
+import { toAbsoluteUrl } from "../../../_metronic/_helpers";
 
 export function ErrorPage2() {
   return (

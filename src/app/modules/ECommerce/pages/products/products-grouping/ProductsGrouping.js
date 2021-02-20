@@ -11,7 +11,7 @@ export function ProductsGrouping() {
       openDeleteProductsDialog: productsUIContext.openDeleteProductsDialog,
       openFetchProductsDialog: productsUIContext.openFetchProductsDialog,
       openUpdateProductsStatusDialog:
-        productsUIContext.openUpdateProductsStatusDialog,
+        productsUIContext.openUpdateProductsStatusDialog
     };
   }, [productsUIContext]);
 

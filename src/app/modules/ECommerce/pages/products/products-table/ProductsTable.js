@@ -4,7 +4,7 @@
 import React, { useEffect, useMemo } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory, {
-  PaginationProvider,
+  PaginationProvider
 } from "react-bootstrap-table2-paginator";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import * as actions from "../../../_redux/products/productsActions";
@@ -14,7 +14,7 @@ import {
   getHandlerTableChange,
   NoRecordsFoundMessage,
   PleaseWaitMessage,
-  sortCaret,
+  sortCaret
 } from "../../../../../../_metronic/_helpers";
 import * as columnFormatters from "./column-formatters";
 import { Pagination } from "../../../../../../_metronic/_partials/controls";
@@ -30,13 +30,13 @@ export function ProductsTable() {
       queryParams: productsUIContext.queryParams,
       setQueryParams: productsUIContext.setQueryParams,
       openEditProductPage: productsUIContext.openEditProductPage,
-      openDeleteProductDialog: productsUIContext.openDeleteProductDialog,
+      openDeleteProductDialog: productsUIContext.openDeleteProductDialog
     };
   }, [productsUIContext]);
 
   // Getting curret state of products list from store (Redux)
   const { currentState } = useSelector(
-    (state) => ({ currentState: state.products }),
+    state => ({ currentState: state.products }),
     shallowEqual
   );
   const { totalCount, entities, listLoading } = currentState;
@@ -55,53 +55,53 @@ export function ProductsTable() {
       dataField: "VINCode",
       text: "VIN Code (ID)",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
       dataField: "manufacture",
       text: "Manufacture",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
       dataField: "model",
       text: "Model",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
       dataField: "modelYear",
       text: "Model Year",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
       dataField: "color",
       text: "Color",
       sort: true,
       sortCaret: sortCaret,
-      formatter: columnFormatters.ColorColumnFormatter,
+      formatter: columnFormatters.ColorColumnFormatter
     },
     {
       dataField: "price",
       text: "Price",
       sort: true,
       sortCaret: sortCaret,
-      formatter: columnFormatters.PriceColumnFormatter,
+      formatter: columnFormatters.PriceColumnFormatter
     },
     {
       dataField: "status",
       text: "Status",
       sort: true,
       sortCaret: sortCaret,
-      formatter: columnFormatters.StatusColumnFormatter,
+      formatter: columnFormatters.StatusColumnFormatter
     },
     {
       dataField: "condition",
       text: "Condition",
       sort: true,
       sortCaret: sortCaret,
-      formatter: columnFormatters.ConditionColumnFormatter,
+      formatter: columnFormatters.ConditionColumnFormatter
     },
     {
       dataField: "action",
@@ -109,14 +109,14 @@ export function ProductsTable() {
       formatter: columnFormatters.ActionsColumnFormatter,
       formatExtraData: {
         openEditProductPage: productsUIProps.openEditProductPage,
-        openDeleteProductDialog: productsUIProps.openDeleteProductDialog,
+        openDeleteProductDialog: productsUIProps.openDeleteProductDialog
       },
       classes: "text-right pr-0",
       headerClasses: "text-right pr-3",
       style: {
-        minWidth: "100px",
-      },
-    },
+        minWidth: "100px"
+      }
+    }
   ];
   // Table pagination properties
   const paginationOptions = {
@@ -124,7 +124,7 @@ export function ProductsTable() {
     totalSize: totalCount,
     sizePerPageList: uiHelpers.sizePerPageList,
     sizePerPage: productsUIProps.queryParams.pageSize,
-    page: productsUIProps.queryParams.pageNumber,
+    page: productsUIProps.queryParams.pageNumber
   };
   return (
     <>
@@ -151,7 +151,7 @@ export function ProductsTable() {
                 selectRow={getSelectRow({
                   entities,
                   ids: productsUIProps.ids,
-                  setIds: productsUIProps.setIds,
+                  setIds: productsUIProps.setIds
                 })}
                 {...paginationTableProps}
               >

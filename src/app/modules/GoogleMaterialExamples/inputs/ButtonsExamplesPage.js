@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-imports */
 /* eslint-disable no-unused-vars */
 import React from "react";
-import {createMuiTheme, withStyles, makeStyles} from "@material-ui/core";
+import { createMuiTheme, withStyles, makeStyles } from "@material-ui/core";
 import {
   Button,
   Grid,
@@ -20,12 +20,15 @@ import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import KeyboardVoiceIcon from "@material-ui/icons/KeyboardVoice";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
-import {ThemeProvider} from "@material-ui/styles";
-import {green, purple} from "@material-ui/core/colors";
-import {ButtonBase, Typography} from "@material-ui/core";
-import {MemoryRouter as Router} from "react-router";
-import {Link} from "react-router-dom";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import { ThemeProvider } from "@material-ui/styles";
+import { green, purple } from "@material-ui/core/colors";
+import { ButtonBase, Typography } from "@material-ui/core";
+import { MemoryRouter as Router } from "react-router";
+import { Link } from "react-router-dom";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 const BootstrapButton = withStyles({
   root: {
@@ -264,7 +267,11 @@ export default function ButtonsExamplesPage() {
 
       <div className="row">
         <div className="col-lg-6">
-          <KTCodeExample jsCode={jsCode1} beforeCodeTitle="Contained Buttons" codeBlockHeight="400px">
+          <KTCodeExample
+            jsCode={jsCode1}
+            beforeCodeTitle="Contained Buttons"
+            codeBlockHeight="400px"
+          >
             <div>
               <code>Contained</code> buttons are high-emphasis, distinguished by
               their use of elevation and fill. They contain actions that are
@@ -325,7 +332,11 @@ export default function ButtonsExamplesPage() {
             </div>
           </KTCodeExample>
 
-          <KTCodeExample jsCode={jsCode3} beforeCodeTitle="Outlined Buttons" codeBlockHeight="400px">
+          <KTCodeExample
+            jsCode={jsCode3}
+            beforeCodeTitle="Outlined Buttons"
+            codeBlockHeight="400px"
+          >
             <span>
               <code>Outlined buttons</code> are medium-emphasis buttons. They
               contain actions that are important, but aren’t the primary action
@@ -415,7 +426,11 @@ export default function ButtonsExamplesPage() {
             </Router>
           </KTCodeExample>
 
-          <KTCodeExample jsCode={jsCode7} beforeCodeTitle="Sizes" codeBlockHeight="400px">
+          <KTCodeExample
+            jsCode={jsCode7}
+            beforeCodeTitle="Sizes"
+            codeBlockHeight="400px"
+          >
             <span>
               Fancy larger or smaller buttons? Use the <code>size</code>{" "}
               property.
@@ -655,7 +670,11 @@ export default function ButtonsExamplesPage() {
           </KTCodeExample>
         </div>
         <div className="col-lg-6">
-          <KTCodeExample jsCode={jsCode2} beforeCodeTitle="Text Buttons" codeBlockHeight="400px">
+          <KTCodeExample
+            jsCode={jsCode2}
+            beforeCodeTitle="Text Buttons"
+            codeBlockHeight="400px"
+          >
             <span>
               <code>Text buttons</code> are typically used for less-pronounced
               actions. In cards, text buttons help maintain an emphasis on card
@@ -691,7 +710,11 @@ export default function ButtonsExamplesPage() {
             </div>
           </KTCodeExample>
 
-          <KTCodeExample jsCode={jsCode4} beforeCodeTitle="Grouped Buttons" codeBlockHeight="400px">
+          <KTCodeExample
+            jsCode={jsCode4}
+            beforeCodeTitle="Grouped Buttons"
+            codeBlockHeight="400px"
+          >
             <span>
               The ButtonGroup component can be used to group outlined (the
               default) or contained buttons.
@@ -919,7 +942,11 @@ export default function ButtonsExamplesPage() {
             </div>
           </KTCodeExample>
 
-          <KTCodeExample jsCode={jsCode11} beforeCodeTitle="Complex Buttons" codeBlockHeight="400px">
+          <KTCodeExample
+            jsCode={jsCode11}
+            beforeCodeTitle="Complex Buttons"
+            codeBlockHeight="400px"
+          >
             <span>
               The Text Buttons, Contained Buttons, Floating Action Buttons and
               Icon Buttons are built on top of the same component: the{" "}

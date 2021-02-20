@@ -5,8 +5,8 @@ import { useSpecificationsUIContext } from "./SpecificationsUIContext";
 
 const selectedSpecifications = (entities, ids) => {
   const _specifications = [];
-  ids.forEach((id) => {
-    const specification = entities.find((el) => el.id === id);
+  ids.forEach(id => {
+    const specification = entities.find(el => el.id === id);
     if (specification) {
       _specifications.push(specification);
     }
@@ -22,17 +22,17 @@ export function SpecificationsFetchDialog() {
       ids: specsUIContext.ids,
       show: specsUIContext.showFetchSpecificationsDialog,
       onHide: specsUIContext.closeFetchSpecificationsDialog,
-      queryParams: specsUIContext.queryParams,
+      queryParams: specsUIContext.queryParams
     };
   }, [specsUIContext]);
 
   // Specs Redux state
   const { specifications } = useSelector(
-    (state) => ({
+    state => ({
       specifications: selectedSpecifications(
         state.specifications.entities,
         specsUIProps.ids
-      ),
+      )
     }),
     shallowEqual
   );
@@ -58,7 +58,7 @@ export function SpecificationsFetchDialog() {
       <Modal.Body>
         <div className="list-timeline list-timeline-skin-light padding-30">
           <div className="list-timeline-items">
-            {specifications.map((specification) => (
+            {specifications.map(specification => (
               <div className="list-timeline-item mb-3" key={specification.id}>
                 <span className="list-timeline-text">
                   <span

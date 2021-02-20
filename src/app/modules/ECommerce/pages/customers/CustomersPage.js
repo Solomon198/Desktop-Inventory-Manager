@@ -14,10 +14,10 @@ export function CustomersPage({ history }) {
     newCustomerButtonClick: () => {
       history.push("/e-commerce/customers/new");
     },
-    openEditCustomerDialog: (id) => {
+    openEditCustomerDialog: id => {
       history.push(`/e-commerce/customers/${id}/edit`);
     },
-    openDeleteCustomerDialog: (id) => {
+    openDeleteCustomerDialog: id => {
       history.push(`/e-commerce/customers/${id}/delete`);
     },
     openDeleteCustomersDialog: () => {
@@ -29,7 +29,7 @@ export function CustomersPage({ history }) {
     openUpdateCustomersStatusDialog: () => {
       history.push("/e-commerce/customers/updateStatus");
     }
-  }
+  };
 
   return (
     <CustomersUIProvider customersUIEvents={customersUIEvents}>

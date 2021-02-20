@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import {makeStyles} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import {
   GridList,
@@ -9,7 +9,10 @@ import {
   GridListTileBar,
   IconButton
 } from "@material-ui/core";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 const tileData = [
   {

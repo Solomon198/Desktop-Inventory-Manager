@@ -1,6 +1,6 @@
 import React from "react";
-import {useField} from "formik";
-import {FieldFeedbackLabel} from "./FieldFeedbackLabel";
+import { useField } from "formik";
+import { FieldFeedbackLabel } from "./FieldFeedbackLabel";
 
 const getFieldCSSClasses = (touched, errors) => {
   const classes = ["form-control", "form-control-solid"];

@@ -14,10 +14,7 @@ export function BreadCrumbs({ items }) {
       </Link>
       {items.map((item, index) => (
         <li className="breadcrumb-item" key={index}>
-          <Link
-            className="text-muted "
-            to={{ pathname: item.pathname }}
-          >
+          <Link className="text-muted " to={{ pathname: item.pathname }}>
             {item.title}
           </Link>
         </li>

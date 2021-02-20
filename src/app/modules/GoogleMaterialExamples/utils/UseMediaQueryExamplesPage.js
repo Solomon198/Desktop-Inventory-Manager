@@ -1,13 +1,16 @@
 /* eslint-disable no-restricted-imports */
 import React from "react";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import {useTheme} from "@material-ui/core/styles";
+import { useTheme } from "@material-ui/core/styles";
 import json2mq from "json2mq";
 import useMediaQueryTheme from "@material-ui/core/useMediaQuery";
 import mediaQuery from "css-mediaquery";
-import {ThemeProvider} from "@material-ui/styles";
-import {createMuiTheme} from "@material-ui/core/styles";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import { ThemeProvider } from "@material-ui/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 4
 function MyComponent4() {

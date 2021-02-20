@@ -10,7 +10,7 @@ export function SpecificationsGrouping() {
       openDeleteSpecificationsDialog:
         specsUIContext.openDeleteSpecificationsDialog,
       openFetchSpecificationsDialog:
-        specsUIContext.openFetchSpecificationsDialog,
+        specsUIContext.openFetchSpecificationsDialog
     };
   }, [specsUIContext]);
 

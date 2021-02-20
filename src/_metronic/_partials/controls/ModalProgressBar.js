@@ -1,7 +1,7 @@
 import React from "react";
 import { ProgressBar } from "react-bootstrap";
 
-export function ModalProgressBar({variant = "success"}) {
+export function ModalProgressBar({ variant = "success" }) {
   return (
     <ProgressBar
       variant={variant}

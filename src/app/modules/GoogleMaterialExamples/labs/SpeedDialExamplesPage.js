@@ -3,7 +3,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import {withStyles} from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import {
   Radio,
   RadioGroup,
@@ -19,8 +19,11 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import SpeedDial from "@material-ui/lab/SpeedDial";
 import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
 import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
-import {capitalize} from "@material-ui/core/utils";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import { capitalize } from "@material-ui/core/utils";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 1
 const styles = theme => ({
@@ -109,8 +112,10 @@ function SpeedDialExamplesPage(props) {
   return (
     <>
       <Notice icon="flaticon-warning font-primary">
-        <span>When pressed, a floating action button can display three to six related
-        actions in the form of a speed dial.</span>{" "}
+        <span>
+          When pressed, a floating action button can display three to six
+          related actions in the form of a speed dial.
+        </span>{" "}
         For more info please check the components's official{" "}
         <a
           target="_blank"

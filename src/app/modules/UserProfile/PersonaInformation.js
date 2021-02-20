@@ -12,7 +12,7 @@ function PersonaInformation(props) {
   const [loading, setloading] = useState(false);
   const [pic, setPic] = useState("");
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user, shallowEqual);
+  const user = useSelector(state => state.auth.user, shallowEqual);
   useEffect(() => {
     if (user.pic) {
       setPic(user.pic);
@@ -47,7 +47,7 @@ function PersonaInformation(props) {
     companyName: user.companyName,
     phone: user.phone,
     email: user.email,
-    website: user.website,
+    website: user.website
   };
   const Schema = Yup.object().shape({
     pic: Yup.string(),
@@ -58,9 +58,9 @@ function PersonaInformation(props) {
     email: Yup.string()
       .email("Wrong email format")
       .required("Email is required"),
-    website: Yup.string(),
+    website: Yup.string()
   });
-  const getInputClasses = (fieldname) => {
+  const getInputClasses = fieldname => {
     if (formik.touched[fieldname] && formik.errors[fieldname]) {
       return "is-invalid";
     }
@@ -79,7 +79,7 @@ function PersonaInformation(props) {
     },
     onReset: (values, { resetForm }) => {
       resetForm();
-    },
+    }
   });
   const getUserPic = () => {
     if (!pic) {
@@ -147,7 +147,7 @@ function PersonaInformation(props) {
                 style={{
                   backgroundImage: `url(${toAbsoluteUrl(
                     "/media/users/blank.png"
-                  )}`,
+                  )}`
                 }}
               >
                 <div

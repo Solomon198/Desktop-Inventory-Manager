@@ -5,7 +5,7 @@ import React, { useEffect, useMemo } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory, {
-  PaginationProvider,
+  PaginationProvider
 } from "react-bootstrap-table2-paginator";
 import * as actions from "../../../_redux/remarks/remarksActions";
 import { ActionsColumnFormatter } from "./column-formatters/ActionsColumnFormatter";
@@ -16,7 +16,7 @@ import {
   getHandlerTableChange,
   NoRecordsFoundMessage,
   PleaseWaitMessage,
-  sortCaret,
+  sortCaret
 } from "../../../../../../_metronic/_helpers";
 import { useRemarksUIContext } from "./RemarksUIContext";
 
@@ -31,13 +31,13 @@ export function RemarksTable() {
       setQueryParams: remarksUIContext.setQueryParams,
       productId: remarksUIContext.productId,
       openEditRemarkDialog: remarksUIContext.openEditRemarkDialog,
-      openDeleteRemarkDialog: remarksUIContext.openDeleteRemarkDialog,
+      openDeleteRemarkDialog: remarksUIContext.openDeleteRemarkDialog
     };
   }, [remarksUIContext]);
 
   // Getting curret state of products list from store (Redux)
   const { currentState } = useSelector(
-    (state) => ({ currentState: state.remarks }),
+    state => ({ currentState: state.remarks }),
     shallowEqual
   );
   const { totalCount, entities, listLoading } = currentState;
@@ -54,18 +54,18 @@ export function RemarksTable() {
       dataField: "id",
       text: "ID",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
       dataField: "text",
       text: "Text",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
       dataField: "dueDate",
       text: "Due date",
-      sort: false,
+      sort: false
     },
     {
       dataField: "action",
@@ -73,14 +73,14 @@ export function RemarksTable() {
       formatter: ActionsColumnFormatter,
       formatExtraData: {
         openEditRemarkDialog: remarksUIProps.openEditRemarkDialog,
-        openDeleteRemarkDialog: remarksUIProps.openDeleteRemarkDialog,
+        openDeleteRemarkDialog: remarksUIProps.openDeleteRemarkDialog
       },
       classes: "text-right pr-0",
       headerClasses: "text-right pr-3",
       style: {
-        minWidth: "100px",
-      },
-    },
+        minWidth: "100px"
+      }
+    }
   ];
 
   const paginationOptions = {
@@ -88,7 +88,7 @@ export function RemarksTable() {
     totalSize: totalCount,
     sizePerPageList: uiHelpers.sizePerPageList,
     sizePerPage: remarksUIProps.queryParams.pageSize,
-    page: remarksUIProps.queryParams.pageNumber,
+    page: remarksUIProps.queryParams.pageNumber
   };
   return (
     <>
@@ -115,7 +115,7 @@ export function RemarksTable() {
                 selectRow={getSelectRow({
                   entities,
                   ids: remarksUIProps.ids,
-                  setIds: remarksUIProps.setIds,
+                  setIds: remarksUIProps.setIds
                 })}
                 {...paginationTableProps}
               >

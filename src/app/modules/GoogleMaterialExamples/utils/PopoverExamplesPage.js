@@ -1,9 +1,12 @@
 /* eslint-disable no-restricted-imports */
 import React from "react";
-import {makeStyles} from "@material-ui/core/styles";
-import {Popover, Button, Typography} from "@material-ui/core";
-import PopupState, {bindTrigger, bindPopover} from "material-ui-popup-state";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import { makeStyles } from "@material-ui/core/styles";
+import { Popover, Button, Typography } from "@material-ui/core";
+import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 1
 const useStyles1 = makeStyles(theme => ({

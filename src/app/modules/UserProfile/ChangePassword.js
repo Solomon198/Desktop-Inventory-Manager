@@ -14,14 +14,14 @@ function ChangePassword(props) {
   const [loading, setloading] = useState(false);
   const [isError, setisError] = useState(false);
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user, shallowEqual);
+  const user = useSelector(state => state.auth.user, shallowEqual);
   useEffect(() => {}, [user]);
   // Methods
   const saveUser = (values, setStatus, setSubmitting) => {
     setloading(true);
     setisError(false);
     const updatedUser = Object.assign(user, {
-      password: values.password,
+      password: values.password
     });
     // user for update preparation
     dispatch(props.setUser(updatedUser));
@@ -45,7 +45,7 @@ function ChangePassword(props) {
   const initialValues = {
     currentPassword: "",
     password: "",
-    cPassword: "",
+    cPassword: ""
   };
   const Schema = Yup.object().shape({
     currentPassword: Yup.string().required("Current password is required"),
@@ -53,14 +53,14 @@ function ChangePassword(props) {
     cPassword: Yup.string()
       .required("Password confirmation is required")
       .when("password", {
-        is: (val) => (val && val.length > 0 ? true : false),
+        is: val => (val && val.length > 0 ? true : false),
         then: Yup.string().oneOf(
           [Yup.ref("password")],
           "Password and Confirm Password didn't match"
-        ),
-      }),
+        )
+      })
   });
-  const getInputClasses = (fieldname) => {
+  const getInputClasses = fieldname => {
     if (formik.touched[fieldname] && formik.errors[fieldname]) {
       return "is-invalid";
     }
@@ -79,7 +79,7 @@ function ChangePassword(props) {
     },
     onReset: (values, { resetForm }) => {
       resetForm();
-    },
+    }
   });
 
   return (

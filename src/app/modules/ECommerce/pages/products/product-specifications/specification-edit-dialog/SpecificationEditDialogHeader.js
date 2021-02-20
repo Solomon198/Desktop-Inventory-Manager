@@ -8,9 +8,9 @@ export function SpecificationEditDialogHeader({ id }) {
   const [title, setTitle] = useState("");
   // Specs Redux state
   const { specificationForEdit, actionsLoading } = useSelector(
-    (state) => ({
+    state => ({
       specificationForEdit: state.specifications.specificationForEdit,
-      actionsLoading: state.specifications.actionsLoading,
+      actionsLoading: state.specifications.actionsLoading
     }),
     shallowEqual
   );

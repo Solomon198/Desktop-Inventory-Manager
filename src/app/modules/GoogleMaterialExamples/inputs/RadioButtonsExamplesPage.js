@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-restricted-imports */
 import React from "react";
-import {makeStyles, withStyles} from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import {
   Radio,
   RadioGroup,
@@ -10,10 +10,13 @@ import {
   FormControl,
   FormLabel
 } from "@material-ui/core";
-import {green} from "@material-ui/core/colors";
+import { green } from "@material-ui/core/colors";
 import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 1
 const useStyles = makeStyles(theme => ({

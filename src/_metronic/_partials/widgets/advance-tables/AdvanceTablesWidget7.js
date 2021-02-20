@@ -24,7 +24,7 @@ export function AdvanceTablesWidget7({ className }) {
           <Tab.Container defaultActiveKey={key}>
             <Nav
               as="ul"
-              onSelect={(_key) => setKey(_key)}
+              onSelect={_key => setKey(_key)}
               className="nav nav-pills nav-pills-sm nav-dark-75"
             >
               <Nav.Item className="nav-item" as="li">

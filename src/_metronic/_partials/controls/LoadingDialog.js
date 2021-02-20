@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {Portal} from "react-portal";
+import React, { useEffect, useState } from "react";
+import { Portal } from "react-portal";
 
 const animationStartClass = "dialog-shown";
 const animationEndClass = "dialog-hidden";

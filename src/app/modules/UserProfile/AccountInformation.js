@@ -11,7 +11,7 @@ function AccountInformation(props) {
   // Fields
   const [loading, setloading] = useState(false);
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user, shallowEqual);
+  const user = useSelector(state => state.auth.user, shallowEqual);
   useEffect(() => {}, [user]);
 
   // Methods
@@ -25,8 +25,8 @@ function AccountInformation(props) {
       communication: {
         email: values.communicationEmail,
         sms: values.communicationSMS,
-        phone: values.communicationPhone,
-      },
+        phone: values.communicationPhone
+      }
     });
     // user for update preparation
     dispatch(props.setUser(updatedUser));
@@ -53,7 +53,7 @@ function AccountInformation(props) {
     timeZone: user.timeZone,
     communicationEmail: user.communication.email,
     communicationSMS: user.communication.sms,
-    communicationPhone: user.communication.phone,
+    communicationPhone: user.communication.phone
   };
   const Schema = Yup.object().shape({
     username: Yup.string().required("Username is required"),
@@ -64,9 +64,9 @@ function AccountInformation(props) {
     timeZone: Yup.string(),
     communicationEmail: Yup.bool(),
     communicationSMS: Yup.bool(),
-    communicationPhone: Yup.bool(),
+    communicationPhone: Yup.bool()
   });
-  const getInputClasses = (fieldname) => {
+  const getInputClasses = fieldname => {
     if (formik.touched[fieldname] && formik.errors[fieldname]) {
       return "is-invalid";
     }
@@ -85,7 +85,7 @@ function AccountInformation(props) {
     },
     onReset: (values, { resetForm }) => {
       resetForm();
-    },
+    }
   });
 
   return (

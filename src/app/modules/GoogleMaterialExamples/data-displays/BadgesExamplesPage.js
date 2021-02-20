@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-imports */
 import React from "react";
-import {makeStyles, withStyles} from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import {
   Badge,
   IconButton,
@@ -16,7 +16,10 @@ import {
 } from "@material-ui/core";
 import MailIcon from "@material-ui/icons/Mail";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 1
 const useStyles1 = makeStyles(theme => ({

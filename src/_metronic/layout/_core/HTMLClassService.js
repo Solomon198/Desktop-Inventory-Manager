@@ -1,5 +1,5 @@
 import objectPath from "object-path";
-import {toAbsoluteUrl} from "../../_helpers";
+import { toAbsoluteUrl } from "../../_helpers";
 
 export class HtmlClassService {
   // Public properties
@@ -108,9 +108,14 @@ export class HtmlClassService {
    * Init Layout
    */
   initLayout() {
-    const selfBodyBackgroundImage = objectPath.get(this.config, "self.body.backgroundImage");
+    const selfBodyBackgroundImage = objectPath.get(
+      this.config,
+      "self.body.backgroundImage"
+    );
     if (selfBodyBackgroundImage) {
-      const backgroundImageUrl = `${toAbsoluteUrl("/media/" + selfBodyBackgroundImage)}`;
+      const backgroundImageUrl = `${toAbsoluteUrl(
+        "/media/" + selfBodyBackgroundImage
+      )}`;
       document.body.style.backgroundImage = `url("${backgroundImageUrl}")`;
     }
 
@@ -130,7 +135,10 @@ export class HtmlClassService {
    * Init Header
    */
   initHeader() {
-    const headerSelfFixedMobile  = objectPath.get(this.config, "header.self.fixed.mobile");
+    const headerSelfFixedMobile = objectPath.get(
+      this.config,
+      "header.self.fixed.mobile"
+    );
     if (headerSelfFixedMobile) {
       document.body.classList.add("header-mobile-fixed");
     }
@@ -149,7 +157,7 @@ export class HtmlClassService {
 
     // Fixed content head
     const subheaderFixed = objectPath.get(this.config, "subheader.fixed");
-    if (subheaderFixed ) {
+    if (subheaderFixed) {
       document.body.classList.add("subheader-fixed");
     }
 
@@ -213,8 +221,11 @@ export class HtmlClassService {
       document.body.classList.add("aside-static");
     }
 
-		// Aside Secondary
-    const asideSecondaryDisplay = objectPath.get(this.config, "aside.secondary.display");
+    // Aside Secondary
+    const asideSecondaryDisplay = objectPath.get(
+      this.config,
+      "aside.secondary.display"
+    );
     if (asideSecondaryDisplay) {
       document.body.classList.add("aside-secondary-enabled");
     } else {
@@ -227,21 +238,29 @@ export class HtmlClassService {
     }
 
     // Default fixed
-    const asideSelfMinimizeDefault = objectPath.get(this.config, "aside.self.minimize.default");
+    const asideSelfMinimizeDefault = objectPath.get(
+      this.config,
+      "aside.self.minimize.default"
+    );
     if (asideSelfMinimizeDefault) {
       document.body.classList.add("aside-minimize");
     }
 
     // Menu
     // Dropdown Submenu
-    const asideMenuDropdown = objectPath.get(this.config, "aside.menu.dropdown");
+    const asideMenuDropdown = objectPath.get(
+      this.config,
+      "aside.menu.dropdown"
+    );
     if (asideMenuDropdown) {
       objectPath.push(this.classes, "aside_menu", "aside-menu-dropdown");
       this.attributes.aside_menu["data-menu-dropdown"] = "1";
     }
 
     // Scrollable Menu
-    this.attributes.aside_menu["data-menu-scroll"] = asideMenuDropdown ? "0" : "1";
+    this.attributes.aside_menu["data-menu-scroll"] = asideMenuDropdown
+      ? "0"
+      : "1";
 
     const asideSubmenuDHoverTimeout = objectPath.get(
       this.config,

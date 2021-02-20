@@ -28,12 +28,12 @@ export function CustomersFilter({ listLoading }) {
   const customersUIProps = useMemo(() => {
     return {
       queryParams: customersUIContext.queryParams,
-      setQueryParams: customersUIContext.setQueryParams,
+      setQueryParams: customersUIContext.setQueryParams
     };
   }, [customersUIContext]);
 
   // queryParams, setQueryParams,
-  const applyFilter = (values) => {
+  const applyFilter = values => {
     const newQueryParams = prepareFilter(customersUIProps.queryParams, values);
     if (!isEqual(newQueryParams, customersUIProps.queryParams)) {
       newQueryParams.pageNumber = 1;
@@ -48,9 +48,9 @@ export function CustomersFilter({ listLoading }) {
         initialValues={{
           status: "", // values => All=""/Susspended=0/Active=1/Pending=2
           type: "", // values => All=""/Business=0/Individual=1
-          searchText: "",
+          searchText: ""
         }}
-        onSubmit={(values) => {
+        onSubmit={values => {
           applyFilter(values);
         }}
       >
@@ -59,7 +59,7 @@ export function CustomersFilter({ listLoading }) {
           handleSubmit,
           handleBlur,
           handleChange,
-          setFieldValue,
+          setFieldValue
         }) => (
           <form onSubmit={handleSubmit} className="form form-label-right">
             <div className="form-group row">
@@ -69,7 +69,7 @@ export function CustomersFilter({ listLoading }) {
                   name="status"
                   placeholder="Filter by Status"
                   // TODO: Change this code
-                  onChange={(e) => {
+                  onChange={e => {
                     setFieldValue("status", e.target.value);
                     handleSubmit();
                   }}
@@ -91,7 +91,7 @@ export function CustomersFilter({ listLoading }) {
                   placeholder="Filter by Type"
                   name="type"
                   onBlur={handleBlur}
-                  onChange={(e) => {
+                  onChange={e => {
                     setFieldValue("type", e.target.value);
                     handleSubmit();
                   }}
@@ -113,7 +113,7 @@ export function CustomersFilter({ listLoading }) {
                   placeholder="Search"
                   onBlur={handleBlur}
                   value={values.searchText}
-                  onChange={(e) => {
+                  onChange={e => {
                     setFieldValue("searchText", e.target.value);
                     handleSubmit();
                   }}

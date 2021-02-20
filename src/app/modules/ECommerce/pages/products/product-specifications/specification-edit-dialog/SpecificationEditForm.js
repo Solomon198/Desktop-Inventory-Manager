@@ -8,7 +8,7 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import {
   Select,
-  Input,
+  Input
 } from "../../../../../../../_metronic/_partials/controls";
 import { SPECIFICATIONS_DICTIONARY } from "../SpecificationsUIHelper";
 
@@ -18,14 +18,14 @@ const SpecificationEditSchema = Yup.object().shape({
     .min(2, "Minimum 2 symbols")
     .max(50, "Maximum 50 symbols")
     .required("Value is required"),
-  specId: Yup.number().required("Specification type is required"),
+  specId: Yup.number().required("Specification type is required")
 });
 
 export function SpecificationEditForm({
   saveSpecification,
   specification,
   actionsLoading,
-  onHide,
+  onHide
 }) {
   return (
     <>
@@ -33,7 +33,7 @@ export function SpecificationEditForm({
         enableReinitialize={true}
         initialValues={specification}
         validationSchema={SpecificationEditSchema}
-        onSubmit={(values) => {
+        onSubmit={values => {
           saveSpecification(values);
         }}
       >
@@ -49,7 +49,7 @@ export function SpecificationEditForm({
                 <div className="form-group row">
                   <div className="col-lg-12">
                     <Select name="specId" label="Specification Type">
-                      {SPECIFICATIONS_DICTIONARY.map((spec) => (
+                      {SPECIFICATIONS_DICTIONARY.map(spec => (
                         <option key={spec.id} value={spec.id}>
                           {spec.name}
                         </option>

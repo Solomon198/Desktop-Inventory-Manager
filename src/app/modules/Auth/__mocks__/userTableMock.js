@@ -28,33 +28,33 @@ export default [
         someoneAddsYouAsAsAConnection: true,
         uponNewOrder: false,
         newMembershipApproval: false,
-        memberRegistration: true,
+        memberRegistration: true
       },
       updatesFromKeenthemes: {
         newsAboutKeenthemesProductsAndFeatureUpdates: false,
         tipsOnGettingMoreOutOfKeen: false,
         thingsYouMissedSindeYouLastLoggedIntoKeen: true,
         newsAboutMetronicOnPartnerProductsAndOtherServices: true,
-        tipsOnMetronicBusinessProducts: true,
-      },
+        tipsOnMetronicBusinessProducts: true
+      }
     },
     communication: {
       email: true,
       sms: true,
-      phone: false,
+      phone: false
     },
     address: {
       addressLine: "L-12-20 Vertex, Cybersquare",
       city: "San Francisco",
       state: "California",
-      postCode: "45000",
+      postCode: "45000"
     },
     socialNetworks: {
       linkedIn: "https://linkedin.com/admin",
       facebook: "https://facebook.com/admin",
       twitter: "https://twitter.com/admin",
-      instagram: "https://instagram.com/admin",
-    },
+      instagram: "https://instagram.com/admin"
+    }
   },
   {
     id: 2,
@@ -76,7 +76,7 @@ export default [
     communication: {
       email: true,
       sms: true,
-      phone: false,
+      phone: false
     },
     emailSettings: {
       emailNotification: true,
@@ -87,28 +87,28 @@ export default [
         someoneAddsYouAsAsAConnection: true,
         uponNewOrder: false,
         newMembershipApproval: false,
-        memberRegistration: true,
+        memberRegistration: true
       },
       updatesFromKeenthemes: {
         newsAboutKeenthemesProductsAndFeatureUpdates: false,
         tipsOnGettingMoreOutOfKeen: false,
         thingsYouMissedSindeYouLastLoggedIntoKeen: true,
         newsAboutMetronicOnPartnerProductsAndOtherServices: true,
-        tipsOnMetronicBusinessProducts: true,
-      },
+        tipsOnMetronicBusinessProducts: true
+      }
     },
     address: {
       addressLine: "3487  Ingram Road",
       city: "Greensboro",
       state: "North Carolina",
-      postCode: "27409",
+      postCode: "27409"
     },
     socialNetworks: {
       linkedIn: "https://linkedin.com/user",
       facebook: "https://facebook.com/user",
       twitter: "https://twitter.com/user",
-      instagram: "https://instagram.com/user",
-    },
+      instagram: "https://instagram.com/user"
+    }
   },
   {
     id: 3,
@@ -130,7 +130,7 @@ export default [
     communication: {
       email: true,
       sms: true,
-      phone: false,
+      phone: false
     },
     emailSettings: {
       emailNotification: true,
@@ -141,27 +141,27 @@ export default [
         someoneAddsYouAsAsAConnection: true,
         uponNewOrder: false,
         newMembershipApproval: false,
-        memberRegistration: true,
+        memberRegistration: true
       },
       updatesFromKeenthemes: {
         newsAboutKeenthemesProductsAndFeatureUpdates: false,
         tipsOnGettingMoreOutOfKeen: false,
         thingsYouMissedSindeYouLastLoggedIntoKeen: true,
         newsAboutMetronicOnPartnerProductsAndOtherServices: true,
-        tipsOnMetronicBusinessProducts: true,
-      },
+        tipsOnMetronicBusinessProducts: true
+      }
     },
     address: {
       addressLine: "1467  Griffin Street",
       city: "Phoenix",
       state: "Arizona",
-      postCode: "85012",
+      postCode: "85012"
     },
     socialNetworks: {
       linkedIn: "https://linkedin.com/guest",
       facebook: "https://facebook.com/guest",
       twitter: "https://twitter.com/guest",
-      instagram: "https://instagram.com/guest",
-    },
-  },
+      instagram: "https://instagram.com/guest"
+    }
+  }
 ];

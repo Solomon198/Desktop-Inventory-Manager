@@ -1,6 +1,6 @@
 import React from "react";
-import {Jumbotron, Container, Button} from "react-bootstrap";
-import {Notice, KTCodeExample} from "../../../_metronic/_partials/controls";
+import { Jumbotron, Container, Button } from "react-bootstrap";
+import { Notice, KTCodeExample } from "../../../_metronic/_partials/controls";
 
 export default class JumbotronExamplesPage extends React.Component {
   render() {

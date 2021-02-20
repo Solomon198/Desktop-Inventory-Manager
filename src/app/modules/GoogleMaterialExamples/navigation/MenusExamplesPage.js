@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-imports */
 import React from "react";
-import {makeStyles, withStyles} from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import {
   Menu,
   Button,
@@ -23,7 +23,10 @@ import DraftsIcon from "@material-ui/icons/Drafts";
 import SendIcon from "@material-ui/icons/Send";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import PriorityHighIcon from "@material-ui/icons/PriorityHigh";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 2
 const useStyles2 = makeStyles(theme => ({

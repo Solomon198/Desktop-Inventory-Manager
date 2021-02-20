@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-imports */
 import React from "react";
 import PropTypes from "prop-types";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   ListItem,
   List,
@@ -36,8 +36,11 @@ import CommentIcon from "@material-ui/icons/Comment";
 import WifiIcon from "@material-ui/icons/Wifi";
 import BluetoothIcon from "@material-ui/icons/Bluetooth";
 import StarIcon from "@material-ui/icons/Star";
-import {FixedSizeList} from "react-window";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import { FixedSizeList } from "react-window";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 1
 const useStyles1 = makeStyles(theme => ({

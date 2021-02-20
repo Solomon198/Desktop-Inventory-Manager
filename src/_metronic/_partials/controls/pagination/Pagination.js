@@ -1,6 +1,6 @@
 import React from "react";
-import {PaginationLinks} from "./PaginationLinks";
-import {PaginationToolbar} from "./PaginationToolbar";
+import { PaginationLinks } from "./PaginationLinks";
+import { PaginationToolbar } from "./PaginationToolbar";
 
 export function Pagination(props) {
   const { children, isLoading, paginationProps } = props;

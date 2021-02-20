@@ -2,7 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Draggable from "react-draggable";
-import {makeStyles, withStyles, useTheme} from "@material-ui/core/styles";
+import { makeStyles, withStyles, useTheme } from "@material-ui/core/styles";
 import {
   Dialog,
   DialogTitle,
@@ -37,7 +37,10 @@ import { blue } from "@material-ui/core/colors";
 import PersonIcon from "@material-ui/icons/Person";
 import AddIcon from "@material-ui/icons/Add";
 import CloseIcon from "@material-ui/icons/Close";
-import {Notice, KTCodeExample} from "../../../../_metronic/_partials/controls";
+import {
+  Notice,
+  KTCodeExample
+} from "../../../../_metronic/_partials/controls";
 
 // Example 1
 const emails = ["username@gmail.com", "user02@gmail.com"];

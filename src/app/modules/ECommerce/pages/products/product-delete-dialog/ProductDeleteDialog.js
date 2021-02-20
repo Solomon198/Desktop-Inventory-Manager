@@ -12,14 +12,14 @@ export function ProductDeleteDialog({ id, show, onHide }) {
   const productsUIProps = useMemo(() => {
     return {
       setIds: productsUIContext.setIds,
-      queryParams: productsUIContext.queryParams,
+      queryParams: productsUIContext.queryParams
     };
   }, [productsUIContext]);
 
   // Products Redux state
   const dispatch = useDispatch();
   const { isLoading } = useSelector(
-    (state) => ({ isLoading: state.products.actionsLoading }),
+    state => ({ isLoading: state.products.actionsLoading }),
     shallowEqual
   );
 
