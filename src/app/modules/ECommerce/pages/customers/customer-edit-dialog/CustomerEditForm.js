@@ -2,45 +2,45 @@
 // Data validation is based on Yup
 // Please, be familiar with article first:
 // https://hackernoon.com/react-form-validation-with-formik-and-yup-8b76bda62e10
-import React from 'react';
-import { Modal } from 'react-bootstrap';
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
+import React from "react";
+import { Modal } from "react-bootstrap";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
 import {
   Input,
   Select,
-  DatePickerField,
-} from '../../../../../../_metronic/_partials/controls';
+  DatePickerField
+} from "../../../../../../_metronic/_partials/controls";
 
 // Validation schema
 const CustomerEditSchema = Yup.object().shape({
   title: Yup.string()
-    .min(2, 'Mininum 2 symbols')
-    .max(20, 'Maximum 20 symbols')
-    .required('Title is required'),
+    .min(2, "Mininum 2 symbols")
+    .max(20, "Maximum 20 symbols")
+    .required("Title is required"),
   firstName: Yup.string()
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Firstname is required'),
+    .min(3, "Minimum 3 symbols")
+    .max(50, "Maximum 50 symbols")
+    .required("Firstname is required"),
   lastName: Yup.string()
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Lastname is required'),
+    .min(3, "Minimum 3 symbols")
+    .max(50, "Maximum 50 symbols")
+    .required("Lastname is required"),
   email: Yup.string()
-    .email('Invalid email')
-    .required('Email is required'),
-  userName: Yup.string().required('Username is required'),
+    .email("Invalid email")
+    .required("Email is required"),
+  userName: Yup.string().required("Username is required"),
   dateOfBbirth: Yup.mixed()
     .nullable(false)
-    .required('Date of Birth is required'),
-  ipAddress: Yup.string().required('IP Address is required'),
+    .required("Date of Birth is required"),
+  ipAddress: Yup.string().required("IP Address is required")
 });
 
 export function CustomerEditForm({
   saveCustomer,
   customer,
   actionsLoading,
-  onHide,
+  onHide
 }) {
   return (
     <>
@@ -48,7 +48,7 @@ export function CustomerEditForm({
         enableReinitialize={true}
         initialValues={customer}
         validationSchema={CustomerEditSchema}
-        onSubmit={(values) => {
+        onSubmit={values => {
           saveCustomer(values);
         }}
       >
