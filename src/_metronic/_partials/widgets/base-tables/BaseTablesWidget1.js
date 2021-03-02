@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react';
-import SVG from 'react-inlinesvg';
-import { toAbsoluteUrl } from '../../../_helpers';
+import React, { useState } from "react";
+import SVG from "react-inlinesvg";
+import { toAbsoluteUrl } from "../../../_helpers";
 
 export function BaseTablesWidget1({ className }) {
   const tabs = {
-    tab1: 'kt_tab_pane_3_1',
-    tab2: 'kt_tab_pane_3_2',
-    tab3: 'kt_tab_pane_3_3',
+    tab1: "kt_tab_pane_3_1",
+    tab2: "kt_tab_pane_3_2",
+    tab3: "kt_tab_pane_3_3"
   };
   const [activeTab, setActiveTab] = useState(tabs.tab1);
 
@@ -31,7 +31,7 @@ export function BaseTablesWidget1({ className }) {
               <li className="nav-item">
                 <a
                   className={`nav-link py-2 px-4 ${activeTab === tabs.tab1 &&
-                    'active'}`}
+                    "active"}`}
                   data-toggle="tab"
                   href={`#${tabs.tab1}`}
                   onClick={() => setActiveTab(tabs.tab1)}
@@ -42,7 +42,7 @@ export function BaseTablesWidget1({ className }) {
               <li className="nav-item">
                 <a
                   className={`nav-link py-2 px-4 ${activeTab === tabs.tab2 &&
-                    'active'}`}
+                    "active"}`}
                   data-toggle="tab"
                   href={`#${tabs.tab2}`}
                   onClick={() => setActiveTab(tabs.tab2)}
@@ -53,7 +53,7 @@ export function BaseTablesWidget1({ className }) {
               <li className="nav-item">
                 <a
                   className={`nav-link py-2 px-4 ${activeTab === tabs.tab3 &&
-                    'active'}`}
+                    "active"}`}
                   data-toggle="tab"
                   href={`#${tabs.tab3}`}
                   onClick={() => setActiveTab(tabs.tab3)}
@@ -73,12 +73,12 @@ export function BaseTablesWidget1({ className }) {
             <table className="table table-borderless table-vertical-center">
               <thead>
                 <tr>
-                  <th className="p-0" style={{ width: '50px' }} />
-                  <th className="p-0" style={{ minWidth: '150px' }} />
-                  <th className="p-0" style={{ minWidth: '120px' }} />
-                  <th className="p-0" style={{ minWidth: '70px' }} />
-                  <th className="p-0" style={{ minWidth: '70px' }} />
-                  <th className="p-0" style={{ minWidth: '50px' }} />
+                  <th className="p-0" style={{ width: "50px" }} />
+                  <th className="p-0" style={{ minWidth: "150px" }} />
+                  <th className="p-0" style={{ minWidth: "120px" }} />
+                  <th className="p-0" style={{ minWidth: "70px" }} />
+                  <th className="p-0" style={{ minWidth: "70px" }} />
+                  <th className="p-0" style={{ minWidth: "50px" }} />
                 </tr>
               </thead>
               <tbody>
@@ -88,7 +88,7 @@ export function BaseTablesWidget1({ className }) {
                       <span className="symbol-label">
                         <SVG
                           className="h-75 align-self-end"
-                          src={toAbsoluteUrl('/media/svg/avatars/001-boy.svg')}
+                          src={toAbsoluteUrl("/media/svg/avatars/001-boy.svg")}
                         ></SVG>
                       </span>
                     </div>
@@ -123,7 +123,7 @@ export function BaseTablesWidget1({ className }) {
                       <span className="svg-icon svg-icon-md svg-icon-success">
                         <SVG
                           src={toAbsoluteUrl(
-                            '/media/svg/icons/Navigation/Arrow-right.svg'
+                            "/media/svg/icons/Navigation/Arrow-right.svg"
                           )}
                         ></SVG>
                       </span>
@@ -137,7 +137,7 @@ export function BaseTablesWidget1({ className }) {
                         <SVG
                           className="h-75 align-self-end"
                           src={toAbsoluteUrl(
-                            '/media/svg/avatars/018-girl-9.svg'
+                            "/media/svg/avatars/018-girl-9.svg"
                           )}
                         ></SVG>
                       </span>
@@ -173,7 +173,7 @@ export function BaseTablesWidget1({ className }) {
                       <span className="svg-icon svg-icon-md svg-icon-success">
                         <SVG
                           src={toAbsoluteUrl(
-                            '/media/svg/icons/Navigation/Arrow-right.svg'
+                            "/media/svg/icons/Navigation/Arrow-right.svg"
                           )}
                         ></SVG>
                       </span>
@@ -187,7 +187,7 @@ export function BaseTablesWidget1({ className }) {
                         <SVG
                           className="h-75 align-self-end"
                           src={toAbsoluteUrl(
-                            '/media/svg/avatars/047-girl-25.svg'
+                            "/media/svg/avatars/047-girl-25.svg"
                           )}
                         ></SVG>
                       </span>
@@ -221,7 +221,7 @@ export function BaseTablesWidget1({ className }) {
                       <span className="svg-icon svg-icon-md svg-icon-success">
                         <SVG
                           src={toAbsoluteUrl(
-                            '/media/svg/icons/Navigation/Arrow-right.svg'
+                            "/media/svg/icons/Navigation/Arrow-right.svg"
                           )}
                         ></SVG>
                       </span>
@@ -235,7 +235,7 @@ export function BaseTablesWidget1({ className }) {
                         <SVG
                           className="h-75 align-self-end"
                           src={toAbsoluteUrl(
-                            '/media/svg/avatars/014-girl-7.svg'
+                            "/media/svg/avatars/014-girl-7.svg"
                           )}
                         ></SVG>
                       </span>
@@ -271,7 +271,7 @@ export function BaseTablesWidget1({ className }) {
                       <span className="svg-icon svg-icon-md svg-icon-success">
                         <SVG
                           src={toAbsoluteUrl(
-                            '/media/svg/icons/Navigation/Arrow-right.svg'
+                            "/media/svg/icons/Navigation/Arrow-right.svg"
                           )}
                         ></SVG>
                       </span>
@@ -285,7 +285,7 @@ export function BaseTablesWidget1({ className }) {
                         <SVG
                           className="h-75 align-self-end"
                           src={toAbsoluteUrl(
-                            '/media/svg/avatars/043-boy-18.svg'
+                            "/media/svg/avatars/043-boy-18.svg"
                           )}
                         ></SVG>
                       </span>
@@ -319,7 +319,7 @@ export function BaseTablesWidget1({ className }) {
                       <span className="svg-icon svg-icon-md svg-icon-success">
                         <SVG
                           src={toAbsoluteUrl(
-                            '/media/svg/icons/Navigation/Arrow-right.svg'
+                            "/media/svg/icons/Navigation/Arrow-right.svg"
                           )}
                         ></SVG>
                       </span>

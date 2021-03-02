@@ -1,7 +1,7 @@
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
-import React from 'react';
-import { Dropdown } from 'react-bootstrap';
-import { DropdownCustomToggler, DropdownMenu3 } from '../../dropdowns';
+import React from "react";
+import { Dropdown } from "react-bootstrap";
+import { DropdownCustomToggler, DropdownMenu3 } from "../../dropdowns";
 
 export function ListsWidget10({ className }) {
   return (
