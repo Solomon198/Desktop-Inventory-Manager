@@ -1,7 +1,7 @@
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
-import React from "react";
-import { Dropdown } from "react-bootstrap";
-import { DropdownCustomToggler, DropdownMenu3 } from "../../dropdowns";
+import React from 'react';
+import { Dropdown } from 'react-bootstrap';
+import { DropdownCustomToggler, DropdownMenu3 } from '../../dropdowns';
 
 export function ListsWidget10({ className }) {
   return (
@@ -10,7 +10,8 @@ export function ListsWidget10({ className }) {
         {/* Header */}
         <div className="card-header border-0">
           <h3 className="card-title font-weight-bolder text-dark">
-            Notifications
+            {/* Notifications */}
+            SALES
           </h3>
 
           <div className="card-toolbar">

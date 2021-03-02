@@ -1,10 +1,10 @@
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
-import React, { useMemo, useEffect } from "react";
-import objectPath from "object-path";
-import ApexCharts from "apexcharts";
-import SVG from "react-inlinesvg";
-import { toAbsoluteUrl } from "../../../_helpers";
-import { useHtmlClassService } from "../../../layout";
+import React, { useMemo, useEffect } from 'react';
+import objectPath from 'object-path';
+import ApexCharts from 'apexcharts';
+import SVG from 'react-inlinesvg';
+import { toAbsoluteUrl } from '../../../_helpers';
+import { useHtmlClassService } from '../../../layout';
 
 export function StatsWidget11({ className, symbolShape, baseColor }) {
   const uiService = useHtmlClassService();
@@ -12,15 +12,15 @@ export function StatsWidget11({ className, symbolShape, baseColor }) {
     return {
       colorsGrayGray500: objectPath.get(
         uiService.config,
-        "js.colors.gray.gray500"
+        'js.colors.gray.gray500'
       ),
       colorsGrayGray200: objectPath.get(
         uiService.config,
-        "js.colors.gray.gray200"
+        'js.colors.gray.gray200'
       ),
       colorsGrayGray300: objectPath.get(
         uiService.config,
-        "js.colors.gray.gray300"
+        'js.colors.gray.gray300'
       ),
       colorsThemeBaseSuccess: objectPath.get(
         uiService.config,
@@ -30,12 +30,12 @@ export function StatsWidget11({ className, symbolShape, baseColor }) {
         uiService.config,
         `js.colors.theme.light.${baseColor}`
       ),
-      fontFamily: objectPath.get(uiService.config, "js.fontFamily")
+      fontFamily: objectPath.get(uiService.config, 'js.fontFamily'),
     };
   }, [uiService, baseColor]);
 
   useEffect(() => {
-    const element = document.getElementById("kt_stats_widget_11_chart");
+    const element = document.getElementById('kt_stats_widget_11_chart');
 
     if (!element) {
       return;
@@ -53,19 +53,20 @@ export function StatsWidget11({ className, symbolShape, baseColor }) {
     <div className={`card card-custom ${className}`}>
       <div className="card-body p-0">
         <div className="d-flex align-items-center justify-content-between card-spacer flex-grow-1">
-          <span
+          {/* <span
             className={`symbol ${symbolShape} symbol-50 symbol-light-${baseColor} mr-2`}
           >
             <span className="symbol-label">
               <span className={`svg-icon svg-icon-xl svg-icon-${baseColor}`}>
                 <SVG
                   src={toAbsoluteUrl(
-                    "/media/svg/icons/Layout/Layout-4-blocks.svg"
+                    '/media/svg/icons/Layout/Layout-4-blocks.svg'
                   )}
                 ></SVG>
               </span>
             </span>
-          </span>
+          </span> */}
+          <p style={{ fontSize: '16px' }}>EXPENSES</p>
           <div className="d-flex flex-column text-right">
             <span className="text-dark-75 font-weight-bolder font-size-h3">
               750$
@@ -78,7 +79,7 @@ export function StatsWidget11({ className, symbolShape, baseColor }) {
         <div
           id="kt_stats_widget_11_chart"
           className="card-rounded-bottom"
-          style={{ height: "150px" }}
+          style={{ height: '150px' }}
         ></div>
       </div>
     </div>
@@ -89,74 +90,74 @@ function getChartOption(layoutProps) {
   const options = {
     series: [
       {
-        name: "Net Profit",
-        data: [40, 40, 30, 30, 35, 35, 50]
-      }
+        name: 'Net Profit',
+        data: [40, 40, 30, 30, 35, 35, 50],
+      },
     ],
     chart: {
-      type: "area",
+      type: 'area',
       height: 150,
       toolbar: {
-        show: false
+        show: false,
       },
       zoom: {
-        enabled: false
+        enabled: false,
       },
       sparkline: {
-        enabled: true
-      }
+        enabled: true,
+      },
     },
     plotOptions: {},
     legend: {
-      show: false
+      show: false,
     },
     dataLabels: {
-      enabled: false
+      enabled: false,
     },
     fill: {
-      type: "solid",
-      opacity: 1
+      type: 'solid',
+      opacity: 1,
     },
     stroke: {
-      curve: "smooth",
+      curve: 'smooth',
       show: true,
       width: 3,
-      colors: [layoutProps.colorsThemeBaseSuccess]
+      colors: [layoutProps.colorsThemeBaseSuccess],
     },
     xaxis: {
-      categories: ["Feb", "Mar", "Apr", "May", "Jun", "Aug", "Sep"],
+      categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Aug', 'Sep'],
       axisBorder: {
-        show: false
+        show: false,
       },
       axisTicks: {
-        show: false
+        show: false,
       },
       labels: {
         show: false,
         style: {
           colors: layoutProps.colorsGrayGray500,
-          fontSize: "12px",
-          fontFamily: layoutProps.fontFamily
-        }
+          fontSize: '12px',
+          fontFamily: layoutProps.fontFamily,
+        },
       },
       crosshairs: {
         show: false,
-        position: "front",
+        position: 'front',
         stroke: {
           color: layoutProps.colorsGrayGray300,
           width: 1,
-          dashArray: 3
-        }
+          dashArray: 3,
+        },
       },
       tooltip: {
         enabled: true,
         formatter: undefined,
         offsetY: 0,
         style: {
-          fontSize: "12px",
-          fontFamily: layoutProps.fontFamily
-        }
-      }
+          fontSize: '12px',
+          fontFamily: layoutProps.fontFamily,
+        },
+      },
     },
     yaxis: {
       min: 0,
@@ -165,49 +166,49 @@ function getChartOption(layoutProps) {
         show: false,
         style: {
           colors: layoutProps.colorsGrayGray500,
-          fontSize: "12px",
-          fontFamily: layoutProps.fontFamily
-        }
-      }
+          fontSize: '12px',
+          fontFamily: layoutProps.fontFamily,
+        },
+      },
     },
     states: {
       normal: {
         filter: {
-          type: "none",
-          value: 0
-        }
+          type: 'none',
+          value: 0,
+        },
       },
       hover: {
         filter: {
-          type: "none",
-          value: 0
-        }
+          type: 'none',
+          value: 0,
+        },
       },
       active: {
         allowMultipleDataPointsSelection: false,
         filter: {
-          type: "none",
-          value: 0
-        }
-      }
+          type: 'none',
+          value: 0,
+        },
+      },
     },
     tooltip: {
       style: {
-        fontSize: "12px",
-        fontFamily: layoutProps.fontFamily
+        fontSize: '12px',
+        fontFamily: layoutProps.fontFamily,
       },
       y: {
         formatter: function(val) {
-          return "$" + val + " thousands";
-        }
-      }
+          return '$' + val + ' thousands';
+        },
+      },
     },
     colors: [layoutProps.colorsThemeLightSuccess],
     markers: {
       colors: [layoutProps.colorsThemeLightSuccess],
       strokeColor: [layoutProps.colorsThemeBaseSuccess],
-      strokeWidth: 3
-    }
+      strokeWidth: 3,
+    },
   };
   return options;
 }
