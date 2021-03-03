@@ -1,65 +1,68 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useMemo, useState } from "react";
-import objectPath from "object-path";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import SVG from "react-inlinesvg";
-import { useHtmlClassService } from "../../_core/MetronicLayout";
-import { toAbsoluteUrl } from "../../../_helpers";
-import { AsideSearch } from "./AsideSearch";
-import { AsideMenu } from "./aside-menu/AsideMenu";
-import { LanguageSelectorDropdown } from "../extras/dropdowns/LanguageSelectorDropdown";
-import { QuickUserToggler } from "../extras/QuickUserToggler";
-import { Brand } from "../brand/Brand";
-import { KTUtil } from "./../../../_assets/js/components/util";
+import React, { useMemo, useState } from 'react';
+import objectPath from 'object-path';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import SVG from 'react-inlinesvg';
+import { useHtmlClassService } from '../../_core/MetronicLayout';
+import { toAbsoluteUrl } from '../../../_helpers';
+import { AsideSearch } from './AsideSearch';
+import { AsideMenu } from './aside-menu/AsideMenu';
+import { LanguageSelectorDropdown } from '../extras/dropdowns/LanguageSelectorDropdown';
+import { QuickUserToggler } from '../extras/QuickUserToggler';
+import { Brand } from '../brand/Brand';
+import { KTUtil } from './../../../_assets/js/components/util';
 
 export function Aside() {
   const uiService = useHtmlClassService();
 
   const layoutProps = useMemo(() => {
     return {
-      asideClassesFromConfig: uiService.getClasses("aside", true),
+      asideClassesFromConfig: uiService.getClasses('aside', true),
       asideSecondaryDisplay: objectPath.get(
         uiService.config,
-        "aside.secondary.display"
+        'aside.secondary.display'
       ),
       asideSelfMinimizeToggle: objectPath.get(
         uiService.config,
-        "aside.self.minimize.toggle"
+        'aside.self.minimize.toggle'
       ),
       extrasSearchDisplay: objectPath.get(
         uiService.config,
-        "extras.search.display"
+        'extras.search.display'
       ),
       extrasNotificationsDisplay: objectPath.get(
         uiService.config,
-        "extras.notifications.display"
+        'extras.notifications.display'
       ),
       extrasQuickActionsDisplay: objectPath.get(
         uiService.config,
-        "extras.quick-actions.display"
+        'extras.quick-actions.display'
       ),
       extrasQuickPanelDisplay: objectPath.get(
         uiService.config,
-        "extras.quick-panel.display"
+        'extras.quick-panel.display'
       ),
       extrasLanguagesDisplay: objectPath.get(
         uiService.config,
-        "extras.languages.display"
+        'extras.languages.display'
       ),
-      extrasUserDisplay: objectPath.get(uiService.config, "extras.user.display")
+      extrasUserDisplay: objectPath.get(
+        uiService.config,
+        'extras.user.display'
+      ),
     };
   }, [uiService]);
 
   const tabs = {
-    tabId1: "kt_aside_tab_1",
-    tabId2: "kt_aside_tab_2"
+    tabId1: 'kt_aside_tab_1',
+    tabId2: 'kt_aside_tab_2',
   };
   const [activeTab, setActiveTab] = useState(tabs.tabId1);
-  const handleTabChange = id => {
+  const handleTabChange = (id) => {
     setActiveTab(id);
     const asideWorkspace = KTUtil.find(
-      document.getElementById("kt_aside"),
-      ".aside-secondary .aside-workspace"
+      document.getElementById('kt_aside'),
+      '.aside-secondary .aside-workspace'
     );
     if (asideWorkspace) {
       KTUtil.scrollUpdate(asideWorkspace);
@@ -94,9 +97,9 @@ export function Aside() {
                   overlay={<Tooltip id="latest-project">Dashboard</Tooltip>}
                 >
                   <a
-                    href="#"
+                    href="/dashboard"
                     className={`nav-link btn btn-icon btn-clean btn-lg ${activeTab ===
-                      tabs.tabId1 && "active"}`}
+                      tabs.tabId1 && 'active'}`}
                     data-toggle="tab"
                     data-target={`#${tabs.tabId1}`}
                     role="tab"
@@ -105,7 +108,7 @@ export function Aside() {
                     <span className="svg-icon svg-icon-lg">
                       <SVG
                         src={toAbsoluteUrl(
-                          "/media/svg/icons/Layout/Layout-4-blocks.svg"
+                          '/media/svg/icons/Layout/Layout-4-blocks.svg'
                         )}
                       />
                     </span>
@@ -130,7 +133,7 @@ export function Aside() {
                   <a
                     href="#"
                     className={`nav-link btn btn-icon btn-clean btn-lg ${activeTab ===
-                      tabs.tabId2 && "active"}`}
+                      tabs.tabId2 && 'active'}`}
                     data-toggle="tab"
                     data-target={`#${tabs.tabId2}`}
                     onClick={() => handleTabChange(tabs.tabId2)}
@@ -139,7 +142,7 @@ export function Aside() {
                     <span className="svg-icon svg-icon-lg">
                       <SVG
                         src={toAbsoluteUrl(
-                          "/media/svg/icons/Communication/Group.svg"
+                          '/media/svg/icons/Communication/Group.svg'
                         )}
                       />
                     </span>
@@ -171,7 +174,7 @@ export function Aside() {
                     <span className="svg-icon svg-icon-lg">
                       <SVG
                         src={toAbsoluteUrl(
-                          "/media/svg/icons/Media/Equalizer.svg"
+                          '/media/svg/icons/Media/Equalizer.svg'
                         )}
                       />
                     </span>
@@ -322,7 +325,7 @@ export function Aside() {
                 >
                   <span className="svg-icon svg-icon-lg">
                     <SVG
-                      src={toAbsoluteUrl("/media/svg/icons/General/Search.svg")}
+                      src={toAbsoluteUrl('/media/svg/icons/General/Search.svg')}
                     />
                   </span>
                 </a>
@@ -348,7 +351,7 @@ export function Aside() {
                 >
                   <span className="svg-icon svg-icon-lg">
                     <SVG
-                      src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}
+                      src={toAbsoluteUrl('/media/svg/icons/Design/Layers.svg')}
                     />
                   </span>
                 </a>
@@ -372,7 +375,7 @@ export function Aside() {
                   <span className="svg-icon svg-icon-lg">
                     <SVG
                       src={toAbsoluteUrl(
-                        "/media/svg/icons/Media/Equalizer.svg"
+                        '/media/svg/icons/Media/Equalizer.svg'
                       )}
                     />
                   </span>
@@ -400,7 +403,7 @@ export function Aside() {
                   <span className="svg-icon svg-icon-lg">
                     <SVG
                       src={toAbsoluteUrl(
-                        "/media/svg/icons/Layout/Layout-4-blocks.svg"
+                        '/media/svg/icons/Layout/Layout-4-blocks.svg'
                       )}
                     />
                   </span>
