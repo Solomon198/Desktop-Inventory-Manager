@@ -2,61 +2,64 @@
 // Toastr
 //
 
+
+
+
 // Base
 .toast {
-  transition: $transition;
-  background-position: 15px center #{"/*rtl:calc(100% - 15px) center*/"} !important;
-  border: 0;
-  background-color: $gray-100;
-  color: $dark-75;
-  box-shadow: $box-shadow !important;
-
-  &:hover {
     transition: $transition;
+    background-position: 15px center #{'/*rtl:calc(100% - 15px) center*/'} !important;
+	border: 0;
+    background-color: $gray-100;
+    color: $dark-75;
     box-shadow: $box-shadow !important;
-    opacity: 1;
-  }
 
-  .toast-close-button {
-    outline: none !important;
-    font-size: 0;
-
-    &:before {
-      @include ki(get($ki-types, close));
-      font-size: 0.9rem;
+    &:hover {
+        transition: $transition;
+        box-shadow: $box-shadow !important;
+        opacity: 1;
     }
-  }
 
-  // Title
-  .toast-title {
-    font-size: 1.1rem;
-    font-weight: 500;
-    margin-bottom: 0.25rem;
-  }
+	.toast-close-button {
+   		outline: none !important;
+	    font-size: 0;
 
-  // Message
-  .toast-message {
-    font-size: 1rem;
-  }
+        &:before {
+            @include ki(get($ki-types, close));
+        	font-size: 0.9rem;
+        }
+	}
 
-  // States
-  &.toast-success {
-    background-color: $success;
-    color: $success-inverse;
-  }
+	// Title
+	.toast-title {
+		font-size: 1.1rem;
+		font-weight: 500;
+		margin-bottom: 0.25rem;
+	}
 
-  &.toast-info {
-    background-color: $info;
-    color: $info-inverse;
-  }
+	// Message
+	.toast-message {
+		font-size: 1rem;
+	}
 
-  &.toast-warning {
-    background-color: $warning;
-    color: $warning-inverse;
-  }
+    // States
+    &.toast-success {
+        background-color: $success;
+        color: $success-inverse;
+    }
 
-  &.toast-error {
-    background-color: $danger;
-    color: $danger-inverse;
-  }
+    &.toast-info {
+        background-color: $info;
+        color: $info-inverse;
+    }
+
+    &.toast-warning {
+        background-color: $warning;
+        color: $warning-inverse;
+    }
+
+    &.toast-error {
+        background-color: $danger;
+        color: $danger-inverse;
+    }
 }
