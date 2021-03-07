@@ -58,7 +58,7 @@ export function StatsWidget10({ className, symbolShape, baseColor }) {
         {/* begin::Body */}
         <div className="card-body p-0">
           <div className="d-flex align-items-center justify-content-between card-spacer flex-grow-1">
-            <span
+            {/* <span
               className={`symbol ${symbolShape} symbol-50 symbol-light${baseColor} mr-2`}
             >
               <span className="symbol-label">
@@ -68,7 +68,8 @@ export function StatsWidget10({ className, symbolShape, baseColor }) {
                   ></SVG>
                 </span>
               </span>
-            </span>
+            </span> */}
+            <p style={{ fontSize: "16px" }}>PROFIT AND LOSS</p>
             <div className="d-flex flex-column text-right">
               <span className="text-dark-75 font-weight-bolder font-size-h3">
                 +259

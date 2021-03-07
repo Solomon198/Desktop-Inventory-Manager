@@ -87,16 +87,14 @@ export function Aside() {
                 data-placement="rigth"
                 data-container="body"
                 data-boundary="window"
-                title="Latest Project"
+                title="Dashboard"
               >
                 <OverlayTrigger
                   placement="right"
-                  overlay={
-                    <Tooltip id="latest-project">Latest Project</Tooltip>
-                  }
+                  overlay={<Tooltip id="latest-project">Dashboard</Tooltip>}
                 >
                   <a
-                    href="#"
+                    href="/dashboard"
                     className={`nav-link btn btn-icon btn-clean btn-lg ${activeTab ===
                       tabs.tabId1 && "active"}`}
                     data-toggle="tab"
@@ -123,13 +121,11 @@ export function Aside() {
                 data-placement="rigth"
                 data-container="body"
                 data-boundary="window"
-                title="Metronic Features"
+                title="Settings"
               >
                 <OverlayTrigger
                   placement="right"
-                  overlay={
-                    <Tooltip id="metronic-features">Metronic Features</Tooltip>
-                  }
+                  overlay={<Tooltip id="metronic-features">Settings</Tooltip>}
                 >
                   <a
                     href="#"
@@ -159,13 +155,11 @@ export function Aside() {
                 data-placement="rigth"
                 data-container="body"
                 data-boundary="window"
-                title="Latest Reports"
+                title="Organization"
               >
                 <OverlayTrigger
                   placement="right"
-                  overlay={
-                    <Tooltip id="latest-reports">Latest Reports</Tooltip>
-                  }
+                  overlay={<Tooltip id="latest-reports">Organization</Tooltip>}
                 >
                   <a
                     href="#"
@@ -187,7 +181,7 @@ export function Aside() {
               {/* end::Item */}
 
               {/* begin::Item */}
-              <li
+              {/* <li
                 className="nav-item mb-3"
                 data-toggle="tooltip"
                 data-placement="rigth"
@@ -213,17 +207,17 @@ export function Aside() {
                     <span className="svg-icon svg-icon-lg">
                       <SVG
                         src={toAbsoluteUrl(
-                          "/media/svg/icons/General/Shield-check.svg"
+                          '/media/svg/icons/General/Shield-check.svg'
                         )}
                       />
                     </span>
                   </a>
                 </OverlayTrigger>
-              </li>
+              </li> */}
               {/* end::Item */}
 
               {/* begin::Item */}
-              <li
+              {/* <li
                 className="nav-item mb-3"
                 data-toggle="tooltip"
                 data-placement="rigth"
@@ -246,16 +240,16 @@ export function Aside() {
                   >
                     <span className="svg-icon svg-icon-lg">
                       <SVG
-                        src={toAbsoluteUrl("/media/svg/icons/Home/Library.svg")}
+                        src={toAbsoluteUrl('/media/svg/icons/Home/Library.svg')}
                       />
                     </span>
                   </a>
                 </OverlayTrigger>
-              </li>
+              </li> */}
               {/* end::Item */}
 
               {/* begin::Item */}
-              <li
+              {/* <li
                 className="nav-item mb-3"
                 data-toggle="tooltip"
                 data-placement="rigth"
@@ -281,13 +275,13 @@ export function Aside() {
                     <span className="svg-icon svg-icon-lg">
                       <SVG
                         src={toAbsoluteUrl(
-                          "/media/svg/icons/Files/File-plus.svg"
+                          '/media/svg/icons/Files/File-plus.svg'
                         )}
                       />
                     </span>
                   </a>
                 </OverlayTrigger>
-              </li>
+              </li> */}
               {/* end::Item */}
             </ul>
             {/* end::Nav */}
@@ -391,7 +385,9 @@ export function Aside() {
             {layoutProps.extrasQuickPanelDisplay && (
               <OverlayTrigger
                 placement="right"
-                overlay={<Tooltip id="toggle-quick-panel">Quick Panel</Tooltip>}
+                overlay={
+                  <Tooltip id="toggle-quick-panel">Notifications</Tooltip>
+                }
               >
                 <a
                   href="#"

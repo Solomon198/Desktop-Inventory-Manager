@@ -53,9 +53,7 @@ export function MixedWidget4({ className, chartColor = "danger" }) {
       >
         {/* begin::Header */}
         <div className="card-header border-0 pt-5">
-          <h3 className="card-title font-weight-bolder text-white">
-            Sales Progress
-          </h3>
+          <h3 className="card-title font-weight-bolder text-white">INCOME</h3>
           <div className="card-toolbar">
             <Dropdown className="dropdown-inline" alignRight>
               <Dropdown.Toggle
@@ -90,13 +88,13 @@ export function MixedWidget4({ className, chartColor = "danger" }) {
             <div className="row m-0">
               <div className="col px-8 py-6 mr-8">
                 <div className="font-size-sm text-muted font-weight-bold">
-                  Average Sale
+                  OPEN INVOICES
                 </div>
                 <div className="font-size-h4 font-weight-bolder">$650</div>
               </div>
               <div className="col px-8 py-6">
                 <div className="font-size-sm text-muted font-weight-bold">
-                  Commission
+                  OVERDUE INVOICES
                 </div>
                 <div className="font-size-h4 font-weight-bolder">$233,600</div>
               </div>
@@ -106,7 +104,7 @@ export function MixedWidget4({ className, chartColor = "danger" }) {
             <div className="row m-0">
               <div className="col px-8 py-6 mr-8">
                 <div className="font-size-sm text-muted font-weight-bold">
-                  Annual Taxes
+                  PAID LAST 30 DAYS
                 </div>
                 <div className="font-size-h4 font-weight-bolder">$29,004</div>
               </div>

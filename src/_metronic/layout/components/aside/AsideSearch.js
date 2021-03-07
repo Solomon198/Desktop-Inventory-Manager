@@ -4,17 +4,32 @@ import React from "react";
 import SVG from "react-inlinesvg";
 import { Dropdown } from "react-bootstrap";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import { toAbsoluteUrl } from "../../../_helpers";
+import { toAbsoluteUrl, checkIsActive } from "../../../_helpers";
 import {
   DropdownItemToggler,
   DropdownMenu4
 } from "../../../_partials/dropdowns";
 
+import { useLocation } from "react-router";
+import { NavLink } from "react-router-dom";
+// import { checkIsActive } from '../../../../_helpers';
+
 export function AsideSearch({ isActive }) {
+  const location = useLocation();
+  const getMenuItemActive = (url, hasSubmenu = false) => {
+    return checkIsActive(location, url)
+      ? ` ${!hasSubmenu && "menu-item-active"} menu-item-open `
+      : "";
+  };
+
   return (
+    // <div
+    //   className={`tab-pane p-3 px-lg-7 py-lg-5 fade ${isActive &&
+    //     'show active'}`}
+    // >
     <div
-      className={`tab-pane p-3 px-lg-7 py-lg-5 fade ${isActive &&
-        "show active"}`}
+      className={`menu-item ${getMenuItemActive("/e-commerce/customers")}`}
+      aria-haspopup="true"
     >
       {/* begin::Form */}
       <form className="p-2 p-lg-3">
@@ -68,38 +83,9 @@ export function AsideSearch({ isActive }) {
       </form>
       {/* end::Form */}
 
-      <h3 className="p-2 p-lg-3 my-1 my-lg-3">Projects</h3>
+      {/* <h3 className="p-2 p-lg-3 my-1 my-lg-3">Projects</h3> */}
 
       {/* begin::List */}
-
-      {/* begin::Item */}
-      <div className="list-item hoverable p-2 p-lg-3 mb-2">
-        <div className="d-flex align-items-center">
-          {/* begin::Symbol */}
-          <div className="symbol symbol-40 symbol-light mr-4">
-            <span className="symbol-label bg-hover-white">
-              <span className="svg-icon h-50 align-self-center">
-                <SVG src={toAbsoluteUrl("/media/svg/misc/006-plurk.svg")} />
-              </span>
-            </span>
-          </div>
-          {/* end::Symbol */}
-          {/* begin::Text */}
-          <div className="d-flex flex-column flex-grow-1 mr-2">
-            <span className="text-dark-75 font-size-h6 mb-0">
-              Bravio Application
-            </span>
-            <a
-              href="#"
-              className="text-muted text-hover-primary font-weight-bold"
-            >
-              By James
-            </a>
-          </div>
-          {/* begin::End */}
-        </div>
-      </div>
-      {/* end::Item */}
 
       {/* begin::Item */}
       <div className="list-item hoverable p-2 p-lg-3 mb-2">
@@ -115,15 +101,47 @@ export function AsideSearch({ isActive }) {
           {/* end::Symbol */}
           {/* begin::Text */}
           <div className="d-flex flex-column flex-grow-1 mr-2">
-            <span className="text-dark-75 font-size-h6 mb-0">
-              Quick Reports
-            </span>
-            <a
+            <span className="text-dark-75 font-size-h6 mb-0">Sales</span>
+            {/* <a
               href="#"
               className="text-muted text-hover-primary font-weight-bold"
             >
               By Ana
-            </a>
+            </a> */}
+          </div>
+          {/* begin::End */}
+        </div>
+      </div>
+      {/* end::Item */}
+
+      {/* begin::Item */}
+      <div className="list-item hoverable p-2 p-lg-3 mb-2">
+        <div className="d-flex align-items-center">
+          {/* begin::Symbol */}
+          <div className="symbol symbol-40 symbol-light mr-4">
+            <span className="symbol-label bg-hover-white">
+              <span className="svg-icon h-50 align-self-center">
+                <SVG src={toAbsoluteUrl("/media/svg/misc/006-plurk.svg")} />
+              </span>
+            </span>
+          </div>
+          {/* end::Symbol */}
+          {/* begin::Text */}
+          <div className="d-flex flex-column flex-grow-1 mr-2">
+            {/* <span className="text-dark-75 font-size-h6 mb-0">Products</span> */}
+
+            <NavLink className="menu-link" to="/e-commerce/products">
+              <i className="menu-bullet menu-bullet-dot">
+                <span />
+              </i>
+              <span className="menu-text">Products</span>
+            </NavLink>
+            {/* <a
+              href="#"
+              className="text-muted text-hover-primary font-weight-bold"
+            >
+              By James
+            </a> */}
           </div>
           {/* begin::End */}
         </div>
@@ -146,15 +164,13 @@ export function AsideSearch({ isActive }) {
           {/* end::Symbol */}
           {/* begin::Text */}
           <div className="d-flex flex-column flex-grow-1 mr-2">
-            <span className="text-dark-75 font-size-h6 mb-0">
-              CRM Reporting Tool
-            </span>
-            <a
+            <span className="text-dark-75 font-size-h6 mb-0">Stocks</span>
+            {/* <a
               href="#"
               className="text-muted text-hover-primary font-weight-bold"
             >
               By Adam
-            </a>
+            </a> */}
           </div>
           {/* begin::End */}
         </div>
@@ -177,15 +193,21 @@ export function AsideSearch({ isActive }) {
           {/* end::Symbol */}
           {/* begin::Text */}
           <div className="d-flex flex-column flex-grow-1 mr-2">
-            <span className="text-dark-75 font-size-h6 mb-0">
-              DB Management
-            </span>
-            <a
+            {/* <span className="text-dark-75 font-size-h6 mb-0">Customers</span> */}
+
+            <NavLink className="menu-link" to="/e-commerce/customers">
+              <i className="menu-bullet menu-bullet-dot">
+                <span />
+              </i>
+              <span className="menu-text">Customers</span>
+            </NavLink>
+
+            {/* <a
               href="#"
               className="text-muted text-hover-primary font-weight-bold"
             >
               By CRA Team
-            </a>
+            </a> */}
           </div>
           {/* begin::End */}
         </div>
@@ -208,15 +230,13 @@ export function AsideSearch({ isActive }) {
           {/* end::Symbol */}
           {/* begin::Text */}
           <div className="d-flex flex-column flex-grow-1 mr-2">
-            <span className="text-dark-75 font-size-h6 mb-0">
-              Cloud Service
-            </span>
-            <a
+            <span className="text-dark-75 font-size-h6 mb-0">Employees</span>
+            {/* <a
               href="#"
               className="text-muted text-hover-primary font-weight-bold"
             >
               By iC Team
-            </a>
+            </a> */}
           </div>
           {/* begin::End */}
         </div>
@@ -237,15 +257,13 @@ export function AsideSearch({ isActive }) {
           {/* end::Symbol */}
           {/* begin::Text */}
           <div className="d-flex flex-column flex-grow-1 mr-2">
-            <span className="text-dark-75 font-size-h6 mb-0">
-              Disqus Project
-            </span>
-            <a
+            <span className="text-dark-75 font-size-h6 mb-0">Expenses</span>
+            {/* <a
               href="#"
               className="text-muted text-hover-primary font-weight-bold"
             >
               By PV Inc.
-            </a>
+            </a> */}
           </div>
           {/* begin::End */}
         </div>
@@ -266,15 +284,13 @@ export function AsideSearch({ isActive }) {
           {/* end::Symbol */}
           {/* begin::Text */}
           <div className="d-flex flex-column flex-grow-1 mr-2">
-            <span className="text-dark-75 font-size-h6 mb-0">
-              Plurk Meeting
-            </span>
-            <a
+            <span className="text-dark-75 font-size-h6 mb-0">Debt Manager</span>
+            {/* <a
               href="#"
               className="text-muted text-hover-primary font-weight-bold"
             >
               By Plurk Team.
-            </a>
+            </a> */}
           </div>
           {/* begin::End */}
         </div>
