@@ -4,7 +4,7 @@
 
 In the project directory, you can run:
 
-### `npm start` / `yarn start`
+### `Yarn start:web:dev`
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -12,96 +12,46 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
-### `npm test` / `yarn test`
+### `Yarn start:desktop:dev`
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Runs the app in Electron development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### `npm run build` / `yarn build`
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
+
+
+### `yarn build:desktop:prod`
+
+Builds the Electron app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.<br>
+
+
+### `yarn build`
 
 Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `yarn lint`
 
-### `npm run serve` / `yarn serve`
+Runs linting for application in the `src` directory, you can also run  `Yarn lint:fix` to fix any issue fixable.
 
-**Note: You have to `build` app before serving it.**
+### `yarn format`
 
-Runs built app on `http://localhost:5000` and `http://{your.network.ip}:5000`
+Runs prettier format for codebase and you can specify  `yarn format:watch` to watch for changes.
 
-In order to change public url you have to update:
+# TODO's  [ phase 1 ]
 
-1. `package.json`
+- Create Realm Schemas for each modules of inventory app inside the directory  `src/realm/schemas`. 
 
-   ```diff
-   -  "homepage": "https://keenthemes.com/metronic/preview/react",
-   +  "homepage": "https://my.domain/my/app",
-       "scripts": {
-   -     "serve": "cp-cli build _site/metronic/preview/react && serve",
-   +     "serve": "cp-cli build _site/my/app && serve",
-   ```
+- Create functionality for adding Products and Customers Using Realm
 
-2. `serve.json`
+- Create functionality for Adding products Sales Using the Realm
 
-   ```diff
-      "public": "_site",
-      "redirects": [
-        {
-          "source": "/",
-   -      "destination": "/metronic/preview/react"
-   +      "destination": "/my/app"
-        }
-      ],
-      "rewrites": [
-        {
-   -      "source": "/metronic/preview/react/**",
-   +      "source": "/my/app/**",
-   -      "destination": "/metronic/preview/react/index.html"
-   +      "destination": "/my/app/index.html"
-        }
-   ```
+- Create functionality for adding Stocks Using Realm
 
-For more details check official [create-react-app deployment](https://facebook.github.io/create-react-app/docs/deployment#building-for-relative-paths) and [serve-handler options](https://github.com/zeit/serve-handler#options).
-
-### `npm run lint` / `yarn lint`
-
-Runs eslint on `src` directory.
-
-### `npm run format` / `yarn format`
-
-Runs prettier on `src` directory.
-
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- Create functionality for adding employees

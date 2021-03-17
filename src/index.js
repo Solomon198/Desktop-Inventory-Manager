@@ -13,12 +13,12 @@ import App from "./app/App";
 import "./index.scss"; // Standard version
 // import "./sass/style.react.rtl.css"; // RTL version
 import "./_metronic/_assets/plugins/keenthemes-icons/font/ki.css";
-import "socicon/css/socicon.css";
-import "@fortawesome/fontawesome-free/css/all.min.css";
+// import "socicon/css/socicon.css";
+// import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./_metronic/_assets/plugins/flaticon/flaticon.css";
 import "./_metronic/_assets/plugins/flaticon2/flaticon.css";
 // Datepicker
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker.css";
 import {
   MetronicLayoutProvider,
   MetronicSplashScreenProvider,

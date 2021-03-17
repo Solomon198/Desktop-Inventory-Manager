@@ -12,6 +12,12 @@
 # redactor
 /.idea
 
+#realm 
+default.realm
+default.realm.lock
+default.realm.note
+default.ream.management
+
 # assets
 /public/media
 /src/_metronic/_assets/js
