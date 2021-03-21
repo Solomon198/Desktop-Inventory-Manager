@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
-
-type CustomerProperties = {
-  _id: 'objectId';
+import * as mongoose from 'mongoose'
+export type CustomerProperties = {
+  _id: string;
 
   title: string;
 
