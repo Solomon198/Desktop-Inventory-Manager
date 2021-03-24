@@ -53,30 +53,24 @@ export function CustomersTable() {
   }, [customersUIProps.queryParams, dispatch]);
   // Table columns
   const columns = [
+  
     {
-      dataField: "id",
-      text: "ID",
-      sort: true,
-      sortCaret: sortCaret,
-      headerSortingClasses
-    },
-    {
-      dataField: "firstName",
+      dataField: "first_name",
       text: "Firstname",
       sort: true,
       sortCaret: sortCaret,
       headerSortingClasses
     },
     {
-      dataField: "lastName",
+      dataField: "last_name",
       text: "Lastname",
       sort: true,
       sortCaret: sortCaret,
       headerSortingClasses
     },
     {
-      dataField: "email",
-      text: "Email",
+      dataField: "phone_no",
+      text: "Phone",
       sort: true,
       sortCaret: sortCaret,
       headerSortingClasses
@@ -87,16 +81,16 @@ export function CustomersTable() {
       sort: false,
       sortCaret: sortCaret
     },
+    // {
+    //   dataField: "status",
+    //   text: "Status",
+    //   sort: true,
+    //   sortCaret: sortCaret,
+    //   formatter: columnFormatters.StatusColumnFormatter,
+    //   headerSortingClasses
+    // },
     {
-      dataField: "status",
-      text: "Status",
-      sort: true,
-      sortCaret: sortCaret,
-      formatter: columnFormatters.StatusColumnFormatter,
-      headerSortingClasses
-    },
-    {
-      dataField: "type",
+      dataField: "cus_type",
       text: "Type",
       sort: true,
       sortCaret: sortCaret,
@@ -125,6 +119,7 @@ export function CustomersTable() {
     sizePerPage: customersUIProps.queryParams.pageSize,
     page: customersUIProps.queryParams.pageNumber
   };
+
   return (
     <>
       <PaginationProvider pagination={paginationFactory(paginationOptions)}>
@@ -140,7 +135,7 @@ export function CustomersTable() {
                 classes="table table-head-custom table-vertical-center overflow-hidden"
                 bootstrap4
                 remote
-                keyField="id"
+                keyField="title"
                 data={entities === null ? [] : entities}
                 columns={columns}
                 defaultSorted={uiHelpers.defaultSorted}
@@ -154,7 +149,7 @@ export function CustomersTable() {
                 })}
                 {...paginationTableProps}
               >
-                <PleaseWaitMessage entities={entities} />
+                <PleaseWaitMessage entities={ entities} />
                 <NoRecordsFoundMessage entities={entities} />
               </BootstrapTable>
             </Pagination>

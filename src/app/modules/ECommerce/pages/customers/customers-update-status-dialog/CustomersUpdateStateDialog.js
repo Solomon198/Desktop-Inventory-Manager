@@ -53,22 +53,22 @@ export function CustomersUpdateStateDialog({ show, onHide }) {
   const [status, setStatus] = useState(0);
 
   const dispatch = useDispatch();
-  const updateStatus = () => {
-    // server request for update customers status by selected ids
-    dispatch(actions.updateCustomersStatus(customersUIProps.ids, status)).then(
-      () => {
-        // refresh list after deletion
-        dispatch(actions.fetchCustomers(customersUIProps.queryParams)).then(
-          () => {
-            // clear selections list
-            customersUIProps.setIds([]);
-            // closing delete modal
-            onHide();
-          }
-        );
-      }
-    );
-  };
+  // const updateStatus = () => {
+  //   // server request for update customers status by selected ids
+  //   dispatch(actions.updateCustomersStatus(customersUIProps.ids, status)).then(
+  //     () => {
+  //       // refresh list after deletion
+  //       dispatch(actions.fetchCustomers(customersUIProps.queryParams)).then(
+  //         () => {
+  //           // clear selections list
+  //           customersUIProps.setIds([]);
+  //           // closing delete modal
+  //           onHide();
+  //         }
+  //       );
+  //     }
+  //   );
+  // };
 
   return (
     <Modal
@@ -143,7 +143,7 @@ export function CustomersUpdateStateDialog({ show, onHide }) {
           </button>
           <button
             type="button"
-            onClick={updateStatus}
+            // onClick={updateStatus}
             className="btn btn-primary btn-elevate"
           >
             Update Status

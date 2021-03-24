@@ -18,7 +18,7 @@ export function CustomerEditDialogHeader({ id }) {
   useEffect(() => {
     let _title = id ? "" : "New Customer";
     if (customerForEdit && id) {
-      _title = `Edit customer '${customerForEdit.firstName} ${customerForEdit.lastName}'`;
+      _title = `Edit customer '${customerForEdit.first_name} ${customerForEdit.last_name}'`;
     }
 
     setTitle(_title);

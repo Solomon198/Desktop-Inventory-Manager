@@ -1,25 +1,38 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ESNext",
+    "module": "esnext",
+    "sourceMap": false,
+    "rootDir": "src",
+    "outDir": "src/dist",
+    "types": [
+      "node"
+    ],
+    "jsx": "react",
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "moduleResolution": "Node",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": true,
+    "allowJs": false,
     "skipLibCheck": true,
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
-    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "watch": true
   },
+  "compileOnSave": true,
+  "exclude": [
+    "node_modules"
+  ],
   "include": [
-    "src"
+    "src/realm",
+    "src/types"
   ]
 }

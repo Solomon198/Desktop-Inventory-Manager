@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 
 import { DebtManagerTypes } from '../../types/debtManager'; // typescript type validation for daily attendance
 

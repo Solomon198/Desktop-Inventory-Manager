@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 
 import { StockTypes } from '../../types/stock'; // typescript type validation for daily attendance
 

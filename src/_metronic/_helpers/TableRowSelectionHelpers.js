@@ -27,7 +27,7 @@ function groupingAllOnSelect(props) {
   const { isSelected, setIds, entities } = props;
   if (!isSelected) {
     const allIds = [];
-    entities.forEach(el => allIds.push(el.id));
+    entities.forEach(el => allIds.push(el._id));
     setIds(allIds);
   } else {
     setIds([]);
@@ -55,8 +55,8 @@ export function getSelectRow(props) {
       );
     },
     selectionRenderer: ({ rowIndex }) => {
-      const isSelected = ids.some(el => el === entities[rowIndex].id);
-      const props = { ids, setIds, customerId: entities[rowIndex].id };
+      const isSelected = ids.some(el => el === entities[rowIndex]._id);
+      const props = { ids, setIds, customerId: entities[rowIndex]._id };
       return (
         <SelectionCheckbox
           isSelected={isSelected}

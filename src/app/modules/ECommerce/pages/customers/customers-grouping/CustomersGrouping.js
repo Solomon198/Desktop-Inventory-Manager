@@ -36,7 +36,7 @@ export function CustomersGrouping() {
                 <i className="fa fa-trash"></i> Delete All
               </button>
               &nbsp;
-              <button
+              {/* <button
                 type="button"
                 className="btn btn-light-primary font-weight-bolder font-size-sm"
                 onClick={customersUIProps.openFetchCustomersDialog}
@@ -50,7 +50,7 @@ export function CustomersGrouping() {
                 onClick={customersUIProps.openUpdateCustomersStatusDialog}
               >
                 <i className="fa fa-sync-alt"></i> Update Status
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

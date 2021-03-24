@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 
 import { CustomerTypes } from '../../types/customer'; // typescript type validation for daily attendance
 
@@ -8,6 +7,7 @@ const CustomerSchema: CustomerTypes = {
   primaryKey: '_id',
 
   properties: {
+    
     _id: 'objectId',
 
     title: 'string?',

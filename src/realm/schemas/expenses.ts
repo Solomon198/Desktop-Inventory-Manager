@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 
 import { ExpenseTypes } from '../../types/expense'; // typescript type validation for daily attendance
 

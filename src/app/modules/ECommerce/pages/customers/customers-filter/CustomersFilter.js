@@ -63,8 +63,8 @@ export function CustomersFilter({ listLoading }) {
         }) => (
           <form onSubmit={handleSubmit} className="form form-label-right">
             <div className="form-group row">
-              <div className="col-lg-2">
-                <select
+              {/* <div className="col-lg-2"> */}
+                {/* <select
                   className="form-control"
                   name="status"
                   placeholder="Filter by Status"
@@ -72,7 +72,7 @@ export function CustomersFilter({ listLoading }) {
                   onChange={e => {
                     setFieldValue("status", e.target.value);
                     handleSubmit();
-                  }}
+                  }}d
                   onBlur={handleBlur}
                   value={values.status}
                 >
@@ -80,11 +80,11 @@ export function CustomersFilter({ listLoading }) {
                   <option value="0">Susspended</option>
                   <option value="1">Active</option>
                   <option value="2">Pending</option>
-                </select>
-                <small className="form-text text-muted">
+                </select> */}
+                {/* <small className="form-text text-muted">
                   <b>Filter</b> by Status
                 </small>
-              </div>
+              </div> */}
               <div className="col-lg-2">
                 <select
                   className="form-control"

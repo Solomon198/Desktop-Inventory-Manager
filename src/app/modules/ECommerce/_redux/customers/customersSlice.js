@@ -49,7 +49,7 @@ export const customersSlice = createSlice({
     },
     // createCustomer
     customerCreated: (state, action) => {
-      state.ewactionsLoading = false;
+      state.actionsLoading = false;
       state.error = null;
       state.entities.push(action.payload.customer);
     },
@@ -58,7 +58,7 @@ export const customersSlice = createSlice({
       state.error = null;
       state.actionsLoading = false;
       state.entities = state.entities.map(entity => {
-        if (entity.id === action.payload.customer.id) {
+        if (entity._id === action.payload.customer._id) {
           return action.payload.customer;
         }
         return entity;
@@ -68,14 +68,14 @@ export const customersSlice = createSlice({
     customerDeleted: (state, action) => {
       state.error = null;
       state.actionsLoading = false;
-      state.entities = state.entities.filter(el => el.id !== action.payload.id);
+      state.entities = state.entities.filter(el => el._id !== action.payload._id);
     },
     // deleteCustomers
     customersDeleted: (state, action) => {
       state.error = null;
       state.actionsLoading = false;
       state.entities = state.entities.filter(
-        el => !action.payload.ids.includes(el.id)
+        el => !action.payload.ids.includes(el._id)
       );
     },
     // customersUpdateState

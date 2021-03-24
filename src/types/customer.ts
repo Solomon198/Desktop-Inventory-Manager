@@ -1,12 +1,14 @@
 /* eslint-disable prettier/prettier */
-import * as mongoose from 'mongoose'
+import * as mongoose from 'mongoose';
+
 export type CustomerProperties = {
-  _id: string;
+
+  _id: any;
 
   title: string;
 
   first_name: string;
-
+ 
   last_name: string;
 
   display_name: string;

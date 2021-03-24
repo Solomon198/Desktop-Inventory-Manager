@@ -11,29 +11,29 @@ import {
   Select,
   DatePickerField
 } from "../../../../../../_metronic/_partials/controls";
-
+import helperFuncs from '../../../../../../dist/realm/utils/helpers.func'
 // Validation schema
 const CustomerEditSchema = Yup.object().shape({
   title: Yup.string()
     .min(2, "Mininum 2 symbols")
     .max(20, "Maximum 20 symbols")
     .required("Title is required"),
-  firstName: Yup.string()
+  first_name: Yup.string()
     .min(3, "Minimum 3 symbols")
     .max(50, "Maximum 50 symbols")
     .required("Firstname is required"),
-  lastName: Yup.string()
+  last_name: Yup.string()
     .min(3, "Minimum 3 symbols")
     .max(50, "Maximum 50 symbols")
     .required("Lastname is required"),
   email: Yup.string()
     .email("Invalid email")
     .required("Email is required"),
-  userName: Yup.string().required("Username is required"),
-  dateOfBbirth: Yup.mixed()
-    .nullable(false)
-    .required("Date of Birth is required"),
-  ipAddress: Yup.string().required("IP Address is required")
+  display_name: Yup.string().required("Username is required"),
+  // dateOfBbirth: Yup.mixed()
+  //   .nullable(false)
+  //   .required("Date of Birth is required"),
+  ip_address: Yup.string().required("IP Address is required")
 });
 
 export function CustomerEditForm({
@@ -42,6 +42,9 @@ export function CustomerEditForm({
   actionsLoading,
   onHide
 }) {
+
+  customer = typeof(customer) === "object"? customer : {}
+
   return (
     <>
       <Formik
@@ -74,7 +77,7 @@ export function CustomerEditForm({
                   {/* First Name */}
                   <div className="col-lg-4">
                     <Field
-                      name="firstName"
+                      name="first_name"
                       component={Input}
                       placeholder="First Name"
                       label="First Name"
@@ -83,7 +86,7 @@ export function CustomerEditForm({
                   {/* Last Name */}
                   <div className="col-lg-4">
                     <Field
-                      name="lastName"
+                      name="last_name"
                       component={Input}
                       placeholder="Last Name"
                       label="Last Name"
@@ -95,7 +98,7 @@ export function CustomerEditForm({
                   {/* Login */}
                   <div className="col-lg-4">
                     <Field
-                      name="userName"
+                      name="login"
                       component={Input}
                       placeholder="Login"
                       label="Login"
@@ -113,7 +116,7 @@ export function CustomerEditForm({
                   {/* Mobile */}
                   <div className="col-lg-4">
                     <Field
-                      name="mobile"
+                      name="phone_no"
                       component={Input}
                       placeholder="Mobile"
                       label="Mobile"
@@ -131,7 +134,7 @@ export function CustomerEditForm({
                   {/* IP Address */}
                   <div className="col-lg-4">
                     <Field
-                      name="ipAddress"
+                      name="ip_address"
                       component={Input}
                       placeholder="IP Address"
                       label="IP Address"
@@ -141,7 +144,7 @@ export function CustomerEditForm({
                   {/* Display Name */}
                   <div className="col-lg-4">
                     <Field
-                      name="displayName"
+                      name="display_name"
                       component={Input}
                       placeholder="Display Name As"
                       label="Display Name"
@@ -160,14 +163,14 @@ export function CustomerEditForm({
                 <div className="form-group row">
                   {/* Gender */}
                   <div className="col-lg-4">
-                    <Select name="Gender" label="Gender">
+                    <Select name="gender" label="Gender">
                       <option value="Female">Female</option>
                       <option value="Male">Male</option>
                     </Select>
                   </div>
                   {/* Type */}
                   <div className="col-lg-4">
-                    <Select name="type" label="Type">
+                    <Select name="cus_type" label="Type">
                       <option value="0">Business</option>
                       <option value="1">Individual</option>
                     </Select>
@@ -186,7 +189,9 @@ export function CustomerEditForm({
               <> </>
               <button
                 type="submit"
-                onClick={() => handleSubmit()}
+                onClick={() => {
+                  handleSubmit();
+                }}
                 className="btn btn-primary btn-elevate"
               >
                 Save

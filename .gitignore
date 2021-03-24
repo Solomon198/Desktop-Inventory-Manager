@@ -12,11 +12,17 @@
 # redactor
 /.idea
 
+#documentation output
+docs
+
 #realm 
 default.realm
 default.realm.lock
 default.realm.note
 default.ream.management
+
+#debug files
+src/dist
 
 # assets
 /public/media

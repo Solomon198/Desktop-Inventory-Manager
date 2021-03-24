@@ -12,14 +12,23 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
-### `Yarn start:desktop:dev`
+### `Yarn start:desktop:dev:windows`
 
-Runs the app in Electron development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Runs the app in Electron development mode in a windows OS evironment<br>
 
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
+### `Yarn start:desktop:dev:linux`
+
+Runs the app in Electron development mode in a linux OS environment.<br>
+
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
+
+### `Yarn compile:tsc`
+
+Runs the typescript compiler for `.ts` files
 
 ### `yarn build:desktop:prod`
 
