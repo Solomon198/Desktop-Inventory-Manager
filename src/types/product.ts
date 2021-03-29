@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 
-type ProductProperties = {
-  _id: string;
+export type ProductProperties = {
+  _id: any;
 
   model: string;
 

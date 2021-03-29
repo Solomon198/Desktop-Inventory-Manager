@@ -7,8 +7,8 @@
     "scripts": {
         "start:web:dev": "yarn run concurrently \"react-scripts start\" \"yarn \" ",
         "start:desktop:dev:windows": " start yarn compile:tsc && concurrently \"yarn craco start\"  \"wait-on http://localhost:3000 && electron . --no-sandbox \"",
-        "start:desktop:dev:linux":"yarn craco start & wait-on http://localhost:3000 && electron . --no-sandbox",
-        "docs":" yarn run jsdoc src -r -c ./conf.json -d docs",
+        "start:desktop:dev:linux": "yarn craco start & wait-on http://localhost:3000 && electron . --no-sandbox",
+        "docs": " yarn run jsdoc src -r -c ./conf.json -d docs",
         "build": "react-scripts build",
         "build:desktop:prod": "craco build",
         "test": "craco test",

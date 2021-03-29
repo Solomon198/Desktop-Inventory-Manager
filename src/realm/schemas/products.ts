@@ -1,4 +1,3 @@
-
 import { ProductTypes } from '../../types/product'; // typescript type validation for daily attendance
 
 const ProductSchema: ProductTypes = {

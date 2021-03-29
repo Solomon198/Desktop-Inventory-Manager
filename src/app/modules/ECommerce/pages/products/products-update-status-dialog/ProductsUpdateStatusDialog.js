@@ -1,14 +1,14 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { Modal } from "react-bootstrap";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { ProductStatusCssClasses } from "../ProductsUIHelpers";
-import * as actions from "../../../_redux/products/productsActions";
-import { useProductsUIContext } from "../ProductsUIContext";
+import React, { useEffect, useState, useMemo } from 'react';
+import { Modal } from 'react-bootstrap';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { ProductStatusCssClasses } from '../ProductsUIHelpers';
+import * as actions from '../../../_redux/products/productsActions';
+import { useProductsUIContext } from '../ProductsUIContext';
 
 const selectedProducts = (entities, ids) => {
   const _products = [];
-  ids.forEach(id => {
-    const product = entities.find(el => el.id === id);
+  ids.forEach((id) => {
+    const product = entities.find((el) => el.id === id);
     if (product) {
       _products.push(product);
     }
@@ -23,15 +23,15 @@ export function ProductsUpdateStatusDialog({ show, onHide }) {
     return {
       ids: productsUIContext.ids,
       setIds: productsUIContext.setIds,
-      queryParams: productsUIContext.queryParams
+      queryParams: productsUIContext.queryParams,
     };
   }, [productsUIContext]);
 
   // Products Redux state
   const { products, isLoading } = useSelector(
-    state => ({
+    (state) => ({
       products: selectedProducts(state.products.entities, productsUIProps.ids),
-      isLoading: state.products.actionsLoading
+      isLoading: state.products.actionsLoading,
     }),
     shallowEqual
   );
@@ -47,22 +47,22 @@ export function ProductsUpdateStatusDialog({ show, onHide }) {
   const [status, setStatus] = useState(0);
 
   const dispatch = useDispatch();
-  const updateStatus = () => {
-    // server request for updateing product by ids
-    dispatch(actions.updateProductsStatus(productsUIProps.ids, status)).then(
-      () => {
-        // refresh list after deletion
-        dispatch(actions.fetchProducts(productsUIProps.queryParams)).then(
-          () => {
-            // clear selections list
-            productsUIProps.setIds([]);
-            // closing delete modal
-            onHide();
-          }
-        );
-      }
-    );
-  };
+  // const updateStatus = () => {
+  //   // server request for updateing product by ids
+  //   dispatch(actions.updateProductsStatus(productsUIProps.ids, status)).then(
+  //     () => {
+  //       // refresh list after deletion
+  //       dispatch(actions.fetchProducts(productsUIProps.queryParams)).then(
+  //         () => {
+  //           // clear selections list
+  //           productsUIProps.setIds([]);
+  //           // closing delete modal
+  //           onHide();
+  //         }
+  //       );
+  //     }
+  //   );
+  // };
 
   return (
     <Modal
@@ -83,17 +83,17 @@ export function ProductsUpdateStatusDialog({ show, onHide }) {
         )}
         <div className="list-timeline list-timeline-skin-light padding-30">
           <div className="list-timeline-items">
-            {products.map(product => (
+            {products.map((product) => (
               <div className="list-timeline-item mb-3" key={product.id}>
                 <span className="list-timeline-text">
                   <span
                     className={`label label-lg label-light-${
                       ProductStatusCssClasses[product.status]
                     } label-inline`}
-                    style={{ width: "60px" }}
+                    style={{ width: '60px' }}
                   >
                     ID: {product.id}
-                  </span>{" "}
+                  </span>{' '}
                   <span className="ml-5">
                     {product.manufacture}, {product.model}
                   </span>
@@ -108,7 +108,7 @@ export function ProductsUpdateStatusDialog({ show, onHide }) {
           <select
             className={`form-control ${ProductStatusCssClasses[status]}`}
             value={status}
-            onChange={e => setStatus(+e.target.value)}
+            onChange={(e) => setStatus(+e.target.value)}
           >
             <option value="0">Selling</option>
             <option value="1">Sold</option>
@@ -123,13 +123,13 @@ export function ProductsUpdateStatusDialog({ show, onHide }) {
             Cancel
           </button>
           <> </>
-          <button
+          {/* <button
             type="button"
             onClick={updateStatus}
             className="btn btn-primary btn-elevate"
           >
             Update Status
-          </button>
+          </button> */}
         </div>
       </Modal.Footer>
     </Modal>
