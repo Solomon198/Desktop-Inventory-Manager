@@ -37,9 +37,9 @@ export function CustomersUIProvider({ customersUIEvents, children }) {
     email: "",
     phone_no: "",
     ip_address: "",
-    login :"",
+    login: "",
     website: "",
-    cus_type: "1",
+    cus_type: "1"
   };
 
   const value = {

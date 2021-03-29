@@ -10,12 +10,14 @@ export function TypeColumnFormatter(cellContent, row) {
   return (
     <>
       <span
-        className={`label label-dot label-${ 
+        className={`label label-dot label-${
           CustomerTypeCssClasses[row.cus_type]
         } mr-2`}
       ></span>
       &nbsp;
-      <span className={`font-bold font-${CustomerTypeCssClasses[row.cus_type]}`}>
+      <span
+        className={`font-bold font-${CustomerTypeCssClasses[row.cus_type]}`}
+      >
         {CustomerTypeTitles[row.cus_type]}
       </span>
     </>

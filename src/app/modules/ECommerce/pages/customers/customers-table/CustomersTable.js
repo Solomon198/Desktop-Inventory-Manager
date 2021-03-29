@@ -53,7 +53,6 @@ export function CustomersTable() {
   }, [customersUIProps.queryParams, dispatch]);
   // Table columns
   const columns = [
-  
     {
       dataField: "first_name",
       text: "Firstname",
@@ -149,7 +148,7 @@ export function CustomersTable() {
                 })}
                 {...paginationTableProps}
               >
-                <PleaseWaitMessage entities={ entities} />
+                <PleaseWaitMessage entities={entities} />
                 <NoRecordsFoundMessage entities={entities} />
               </BootstrapTable>
             </Pagination>

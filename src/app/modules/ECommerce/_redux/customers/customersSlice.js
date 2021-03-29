@@ -68,7 +68,9 @@ export const customersSlice = createSlice({
     customerDeleted: (state, action) => {
       state.error = null;
       state.actionsLoading = false;
-      state.entities = state.entities.filter(el => el._id !== action.payload._id);
+      state.entities = state.entities.filter(
+        el => el._id !== action.payload._id
+      );
     },
     // deleteCustomers
     customersDeleted: (state, action) => {

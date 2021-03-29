@@ -11,7 +11,7 @@ import {
   Select,
   DatePickerField
 } from "../../../../../../_metronic/_partials/controls";
-import helperFuncs from '../../../../../../dist/realm/utils/helpers.func'
+import helperFuncs from "../../../../../../dist/realm/utils/helpers.func";
 // Validation schema
 const CustomerEditSchema = Yup.object().shape({
   title: Yup.string()
@@ -42,8 +42,7 @@ export function CustomerEditForm({
   actionsLoading,
   onHide
 }) {
-
-  customer = typeof(customer) === "object"? customer : {}
+  customer = typeof customer === "object" ? customer : {};
 
   return (
     <>
