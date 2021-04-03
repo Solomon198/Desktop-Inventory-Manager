@@ -20,7 +20,7 @@ const ProductSchema: ProductTypes = {
 
     price: 'int?',
 
-    vin_code: 'int?',
+    vin_code: 'string?',
 
     status: 'string?',
 

@@ -1,6 +1,6 @@
-import * as requestFromServer from "./productsCrud";
-import { productsSlice, callTypes } from "./productsSlice";
-import Queries from "../../../../../dist/realm/queries/index";
+import * as requestFromServer from './productsCrud';
+import { productsSlice, callTypes } from './productsSlice';
+import Queries from '../../../../../dist/realm/queries/index';
 const { actions } = productsSlice;
 const ProductAPI = Queries.ProductAPI;
 
@@ -70,24 +70,24 @@ const ProductAPI = Queries.ProductAPI;
 //     });
 // };
 
-export const fetchProducts = queryParams => dispatch => {
+export const fetchProducts = (queryParams) => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.list }));
 
   let { pageNumber, pageSize, filter } = queryParams;
   let { firstName, type } = filter;
-  let customerType = typeof type === "undefined" ? "" : type.toString();
+  let customerType = typeof type === 'undefined' ? '' : type.toString();
 
   return ProductAPI.getProducts(pageNumber, pageSize, firstName, customerType)
-    .then(products => {
+    .then((products) => {
       let { totalCount, entities } = products;
       dispatch(actions.productsFetched({ totalCount, entities }));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(actions.catchError({ error, callType: callTypes.list }));
     });
 };
 
-export const fetchProduct = id => dispatch => {
+export const fetchProduct = (id) => (dispatch) => {
   if (!id) {
     return dispatch(actions.productFetched({ productForEdit: undefined }));
   }
@@ -95,43 +95,45 @@ export const fetchProduct = id => dispatch => {
   dispatch(actions.startCall({ callType: callTypes.action }));
 
   return ProductAPI.getProduct(id)
-    .then(product => {
+    .then((product) => {
       dispatch(actions.productFetched({ productForEdit: product }));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 
-export const deleteProduct = id => dispatch => {
+export const deleteProduct = (id) => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return ProductAPI.removeProduct(id)
-    .then(result => {
+    .then((result) => {
       dispatch(actions.productDeleted({ id }));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 
-export const createProduct = productForCreation => dispatch => {
+export const createProduct = (productForCreation) => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return ProductAPI.createProduct(productForCreation)
-    .then(product => {
+    .then((product) => {
       dispatch(actions.productCreated({ product }));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 
-export const updateProduct = product => dispatch => {
+export const updateProduct = (product) => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return ProductAPI.updateProduct(product)
-    .then(product => {
+    .then((product) => {
+      console.log(product);
       dispatch(actions.productUpdated({ product }));
     })
-    .catch(error => {
+    .catch((error) => {
+      console.log(error);
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
@@ -149,13 +151,13 @@ export const updateProduct = product => dispatch => {
 //     });
 // };
 
-export const deleteProducts = ids => dispatch => {
+export const deleteProducts = (ids) => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return ProductAPI.removeProducts(ids)
     .then(() => {
       dispatch(actions.productsDeleted({ ids }));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };

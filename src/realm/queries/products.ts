@@ -20,7 +20,7 @@ type getProductsResponse = {
  * @property {number} mileage - Product mileage
  * @property {string} color - Product color
  * @property {string} price - Product price
- * @property {number} vin_code - Product VIN code
+ * @property {string} vin_code - Product VIN code
  * @property {string} status - Product status
  * @property {string} condition - Product condition
  * @property {string} description - Product description
@@ -207,7 +207,8 @@ function removeProducts(productIds: string[]) {
  * @param  {...Product} product - the properties to be updated
  * @returns {Promise<Product>} returns the updated product Object
  */
-function updateProduct(product: ProductProperties) {
+function updateProduct(productForEdit: ProductProperties) {
+  let product = Object.assign({}, productForEdit);
   product._id = mongoose.Types.ObjectId(product._id);
   return new Promise<ProductProperties>((resolve, reject) => {
     app.write(() => {
