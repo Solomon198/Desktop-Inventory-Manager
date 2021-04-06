@@ -1,4 +1,3 @@
-
 import { DebtManagerTypes } from '../../types/debtManager'; // typescript type validation for daily attendance
 
 const DebtManagerSchema: DebtManagerTypes = {

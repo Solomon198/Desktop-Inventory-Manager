@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 
 type ExpenseProperties = {
-  _id: string;
+  _id: any;
 
   payee: string;
 

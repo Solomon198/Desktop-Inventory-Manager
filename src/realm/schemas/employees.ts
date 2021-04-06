@@ -1,4 +1,3 @@
-
 import { EmployeeTypes } from '../../types/employee'; // typescript type validation for daily attendance
 
 const EmployeeSchema: EmployeeTypes = {

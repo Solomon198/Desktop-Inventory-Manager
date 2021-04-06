@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 
 type SaleProperties = {
-  _id: string;
+  _id: any;
 
   transaction_id: string;
 

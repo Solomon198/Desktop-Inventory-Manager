@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 
 type StockProperties = {
-  _id: string;
+  _id: any;
 
   product: string;
 

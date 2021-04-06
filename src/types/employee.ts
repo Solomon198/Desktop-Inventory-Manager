@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 
-type EmployeeProperties = {
-  _id: string;
+export type EmployeeProperties = {
+  _id: any;
 
   title: string;
 

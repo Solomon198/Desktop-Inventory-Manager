@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 
 type DebtManagerProperties = {
-  _id: string;
+  _id: any;
 
   customer: string;
 
