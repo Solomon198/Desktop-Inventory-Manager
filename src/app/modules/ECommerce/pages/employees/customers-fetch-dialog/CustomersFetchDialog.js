@@ -1,16 +1,16 @@
-import React, { useEffect, useMemo } from 'react';
-import { Modal } from 'react-bootstrap';
-import { shallowEqual, useSelector } from 'react-redux';
+import React, { useEffect, useMemo } from "react";
+import { Modal } from "react-bootstrap";
+import { shallowEqual, useSelector } from "react-redux";
 import {
   CustomerStatusCssClasses,
-  CustomerStatusTitles,
-} from '../CustomersUIHelpers';
-import { useEmployeesUIContext } from '../CustomersUIContext';
+  CustomerStatusTitles
+} from "../CustomersUIHelpers";
+import { useEmployeesUIContext } from "../CustomersUIContext";
 
 const selectedEmployees = (entities, ids) => {
   const _employees = [];
-  ids.forEach((id) => {
-    const employee = entities.find((el) => el.id === id);
+  ids.forEach(id => {
+    const employee = entities.find(el => el.id === id);
     if (employee) {
       _employees.push(employee);
     }
@@ -23,17 +23,17 @@ export function EmployeesFetchDialog({ show, onHide }) {
   const employoeesUIContext = useEmployeesUIContext();
   const employeesUIProps = useMemo(() => {
     return {
-      ids: employoeesUIContext.ids,
+      ids: employoeesUIContext.ids
     };
   }, [employoeesUIContext]);
 
   // Employees Redux state
   const { employees } = useSelector(
-    (state) => ({
+    state => ({
       employees: selectedEmployees(
         state.employees.entities,
         employeesUIProps.ids
-      ),
+      )
     }),
     shallowEqual
   );
@@ -67,7 +67,7 @@ export function EmployeesFetchDialog({ show, onHide }) {
             </tr>
           </thead>
           <tbody>
-            {employees.map((employee) => (
+            {employees.map(employee => (
               <tr key={`id${employee.id}`}>
                 <td>{employee.id}</td>
                 <td>
@@ -76,7 +76,7 @@ export function EmployeesFetchDialog({ show, onHide }) {
                       CustomerStatusCssClasses[employee.status]
                     } label-inline`}
                   >
-                    {' '}
+                    {" "}
                     {CustomerStatusTitles[employee.status]}
                   </span>
                 </td>

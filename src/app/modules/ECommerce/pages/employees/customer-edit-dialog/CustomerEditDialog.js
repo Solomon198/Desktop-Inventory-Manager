@@ -1,26 +1,26 @@
-import React, { useEffect, useMemo } from 'react';
-import { Modal } from 'react-bootstrap';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import * as actions from '../../../_redux/employees/employeesActions';
-import { EmployeeEditDialogHeader } from './CustomerEditDialogHeader';
-import { EmployeeEditForm } from './CustomerEditForm';
-import { useEmployeesUIContext } from '../CustomersUIContext';
+import React, { useEffect, useMemo } from "react";
+import { Modal } from "react-bootstrap";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as actions from "../../../_redux/employees/employeesActions";
+import { EmployeeEditDialogHeader } from "./CustomerEditDialogHeader";
+import { EmployeeEditForm } from "./CustomerEditForm";
+import { useEmployeesUIContext } from "../CustomersUIContext";
 
 export function EmployeeEditDialog({ id, show, onHide }) {
   //Employees UI Context
   const employeesUIContext = useEmployeesUIContext();
   const employeesUIProps = useMemo(() => {
     return {
-      initEmployee: employeesUIContext.initEmployee,
+      initEmployee: employeesUIContext.initEmployee
     };
   }, [employeesUIContext]);
 
   // Employees Redux state
   const dispatch = useDispatch();
   const { actionsLoading, employeeForEdit } = useSelector(
-    (state) => ({
+    state => ({
       actionsLoading: state.employees.actionsLoading,
-      employeeForEdit: state.employees.employeeForEdit,
+      employeeForEdit: state.employees.employeeForEdit
     }),
     shallowEqual
   );
@@ -31,7 +31,7 @@ export function EmployeeEditDialog({ id, show, onHide }) {
   }, [id, dispatch]);
 
   // server request for saving employee
-  const saveEmployee = (employee) => {
+  const saveEmployee = employee => {
     if (!id) {
       // server request for creating employee
       dispatch(actions.createEmployee(employee)).then(() => onHide());

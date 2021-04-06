@@ -1,17 +1,17 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import { Modal } from 'react-bootstrap';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState, useMemo } from "react";
+import { Modal } from "react-bootstrap";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import {
   CustomerStatusCssClasses,
-  CustomerStatusTitles,
-} from '../CustomersUIHelpers';
-import * as actions from '../../../_redux/employees/employeesActions';
-import { useEmployeesUIContext } from '../CustomersUIContext';
+  CustomerStatusTitles
+} from "../CustomersUIHelpers";
+import * as actions from "../../../_redux/employees/employeesActions";
+import { useEmployeesUIContext } from "../CustomersUIContext";
 
 const selectedEmployees = (entities, ids) => {
   const _employees = [];
-  ids.forEach((id) => {
-    const employee = entities.find((el) => el.id === id);
+  ids.forEach(id => {
+    const employee = entities.find(el => el.id === id);
     if (employee) {
       _employees.push(employee);
     }
@@ -26,18 +26,18 @@ export function EmployeesUpdateStateDialog({ show, onHide }) {
     return {
       ids: employeesUIContext.ids,
       setIds: employeesUIContext.setIds,
-      queryParams: employeesUIContext.queryParams,
+      queryParams: employeesUIContext.queryParams
     };
   }, [employeesUIContext]);
 
   // Employees Redux state
   const { employees, isLoading } = useSelector(
-    (state) => ({
+    state => ({
       employees: selectedEmployees(
         state.employees.entities,
         employeesUIProps.ids
       ),
-      isLoading: state.employees.actionsLoading,
+      isLoading: state.employees.actionsLoading
     }),
     shallowEqual
   );
@@ -98,7 +98,7 @@ export function EmployeesUpdateStateDialog({ show, onHide }) {
             </tr>
           </thead>
           <tbody>
-            {employees.map((employee) => (
+            {employees.map(employee => (
               <tr key={`id${employee.id}`}>
                 <td>{employee.id}</td>
                 {/* <td>

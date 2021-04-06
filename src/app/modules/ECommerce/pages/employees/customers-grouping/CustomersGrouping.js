@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import { useEmployeesUIContext } from '../CustomersUIContext';
+import React, { useMemo } from "react";
+import { useEmployeesUIContext } from "../CustomersUIContext";
 
 export function EmployeesGrouping() {
   // Employees UI Context
@@ -11,7 +11,7 @@ export function EmployeesGrouping() {
       openDeleteEmployeesDialog: employeesUIContext.openDeleteEmployeesDialog,
       openFetchEmployeesDialog: employeesUIContext.openFetchEmployeesDialog,
       openUpdateEmployeesStatusDialog:
-        employeesUIContext.openUpdateEmployeesStatusDialog,
+        employeesUIContext.openUpdateEmployeesStatusDialog
     };
   }, [employeesUIContext]);
 

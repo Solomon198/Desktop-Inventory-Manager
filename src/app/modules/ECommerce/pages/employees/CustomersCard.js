@@ -1,21 +1,21 @@
-import React, { useMemo } from 'react';
+import React, { useMemo } from "react";
 import {
   Card,
   CardBody,
   CardHeader,
-  CardHeaderToolbar,
-} from '../../../../../_metronic/_partials/controls';
-import { CustomersFilter } from './customers-filter/CustomersFilter';
-import { EmployeesTable } from './customers-table/CustomersTable';
-import { EmployeesGrouping } from './customers-grouping/CustomersGrouping';
-import { useEmployeesUIContext } from './CustomersUIContext';
+  CardHeaderToolbar
+} from "../../../../../_metronic/_partials/controls";
+import { CustomersFilter } from "./customers-filter/CustomersFilter";
+import { EmployeesTable } from "./customers-table/CustomersTable";
+import { EmployeesGrouping } from "./customers-grouping/CustomersGrouping";
+import { useEmployeesUIContext } from "./CustomersUIContext";
 
 export function EmployeesCard() {
   const employeesUIContext = useEmployeesUIContext();
   const employeesUIProps = useMemo(() => {
     return {
       ids: employeesUIContext.ids,
-      newEmployeeButtonClick: employeesUIContext.newEmployeeButtonClick,
+      newEmployeeButtonClick: employeesUIContext.newEmployeeButtonClick
     };
   }, [employeesUIContext]);
 

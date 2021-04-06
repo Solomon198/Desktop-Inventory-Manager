@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo } from 'react';
-import { Modal } from 'react-bootstrap';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import * as actions from '../../../_redux/employees/employeesActions';
-import { useEmployeesUIContext } from '../CustomersUIContext';
-import { ModalProgressBar } from '../../../../../../_metronic/_partials/controls';
+import React, { useEffect, useMemo } from "react";
+import { Modal } from "react-bootstrap";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as actions from "../../../_redux/employees/employeesActions";
+import { useEmployeesUIContext } from "../CustomersUIContext";
+import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
 
 export function EmployeesDeleteDialog({ show, onHide }) {
   // Employees UI Context
@@ -12,14 +12,14 @@ export function EmployeesDeleteDialog({ show, onHide }) {
     return {
       ids: employeesUIContext.ids,
       setIds: employeesUIContext.setIds,
-      queryParams: employeesUIContext.queryParams,
+      queryParams: employeesUIContext.queryParams
     };
   }, [employeesUIContext]);
 
   // Customers Redux state
   const dispatch = useDispatch();
   const { isLoading } = useSelector(
-    (state) => ({ isLoading: state.employees.actionsLoading }),
+    state => ({ isLoading: state.employees.actionsLoading }),
     shallowEqual
   );
 
