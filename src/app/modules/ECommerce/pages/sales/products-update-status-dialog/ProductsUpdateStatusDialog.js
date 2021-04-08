@@ -1,14 +1,14 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import { Modal } from 'react-bootstrap';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { ProductStatusCssClasses } from '../ProductsUIHelpers';
-import * as actions from '../../../_redux/sales/salesActions';
-import { useSalesUIContext } from '../ProductsUIContext';
+import React, { useEffect, useState, useMemo } from "react";
+import { Modal } from "react-bootstrap";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { ProductStatusCssClasses } from "../ProductsUIHelpers";
+import * as actions from "../../../_redux/sales/salesActions";
+import { useSalesUIContext } from "../ProductsUIContext";
 
 const selectedSales = (entities, ids) => {
   const _sales = [];
-  ids.forEach((id) => {
-    const sale = entities.find((el) => el.id === id);
+  ids.forEach(id => {
+    const sale = entities.find(el => el.id === id);
     if (sale) {
       _sales.push(sale);
     }
@@ -23,15 +23,15 @@ export function ProductsUpdateStatusDialog({ show, onHide }) {
     return {
       ids: salesUIContext.ids,
       setIds: salesUIContext.setIds,
-      queryParams: salesUIContext.queryParams,
+      queryParams: salesUIContext.queryParams
     };
   }, [salesUIContext]);
 
   // Products Redux state
   const { products, isLoading } = useSelector(
-    (state) => ({
+    state => ({
       products: selectedSales(state.sales.entities, salesUIProps.ids),
-      isLoading: state.sales.actionsLoading,
+      isLoading: state.sales.actionsLoading
     }),
     shallowEqual
   );
@@ -108,7 +108,7 @@ export function ProductsUpdateStatusDialog({ show, onHide }) {
           <select
             className={`form-control ${ProductStatusCssClasses[status]}`}
             value={status}
-            onChange={(e) => setStatus(+e.target.value)}
+            onChange={e => setStatus(+e.target.value)}
           >
             <option value="0">Selling</option>
             <option value="1">Sold</option>

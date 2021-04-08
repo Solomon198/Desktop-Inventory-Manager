@@ -1,25 +1,25 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-import { ProductsLoadingDialog } from './products-loading-dialog/ProductsLoadingDialog';
-import { ProductDeleteDialog } from './product-delete-dialog/ProductDeleteDialog';
-import { ProductsDeleteDialog } from './products-delete-dialog/ProductsDeleteDialog';
-import { ProductsFetchDialog } from './products-fetch-dialog/ProductsFetchDialog';
-import { ProductsUpdateStatusDialog } from './products-update-status-dialog/ProductsUpdateStatusDialog';
-import { ProductsCard } from './ProductsCard';
-import { SalesUIProvider } from './ProductsUIContext';
+import React from "react";
+import { Route } from "react-router-dom";
+import { ProductsLoadingDialog } from "./products-loading-dialog/ProductsLoadingDialog";
+import { ProductDeleteDialog } from "./product-delete-dialog/ProductDeleteDialog";
+import { ProductsDeleteDialog } from "./products-delete-dialog/ProductsDeleteDialog";
+import { ProductsFetchDialog } from "./products-fetch-dialog/ProductsFetchDialog";
+import { ProductsUpdateStatusDialog } from "./products-update-status-dialog/ProductsUpdateStatusDialog";
+import { ProductsCard } from "./ProductsCard";
+import { SalesUIProvider } from "./ProductsUIContext";
 
 export function SalesPage({ history }) {
   const salesUIEvents = {
     newSaleButtonClick: () => {
       // history.push('/e-commerce/sales/new');
-      history.push('/e-commerce/customer-sales');
+      history.push("/e-commerce/customer-sales");
 
       // alert('Hello');
     },
-    openEditSalePage: (id) => {
+    openEditSalePage: id => {
       history.push(`/e-commerce/sales/${id}/edit`);
     },
-    openDeleteSaleDialog: (id) => {
+    openDeleteSaleDialog: id => {
       history.push(`/e-commerce/sales/${id}/delete`);
     },
     openDeleteSalesDialog: () => {
@@ -29,8 +29,8 @@ export function SalesPage({ history }) {
       history.push(`/e-commerce/sales/fetch`);
     },
     openUpdateSalesStatusDialog: () => {
-      history.push('/e-commerce/sales/updateStatus');
-    },
+      history.push("/e-commerce/sales/updateStatus");
+    }
   };
 
   return (
@@ -41,7 +41,7 @@ export function SalesPage({ history }) {
           <ProductsDeleteDialog
             show={match != null}
             onHide={() => {
-              history.push('/e-commerce/sales');
+              history.push("/e-commerce/sales");
             }}
           />
         )}
@@ -52,7 +52,7 @@ export function SalesPage({ history }) {
             show={match != null}
             id={match && match.params.id}
             onHide={() => {
-              history.push('/e-commerce/sales');
+              history.push("/e-commerce/sales");
             }}
           />
         )}
@@ -62,7 +62,7 @@ export function SalesPage({ history }) {
           <ProductsFetchDialog
             show={match != null}
             onHide={() => {
-              history.push('/e-commerce/sales');
+              history.push("/e-commerce/sales");
             }}
           />
         )}
@@ -72,7 +72,7 @@ export function SalesPage({ history }) {
           <ProductsUpdateStatusDialog
             show={match != null}
             onHide={() => {
-              history.push('/e-commerce/sales');
+              history.push("/e-commerce/sales");
             }}
           />
         )}

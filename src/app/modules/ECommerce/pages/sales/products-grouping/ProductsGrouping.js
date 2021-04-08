@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import { useSalesUIContext } from '../ProductsUIContext';
+import React, { useMemo } from "react";
+import { useSalesUIContext } from "../ProductsUIContext";
 
 export function ProductsGrouping() {
   // Products UI Context
@@ -10,7 +10,7 @@ export function ProductsGrouping() {
       setIds: salesUIContext.setIds,
       openDeleteSalesDialog: salesUIContext.openDeleteSalesDialog,
       openFetchSalesDialog: salesUIContext.openFetchSalesDialog,
-      openUpdateSalesStatusDialog: salesUIContext.openUpdateSalesStatusDialog,
+      openUpdateSalesStatusDialog: salesUIContext.openUpdateSalesStatusDialog
     };
   }, [salesUIContext]);
 

@@ -1,13 +1,13 @@
-import React, { useEffect, useMemo } from 'react';
-import { Modal } from 'react-bootstrap';
-import { shallowEqual, useSelector } from 'react-redux';
-import { ProductStatusCssClasses } from '../ProductsUIHelpers';
-import { useSalesUIContext } from '../ProductsUIContext';
+import React, { useEffect, useMemo } from "react";
+import { Modal } from "react-bootstrap";
+import { shallowEqual, useSelector } from "react-redux";
+import { ProductStatusCssClasses } from "../ProductsUIHelpers";
+import { useSalesUIContext } from "../ProductsUIContext";
 
 const selectedSales = (entities, ids) => {
   const _sales = [];
-  ids.forEach((id) => {
-    const sale = entities.find((el) => el.id === id);
+  ids.forEach(id => {
+    const sale = entities.find(el => el.id === id);
     if (sale) {
       _sales.push(sale);
     }
@@ -21,14 +21,14 @@ export function ProductsFetchDialog({ show, onHide }) {
   const salesUIProps = useMemo(() => {
     return {
       ids: salesUIContext.ids,
-      queryParams: salesUIContext.queryParams,
+      queryParams: salesUIContext.queryParams
     };
   }, [salesUIContext]);
 
   // Products Redux state
   const { sales } = useSelector(
-    (state) => ({
-      sales: selectedSales(state.sales.entities, salesUIProps.ids),
+    state => ({
+      sales: selectedSales(state.sales.entities, salesUIProps.ids)
     }),
     shallowEqual
   );
@@ -55,17 +55,17 @@ export function ProductsFetchDialog({ show, onHide }) {
       <Modal.Body>
         <div className="list-timeline list-timeline-skin-light padding-30">
           <div className="list-timeline-items">
-            {sales.map((sale) => (
+            {sales.map(sale => (
               <div className="list-timeline-item mb-3" key={sale.id}>
                 <span className="list-timeline-text">
                   <span
                     className={`label label-lg label-light-${
                       ProductStatusCssClasses[sale.status]
                     } label-inline`}
-                    style={{ width: '60px' }}
+                    style={{ width: "60px" }}
                   >
                     ID: {sale.id}
-                  </span>{' '}
+                  </span>{" "}
                   <span className="ml-5">
                     {sale.manufacture}, {sale.model}
                   </span>

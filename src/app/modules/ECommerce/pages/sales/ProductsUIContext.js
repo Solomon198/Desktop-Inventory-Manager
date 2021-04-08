@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
-import { isEqual, isFunction } from 'lodash';
-import { initialFilter } from './ProductsUIHelpers';
+import React, { createContext, useContext, useState, useCallback } from "react";
+import { isEqual, isFunction } from "lodash";
+import { initialFilter } from "./ProductsUIHelpers";
 
 const SalesUIContext = createContext();
 
@@ -13,8 +13,8 @@ export const SalesUIConsumer = SalesUIContext.Consumer;
 export function SalesUIProvider({ salesUIEvents, children }) {
   const [queryParams, setQueryParamsBase] = useState(initialFilter);
   const [ids, setIds] = useState([]);
-  const setQueryParams = useCallback((nextQueryParams) => {
-    setQueryParamsBase((prevQueryParams) => {
+  const setQueryParams = useCallback(nextQueryParams => {
+    setQueryParamsBase(prevQueryParams => {
       if (isFunction(nextQueryParams)) {
         nextQueryParams = nextQueryParams(prevQueryParams);
       }
@@ -38,7 +38,7 @@ export function SalesUIProvider({ salesUIEvents, children }) {
     openDeleteSaleDialog: salesUIEvents.openDeleteSaleDialog,
     openDeleteSalesDialog: salesUIEvents.openDeleteSalesDialog,
     openFetchSalesDialog: salesUIEvents.openFetchSalesDialog,
-    openUpdateSalesStatusDialog: salesUIEvents.openUpdateSalesStatusDialog,
+    openUpdateSalesStatusDialog: salesUIEvents.openUpdateSalesStatusDialog
   };
 
   return (

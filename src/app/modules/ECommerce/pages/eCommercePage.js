@@ -1,13 +1,13 @@
-import React, { Suspense } from 'react';
-import { Redirect, Switch } from 'react-router-dom';
-import { CustomersPage } from './customers/CustomersPage';
-import { CustomerSalesPage } from './customerSales/CustomersPage';
-import { EmployeesPage } from './employees/CustomersPage';
-import { ProductsPage } from './products/ProductsPage';
-import { SalesPage } from './sales/ProductsPage';
-import { ProductEdit } from './products/product-edit/ProductEdit';
-import { SalesEdit } from './sales/product-edit/ProductEdit';
-import { LayoutSplashScreen, ContentRoute } from '../../../../_metronic/layout';
+import React, { Suspense } from "react";
+import { Redirect, Switch } from "react-router-dom";
+import { CustomersPage } from "./customers/CustomersPage";
+import { CustomerSalesPage } from "./customerSales/CustomersPage";
+import { EmployeesPage } from "./employees/CustomersPage";
+import { ProductsPage } from "./products/ProductsPage";
+import { SalesPage } from "./sales/ProductsPage";
+import { ProductEdit } from "./products/product-edit/ProductEdit";
+import { SalesEdit } from "./sales/product-edit/ProductEdit";
+import { LayoutSplashScreen, ContentRoute } from "../../../../_metronic/layout";
 
 export default function eCommercePage() {
   return (
