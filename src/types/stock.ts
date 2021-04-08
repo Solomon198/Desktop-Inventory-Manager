@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 
-type StockProperties = {
+export type StockProperties = {
   _id: any;
 
   product: string;

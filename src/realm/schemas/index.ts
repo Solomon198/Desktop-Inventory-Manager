@@ -1,5 +1,5 @@
 import CustomerSchema from './customers';
-import DebtManagerSchema from './debt_managers';
+import DebtManagerSchema from './debtManagers';
 import EmployeeSchema from './employees';
 import ExpenseSchema from './expenses';
 import ProductSchema from './products';

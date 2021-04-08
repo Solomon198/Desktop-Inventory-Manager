@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 
-type ExpenseProperties = {
+export type ExpenseProperties = {
   _id: any;
 
   payee: string;

@@ -1,13 +1,15 @@
 /* eslint-disable prettier/prettier */
 
-type DebtManagerProperties = {
+export type DebtManagerProperties = {
   _id: any;
 
-  customer: string;
+  customer_id: any;
 
-  product: string;
+  product_id: any;
 
-  debt_cost: string;
+  employee_id: any;
+
+  amount: string;
 
   description: string;
 

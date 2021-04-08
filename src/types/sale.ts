@@ -1,13 +1,11 @@
 /* eslint-disable prettier/prettier */
 
-type SaleProperties = {
+export type SaleProperties = {
   _id: any;
 
-  transaction_id: string;
+  customer_id: any;
 
-  customer: string;
-
-  product: string;
+  product_id: any;
 
   total_amount: string;
 

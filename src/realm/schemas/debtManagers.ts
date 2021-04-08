@@ -8,11 +8,13 @@ const DebtManagerSchema: DebtManagerTypes = {
   properties: {
     _id: 'objectId',
 
-    customer: 'string?',
+    customer_id: 'string?',
 
-    product: 'string?',
+    product_id: 'objectId',
 
-    debt_cost: 'int?',
+    employee_id: 'objectId',
+
+    amount: 'int?',
 
     description: 'string?',
 

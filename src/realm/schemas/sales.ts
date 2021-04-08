@@ -1,4 +1,3 @@
-
 import { SaleTypes } from '../../types/sale'; // typescript type validation for daily attendance
 
 const SaleSchema: SaleTypes = {
@@ -9,11 +8,9 @@ const SaleSchema: SaleTypes = {
   properties: {
     _id: 'objectId',
 
-    transaction_id: 'string?',
+    customer_id: 'objectId?',
 
-    customer: 'string?',
-
-    product: 'string?',
+    product_id: 'objectId?',
 
     total_amount: 'int?',
 
