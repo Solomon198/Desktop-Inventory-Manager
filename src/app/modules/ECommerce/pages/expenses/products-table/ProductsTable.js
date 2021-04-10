@@ -1,24 +1,24 @@
 // React bootstrap table next =>
 // DOCS: https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/
 // STORYBOOK: https://react-bootstrap-table.github.io/react-bootstrap-table2/storybook/index.html
-import React, { useEffect, useMemo } from 'react';
-import BootstrapTable from 'react-bootstrap-table-next';
+import React, { useEffect, useMemo } from "react";
+import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory, {
-  PaginationProvider,
-} from 'react-bootstrap-table2-paginator';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import * as actions from '../../../_redux/products/productsActions';
-import * as uiHelpers from '../ProductsUIHelpers';
+  PaginationProvider
+} from "react-bootstrap-table2-paginator";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as actions from "../../../_redux/products/productsActions";
+import * as uiHelpers from "../ProductsUIHelpers";
 import {
   getSelectRow,
   getHandlerTableChange,
   NoRecordsFoundMessage,
   PleaseWaitMessage,
-  sortCaret,
-} from '../../../../../../_metronic/_helpers';
-import * as columnFormatters from './column-formatters';
-import { Pagination } from '../../../../../../_metronic/_partials/controls';
-import { useProductsUIContext } from '../ProductsUIContext';
+  sortCaret
+} from "../../../../../../_metronic/_helpers";
+import * as columnFormatters from "./column-formatters";
+import { Pagination } from "../../../../../../_metronic/_partials/controls";
+import { useProductsUIContext } from "../ProductsUIContext";
 
 export function ProductsTable() {
   // Products UI Context
@@ -30,13 +30,13 @@ export function ProductsTable() {
       queryParams: productsUIContext.queryParams,
       setQueryParams: productsUIContext.setQueryParams,
       openEditProductPage: productsUIContext.openEditProductPage,
-      openDeleteProductDialog: productsUIContext.openDeleteProductDialog,
+      openDeleteProductDialog: productsUIContext.openDeleteProductDialog
     };
   }, [productsUIContext]);
 
   // Getting curret state of products list from store (Redux)
   const { currentState } = useSelector(
-    (state) => ({ currentState: state.products }),
+    state => ({ currentState: state.products }),
     shallowEqual
   );
   const { totalCount, entities, listLoading } = currentState;
@@ -53,71 +53,71 @@ export function ProductsTable() {
   // Table columns
   const columns = [
     {
-      dataField: 'vin_code',
-      text: 'VIN Code (ID)',
+      dataField: "vin_code",
+      text: "VIN Code (ID)",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
-      dataField: 'manufacturer',
-      text: 'Manufacture',
+      dataField: "manufacturer",
+      text: "Manufacture",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
-      dataField: 'model',
-      text: 'Model',
+      dataField: "model",
+      text: "Model",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
-      dataField: 'model_year',
-      text: 'Model Year',
+      dataField: "model_year",
+      text: "Model Year",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
-      dataField: 'color',
-      text: 'Color',
+      dataField: "color",
+      text: "Color",
       sort: true,
       sortCaret: sortCaret,
-      formatter: columnFormatters.ColorColumnFormatter,
+      formatter: columnFormatters.ColorColumnFormatter
     },
     {
-      dataField: 'price',
-      text: 'Price',
+      dataField: "price",
+      text: "Price",
       sort: true,
       sortCaret: sortCaret,
-      formatter: columnFormatters.PriceColumnFormatter,
+      formatter: columnFormatters.PriceColumnFormatter
     },
     {
-      dataField: 'status',
-      text: 'Status',
+      dataField: "status",
+      text: "Status",
       sort: true,
       sortCaret: sortCaret,
-      formatter: columnFormatters.StatusColumnFormatter,
+      formatter: columnFormatters.StatusColumnFormatter
     },
     {
-      dataField: 'condition',
-      text: 'Condition',
+      dataField: "condition",
+      text: "Condition",
       sort: true,
       sortCaret: sortCaret,
-      formatter: columnFormatters.ConditionColumnFormatter,
+      formatter: columnFormatters.ConditionColumnFormatter
     },
     {
-      dataField: 'action',
-      text: 'Actions',
+      dataField: "action",
+      text: "Actions",
       formatter: columnFormatters.ActionsColumnFormatter,
       formatExtraData: {
         openEditProductPage: productsUIProps.openEditProductPage,
-        openDeleteProductDialog: productsUIProps.openDeleteProductDialog,
+        openDeleteProductDialog: productsUIProps.openDeleteProductDialog
       },
-      classes: 'text-right pr-0',
-      headerClasses: 'text-right pr-3',
+      classes: "text-right pr-0",
+      headerClasses: "text-right pr-3",
       style: {
-        minWidth: '100px',
-      },
-    },
+        minWidth: "100px"
+      }
+    }
   ];
   // Table pagination properties
   const paginationOptions = {
@@ -125,7 +125,7 @@ export function ProductsTable() {
     totalSize: totalCount,
     sizePerPageList: uiHelpers.sizePerPageList,
     sizePerPage: productsUIProps.queryParams.pageSize,
-    page: productsUIProps.queryParams.pageNumber,
+    page: productsUIProps.queryParams.pageNumber
   };
   return (
     <>

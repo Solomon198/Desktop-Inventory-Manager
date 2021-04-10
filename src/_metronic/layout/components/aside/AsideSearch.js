@@ -1,25 +1,25 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
-import SVG from 'react-inlinesvg';
-import { Dropdown } from 'react-bootstrap';
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { toAbsoluteUrl, checkIsActive } from '../../../_helpers';
+import React from "react";
+import SVG from "react-inlinesvg";
+import { Dropdown } from "react-bootstrap";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { toAbsoluteUrl, checkIsActive } from "../../../_helpers";
 import {
   DropdownItemToggler,
-  DropdownMenu4,
-} from '../../../_partials/dropdowns';
+  DropdownMenu4
+} from "../../../_partials/dropdowns";
 
-import { useLocation } from 'react-router';
-import { NavLink } from 'react-router-dom';
+import { useLocation } from "react-router";
+import { NavLink } from "react-router-dom";
 // import { checkIsActive } from '../../../../_helpers';
 
 export function AsideSearch({ isActive }) {
   const location = useLocation();
   const getMenuItemActive = (url, hasSubmenu = false) => {
     return checkIsActive(location, url)
-      ? ` ${!hasSubmenu && 'menu-item-active'} menu-item-open `
-      : '';
+      ? ` ${!hasSubmenu && "menu-item-active"} menu-item-open `
+      : "";
   };
 
   return (
@@ -28,7 +28,7 @@ export function AsideSearch({ isActive }) {
     //     'show active'}`}
     // >
     <div
-      className={`menu-item ${getMenuItemActive('/e-commerce/customers')}`}
+      className={`menu-item ${getMenuItemActive("/e-commerce/customers")}`}
       aria-haspopup="true"
     >
       {/* begin::Form */}
@@ -45,7 +45,7 @@ export function AsideSearch({ isActive }) {
             <span>
               <span className="svg-icon svg-icon-lg">
                 <SVG
-                  src={toAbsoluteUrl('/media/svg/icons/General/Search.svg')}
+                  src={toAbsoluteUrl("/media/svg/icons/General/Search.svg")}
                 />
               </span>
             </span>
@@ -68,7 +68,7 @@ export function AsideSearch({ isActive }) {
                 >
                   <span className="svg-icon svg-icon-xl">
                     <SVG
-                      src={toAbsoluteUrl('/media/svg/icons/Code/Compiling.svg')}
+                      src={toAbsoluteUrl("/media/svg/icons/Code/Compiling.svg")}
                     />
                   </span>
                 </a>
@@ -94,7 +94,7 @@ export function AsideSearch({ isActive }) {
           <div className="symbol symbol-40 symbol-light mr-4">
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
-                <SVG src={toAbsoluteUrl('/media/svg/misc/010-vimeo.svg')} />
+                <SVG src={toAbsoluteUrl("/media/svg/misc/010-vimeo.svg")} />
               </span>
             </span>
           </div>
@@ -129,7 +129,7 @@ export function AsideSearch({ isActive }) {
           <div className="symbol symbol-40 symbol-light mr-4">
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
-                <SVG src={toAbsoluteUrl('/media/svg/misc/006-plurk.svg')} />
+                <SVG src={toAbsoluteUrl("/media/svg/misc/006-plurk.svg")} />
               </span>
             </span>
           </div>
@@ -166,7 +166,7 @@ export function AsideSearch({ isActive }) {
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
                 <SVG
-                  src={toAbsoluteUrl('/media/svg/misc/014-kickstarter.svg')}
+                  src={toAbsoluteUrl("/media/svg/misc/014-kickstarter.svg")}
                 />
               </span>
             </span>
@@ -203,7 +203,7 @@ export function AsideSearch({ isActive }) {
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
                 <SVG
-                  src={toAbsoluteUrl('/media/svg/misc/009-hot-air-balloon.svg')}
+                  src={toAbsoluteUrl("/media/svg/misc/009-hot-air-balloon.svg")}
                 />
               </span>
             </span>
@@ -242,7 +242,7 @@ export function AsideSearch({ isActive }) {
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
                 <SVG
-                  src={toAbsoluteUrl('/media/svg/misc/008-infography.svg')}
+                  src={toAbsoluteUrl("/media/svg/misc/008-infography.svg")}
                 />
               </span>
             </span>
@@ -278,7 +278,7 @@ export function AsideSearch({ isActive }) {
           <div className="symbol symbol-40 symbol-light mr-4">
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
-                <SVG src={toAbsoluteUrl('/media/svg/misc/007-disqus.svg')} />
+                <SVG src={toAbsoluteUrl("/media/svg/misc/007-disqus.svg")} />
               </span>
             </span>
           </div>
@@ -313,7 +313,7 @@ export function AsideSearch({ isActive }) {
           <div className="symbol symbol-40 symbol-light mr-4">
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
-                <SVG src={toAbsoluteUrl('/media/svg/misc/006-plurk.svg')} />
+                <SVG src={toAbsoluteUrl("/media/svg/misc/006-plurk.svg")} />
               </span>
             </span>
           </div>
