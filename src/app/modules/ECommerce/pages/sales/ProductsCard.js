@@ -1,14 +1,14 @@
-import React, { useMemo } from "react";
+import React, { useMemo } from 'react';
 import {
   Card,
   CardBody,
   CardHeader,
-  CardHeaderToolbar
-} from "../../../../../_metronic/_partials/controls";
-import { ProductsFilter } from "./products-filter/ProductsFilter";
-import { ProductsTable } from "./products-table/ProductsTable";
-import { ProductsGrouping } from "./products-grouping/ProductsGrouping";
-import { useSalesUIContext } from "./ProductsUIContext";
+  CardHeaderToolbar,
+} from '../../../../../_metronic/_partials/controls';
+import { ProductsFilter } from './products-filter/ProductsFilter';
+import { ProductsTable } from './products-table/ProductsTable';
+import { ProductsGrouping } from './products-grouping/ProductsGrouping';
+import { useSalesUIContext } from './ProductsUIContext';
 
 export function ProductsCard() {
   const salesUIContext = useSalesUIContext();
@@ -21,7 +21,7 @@ export function ProductsCard() {
       openDeleteSalesDialog: salesUIContext.openDeleteSalesDialog,
       openEditSalePage: salesUIContext.openEditSalePage,
       openUpdateSalesStatusDialog: salesUIContext.openUpdateSalesStatusDialog,
-      openFetchSalesDialog: salesUIContext.openFetchSalesDialog
+      openFetchSalesDialog: salesUIContext.openFetchSalesDialog,
     };
   }, [salesUIContext]);
 
