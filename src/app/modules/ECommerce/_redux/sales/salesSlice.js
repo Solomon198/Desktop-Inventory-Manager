@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialSalesState = {
   listLoading: false,
@@ -6,15 +6,15 @@ const initialSalesState = {
   totalCount: 0,
   entities: null,
   saleForEdit: undefined,
-  lastError: null,
+  lastError: null
 };
 export const callTypes = {
-  list: 'list',
-  action: 'action',
+  list: "list",
+  action: "action"
 };
 
 export const salesSlice = createSlice({
-  name: 'sales',
+  name: "sales",
   initialState: initialSalesState,
   reducers: {
     catchError: (state, action) => {
@@ -52,7 +52,7 @@ export const salesSlice = createSlice({
       state.actionsLoading = false;
       state.error = null;
       state.entities.push(action.payload.sale);
-    },
+    }
     // updateSale
     // saleUpdated: (state, action) => {
     //   state.error = null;
@@ -92,5 +92,5 @@ export const salesSlice = createSlice({
     //         return entity;
     //       });
     //     }
-  },
+  }
 });

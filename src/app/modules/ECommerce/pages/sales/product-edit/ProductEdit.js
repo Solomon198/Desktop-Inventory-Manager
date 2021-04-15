@@ -1,48 +1,48 @@
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid,jsx-a11y/role-supports-aria-props */
-import React, { useEffect, useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
-import { shallowEqual, useSelector } from 'react-redux';
-import * as actions from '../../../_redux/sales/salesActions';
+import React, { useEffect, useState, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
+import * as actions from "../../../_redux/sales/salesActions";
 import {
   Card,
   CardBody,
   CardHeader,
-  CardHeaderToolbar,
-} from '../../../../../../_metronic/_partials/controls';
-import { ProductEditForm } from './ProductEditForm';
-import { Specifications } from '../product-specifications/Specifications';
-import { SpecificationsUIProvider } from '../product-specifications/SpecificationsUIContext';
-import { useSubheader } from '../../../../../../_metronic/layout';
-import { ModalProgressBar } from '../../../../../../_metronic/_partials/controls';
-import { RemarksUIProvider } from '../product-remarks/RemarksUIContext';
-import { Remarks } from '../product-remarks/Remarks';
+  CardHeaderToolbar
+} from "../../../../../../_metronic/_partials/controls";
+import { ProductEditForm } from "./ProductEditForm";
+import { Specifications } from "../product-specifications/Specifications";
+import { SpecificationsUIProvider } from "../product-specifications/SpecificationsUIContext";
+import { useSubheader } from "../../../../../../_metronic/layout";
+import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
+import { RemarksUIProvider } from "../product-remarks/RemarksUIContext";
+import { Remarks } from "../product-remarks/Remarks";
 
 const initSale = {
   id: undefined,
-  customer_id: '',
-  product: '',
+  customer_id: "",
+  product: "",
   total_amount: 0,
-  date: '',
+  date: ""
 };
 
 export function SalesEdit({
   history,
   match: {
-    params: { id },
-  },
+    params: { id }
+  }
 }) {
   // Subheader
   const suhbeader = useSubheader();
 
   // Tabs
-  const [tab, setTab] = useState('basic');
-  const [title, setTitle] = useState('');
+  const [tab, setTab] = useState("basic");
+  const [title, setTitle] = useState("");
   const dispatch = useDispatch();
   // const layoutDispatch = useContext(LayoutContext.Dispatch);
   const { actionsLoading, saleForEdit } = useSelector(
-    (state) => ({
+    state => ({
       actionsLoading: state.products.actionsLoading,
-      saleForEdit: state.products.saleForEdit,
+      saleForEdit: state.products.saleForEdit
     }),
     shallowEqual
   );
@@ -62,7 +62,7 @@ export function SalesEdit({
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [saleForEdit, id]);
 
-  const saveProduct = (values) => {
+  const saveProduct = values => {
     if (!id) {
       dispatch(actions.createSale(values)).then(() => backToProductsList());
     } else {
@@ -111,35 +111,35 @@ export function SalesEdit({
       </CardHeader>
       <CardBody>
         <ul className="nav nav-tabs nav-tabs-line " role="tablist">
-          <li className="nav-item" onClick={() => setTab('basic')}>
+          <li className="nav-item" onClick={() => setTab("basic")}>
             <a
-              className={`nav-link ${tab === 'basic' && 'active'}`}
+              className={`nav-link ${tab === "basic" && "active"}`}
               data-toggle="tab"
               role="tab"
-              aria-selected={(tab === 'basic').toString()}
+              aria-selected={(tab === "basic").toString()}
             >
               Basic info
             </a>
           </li>
           {id && (
             <>
-              {' '}
-              <li className="nav-item" onClick={() => setTab('remarks')}>
+              {" "}
+              <li className="nav-item" onClick={() => setTab("remarks")}>
                 <a
-                  className={`nav-link ${tab === 'remarks' && 'active'}`}
+                  className={`nav-link ${tab === "remarks" && "active"}`}
                   data-toggle="tab"
                   role="button"
-                  aria-selected={(tab === 'remarks').toString()}
+                  aria-selected={(tab === "remarks").toString()}
                 >
                   Product remarks
                 </a>
               </li>
-              <li className="nav-item" onClick={() => setTab('specs')}>
+              <li className="nav-item" onClick={() => setTab("specs")}>
                 <a
-                  className={`nav-link ${tab === 'specs' && 'active'}`}
+                  className={`nav-link ${tab === "specs" && "active"}`}
                   data-toggle="tab"
                   role="tab"
-                  aria-selected={(tab === 'specs').toString()}
+                  aria-selected={(tab === "specs").toString()}
                 >
                   Product specifications
                 </a>
@@ -148,7 +148,7 @@ export function SalesEdit({
           )}
         </ul>
         <div className="mt-5">
-          {tab === 'basic' && (
+          {tab === "basic" && (
             <ProductEditForm
               actionsLoading={actionsLoading}
               product={saleForEdit || initSale}
@@ -156,12 +156,12 @@ export function SalesEdit({
               saveProduct={saveProduct}
             />
           )}
-          {tab === 'remarks' && id && (
+          {tab === "remarks" && id && (
             <RemarksUIProvider currentProductId={id}>
               <Remarks />
             </RemarksUIProvider>
           )}
-          {tab === 'specs' && id && (
+          {tab === "specs" && id && (
             <SpecificationsUIProvider currentProductId={id}>
               <Specifications />
             </SpecificationsUIProvider>
