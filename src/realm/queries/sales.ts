@@ -2,6 +2,7 @@ import RealmApp from '../dbConfig/config';
 import * as mongoose from 'mongoose';
 import Schemas from '../schemas/index';
 import { SaleProperties } from '../../types/sale';
+import { productForSaleProps } from '../../types/productForSale';
 import helperFuncs from '../utils/helpers.func';
 import Realm from 'realm';
 
@@ -15,11 +16,20 @@ type getSalesResponse = {
 /**
  * @typedef {Object} Sale
  * @property {objectId} customer_id - ID of the customer paying for product(s)
- * @property {objectId} product_id - ID of the product of being sold
+ * @property {Array} products - an array of products
  * @property {objectId} employee_id - ID of the employee that made the sale
  * @property {number} total_amount - Total amount paid by customer
  * @property {string} transaction_type - Transaction type
  * @property {string} date - Date of sale
+ */
+
+/**
+ * @typedef {Object} ProductForSale
+ * @property {objectId} productId - ID of the product
+ * @property {string} unit - Unit of the product e.g pack, dozen, card, e.t.c
+ * @property {string} amount - Amount per unit of the product
+ * @property {string} name - Name of the product
+ * @returns
  */
 
 /**
@@ -42,11 +52,9 @@ function createSale(sale: SaleProperties) {
     // since _id is primary key realm prefers an ObjectId
     let id = mongoose.Types.ObjectId();
     let customerId = mongoose.Types.ObjectId();
-    let productId = mongoose.Types.ObjectId();
 
     sale._id = id;
     sale.customer_id = customerId;
-    sale.product_id = productId;
 
     app.write(() => {
       try {
@@ -56,7 +64,6 @@ function createSale(sale: SaleProperties) {
         let saleObject: SaleProperties = newSale as any;
         saleObject._id = saleObject._id.toHexString();
         saleObject.customer_id = saleObject.customer_id.toHexString();
-        saleObject.product_id = saleObject.product_id.toHexString();
         resolve(saleObject);
       } catch (e) {
         console.log(e);

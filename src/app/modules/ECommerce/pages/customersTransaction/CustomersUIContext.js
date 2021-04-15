@@ -1,6 +1,7 @@
-import React, { createContext, useContext, useState, useCallback } from "react";
-import { isEqual, isFunction } from "lodash";
-import { initialFilter } from "./CustomersUIHelpers";
+import React, { createContext, useContext, useState, useCallback } from 'react';
+import { isEqual, isFunction } from 'lodash';
+import { initialFilter } from './CustomersUIHelpers';
+import { history, useHistory } from 'react-router-dom';
 
 const CustomersUIContext = createContext();
 
@@ -14,8 +15,10 @@ export function CustomersUIProvider({ customersUIEvents, children }) {
   const [queryParams, setQueryParamsBase] = useState(initialFilter);
   const [ids, setIds] = useState([]);
   const [productsSelected, setProduct] = useState([]);
-  const setQueryParams = useCallback(nextQueryParams => {
-    setQueryParamsBase(prevQueryParams => {
+  const [itemForEdit, setItemForEdit] = useState();
+
+  const setQueryParams = useCallback((nextQueryParams) => {
+    setQueryParamsBase((prevQueryParams) => {
       if (isFunction(nextQueryParams)) {
         nextQueryParams = nextQueryParams(prevQueryParams);
       }
@@ -29,18 +32,18 @@ export function CustomersUIProvider({ customersUIEvents, children }) {
   }, []);
 
   const initCustomer = {
-    _id: "",
-    title: "",
-    first_name: "",
-    last_name: "",
-    display_name: "",
-    gender: "",
-    email: "",
-    phone_no: "",
-    ip_address: "",
-    login: "",
-    website: "",
-    cus_type: "1"
+    _id: '',
+    title: '',
+    first_name: '',
+    last_name: '',
+    display_name: '',
+    gender: '',
+    email: '',
+    phone_no: '',
+    ip_address: '',
+    login: '',
+    website: '',
+    cus_type: '1',
   };
 
   const value = {
@@ -50,6 +53,8 @@ export function CustomersUIProvider({ customersUIEvents, children }) {
     setIds,
     productsSelected,
     setProduct,
+    itemForEdit,
+    setItemForEdit,
     setQueryParams,
     initCustomer,
     newCustomerButtonClick: customersUIEvents.newCustomerButtonClick,
@@ -58,7 +63,7 @@ export function CustomersUIProvider({ customersUIEvents, children }) {
     openDeleteCustomersDialog: customersUIEvents.openDeleteCustomersDialog,
     openFetchCustomersDialog: customersUIEvents.openFetchCustomersDialog,
     openUpdateCustomersStatusDialog:
-      customersUIEvents.openUpdateCustomersStatusDialog
+      customersUIEvents.openUpdateCustomersStatusDialog,
   };
 
   return (

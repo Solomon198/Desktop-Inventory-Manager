@@ -1,17 +1,17 @@
-
+import * as mongoose from 'mongoose';
 
 /**
  * @function getPaginationPartition
  * @param {number} pageNo - The current page of pagination
- * @param {number} batchSize - The total records required for a page 
+ * @param {number} batchSize - The total records required for a page
  * @description Get the start and end position of element given the page and batchSize
- * @returns 
+ * @returns
  */
 
-function getPaginationPartition(pageNo:number,pageSize:number){
-    let pageStart = ((pageNo - 1 ) * pageSize );
-    let pageEnd = (pageNo * pageSize) - 1
-    return {pageStart:pageStart,pageEnd:pageEnd}
+function getPaginationPartition(pageNo: number, pageSize: number) {
+  let pageStart = (pageNo - 1) * pageSize;
+  let pageEnd = pageNo * pageSize - 1;
+  return { pageStart: pageStart, pageEnd: pageEnd };
 }
 
 /**
@@ -21,19 +21,18 @@ function getPaginationPartition(pageNo:number,pageSize:number){
  * @returns {Object} returns an Object
  */
 
-function transformRealmObjectsToJsObject(obj:any){
+function transformRealmObjectsToJsObject(obj: any) {
+  let doc: any = {};
 
-       let doc:any= {};
+  Object.keys(obj).forEach((val: any) => {
+    doc[val] = obj[val];
+  });
 
-       Object.keys(obj).forEach((val:any)=>{
-            doc[val] = obj[val];
-       })
-
-        console.log(doc)
-       return doc;
+  console.log(doc);
+  return doc;
 }
 
 export default {
-    getPaginationPartition,
-    transformRealmObjectsToJsObject
-}
+  getPaginationPartition,
+  transformRealmObjectsToJsObject,
+};

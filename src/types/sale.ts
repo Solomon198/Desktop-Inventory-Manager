@@ -5,7 +5,7 @@ export type SaleProperties = {
 
   customer_id: any;
 
-  product_id: any;
+  products: any;
 
   total_amount: string;
 

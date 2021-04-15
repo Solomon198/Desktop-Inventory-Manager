@@ -10,13 +10,13 @@ const SaleSchema: SaleTypes = {
 
     customer_id: 'objectId?',
 
-    product_id: 'objectId?',
+    products: 'productForSale[]',
 
     total_amount: 'int?',
 
     transaction_type: 'string?',
 
-    date: 'string?',
+    date: 'date?',
   },
 };
 
