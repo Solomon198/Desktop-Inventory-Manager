@@ -11,4 +11,17 @@ function transformHexStringToObjectId(str: any) {
   return mongoose.Types.ObjectId(str);
 }
 
-export default { transformHexStringToObjectId };
+/**
+ * @function transformDateStringToDateType
+ * @param {string} str - A date in string type
+ * @description Convert string to a date format
+ * @returns {string} returns a string
+ */
+
+function transformDateStringToDateType(str: any) {
+  let _dateType = str.split(' ');
+  let _newDateType = `${_dateType[1]}-${_dateType[2]}-${_dateType[0]}`;
+  return _newDateType;
+}
+
+export default { transformHexStringToObjectId, transformDateStringToDateType };

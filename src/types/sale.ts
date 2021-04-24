@@ -12,6 +12,10 @@ export type SaleProperties = {
   transaction_type: string;
 
   date: string;
+
+  customer_name?: string;
+
+  customer_phone?: string;
 };
 
 export type SaleTypes = {

@@ -2,9 +2,11 @@ import RealmApp from '../dbConfig/config';
 import * as mongoose from 'mongoose';
 import Schemas from '../schemas/index';
 import { SaleProperties } from '../../types/sale';
+import { CustomerProperties } from '../../types/customer';
 import { productForSaleProps } from '../../types/productForSale';
 import helperFuncs from '../utils/helpers.func';
 import Realm from 'realm';
+import CustomerAPI from './customers';
 
 const app = RealmApp();
 
@@ -25,7 +27,7 @@ type getSalesResponse = {
 
 /**
  * @typedef {Object} ProductForSale
- * @property {objectId} productId - ID of the product
+ * @property {objectId} saleId - ID of the product
  * @property {string} unit - Unit of the product e.g pack, dozen, card, e.t.c
  * @property {string} amount - Amount per unit of the product
  * @property {string} name - Name of the product
@@ -48,10 +50,13 @@ type getSalesResponse = {
  */
 
 function createSale(sale: SaleProperties) {
+  sale.products.forEach((val) => {
+    val._id = mongoose.Types.ObjectId();
+  });
   return new Promise<SaleProperties>((resolve, reject) => {
     // since _id is primary key realm prefers an ObjectId
     let id = mongoose.Types.ObjectId();
-    let customerId = mongoose.Types.ObjectId();
+    let customerId = mongoose.Types.ObjectId(sale.customer_id);
 
     sale._id = id;
     sale.customer_id = customerId;
@@ -61,7 +66,20 @@ function createSale(sale: SaleProperties) {
         let newSale: Realm.Object;
         newSale = app.create(Schemas.SaleSchema.name, sale);
         newSale = newSale.toJSON();
+
         let saleObject: SaleProperties = newSale as any;
+        let cusId = saleObject.customer_id.toHexString();
+        let customer = CustomerAPI.getCustomerSync(cusId) as CustomerProperties;
+
+        try {
+          saleObject.date = helperFuncs.transformDateObjectToString(
+            saleObject.date
+          );
+        } catch (e) {}
+
+        saleObject.customer_name =
+          customer.first_name + ' ' + customer.last_name;
+        saleObject.customer_phone = customer.phone_no;
         saleObject._id = saleObject._id.toHexString();
         saleObject.customer_id = saleObject.customer_id.toHexString();
         resolve(saleObject);
@@ -73,30 +91,30 @@ function createSale(sale: SaleProperties) {
   });
 }
 
-// /**
-//  * @description Get product by id
-//  * @async
-//  * @function getProduct
-//  * @param  {string} productId - The ID(identity) of the product
-//  * @returns {Promise<Product>} Returns the product
-//  */
-// function getProduct(productId: string) {
-//   return new Promise<SaleProperties>((resolve, reject) => {
-//     try {
-//       let convertIdToObjectId = mongoose.Types.ObjectId(productId);
+/**
+ * @description Get Sale by id
+ * @async
+ * @function getSale
+ * @param  {string} saleId - The ID(identity) of the sale
+ * @returns {Promise<Sale>} Returns the sale
+ */
+function getSale(saleId: string) {
+  return new Promise<SaleProperties>((resolve, reject) => {
+    try {
+      let convertIdToObjectId = mongoose.Types.ObjectId(saleId);
 
-//       let product = app.objectForPrimaryKey(
-//         Schemas.ProductSchema.name,
-//         convertIdToObjectId as ObjectId
-//       );
-//       let productObject: SaleProperties = product?.toJSON() as any;
-//       productObject._id = productObject._id.toHexString();
-//       resolve(productObject);
-//     } catch (e) {
-//       reject(e.message);
-//     }
-//   });
-// }
+      let sale = app.objectForPrimaryKey(
+        Schemas.SaleSchema.name,
+        convertIdToObjectId as ObjectId
+      );
+      let saleObject: SaleProperties = sale?.toJSON() as any;
+      saleObject._id = saleObject._id.toHexString();
+      resolve(saleObject);
+    } catch (e) {
+      reject(e.message);
+    }
+  });
+}
 
 /**
  * @description Get sales
@@ -136,8 +154,19 @@ function getSales(page = 1, pageSize = 10, searchQuery = '', type = '') {
       let objArr: any[] = [];
       //converting to array of Object
       result.forEach((obj) => {
-        let newObj = obj.toJSON();
+        let newObj = obj.toJSON() as SaleProperties;
+        let cusId = newObj.customer_id.toHexString();
+        let customer = CustomerAPI.getCustomerSync(cusId) as CustomerProperties;
         newObj._id = newObj._id.toHexString();
+        newObj.customer_name = customer.first_name + ' ' + customer.last_name;
+        newObj.customer_phone = customer.phone_no;
+        try {
+          newObj.date = helperFuncs.transformDateObjectToString(newObj.date);
+          // newObj.total_amount = newObj.total_amount.toString();
+          newObj.total_amount = helperFuncs.transformToCurrencyString(
+            newObj.total_amount
+          );
+        } catch (e) {}
         objArr.push(newObj);
       });
 
@@ -154,13 +183,13 @@ function getSales(page = 1, pageSize = 10, searchQuery = '', type = '') {
 //  * @description Remove product by id
 //  * @async
 //  * @function removeProduct
-//  * @param  {string} productId - The ID(identity) of the product
+//  * @param  {string} saleId - The ID(identity) of the product
 //  * @returns {Promise<boolean>} Returns true or false if operation is successful
 //  */
-// function removeProduct(productId: string) {
+// function removeProduct(saleId: string) {
 //   return new Promise<boolean>((resolve, reject) => {
 //     try {
-//       let changeToObjectId = mongoose.Types.ObjectId(productId);
+//       let changeToObjectId = mongoose.Types.ObjectId(saleId);
 //       app.write(() => {
 //         let product = app.objectForPrimaryKey(
 //           Schemas.ProductSchema.name,
@@ -237,7 +266,7 @@ function getSales(page = 1, pageSize = 10, searchQuery = '', type = '') {
 
 export default {
   createSale,
-  //   getProduct,
+  getSale,
   getSales,
   //   removeProduct,
   //   removeProducts,

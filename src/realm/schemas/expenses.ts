@@ -1,4 +1,3 @@
-
 import { ExpenseTypes } from '../../types/expense'; // typescript type validation for daily attendance
 
 const ExpenseSchema: ExpenseTypes = {
@@ -9,13 +8,13 @@ const ExpenseSchema: ExpenseTypes = {
   properties: {
     _id: 'objectId',
 
-    payee: 'string?',
+    item: 'string?',
 
-    payment_amount: 'int?',
+    description: 'string?',
 
-    payment_method: 'string[]',
+    amount: 'int?',
 
-    date: 'string?',
+    date: 'date',
   },
 };
 

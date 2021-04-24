@@ -1,10 +1,10 @@
 /* eslint-disable no-restricted-imports */
-import React, { useEffect, useMemo } from "react";
-import { Modal } from "react-bootstrap";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
-import * as actions from "../../../_redux/sales/salesActions";
-import { useSalesUIContext } from "../ProductsUIContext";
+import React, { useEffect, useMemo } from 'react';
+import { Modal } from 'react-bootstrap';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { ModalProgressBar } from '../../../../../../_metronic/_partials/controls';
+import * as actions from '../../../_redux/sales/salesActions';
+import { useSalesUIContext } from '../ProductsUIContext';
 
 export function ProductsDeleteDialog({ show, onHide }) {
   // Products UI Context
@@ -13,14 +13,14 @@ export function ProductsDeleteDialog({ show, onHide }) {
     return {
       ids: salesUIContext.ids,
       setIds: salesUIContext.setIds,
-      queryParams: salesUIContext.queryParams
+      queryParams: salesUIContext.queryParams,
     };
   }, [salesUIContext]);
 
   // Products Redux state
   const dispatch = useDispatch();
   const { isLoading } = useSelector(
-    state => ({ isLoading: state.sales.actionsLoading }),
+    (state) => ({ isLoading: state.sales.actionsLoading }),
     shallowEqual
   );
 
@@ -54,7 +54,7 @@ export function ProductsDeleteDialog({ show, onHide }) {
       onHide={onHide}
       aria-labelledby="example-modal-sizes-title-lg"
     >
-      {isLoading && <ModalProgressBar />}
+      {/* {isLoading && <ModalProgressBar />}
       <Modal.Header closeButton>
         <Modal.Title id="example-modal-sizes-title-lg">
           Products Delete
@@ -65,8 +65,8 @@ export function ProductsDeleteDialog({ show, onHide }) {
           <span>Are you sure to permanently delete selected products?</span>
         )}
         {isLoading && <span>Products are deleting...</span>}
-      </Modal.Body>
-      <Modal.Footer>
+      </Modal.Body> */}
+      {/* <Modal.Footer>
         <div>
           <button
             type="button"
@@ -76,15 +76,15 @@ export function ProductsDeleteDialog({ show, onHide }) {
             Cancel
           </button>
           <> </>
-          {/* <button
+          <button
             type="button"
             onClick={deleteSales}
             className="btn btn-primary btn-elevate"
           >
             Delete
-          </button> */}
+          </button>
         </div>
-      </Modal.Footer>
+      </Modal.Footer> */}
     </Modal>
   );
 }

@@ -32,7 +32,49 @@ function transformRealmObjectsToJsObject(obj: any) {
   return doc;
 }
 
+/**
+ * @function transfromDateObjectToString
+ * @param {Object} date - Date of object
+ * @description Convert date object to string
+ * @returns {string} returns a string of date
+ */
+
+function transformDateObjectToString(date: any) {
+  let d = date;
+  let day = d.getDate() + '';
+  let year = d.getFullYear();
+  let month = d.getMonth() + 1 + '';
+  let _day = day.length == 1 ? '0' + day : day;
+  let _month = month.length == 1 ? '0' + month : month;
+  let newDate = `${_day}-${_month}-${year}`;
+
+  return newDate;
+}
+
+/**
+ * @function transformToCurrencyString
+ * @param {Number} totalAmount - Total Amount
+ * @description Convert total amount number to currency string
+ * @returns {string} returns a string of total amount
+ */
+
+function transformToCurrencyString(totalAmount) {
+  const formatter = new Intl.NumberFormat('en-ng', {
+    style: 'currency',
+    currency: 'NGN',
+    minimumFractionDigits: 2,
+    currencyDisplay: 'symbol',
+  });
+
+  return formatter.format(totalAmount);
+
+  // "10000".replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") # => "10,000"
+  // return totalAmount.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+}
+
 export default {
   getPaginationPartition,
   transformRealmObjectsToJsObject,
+  transformDateObjectToString,
+  transformToCurrencyString,
 };

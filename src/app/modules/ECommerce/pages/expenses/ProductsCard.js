@@ -1,14 +1,14 @@
-import React, { useMemo } from "react";
+import React, { useMemo } from 'react';
 import {
   Card,
   CardBody,
   CardHeader,
-  CardHeaderToolbar
-} from "../../../../../_metronic/_partials/controls";
-import { ProductsFilter } from "./products-filter/ProductsFilter";
-import { ProductsTable } from "./products-table/ProductsTable";
-import { ProductsGrouping } from "./products-grouping/ProductsGrouping";
-import { useProductsUIContext } from "./ProductsUIContext";
+  CardHeaderToolbar,
+} from '../../../../../_metronic/_partials/controls';
+import { ProductsFilter } from './products-filter/ProductsFilter';
+import { ProductsTable } from './products-table/ProductsTable';
+import { ProductsGrouping } from './products-grouping/ProductsGrouping';
+import { useProductsUIContext } from './ProductsUIContext';
 
 export function ProductsCard() {
   const productsUIContext = useProductsUIContext();
@@ -22,7 +22,7 @@ export function ProductsCard() {
       openEditProductPage: productsUIContext.openEditProductPage,
       openUpdateProductsStatusDialog:
         productsUIContext.openUpdateProductsStatusDialog,
-      openFetchProductsDialog: productsUIContext.openFetchProductsDialog
+      openFetchProductsDialog: productsUIContext.openFetchProductsDialog,
     };
   }, [productsUIContext]);
 
@@ -30,13 +30,13 @@ export function ProductsCard() {
     <Card>
       <CardHeader title="Expenses list">
         <CardHeaderToolbar>
-          {/* <button
+          <button
             type="button"
             className="btn btn-primary"
             onClick={productsUIProps.newProductButtonClick}
           >
             New Expense
-          </button> */}
+          </button>
         </CardHeaderToolbar>
       </CardHeader>
       <CardBody>

@@ -10,7 +10,7 @@ const ProductForSaleSchema: ProductForSale = {
 
     productId: 'objectId',
 
-    unit: 'int?',
+    unit: 'string?',
 
     amount: 'int',
 

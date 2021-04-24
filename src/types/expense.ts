@@ -3,11 +3,11 @@
 export type ExpenseProperties = {
   _id: any;
 
-  payee: string;
+  item: string;
 
-  payment_amount: string;
+  description: string;
 
-  payment_method: any;
+  amount: string;
 
   date: string;
 };

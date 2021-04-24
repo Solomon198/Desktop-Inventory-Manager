@@ -1,5 +1,4 @@
-
-import { CustomerTypes } from '../../types/customer'; // typescript type validation for daily attendance
+import { CustomerTypes } from '../../types/customer'; // typescript type validation for customers
 
 const CustomerSchema: CustomerTypes = {
   name: 'customers',
@@ -7,7 +6,6 @@ const CustomerSchema: CustomerTypes = {
   primaryKey: '_id',
 
   properties: {
-    
     _id: 'objectId',
 
     title: 'string?',

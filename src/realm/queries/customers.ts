@@ -72,6 +72,32 @@ function createCustomer(customer: CustomerProperties) {
  * @param  {string} customerId - The ID(identity) of the customer
  * @returns {Promise<Customer>} Returns the customer
  */
+
+function getCustomerSync(customerId: string) {
+  try {
+    let convertIdToObjectId = mongoose.Types.ObjectId(customerId);
+
+    let customer = app.objectForPrimaryKey(
+      Schemas.CustomerSchema.name,
+      convertIdToObjectId as ObjectId
+    );
+
+    let customerObject: CustomerProperties = customer?.toJSON() as any;
+    customerObject._id = customerObject._id.toHexString();
+
+    return customerObject as CustomerProperties;
+  } catch (e) {
+    return e;
+  }
+}
+
+/**
+ * @description Get customer by id
+ * @async
+ * @function getCustomer
+ * @param  {string} customerId - The ID(identity) of the customer
+ * @returns {Promise<Customer>} Returns the customer
+ */
 function getCustomer(customerId: string) {
   return new Promise<CustomerProperties>((resolve, reject) => {
     try {
@@ -135,6 +161,7 @@ function getCustomers(page = 1, pageSize = 10, searchQuery = '', type = '') {
         objArr.push(newObj);
       });
 
+      console.log(objArr);
       let response = { totalCount: totalCount, entities: objArr };
 
       resolve(response);
@@ -239,4 +266,5 @@ export default {
   removeCustomer,
   removeCustomers,
   updateCustomer,
+  getCustomerSync,
 };

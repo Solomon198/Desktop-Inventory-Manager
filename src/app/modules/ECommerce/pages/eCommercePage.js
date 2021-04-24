@@ -1,19 +1,19 @@
-import React, { Suspense } from "react";
-import { Redirect, Switch } from "react-router-dom";
-import { CustomersPage } from "./customers/CustomersPage";
-import { CustomerSalesPage } from "./customerSales/CustomersPage";
-import { CustomersTransactionPage } from "./customersTransaction/CustomersPage";
-import { EmployeesPage } from "./employees/CustomersPage";
-import { ProductsPage } from "./products/ProductsPage";
-import { StocksPage } from "./stocks/ProductsPage";
-import { SalesPage } from "./sales/ProductsPage";
-import { ExpensesPage } from "./expenses/ProductsPage";
-import { DebtsManagerPage } from "./debtsManager/CustomersPage";
-import { ProductEdit } from "./products/product-edit/ProductEdit";
-import { StockEdit } from "./stocks/product-edit/ProductEdit";
-import { SalesEdit } from "./sales/product-edit/ProductEdit";
-import { ExpenseEdit } from "./expenses/product-edit/ProductEdit";
-import { LayoutSplashScreen, ContentRoute } from "../../../../_metronic/layout";
+import React, { Suspense } from 'react';
+import { Redirect, Switch } from 'react-router-dom';
+import { CustomersPage } from './customers/CustomersPage';
+import { CustomerSalesPage } from './customerSales/CustomersPage';
+import { CustomersTransactionPage } from './customersTransaction/CustomersPage';
+import { EmployeesPage } from './employees/CustomersPage';
+import { ProductsPage } from './products/ProductsPage';
+import { StocksPage } from './stocks/ProductsPage';
+import { SalesPage } from './sales/ProductsPage';
+import { ExpensesPage } from './expenses/ProductsPage';
+import { DebtsManagerPage } from './debtsManager/CustomersPage';
+import { ProductEdit } from './products/product-edit/ProductEdit';
+import { StockEdit } from './stocks/product-edit/ProductEdit';
+import { SalesEdit } from './sales/product-edit/ProductEdit';
+import { ExpenseEdit } from './expenses/product-edit/ProductEdit';
+import { LayoutSplashScreen, ContentRoute } from '../../../../_metronic/layout';
 
 export default function eCommercePage() {
   return (
@@ -45,6 +45,7 @@ export default function eCommercePage() {
           path="/e-commerce/products/:id/edit"
           component={ProductEdit}
         />
+        <ContentRoute path="/e-commerce/sales/:id/edit" component={SalesEdit} />
 
         <ContentRoute path="/e-commerce/products" component={ProductsPage} />
         <ContentRoute path="/e-commerce/stocks" component={StocksPage} />
