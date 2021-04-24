@@ -1,14 +1,14 @@
-import { all } from 'redux-saga/effects';
-import { combineReducers } from 'redux';
+import { all } from "redux-saga/effects";
+import { combineReducers } from "redux";
 
-import * as auth from '../app/modules/Auth/_redux/authRedux';
-import { customersSlice } from '../app/modules/ECommerce/_redux/customers/customersSlice';
-import { employeesSlice } from '../app/modules/ECommerce/_redux/employees/employeesSlice';
-import { productsSlice } from '../app/modules/ECommerce/_redux/products/productsSlice';
-import { salesSlice } from '../app/modules/ECommerce/_redux/sales/salesSlice';
-import { expensesSlice } from '../app/modules/ECommerce/_redux/expenses/expensesSlice';
-import { remarksSlice } from '../app/modules/ECommerce/_redux/remarks/remarksSlice';
-import { specificationsSlice } from '../app/modules/ECommerce/_redux/specifications/specificationsSlice';
+import * as auth from "../app/modules/Auth/_redux/authRedux";
+import { customersSlice } from "../app/modules/ECommerce/_redux/customers/customersSlice";
+import { employeesSlice } from "../app/modules/ECommerce/_redux/employees/employeesSlice";
+import { productsSlice } from "../app/modules/ECommerce/_redux/products/productsSlice";
+import { salesSlice } from "../app/modules/ECommerce/_redux/sales/salesSlice";
+import { expensesSlice } from "../app/modules/ECommerce/_redux/expenses/expensesSlice";
+import { remarksSlice } from "../app/modules/ECommerce/_redux/remarks/remarksSlice";
+import { specificationsSlice } from "../app/modules/ECommerce/_redux/specifications/specificationsSlice";
 
 export const rootReducer = combineReducers({
   auth: auth.reducer,
@@ -18,7 +18,7 @@ export const rootReducer = combineReducers({
   sales: salesSlice.reducer,
   expenses: expensesSlice.reducer,
   remarks: remarksSlice.reducer,
-  specifications: specificationsSlice.reducer,
+  specifications: specificationsSlice.reducer
 });
 
 export function* rootSaga() {

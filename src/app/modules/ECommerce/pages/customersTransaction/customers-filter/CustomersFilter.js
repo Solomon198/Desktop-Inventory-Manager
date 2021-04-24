@@ -1,21 +1,21 @@
-import React, { useMemo, useEffect, useState } from 'react';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
-import { isEqual } from 'lodash';
-import { useHistory } from 'react-router-dom';
-import { useCustomersUIContext } from '../CustomersUIContext';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import * as actions from '../../../_redux/products/productsActions';
-import * as saleActions from '../../../_redux/sales/salesActions';
+import React, { useMemo, useEffect, useState } from "react";
+import { Formik } from "formik";
+import * as Yup from "yup";
+import { isEqual } from "lodash";
+import { useHistory } from "react-router-dom";
+import { useCustomersUIContext } from "../CustomersUIContext";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as actions from "../../../_redux/products/productsActions";
+import * as saleActions from "../../../_redux/sales/salesActions";
 
 const prepareFilter = (queryParams, values) => {
   const { status, type, searchText } = values;
   const newQueryParams = { ...queryParams };
   const filter = {};
   // Filter by status
-  filter.status = status !== '' ? +status : undefined;
+  filter.status = status !== "" ? +status : undefined;
   // Filter by type
-  filter.type = type !== '' ? +type : undefined;
+  filter.type = type !== "" ? +type : undefined;
   // Filter by all fields
   filter.lastName = searchText;
   if (searchText) {
@@ -29,23 +29,23 @@ const prepareFilter = (queryParams, values) => {
 
 const CustomerTransactionSchema = Yup.object().shape({
   unit: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
   product: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
   quantity: Yup.number()
-    .min(1, 'Too Short!')
-    .required('Required'),
+    .min(1, "Too Short!")
+    .required("Required"),
   amount: Yup.number()
-    .min(1, 'Too Short!')
-    .required('Required'),
+    .min(1, "Too Short!")
+    .required("Required"),
   unit: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required")
 });
 
 export function CustomersFilter({ listLoading }) {
@@ -62,12 +62,12 @@ export function CustomersFilter({ listLoading }) {
       itemForEdit: customersUIContext.itemForEdit,
       setItemForEdit: customersUIContext.setItemForEdit,
       insertSale: customersUIContext.insertSale,
-      setInsertSale: customersUIContext.setInsertSale,
+      setInsertSale: customersUIContext.setInsertSale
     };
   }, [customersUIContext]);
 
   // queryParams, setQueryParams,
-  const applyFilter = (values) => {
+  const applyFilter = values => {
     const newQueryParams = prepareFilter(customersUIProps.queryParams, values);
     if (!isEqual(newQueryParams, customersUIProps.queryParams)) {
       newQueryParams.pageNumber = 1;
@@ -78,7 +78,7 @@ export function CustomersFilter({ listLoading }) {
 
   // Getting curret state of products list from store (Redux)
   const { currentState } = useSelector(
-    (state) => ({ currentState: state.products }),
+    state => ({ currentState: state.products }),
     shallowEqual
   );
   const { totalCount } = currentState;
@@ -99,18 +99,18 @@ export function CustomersFilter({ listLoading }) {
   // server request for saving customer
 
   const initialValues = {
-    product: '', // values => All=""/Susspended=0/Active=1/Pending=2,
-    productId: '',
-    quantity: '', // values => All=""/Business=0/Individual=1
-    amount: '0',
-    unit: '',
-    totalAmount: '',
+    product: "", // values => All=""/Susspended=0/Active=1/Pending=2,
+    productId: "",
+    quantity: "", // values => All=""/Business=0/Individual=1
+    amount: "0",
+    unit: "",
+    totalAmount: ""
   };
 
   const _oldEntities = _products;
   const selectedEntities = customersUIProps.productsSelected;
-  let entitiesIds = _oldEntities ? _oldEntities.map((val) => val._id) : [];
-  let selectedEntitiesIds = selectedEntities.map((val) => val.productId);
+  let entitiesIds = _oldEntities ? _oldEntities.map(val => val._id) : [];
+  let selectedEntitiesIds = selectedEntities.map(val => val.productId);
   let entities = [];
   let counter = 0;
   for (let item of entitiesIds) {
@@ -144,7 +144,7 @@ export function CustomersFilter({ listLoading }) {
             // productsSelected.push(values);
 
             customersUIProps.setProduct(productsSelected);
-            resetForm({ values: '' });
+            resetForm({ values: "" });
           }
           values.totalAmount = values.amount * values.quantity;
           let productsForEdit = { ...customersUIProps.itemForEdit };
@@ -153,7 +153,7 @@ export function CustomersFilter({ listLoading }) {
           _productForEdit.push(productsForEdit);
 
           // customersUIProps.setProduct(_productForEdit);
-          resetForm({ values: '' });
+          resetForm({ values: "" });
         }}
       >
         {({
@@ -163,7 +163,7 @@ export function CustomersFilter({ listLoading }) {
           handleChange,
           setFieldValue,
           errors,
-          touched,
+          touched
         }) => (
           <form onSubmit={handleSubmit} className="form form-label-right">
             <div className="form-group row">
@@ -173,18 +173,18 @@ export function CustomersFilter({ listLoading }) {
                   placeholder="Product"
                   name="product"
                   onBlur={handleBlur}
-                  onChange={(e) => {
+                  onChange={e => {
                     let productId = e.target.value;
-                    if (productId == 'select') return false;
+                    if (productId == "select") return false;
                     let product = {};
-                    entities.forEach((item) => {
+                    entities.forEach(item => {
                       if (item._id == productId) {
                         product = item;
                       }
                     });
-                    setFieldValue('product', product.model);
-                    setFieldValue('productId', product._id);
-                    setFieldValue('amount', product.price);
+                    setFieldValue("product", product.model);
+                    setFieldValue("productId", product._id);
+                    setFieldValue("amount", product.price);
                   }}
                   value={values.productId}
                 >
@@ -198,7 +198,7 @@ export function CustomersFilter({ listLoading }) {
                   <b>Product</b>
                 </small>
                 {errors.product && touched.product ? (
-                  <div style={{ color: 'red' }}>{errors.product}</div>
+                  <div style={{ color: "red" }}>{errors.product}</div>
                 ) : null}
               </div>
               <div className="col-lg-2">
@@ -210,15 +210,15 @@ export function CustomersFilter({ listLoading }) {
                   onBlur={handleBlur}
                   disabled={true}
                   value={values.amount}
-                  onChange={(e) => {
-                    setFieldValue('amount', e.target.value);
+                  onChange={e => {
+                    setFieldValue("amount", e.target.value);
                   }}
                 />
                 <small className="form-text text-muted">
                   <b>Amount</b>
                 </small>
                 {errors.amount && touched.amount ? (
-                  <div style={{ color: 'red' }}>{errors.amount}</div>
+                  <div style={{ color: "red" }}>{errors.amount}</div>
                 ) : null}
               </div>
               <div className="col-lg-2">
@@ -229,15 +229,15 @@ export function CustomersFilter({ listLoading }) {
                   placeholder="Quantity"
                   // onBlur={handleBlur}
                   value={values.quantity}
-                  onChange={(e) => {
-                    setFieldValue('quantity', e.target.value);
+                  onChange={e => {
+                    setFieldValue("quantity", e.target.value);
                   }}
                 />
                 <small className="form-text text-muted">
                   <b>Quantity</b>
                 </small>
                 {errors.quantity && touched.quantity ? (
-                  <div style={{ color: 'red' }}>{errors.quantity}</div>
+                  <div style={{ color: "red" }}>{errors.quantity}</div>
                 ) : null}
               </div>
 
@@ -247,8 +247,8 @@ export function CustomersFilter({ listLoading }) {
                   placeholder="Unit"
                   name="type"
                   onBlur={handleBlur}
-                  onChange={(e) => {
-                    setFieldValue('unit', e.target.value);
+                  onChange={e => {
+                    setFieldValue("unit", e.target.value);
                   }}
                   value={values.unit}
                 >
@@ -262,13 +262,13 @@ export function CustomersFilter({ listLoading }) {
                   <b>Unit</b>
                 </small>
                 {errors.unit && touched.unit ? (
-                  <div style={{ color: 'red' }}>{errors.unit}</div>
+                  <div style={{ color: "red" }}>{errors.unit}</div>
                 ) : null}
               </div>
               <div className="col-lg-2">
                 <button
                   type="submit"
-                  style={{ display: 'block' }}
+                  style={{ display: "block" }}
                   className="btn btn-primary"
                 >
                   Add

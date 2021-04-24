@@ -2,29 +2,29 @@
 // Data validation is based on Yup
 // Please, be familiar with article first:
 // https://hackernoon.com/react-form-validation-with-formik-and-yup-8b76bda62e10
-import React from 'react';
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
-import { Input, Select } from '../../../../../../_metronic/_partials/controls';
+import React from "react";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+import { Input, Select } from "../../../../../../_metronic/_partials/controls";
 import {
   AVAILABLE_COLORS,
   AVAILABLE_MANUFACTURES,
   ProductStatusTitles,
-  ProductConditionTitles,
-} from '../ProductsUIHelpers';
+  ProductConditionTitles
+} from "../ProductsUIHelpers";
 
 // Validation schema
 const ExpenseEditSchema = Yup.object().shape({
   item: Yup.string()
-    .min(2, 'Minimum 2 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Item is required'),
+    .min(2, "Minimum 2 symbols")
+    .max(50, "Maximum 50 symbols")
+    .required("Item is required"),
   amount: Yup.number()
-    .min(1, '₦1 is minimum')
-    .max(1000000, '₦1000000 is maximum')
-    .required('Amount is required'),
-  description: Yup.string().required('Description is required'),
-  date: Yup.date().required('Date is required'),
+    .min(1, "₦1 is minimum")
+    .max(1000000, "₦1000000 is maximum")
+    .required("Amount is required"),
+  description: Yup.string().required("Description is required"),
+  date: Yup.date().required("Date is required")
 });
 
 export function ProductEditForm({ expense, btnRef, saveExpense }) {
@@ -34,7 +34,7 @@ export function ProductEditForm({ expense, btnRef, saveExpense }) {
         enableReinitialize={true}
         initialValues={expense}
         validationSchema={ExpenseEditSchema}
-        onSubmit={(values) => {
+        onSubmit={values => {
           saveExpense(values);
         }}
       >
@@ -80,7 +80,7 @@ export function ProductEditForm({ expense, btnRef, saveExpense }) {
               </div>
               <button
                 type="submit"
-                style={{ display: 'none' }}
+                style={{ display: "none" }}
                 ref={btnRef}
                 onSubmit={() => handleSubmit()}
               ></button>
