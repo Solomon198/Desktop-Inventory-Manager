@@ -1,10 +1,10 @@
 /* eslint-disable no-restricted-imports */
-import React, { useEffect, useMemo } from 'react';
-import { Modal } from 'react-bootstrap';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { ModalProgressBar } from '../../../../../../_metronic/_partials/controls';
-import * as actions from '../../../_redux/expenses/expensesActions';
-import { useProductsUIContext } from '../ProductsUIContext';
+import React, { useEffect, useMemo } from "react";
+import { Modal } from "react-bootstrap";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
+import * as actions from "../../../_redux/expenses/expensesActions";
+import { useProductsUIContext } from "../ProductsUIContext";
 
 export function ProductDeleteDialog({ id, show, onHide }) {
   // Products UI Context
@@ -12,14 +12,14 @@ export function ProductDeleteDialog({ id, show, onHide }) {
   const productsUIProps = useMemo(() => {
     return {
       setIds: productsUIContext.setIds,
-      queryParams: productsUIContext.queryParams,
+      queryParams: productsUIContext.queryParams
     };
   }, [productsUIContext]);
 
   // Products Redux state
   const dispatch = useDispatch();
   const { isLoading } = useSelector(
-    (state) => ({ isLoading: state.expenses.actionsLoading }),
+    state => ({ isLoading: state.expenses.actionsLoading }),
     shallowEqual
   );
 
