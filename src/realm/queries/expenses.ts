@@ -224,6 +224,11 @@ function updateExpense(expenseForEdit: ExpenseProperties) {
         );
         let expenseObject: ExpenseProperties = expenseUpdate.toJSON();
         expenseObject._id = expenseObject._id.toHexString();
+        try {
+          expenseObject.date = helperFuncs.transformDateObjectToString(
+            expenseObject.date
+          );
+        } catch (e) {}
         resolve(expenseObject);
       } catch (e) {
         reject(e.message);

@@ -1,10 +1,10 @@
 /* eslint-disable no-restricted-imports */
-import React, { useEffect, useMemo } from "react";
-import { Modal } from "react-bootstrap";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
-import * as actions from "../../../_redux/products/productsActions";
-import { useProductsUIContext } from "../ProductsUIContext";
+import React, { useEffect, useMemo } from 'react';
+import { Modal } from 'react-bootstrap';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { ModalProgressBar } from '../../../../../../_metronic/_partials/controls';
+import * as actions from '../../../_redux/expenses/expensesActions';
+import { useProductsUIContext } from '../ProductsUIContext';
 
 export function ProductDeleteDialog({ id, show, onHide }) {
   // Products UI Context
@@ -12,14 +12,14 @@ export function ProductDeleteDialog({ id, show, onHide }) {
   const productsUIProps = useMemo(() => {
     return {
       setIds: productsUIContext.setIds,
-      queryParams: productsUIContext.queryParams
+      queryParams: productsUIContext.queryParams,
     };
   }, [productsUIContext]);
 
   // Products Redux state
   const dispatch = useDispatch();
   const { isLoading } = useSelector(
-    state => ({ isLoading: state.products.actionsLoading }),
+    (state) => ({ isLoading: state.expenses.actionsLoading }),
     shallowEqual
   );
 
@@ -34,11 +34,11 @@ export function ProductDeleteDialog({ id, show, onHide }) {
   // looking for loading/dispatch
   useEffect(() => {}, [isLoading, dispatch]);
 
-  const deleteProduct = () => {
+  const deleteExpense = () => {
     // server request for deleting product by id
-    dispatch(actions.deleteProduct(id)).then(() => {
+    dispatch(actions.deleteExpense(id)).then(() => {
       // refresh list after deletion
-      dispatch(actions.fetchProducts(productsUIProps.queryParams));
+      dispatch(actions.fetchExpenses(productsUIProps.queryParams));
       // clear selections list
       productsUIProps.setIds([]);
       // closing delete modal
@@ -55,14 +55,14 @@ export function ProductDeleteDialog({ id, show, onHide }) {
       {isLoading && <ModalProgressBar variant="query" />}
       <Modal.Header closeButton>
         <Modal.Title id="example-modal-sizes-title-lg">
-          Product Delete
+          Expense Delete
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {!isLoading && (
-          <span>Are you sure to permanently delete this product?</span>
+          <span>Are you sure to permanently delete this expense?</span>
         )}
-        {isLoading && <span>Product is deleting...</span>}
+        {isLoading && <span>Expense is deleting...</span>}
       </Modal.Body>
       <Modal.Footer>
         <div>
@@ -76,7 +76,7 @@ export function ProductDeleteDialog({ id, show, onHide }) {
           <> </>
           <button
             type="button"
-            onClick={deleteProduct}
+            onClick={deleteExpense}
             className="btn btn-delete btn-elevate"
           >
             Delete

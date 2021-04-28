@@ -131,6 +131,68 @@ function getProducts(page = 1, pageSize = 10, searchQuery = '', type = '') {
       result.forEach((obj) => {
         let newObj = obj.toJSON();
         newObj._id = newObj._id.toHexString();
+        try {
+          newObj.price = helperFuncs.transformToCurrencyString(newObj.price);
+        } catch (e) {}
+        objArr.push(newObj);
+      });
+
+      let response = { totalCount: totalCount, entities: objArr };
+
+      resolve(response);
+    } catch (e) {
+      reject(e.message);
+    }
+  });
+}
+
+/**
+ * @description Get products for sale
+ * @async
+ * @function getProductsForSale
+ * @param {number} [page=1] - The page number of the request for products
+ * @param {number} pageSize - The size of page
+ * @returns {Promise<productsResponse>} returns the total product count and entities
+ */
+function getProductsForSale(
+  page = 1,
+  pageSize = 10,
+  searchQuery = '',
+  type = ''
+) {
+  return new Promise<getProductsResponse>((resolve, reject) => {
+    try {
+      let products: Realm.Results<Realm.Object>;
+      if (searchQuery.trim() && type.trim()) {
+        let query =
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
+        products = app
+          .objects(Schemas.ProductSchema.name)
+          .filtered(query, searchQuery, type);
+      } else if (searchQuery.trim() && !type.trim()) {
+        let query =
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
+        products = app
+          .objects(Schemas.ProductSchema.name)
+          .filtered(query, searchQuery);
+      } else if (!searchQuery.trim() && type.trim()) {
+        let query = 'cus_type == $0';
+        products = app
+          .objects(Schemas.ProductSchema.name)
+          .filtered(query, type);
+      } else {
+        products = app.objects(Schemas.ProductSchema.name);
+      }
+
+      let partition = helperFuncs.getPaginationPartition(page, pageSize);
+      let totalCount = products.length;
+      let result = products.slice(partition.pageStart, partition.pageEnd);
+
+      let objArr: any[] = [];
+      //converting to array of Object
+      result.forEach((obj) => {
+        let newObj = obj.toJSON();
+        newObj._id = newObj._id.toHexString();
         objArr.push(newObj);
       });
 
@@ -232,6 +294,7 @@ export default {
   createProduct,
   getProduct,
   getProducts,
+  getProductsForSale,
   removeProduct,
   removeProducts,
   updateProduct,

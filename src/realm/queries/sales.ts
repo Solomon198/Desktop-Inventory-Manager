@@ -109,6 +109,29 @@ function getSale(saleId: string) {
       );
       let saleObject: SaleProperties = sale?.toJSON() as any;
       saleObject._id = saleObject._id.toHexString();
+      saleObject.customer_id = saleObject.customer_id.toHexString();
+      try {
+        saleObject.products.forEach((obj) => {
+          obj._id = obj._id.toHexString();
+          obj.amount = helperFuncs.transformToCurrencyString(obj.amount);
+          obj.totalAmount = helperFuncs.transformToCurrencyString(
+            obj.totalAmount
+          );
+        });
+      } catch (e) {}
+      let customer = CustomerAPI.getCustomerSync(
+        saleObject.customer_id
+      ) as CustomerProperties;
+      saleObject.customer_name = `${customer.first_name} ${customer.last_name}`;
+      saleObject.customer_phone = `${customer.phone_no}`;
+      try {
+        saleObject.date = helperFuncs.transformDateObjectToString(
+          saleObject.date
+        );
+        saleObject.total_amount = helperFuncs.transformToCurrencyString(
+          saleObject.total_amount
+        );
+      } catch (e) {}
       resolve(saleObject);
     } catch (e) {
       reject(e.message);
