@@ -42,17 +42,14 @@ export function ProductsTable() {
     shallowEqual
   );
   const { totalCount, entities, listLoading } = currentState;
-
-  // console.log(entities);
-  // let newEntities = [];
-  // let objArr = Object.assign([], entities);
-  // objArr.forEach((obj) => {
-  //   if (obj.status === '1' && obj.transaction_type === '1') {
-  //     newEntities.push(obj);
-  //   }
-  // });
-
-  // console.log(newEntities);
+  console.log(entities);
+  let newEntities = [];
+  let objArr = Object.assign([], entities);
+  objArr.forEach((obj) => {
+    if (obj.status === '2' || obj.status === '3') {
+      newEntities.push(obj);
+    }
+  });
 
   // Products Redux state
   const dispatch = useDispatch();
@@ -60,7 +57,7 @@ export function ProductsTable() {
     // clear selections list
     salesUIProps.setIds([]);
     // server call by queryParams
-    dispatch(actions.fetchSales(salesUIProps.queryParams));
+    dispatch(actions.fetchSalesForDebt(salesUIProps.queryParams));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [salesUIProps.queryParams, dispatch]);
   // Table columns
@@ -77,24 +74,24 @@ export function ProductsTable() {
       sort: true,
       sortCaret: sortCaret,
     },
-    {
-      dataField: 'total_amount',
-      text: 'Total Amount',
-      sort: true,
-      sortCaret: sortCaret,
-    },
-    {
-      dataField: 'date',
-      text: 'Date',
-      sort: true,
-      sortCaret: sortCaret,
-    },
+    // {
+    //   dataField: 'total_amount',
+    //   text: 'Debt',
+    //   sort: true,
+    //   sortCaret: sortCaret,
+    // },
     {
       dataField: 'status',
       text: 'Status',
       sort: true,
       sortCaret: sortCaret,
       formatter: columnFormatters.StatusColumnFormatter,
+    },
+    {
+      dataField: 'date',
+      text: 'Date',
+      sort: true,
+      sortCaret: sortCaret,
     },
     {
       dataField: 'action',

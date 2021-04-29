@@ -31,7 +31,7 @@ const initSale = {
 //             onHide={() => {
 //               history.push("/e-commerce/customers");
 //             }}
-export function SalesEdit({
+export function DebtsManagerEdit({
   history,
   match: {
     params: { id },
@@ -84,14 +84,14 @@ export function SalesEdit({
   };
 
   const backToProductsList = () => {
-    history.push(`/e-commerce/sales`);
+    history.push(`/e-commerce/debts-manager`);
   };
 
   return (
     <Modal
       size="lg"
       show={true}
-      onHide={() => history.push(`/e-commerce/sales`)}
+      onHide={() => history.push(`/e-commerce/debts-manager`)}
       aria-labelledby="example-modal-sizes-title-lg"
     >
       <Card>
@@ -112,14 +112,13 @@ export function SalesEdit({
               Reset
             </button> */}
             {`  `}
-            <button
+            {/* <button
               type="submit"
               className="btn btn-primary ml-2"
-              // onClick={saveProductClick}
-              onClick={() => console.log('Hey')}
+              onClick={saveProductClick}
             >
-              Print
-            </button>
+              Save
+            </button> */}
           </CardHeaderToolbar>
         </CardHeader>
         <CardBody>

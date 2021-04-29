@@ -33,6 +33,17 @@ function transformRealmObjectsToJsObject(obj: any) {
 }
 
 /**
+ * @function transformRealmStringToNumber
+ * @param {string} string - A string
+ * @description Convert realm string to number
+ * @returns {Number} return a number
+ */
+
+function transformRealmStringToNumber(str: any) {
+  return parseInt(str);
+}
+
+/**
  * @function transfromDateObjectToString
  * @param {Object} date - Date of object
  * @description Convert date object to string
@@ -77,4 +88,5 @@ export default {
   transformRealmObjectsToJsObject,
   transformDateObjectToString,
   transformToCurrencyString,
+  transformRealmStringToNumber,
 };

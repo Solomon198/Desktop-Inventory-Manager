@@ -94,20 +94,37 @@ export function CustomerInvoice({ id }) {
   return (
     <>
       <div className="mb-5">
-        <h1 className="mb-2">INVOICE</h1>
+        {saleForEdit && saleForEdit.outstanding !== '₦0.00' ? (
+          <h1>OUTSTANDING MANAGER</h1>
+        ) : (
+          <h1>DEBT MANAGER</h1>
+        )}
         <hr />
         <div className="d-flex justify-content-between">
           <div className="date">
             <h3 className="mb-2">DATE</h3>
             <span>{saleForEdit && saleForEdit.date}</span>
           </div>
-          <div className="invoiceNo">
+          {/* <div className="invoiceNo">
             <h3 className="mb-2">INVOICE NO</h3>
             <span className="text-center">
               {saleForEdit && saleForEdit._id}
             </span>
+          </div> */}
+
+          <div>
+            <h3 className="mb-2">CUSTOMER INFO</h3>
+            <span>
+              Full Name:{'  '}
+              <strong>{saleForEdit && saleForEdit.customer_name}</strong>
+            </span>
+            <br />
+            <span>
+              Phone no:{'  '}
+              <strong>{saleForEdit && saleForEdit.customer_phone}</strong>
+            </span>
           </div>
-          <div className="companyInfo">
+          {/* <div className="companyInfo">
             <h3 className="mb-2">YOUR COMPANY</h3>
             <span>
               <strong>Dixre Enterprise</strong>
@@ -118,22 +135,44 @@ export function CustomerInvoice({ id }) {
             <span>Kano road, by Ibadan street.</span>
             <br />
             <span>Kaduna, Kaduna state.</span>
-          </div>
+          </div> */}
         </div>
         <hr />
 
         <div className="d-flex justify-content-between">
           <div>
-            <h3 className="mb-2">INVOICE TO</h3>
-            <span>
-              Full Name:{'  '}
-              <strong>{saleForEdit && saleForEdit.customer_name}</strong>
-            </span>
-            <br />
-            <span>
-              Phone no:{'  '}
-              <strong>{saleForEdit && saleForEdit.customer_phone}</strong>
-            </span>
+            {saleForEdit &&
+            saleForEdit.outstanding !== '₦0.00' &&
+            saleForEdit.part_payment !== '₦0.00' ? (
+              <div>
+                <h3>OUTSTANDING</h3>
+                <p>
+                  <strong>
+                    PAID:{' '}
+                    <span style={{ color: 'red' }}>
+                      {saleForEdit && saleForEdit.part_payment}
+                    </span>
+                  </strong>
+                </p>
+                <p>
+                  <strong>
+                    OUTSTANDING:{' '}
+                    <span style={{ color: 'red' }}>
+                      {saleForEdit && saleForEdit.outstanding}
+                    </span>
+                  </strong>
+                </p>
+              </div>
+            ) : (
+              <div>
+                <h3>DEBT</h3>
+                <strong>
+                  <p style={{ color: 'red' }}>
+                    {saleForEdit && saleForEdit.total_amount}
+                  </p>
+                </strong>
+              </div>
+            )}
           </div>
 
           <div>

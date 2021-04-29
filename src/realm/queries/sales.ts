@@ -60,6 +60,9 @@ function createSale(sale: SaleProperties) {
 
     sale._id = id;
     sale.customer_id = customerId;
+    sale.part_payment = helperFuncs.transformRealmStringToNumber(
+      sale.part_payment
+    );
 
     app.write(() => {
       try {
@@ -131,6 +134,12 @@ function getSale(saleId: string) {
         saleObject.total_amount = helperFuncs.transformToCurrencyString(
           saleObject.total_amount
         );
+        saleObject.part_payment = helperFuncs.transformToCurrencyString(
+          saleObject.part_payment
+        );
+        saleObject.outstanding = helperFuncs.transformToCurrencyString(
+          saleObject.outstanding
+        );
       } catch (e) {}
       resolve(saleObject);
     } catch (e) {
@@ -171,29 +180,119 @@ function getSales(page = 1, pageSize = 10, searchQuery = '', type = '') {
       }
 
       let partition = helperFuncs.getPaginationPartition(page, pageSize);
-      let totalCount = sales.length;
+      // let totalCount = sales.length;
       let result = sales.slice(partition.pageStart, partition.pageEnd);
 
       let objArr: any[] = [];
       //converting to array of Object
       result.forEach((obj) => {
         let newObj = obj.toJSON() as SaleProperties;
-        let cusId = newObj.customer_id.toHexString();
-        let customer = CustomerAPI.getCustomerSync(cusId) as CustomerProperties;
-        newObj._id = newObj._id.toHexString();
-        newObj.customer_name = customer.first_name + ' ' + customer.last_name;
-        newObj.customer_phone = customer.phone_no;
-        try {
-          newObj.date = helperFuncs.transformDateObjectToString(newObj.date);
-          // newObj.total_amount = newObj.total_amount.toString();
-          newObj.total_amount = helperFuncs.transformToCurrencyString(
-            newObj.total_amount
-          );
-        } catch (e) {}
-        objArr.push(newObj);
+        if (newObj.transaction_type === '1' && newObj.status === '1') {
+          let cusId = newObj.customer_id.toHexString();
+          let customer = CustomerAPI.getCustomerSync(
+            cusId
+          ) as CustomerProperties;
+          newObj._id = newObj._id.toHexString();
+          newObj.customer_name = customer.first_name + ' ' + customer.last_name;
+          newObj.customer_phone = customer.phone_no;
+          try {
+            newObj.date = helperFuncs.transformDateObjectToString(newObj.date);
+            // newObj.total_amount = newObj.total_amount.toString();
+            newObj.total_amount = helperFuncs.transformToCurrencyString(
+              newObj.total_amount
+            );
+            // newObj.part_payment = helperFuncs.transformToCurrencyString(
+            //   newObj.part_payment
+            // );
+            // newObj.outstanding = helperFuncs.transformToCurrencyString(
+            //   newObj.outstanding
+            // );
+          } catch (e) {}
+          objArr.push(newObj);
+        }
       });
 
-      let response = { totalCount: totalCount, entities: objArr };
+      let paidArr = objArr.slice(partition.pageStart, partition.pageEnd);
+      let totalCount = objArr.length;
+
+      let response = { totalCount: totalCount, entities: paidArr };
+
+      resolve(response);
+    } catch (e) {
+      reject(e.message);
+    }
+  });
+}
+
+/**
+ * @description Get salesForDebt
+ * @async
+ * @function getSalesForDebt
+ * @param {number} [page=1] - The page number of the request for salesForDebt
+ * @param {number} pageSize - The size of page
+ * @returns {Promise<salesResponse>} returns the total saleForDebt count and entities
+ */
+function getSalesForDebt(page = 1, pageSize = 10, searchQuery = '', type = '') {
+  return new Promise<getSalesResponse>((resolve, reject) => {
+    try {
+      let sales: Realm.Results<Realm.Object>;
+      if (searchQuery.trim() && type.trim()) {
+        let query =
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
+        sales = app
+          .objects(Schemas.SaleSchema.name)
+          .filtered(query, searchQuery, type);
+      } else if (searchQuery.trim() && !type.trim()) {
+        let query =
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
+        sales = app
+          .objects(Schemas.SaleSchema.name)
+          .filtered(query, searchQuery);
+      } else if (!searchQuery.trim() && type.trim()) {
+        let query = 'cus_type == $0';
+        sales = app.objects(Schemas.SaleSchema.name).filtered(query, type);
+      } else {
+        sales = app.objects(Schemas.SaleSchema.name);
+      }
+
+      let partition = helperFuncs.getPaginationPartition(page, pageSize);
+      // let totalCount = sales.length;
+      let result = sales.slice();
+
+      let objArr: any[] = [];
+      // let debtArr: any[] = [];
+      //converting to array of Object
+      result.forEach((obj) => {
+        let newObj = obj.toJSON() as SaleProperties;
+        if (newObj.status === '3' || newObj.status === '2') {
+          let cusId = newObj.customer_id.toHexString();
+          let customer = CustomerAPI.getCustomerSync(
+            cusId
+          ) as CustomerProperties;
+          newObj._id = newObj._id.toHexString();
+          newObj.customer_name = customer.first_name + ' ' + customer.last_name;
+          newObj.customer_phone = customer.phone_no;
+          try {
+            newObj.date = helperFuncs.transformDateObjectToString(newObj.date);
+            // newObj.total_amount = newObj.total_amount.toString();
+            newObj.total_amount = helperFuncs.transformToCurrencyString(
+              newObj.total_amount
+            );
+            // newObj.part_payment = helperFuncs.transformToCurrencyString(
+            //   newObj.part_payment
+            // );
+            // newObj.outstanding = helperFuncs.transformToCurrencyString(
+            //   newObj.outstanding
+            // );
+          } catch (e) {}
+          objArr.push(newObj);
+        }
+      });
+
+      let debitArr = objArr.slice(partition.pageStart, partition.pageEnd);
+      let totalCount = objArr.length;
+
+      let response = { totalCount: totalCount, entities: debitArr };
 
       resolve(response);
     } catch (e) {
@@ -291,6 +390,7 @@ export default {
   createSale,
   getSale,
   getSales,
+  getSalesForDebt,
   //   removeProduct,
   //   removeProducts,
   //   updateProduct,

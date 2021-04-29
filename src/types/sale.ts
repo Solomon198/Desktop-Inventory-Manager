@@ -11,11 +11,17 @@ export type SaleProperties = {
 
   transaction_type: string;
 
+  part_payment?: any;
+
+  outstanding?: string;
+
   date: string;
 
   customer_name?: string;
 
   customer_phone?: string;
+
+  status: string;
 };
 
 export type SaleTypes = {

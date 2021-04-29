@@ -14,7 +14,13 @@ const SaleSchema: SaleTypes = {
 
     total_amount: 'int?',
 
+    part_payment: 'int?',
+
+    outstanding: 'int?',
+
     transaction_type: 'string?',
+
+    status: 'string?',
 
     date: 'date?',
   },
