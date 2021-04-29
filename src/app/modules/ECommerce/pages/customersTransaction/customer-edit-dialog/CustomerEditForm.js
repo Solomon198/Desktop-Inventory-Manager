@@ -2,48 +2,48 @@
 // Data validation is based on Yup
 // Please, be familiar with article first:
 // https://hackernoon.com/react-form-validation-with-formik-and-yup-8b76bda62e10
-import React from 'react';
-import { Modal } from 'react-bootstrap';
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
+import React from "react";
+import { Modal } from "react-bootstrap";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
 import {
   Input,
   Select,
-  DatePickerField,
-} from '../../../../../../_metronic/_partials/controls';
-import helperFuncs from '../../../../../../dist/realm/utils/helpers.func';
+  DatePickerField
+} from "../../../../../../_metronic/_partials/controls";
+import helperFuncs from "../../../../../../dist/realm/utils/helpers.func";
 
 // Validation schema
 const CustomerEditSchema = Yup.object().shape({
   title: Yup.string()
-    .min(2, 'Mininum 2 symbols')
-    .max(20, 'Maximum 20 symbols')
-    .required('Title is required'),
+    .min(2, "Mininum 2 symbols")
+    .max(20, "Maximum 20 symbols")
+    .required("Title is required"),
   first_name: Yup.string()
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Firstname is required'),
+    .min(3, "Minimum 3 symbols")
+    .max(50, "Maximum 50 symbols")
+    .required("Firstname is required"),
   last_name: Yup.string()
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Lastname is required'),
+    .min(3, "Minimum 3 symbols")
+    .max(50, "Maximum 50 symbols")
+    .required("Lastname is required"),
   email: Yup.string()
-    .email('Invalid email')
-    .required('Email is required'),
-  display_name: Yup.string().required('Username is required'),
+    .email("Invalid email")
+    .required("Email is required"),
+  display_name: Yup.string().required("Username is required"),
   // dateOfBbirth: Yup.mixed()
   //   .nullable(false)
   //   .required("Date of Birth is required"),
-  ip_address: Yup.string().required('IP Address is required'),
+  ip_address: Yup.string().required("IP Address is required")
 });
 
 export function CustomerEditForm({
   saveCustomer,
   customer,
   actionsLoading,
-  onHide,
+  onHide
 }) {
-  customer = typeof customer === 'object' ? customer : {};
+  customer = typeof customer === "object" ? customer : {};
 
   return (
     <>
@@ -51,7 +51,7 @@ export function CustomerEditForm({
         enableReinitialize={true}
         initialValues={customer}
         validationSchema={CustomerEditSchema}
-        onSubmit={(values) => {
+        onSubmit={values => {
           saveCustomer(values);
         }}
       >
