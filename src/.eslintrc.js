@@ -23,5 +23,6 @@ module.exports = {
     // "no-script-url": "warn",
     "jsx-a11y/anchor-is-valid": "warn",
     "no-restricted-imports": ["error", { paths: [].concat(...restrictedPaths) }]
-  }
+  },
+  ignorePatterns: ["../_metronic/"]
 };

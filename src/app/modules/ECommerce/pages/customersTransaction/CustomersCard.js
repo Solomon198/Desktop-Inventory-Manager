@@ -55,13 +55,6 @@ export function CustomersCard(props) {
 
   // Sales Redux state
   const dispatch = useDispatch();
-  const { actionsLoading, entities, saleForEdit } = useSelector(
-    state => ({
-      actionsLoading: state.sales.actionsLoading,
-      entities: state.sales.entities
-    }),
-    shallowEqual
-  );
 
   const location = useLocation();
 
@@ -76,13 +69,7 @@ export function CustomersCard(props) {
       }
     } catch (e) {}
     validateFinishSale();
-  }, [
-    customersUIProps.productsSelected,
-    validateTransactions,
-    validateFinishSale,
-    cusId,
-    location.state.id
-  ]);
+  }, [customersUIProps, location.state, validateFinishSale]);
 
   const getClasses = () => {
     let classes = `col-lg-`;
