@@ -124,8 +124,7 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "yarn lint-fix ; yarn format",
-            "pre-push": "yarn lint-fix ; yarn format"
+            "pre-commit": "yarn lint-fix ; yarn format"
         }
     }
 }

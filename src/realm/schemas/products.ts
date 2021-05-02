@@ -1,33 +1,33 @@
-import { ProductTypes } from '../../types/product'; // typescript type validation for daily attendance
+import { ProductTypes } from "../../types/product"; // typescript type validation for daily attendance
 
 const ProductSchema: ProductTypes = {
-  name: 'products',
+  name: "products",
 
-  primaryKey: '_id',
+  primaryKey: "_id",
 
   properties: {
-    _id: 'objectId',
+    _id: "objectId",
 
-    model: 'string',
+    model: "string",
 
-    manufacturer: 'string?',
+    manufacturer: "string?",
 
-    model_year: 'int?',
+    model_year: "int?",
 
-    mileage: 'int?',
+    mileage: "int?",
 
-    color: 'string?',
+    color: "string?",
 
-    price: 'int?',
+    price: "int?",
 
-    vin_code: 'string?',
+    vin_code: "string?",
 
-    status: 'string?',
+    status: "string?",
 
-    condition: 'string?',
+    condition: "string?",
 
-    description: 'string?',
-  },
+    description: "string?"
+  }
 };
 
 export default ProductSchema;

@@ -1,24 +1,23 @@
-
-import { StockTypes } from '../../types/stock'; // typescript type validation for daily attendance
+import { StockTypes } from "../../types/stock"; // typescript type validation for daily attendance
 
 const StockSchema: StockTypes = {
-  name: 'stocks',
+  name: "stocks",
 
-  primaryKey: '_id',
+  primaryKey: "_id",
 
   properties: {
-    _id: 'objectId',
+    _id: "objectId",
 
-    product: 'string?',
+    product: "string?",
 
-    quantity: 'int?',
+    quantity: "int?",
 
-    amount_per_item: 'int?',
+    amount_per_item: "int?",
 
-    stock_type: 'string?',
+    stock_type: "string?",
 
-    date: 'string?',
-  },
+    date: "string?"
+  }
 };
 
 export default StockSchema;

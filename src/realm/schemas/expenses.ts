@@ -1,21 +1,21 @@
-import { ExpenseTypes } from '../../types/expense'; // typescript type validation for daily attendance
+import { ExpenseTypes } from "../../types/expense"; // typescript type validation for daily attendance
 
 const ExpenseSchema: ExpenseTypes = {
-  name: 'expenses',
+  name: "expenses",
 
-  primaryKey: '_id',
+  primaryKey: "_id",
 
   properties: {
-    _id: 'objectId',
+    _id: "objectId",
 
-    item: 'string?',
+    item: "string?",
 
-    description: 'string?',
+    description: "string?",
 
-    amount: 'int?',
+    amount: "int?",
 
-    date: 'date',
-  },
+    date: "date"
+  }
 };
 
 export default ExpenseSchema;
