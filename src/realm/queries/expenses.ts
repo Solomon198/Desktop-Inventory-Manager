@@ -1,9 +1,9 @@
-import RealmApp from '../dbConfig/config';
-import * as mongoose from 'mongoose';
-import Schemas from '../schemas/index';
-import { ExpenseProperties } from '../../types/expense';
-import helperFuncs from '../utils/helpers.func';
-import Realm from 'realm';
+import RealmApp from "../dbConfig/config";
+import * as mongoose from "mongoose";
+import Schemas from "../schemas/index";
+import { ExpenseProperties } from "../../types/expense";
+import helperFuncs from "../utils/helpers.func";
+import Realm from "realm";
 
 const app = RealmApp();
 
@@ -97,24 +97,24 @@ function getExpense(expenseId: string) {
  * @param {number} pageSize - The size of page
  * @returns {Promise<expensesResponse>} returns the total expense count and entities
  */
-function getExpenses(page = 1, pageSize = 10, searchQuery = '', type = '') {
+function getExpenses(page = 1, pageSize = 10, searchQuery = "", type = "") {
   return new Promise<getExpensesResponse>((resolve, reject) => {
     try {
       let expenses: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
+          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1";
         expenses = app
           .objects(Schemas.ExpenseSchema.name)
           .filtered(query, searchQuery, type);
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
+          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
         expenses = app
           .objects(Schemas.ExpenseSchema.name)
           .filtered(query, searchQuery);
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = 'cus_type == $0';
+        let query = "cus_type == $0";
         expenses = app
           .objects(Schemas.ExpenseSchema.name)
           .filtered(query, type);
@@ -128,7 +128,7 @@ function getExpenses(page = 1, pageSize = 10, searchQuery = '', type = '') {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach((obj) => {
+      result.forEach(obj => {
         let newObj = obj.toJSON();
         newObj._id = newObj._id.toHexString();
         try {
@@ -185,12 +185,12 @@ function removeExpenses(expenseIds: string[]) {
     try {
       let changeToObjectIds: ObjectId[] = [];
 
-      expenseIds.forEach((id) => {
+      expenseIds.forEach(id => {
         changeToObjectIds.push(mongoose.Types.ObjectId(id) as ObjectId);
       });
 
       app.write(() => {
-        changeToObjectIds.forEach((id) => {
+        changeToObjectIds.forEach(id => {
           let expense = app.objectForPrimaryKey(Schemas.ExpenseSchema.name, id);
           app.delete(expense);
         });
@@ -243,5 +243,5 @@ export default {
   getExpenses,
   removeExpense,
   removeExpenses,
-  updateExpense,
+  updateExpense
 };
