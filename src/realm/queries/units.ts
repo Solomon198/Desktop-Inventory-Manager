@@ -1,12 +1,12 @@
-import RealmApp from '../dbConfig/config';
-import * as mongoose from 'mongoose';
-import Schemas from '../schemas/index';
-import { UnitProperties } from '../../types/unit';
-import { ProductProperties } from '../../types/product';
+import RealmApp from "../dbConfig/config";
+import * as mongoose from "mongoose";
+import Schemas from "../schemas/index";
+import { UnitProperties } from "../../types/unit";
+import { ProductProperties } from "../../types/product";
 // import { productForSaleProps } from '../../types/productForSale';
-import helperFuncs from '../utils/helpers.func';
-import Realm from 'realm';
-import ProductAPI from './products';
+import helperFuncs from "../utils/helpers.func";
+import Realm from "realm";
+import ProductAPI from "./products";
 
 const app = RealmApp();
 
@@ -362,7 +362,7 @@ function createUnit(unit: UnitProperties) {
 // }
 
 export default {
-  createUnit,
+  createUnit
   // getSale,
   // getSales,
   // getSalesForDebt,
