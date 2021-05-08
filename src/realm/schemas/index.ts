@@ -6,6 +6,9 @@ import ProductSchema from './products';
 import SaleSchema from './sales';
 import StockSchema from './stocks';
 import ProductForSaleSchema from './productForSale';
+import UnitSchema from './units';
+import StockEntrySchema from './stocksEntry';
+
 export default {
   CustomerSchema,
   DebtManagerSchema,
@@ -15,4 +18,6 @@ export default {
   SaleSchema,
   StockSchema,
   ProductForSaleSchema,
+  UnitSchema,
+  StockEntrySchema,
 };

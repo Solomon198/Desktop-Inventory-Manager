@@ -1,21 +1,17 @@
 /* eslint-disable prettier/prettier */
 
-export type StockProperties = {
+export type StockEntryProperties = {
   _id: any;
-
-  product_id: any;
 
   unit_id: any;
 
   quantity: string;
-
-  date: string;
 };
 
-export type StockTypes = {
+export type StockEntryTypes = {
   name: string;
 
   primaryKey: string;
 
-  properties: StockProperties;
+  properties: StockEntryProperties;
 };

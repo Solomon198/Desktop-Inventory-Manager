@@ -17,12 +17,7 @@ type getProductsResponse = {
  * @property {string} model - Product model
  * @property {string} manufacturer - Product manufacturer
  * @property {number} model_year - Product model year
- * @property {number} mileage - Product mileage
- * @property {string} color - Product color
- * @property {string} price - Product price
  * @property {string} vin_code - Product VIN code
- * @property {string} status - Product status
- * @property {string} condition - Product condition
  * @property {string} description - Product description
  */
 
@@ -62,6 +57,29 @@ function createProduct(product: ProductProperties) {
       }
     });
   });
+}
+
+/**
+ * @description Get product by id
+ * @async
+ * @function getProductSync
+ * @param  {string} productId - The ID(identity) of the product
+ * @returns {Promise<Product>} Returns the product
+ */
+function getProductSync(productId: string) {
+  try {
+    let convertIdToObjectId = mongoose.Types.ObjectId(productId);
+
+    let product = app.objectForPrimaryKey(
+      Schemas.ProductSchema.name,
+      convertIdToObjectId as ObjectId
+    );
+    let productObject: ProductProperties = product?.toJSON() as any;
+    productObject._id = productObject._id.toHexString();
+    return productObject as ProductProperties;
+  } catch (e) {
+    return e;
+  }
 }
 
 /**
@@ -131,9 +149,9 @@ function getProducts(page = 1, pageSize = 10, searchQuery = '', type = '') {
       result.forEach((obj) => {
         let newObj = obj.toJSON();
         newObj._id = newObj._id.toHexString();
-        try {
-          newObj.price = helperFuncs.transformToCurrencyString(newObj.price);
-        } catch (e) {}
+        // try {
+        //   newObj.price = helperFuncs.transformToCurrencyString(newObj.price);
+        // } catch (e) {}
         objArr.push(newObj);
       });
 
@@ -292,6 +310,7 @@ function updateProduct(productForEdit: ProductProperties) {
 
 export default {
   createProduct,
+  getProductSync,
   getProduct,
   getProducts,
   getProductsForSale,

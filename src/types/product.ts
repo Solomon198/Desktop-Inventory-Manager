@@ -9,19 +9,19 @@ export type ProductProperties = {
 
   model_year: string;
 
-  mileage: string;
-
-  color: string;
-
-  price: string;
-
   vin_code: string;
 
-  status: string;
-
-  condition: string;
-
   description: string;
+
+  // mileage: string;
+
+  // color: string;
+
+  // price: string;
+
+  // status: string;
+
+  // condition: string;
 };
 
 export type ProductTypes = {

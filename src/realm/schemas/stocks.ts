@@ -1,4 +1,3 @@
-
 import { StockTypes } from '../../types/stock'; // typescript type validation for daily attendance
 
 const StockSchema: StockTypes = {
@@ -9,15 +8,13 @@ const StockSchema: StockTypes = {
   properties: {
     _id: 'objectId',
 
-    product: 'string?',
+    product_id: 'objectId',
+
+    unit_id: 'objectId',
 
     quantity: 'int?',
 
-    amount_per_item: 'int?',
-
-    stock_type: 'string?',
-
-    date: 'string?',
+    date: 'date?',
   },
 };
 

@@ -3,6 +3,7 @@ import ProductAPI from './products';
 import EmployeeAPI from './employees';
 import SaleAPI from './sales';
 import ExpenseAPI from './expenses';
+import UnitAPI from './units';
 
 export default {
   CustomerAPI,
@@ -10,4 +11,5 @@ export default {
   EmployeeAPI,
   SaleAPI,
   ExpenseAPI,
+  UnitAPI,
 };

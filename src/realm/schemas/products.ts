@@ -14,17 +14,7 @@ const ProductSchema: ProductTypes = {
 
     model_year: 'int?',
 
-    mileage: 'int?',
-
-    color: 'string?',
-
-    price: 'int?',
-
     vin_code: 'string?',
-
-    status: 'string?',
-
-    condition: 'string?',
 
     description: 'string?',
   },

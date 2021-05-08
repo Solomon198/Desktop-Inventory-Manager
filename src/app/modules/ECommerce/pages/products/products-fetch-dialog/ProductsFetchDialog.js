@@ -1,13 +1,13 @@
-import React, { useEffect, useMemo } from "react";
-import { Modal } from "react-bootstrap";
-import { shallowEqual, useSelector } from "react-redux";
-import { ProductStatusCssClasses } from "../ProductsUIHelpers";
-import { useProductsUIContext } from "../ProductsUIContext";
+import React, { useEffect, useMemo } from 'react';
+import { Modal } from 'react-bootstrap';
+import { shallowEqual, useSelector } from 'react-redux';
+import { ProductStatusCssClasses } from '../ProductsUIHelpers';
+import { useProductsUIContext } from '../ProductsUIContext';
 
 const selectedProducts = (entities, ids) => {
   const _products = [];
-  ids.forEach(id => {
-    const product = entities.find(el => el.id === id);
+  ids.forEach((id) => {
+    const product = entities.find((el) => el._id === id);
     if (product) {
       _products.push(product);
     }
@@ -21,14 +21,14 @@ export function ProductsFetchDialog({ show, onHide }) {
   const productsUIProps = useMemo(() => {
     return {
       ids: productsUIContext.ids,
-      queryParams: productsUIContext.queryParams
+      queryParams: productsUIContext.queryParams,
     };
   }, [productsUIContext]);
 
   // Products Redux state
   const { products } = useSelector(
-    state => ({
-      products: selectedProducts(state.products.entities, productsUIProps.ids)
+    (state) => ({
+      products: selectedProducts(state.products.entities, productsUIProps.ids),
     }),
     shallowEqual
   );
@@ -55,19 +55,19 @@ export function ProductsFetchDialog({ show, onHide }) {
       <Modal.Body>
         <div className="list-timeline list-timeline-skin-light padding-30">
           <div className="list-timeline-items">
-            {products.map(product => (
-              <div className="list-timeline-item mb-3" key={product.id}>
+            {products.map((product) => (
+              <div className="list-timeline-item mb-3" key={product._id}>
                 <span className="list-timeline-text">
                   <span
-                    className={`label label-lg label-light-${
-                      ProductStatusCssClasses[product.status]
-                    } label-inline`}
-                    style={{ width: "60px" }}
+                    // className={`label label-lg label-light-${
+                    //   ProductStatusCssClasses[product.status]
+                    // } label-inline`}
+                    style={{ width: '60px' }}
                   >
-                    ID: {product.id}
-                  </span>{" "}
+                    ID: {product._id}
+                  </span>{' '}
                   <span className="ml-5">
-                    {product.manufacture}, {product.model}
+                    {product.manufacturer}, {product.model}
                   </span>
                 </span>
               </div>
