@@ -1,30 +1,30 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Modal } from 'react-bootstrap';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import * as actions from '../../../_redux/customers/customersActions';
-import { CustomerEditDialogHeader } from './CustomerEditDialogHeader';
-import { CustomerEditForm } from './CustomerEditForm';
-import { UnitForm } from './UnitForm';
-import { useCustomersUIContext } from '../CustomersUIContext';
+import React, { useState, useEffect, useMemo } from "react";
+import { Modal } from "react-bootstrap";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as actions from "../../../_redux/customers/customersActions";
+import { CustomerEditDialogHeader } from "./CustomerEditDialogHeader";
+import { CustomerEditForm } from "./CustomerEditForm";
+import { UnitForm } from "./UnitForm";
+import { useCustomersUIContext } from "../CustomersUIContext";
 
 export function CustomerEditDialog({ id, show, onHide }) {
   // Create state for tabs
-  const [tab, setTab] = useState('stock');
+  const [tab, setTab] = useState("stock");
 
   // Customers UI Context
   const customersUIContext = useCustomersUIContext();
   const customersUIProps = useMemo(() => {
     return {
-      initCustomer: customersUIContext.initCustomer,
+      initCustomer: customersUIContext.initCustomer
     };
   }, [customersUIContext]);
 
   // Customers Redux state
   const dispatch = useDispatch();
   const { actionsLoading, customerForEdit } = useSelector(
-    (state) => ({
+    state => ({
       actionsLoading: state.customers.actionsLoading,
-      customerForEdit: state.customers.customerForEdit,
+      customerForEdit: state.customers.customerForEdit
     }),
     shallowEqual
   );
@@ -35,7 +35,7 @@ export function CustomerEditDialog({ id, show, onHide }) {
   }, [id, dispatch]);
 
   // server request for saving customer
-  const saveCustomer = (customer) => {
+  const saveCustomer = customer => {
     if (!id) {
       // server request for creating customer
       dispatch(actions.createCustomer(customer)).then(() => onHide());
@@ -54,29 +54,29 @@ export function CustomerEditDialog({ id, show, onHide }) {
     >
       <CustomerEditDialogHeader id={id} />
       <ul className="nav nav-tabs nav-tabs-line ml-5 " role="tablist">
-        <li className="nav-item" onClick={() => setTab('stock')}>
+        <li className="nav-item" onClick={() => setTab("stock")}>
           <a
-            className={`nav-link ${tab === 'stock' && 'active'}`}
+            className={`nav-link ${tab === "stock" && "active"}`}
             data-toggle="tab"
             role="tab"
-            aria-selected={(tab === 'stock').toString()}
+            aria-selected={(tab === "stock").toString()}
           >
             Add Stock
           </a>
         </li>
-        <li className="nav-item" onClick={() => setTab('unit')}>
+        <li className="nav-item" onClick={() => setTab("unit")}>
           <a
-            className={`nav-link ${tab === 'unit' && 'active'}`}
+            className={`nav-link ${tab === "unit" && "active"}`}
             data-toggle="tab"
             role="tab"
-            aria-selected={(tab === 'unit').toString()}
+            aria-selected={(tab === "unit").toString()}
           >
             Unit for product
           </a>
         </li>
       </ul>
       <div className="mt-5">
-        {tab === 'stock' && (
+        {tab === "stock" && (
           <CustomerEditForm
             saveCustomer={saveCustomer}
             actionsLoading={actionsLoading}
@@ -84,7 +84,7 @@ export function CustomerEditDialog({ id, show, onHide }) {
             onHide={onHide}
           />
         )}
-        {tab === 'unit' && <UnitForm />}
+        {tab === "unit" && <UnitForm />}
       </div>
     </Modal>
   );

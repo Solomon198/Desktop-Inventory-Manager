@@ -2,33 +2,33 @@
 // Data validation is based on Yup
 // Please, be familiar with article first:
 // https://hackernoon.com/react-form-validation-with-formik-and-yup-8b76bda62e10
-import React from 'react';
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
-import { Input, Select } from '../../../../../../_metronic/_partials/controls';
+import React from "react";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+import { Input, Select } from "../../../../../../_metronic/_partials/controls";
 import {
   AVAILABLE_COLORS,
   AVAILABLE_MANUFACTURES,
   ProductStatusTitles,
-  ProductConditionTitles,
-} from '../ProductsUIHelpers';
+  ProductConditionTitles
+} from "../ProductsUIHelpers";
 
 // Validation schema
 const ProductEditSchema = Yup.object().shape({
   model: Yup.string()
-    .min(2, 'Minimum 2 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Model is required'),
+    .min(2, "Minimum 2 symbols")
+    .max(50, "Maximum 50 symbols")
+    .required("Model is required"),
   manufacturer: Yup.string()
-    .min(2, 'Minimum 2 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Manufacture is required'),
+    .min(2, "Minimum 2 symbols")
+    .max(50, "Maximum 50 symbols")
+    .required("Manufacture is required"),
   model_year: Yup.number()
-    .min(1950, '1950 is minimum')
-    .max(2020, '2020 is maximum')
-    .required('Model year is required'),
-  vin_code: Yup.string().required('VINCode is required'),
-  description: Yup.string(),
+    .min(1950, "1950 is minimum")
+    .max(2020, "2020 is maximum")
+    .required("Model year is required"),
+  vin_code: Yup.string().required("VINCode is required"),
+  description: Yup.string()
   // mileage: Yup.number()
   //   .min(0, "0 is minimum")
   //   .max(1000000, "1000000 is maximum")
@@ -49,7 +49,7 @@ export function ProductEditForm({ product, btnRef, saveProduct }) {
         enableReinitialize={true}
         initialValues={product}
         validationSchema={ProductEditSchema}
-        onSubmit={(values) => {
+        onSubmit={values => {
           saveProduct(values);
         }}
       >
@@ -67,7 +67,7 @@ export function ProductEditForm({ product, btnRef, saveProduct }) {
                 </div>
                 <div className="col-lg-3">
                   <Select name="manufacturer" label="Manufacture">
-                    {AVAILABLE_MANUFACTURES.map((manufacture) => (
+                    {AVAILABLE_MANUFACTURES.map(manufacture => (
                       <option key={manufacture} value={manufacture}>
                         {manufacture}
                       </option>
@@ -153,7 +153,7 @@ export function ProductEditForm({ product, btnRef, saveProduct }) {
               </div>
               <button
                 type="submit"
-                style={{ display: 'none' }}
+                style={{ display: "none" }}
                 ref={btnRef}
                 onSubmit={() => handleSubmit()}
               ></button>
