@@ -1,12 +1,12 @@
-import RealmApp from "../dbConfig/config";
-import * as mongoose from "mongoose";
-import Schemas from "../schemas/index";
-import { UnitProperties } from "../../types/unit";
-import { ProductProperties } from "../../types/product";
+import RealmApp from '../dbConfig/config';
+import * as mongoose from 'mongoose';
+import Schemas from '../schemas/index';
+import { UnitProperties } from '../../types/unit';
+import { ProductProperties } from '../../types/product';
 // import { productForSaleProps } from '../../types/productForSale';
-import helperFuncs from "../utils/helpers.func";
-import Realm from "realm";
-import ProductAPI from "./products";
+import helperFuncs from '../utils/helpers.func';
+import Realm from 'realm';
+import ProductAPI from './products';
 
 const app = RealmApp();
 
@@ -123,81 +123,65 @@ function createUnit(unit: UnitProperties) {
 //   });
 // }
 
-// /**
-//  * @description Get sales
-//  * @async
-//  * @function getSales
-//  * @param {number} [page=1] - The page number of the request for sales
-//  * @param {number} pageSize - The size of page
-//  * @returns {Promise<unitsResponse>} returns the total sale count and entities
-//  */
-// function getSales(page = 1, pageSize = 10, searchQuery = '', type = '') {
-//   return new Promise<getUnitsResponse>((resolve, reject) => {
-//     try {
-//       let sales: Realm.Results<Realm.Object>;
-//       if (searchQuery.trim() && type.trim()) {
-//         let query =
-//           'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
-//         sales = app
-//           .objects(Schemas.SaleSchema.name)
-//           .filtered(query, searchQuery, type);
-//       } else if (searchQuery.trim() && !type.trim()) {
-//         let query =
-//           'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
-//         sales = app
-//           .objects(Schemas.SaleSchema.name)
-//           .filtered(query, searchQuery);
-//       } else if (!searchQuery.trim() && type.trim()) {
-//         let query = 'cus_type == $0';
-//         sales = app.objects(Schemas.SaleSchema.name).filtered(query, type);
-//       } else {
-//         sales = app.objects(Schemas.SaleSchema.name);
-//       }
+/**
+ * @description Get units
+ * @async
+ * @function getUnits
+ * @param {number} [page=1] - The page number of the request for units
+ * @param {number} pageSize - The size of page
+ * @returns {Promise<unitsResponse>} returns the total unit count and entities
+ */
+function getUnits(page = 1, pageSize = 10, searchQuery = '', type = '') {
+  return new Promise<getUnitsResponse>((resolve, reject) => {
+    try {
+      let units: Realm.Results<Realm.Object>;
+      if (searchQuery.trim() && type.trim()) {
+        let query =
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
+        units = app
+          .objects(Schemas.UnitSchema.name)
+          .filtered(query, searchQuery, type);
+      } else if (searchQuery.trim() && !type.trim()) {
+        let query =
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
+        units = app
+          .objects(Schemas.UnitSchema.name)
+          .filtered(query, searchQuery);
+      } else if (!searchQuery.trim() && type.trim()) {
+        let query = 'cus_type == $0';
+        units = app.objects(Schemas.UnitSchema.name).filtered(query, type);
+      } else {
+        units = app.objects(Schemas.UnitSchema.name);
+      }
 
-//       let partition = helperFuncs.getPaginationPartition(page, pageSize);
-//       // let totalCount = sales.length;
-//       let result = sales.slice(partition.pageStart, partition.pageEnd);
+      let partition = helperFuncs.getPaginationPartition(page, pageSize);
+      // let totalCount = units.length;
+      let result = units.slice(partition.pageStart, partition.pageEnd);
 
-//       let objArr: any[] = [];
-//       //converting to array of Object
-//       result.forEach((obj) => {
-//         let newObj = obj.toJSON() as UnitProperties;
-//         if (newObj.transaction_type === '1' && newObj.status === '1') {
-//           let cusId = newObj.customer_id.toHexString();
-//           let customer = CustomerAPI.getCustomerSync(
-//             cusId
-//           ) as CustomerProperties;
-//           newObj._id = newObj._id.toHexString();
-//           newObj.customer_name = customer.first_name + ' ' + customer.last_name;
-//           newObj.customer_phone = customer.phone_no;
-//           try {
-//             newObj.date = helperFuncs.transformDateObjectToString(newObj.date);
-//             // newObj.total_amount = newObj.total_amount.toString();
-//             newObj.total_amount = helperFuncs.transformToCurrencyString(
-//               newObj.total_amount
-//             );
-//             // newObj.part_payment = helperFuncs.transformToCurrencyString(
-//             //   newObj.part_payment
-//             // );
-//             // newObj.outstanding = helperFuncs.transformToCurrencyString(
-//             //   newObj.outstanding
-//             // );
-//           } catch (e) {}
-//           objArr.push(newObj);
-//         }
-//       });
+      let objArr: any[] = [];
+      //converting to array of Object
+      result.forEach((obj) => {
+        let newObj = obj.toJSON() as UnitProperties;
+        let prodId = newObj.product_id.toHexString();
+        let product = ProductAPI.getProductSync(prodId) as ProductProperties;
+        newObj._id = newObj._id.toHexString();
+        newObj.product_name = product.model;
+        objArr.push(newObj);
+      });
 
-//       let paidArr = objArr.slice(partition.pageStart, partition.pageEnd);
-//       let totalCount = objArr.length;
+      console.log(objArr);
 
-//       let response = { totalCount: totalCount, entities: paidArr };
+      let paidArr = objArr.slice(partition.pageStart, partition.pageEnd);
+      let totalCount = objArr.length;
 
-//       resolve(response);
-//     } catch (e) {
-//       reject(e.message);
-//     }
-//   });
-// }
+      let response = { totalCount: totalCount, entities: paidArr };
+
+      resolve(response);
+    } catch (e) {
+      reject(e.message);
+    }
+  });
+}
 
 // /**
 //  * @description Get salesForDebt
@@ -362,9 +346,9 @@ function createUnit(unit: UnitProperties) {
 // }
 
 export default {
-  createUnit
+  createUnit,
   // getSale,
-  // getSales,
+  getUnits,
   // getSalesForDebt,
   //   removeProduct,
   //   removeProducts,

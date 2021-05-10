@@ -1,19 +1,19 @@
-import { UnitTypes } from "../../types/unit";
+import { UnitTypes } from '../../types/unit';
 
 const UnitSchema: UnitTypes = {
-  name: "units",
+  name: 'units',
 
-  primaryKey: "_id",
+  primaryKey: '_id',
 
   properties: {
-    _id: "objectId",
+    _id: 'objectId',
 
-    product_id: "objectId",
+    product_id: 'objectId',
 
-    name: "string?",
+    name: 'string?',
 
-    price: "float?"
-  }
+    price: 'float?',
+  },
 };
 
 export default UnitSchema;
