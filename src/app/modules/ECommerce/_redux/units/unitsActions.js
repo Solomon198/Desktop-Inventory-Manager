@@ -1,6 +1,6 @@
-import * as requestFromServer from './unitsCrud';
-import { unitsSlice, callTypes } from './unitsSlice';
-import Queries from '../../../../../dist/realm/queries/index';
+import * as requestFromServer from "./unitsCrud";
+import { unitsSlice, callTypes } from "./unitsSlice";
+import Queries from "../../../../../dist/realm/queries/index";
 const { actions } = unitsSlice;
 const UnitAPI = Queries.UnitAPI;
 
@@ -70,30 +70,30 @@ const UnitAPI = Queries.UnitAPI;
 //     });
 // };
 
-export const createUnit = (unitForCreation) => (dispatch) => {
+export const createUnit = unitForCreation => dispatch => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return UnitAPI.createUnit(unitForCreation)
-    .then((unit) => {
+    .then(unit => {
       dispatch(actions.unitCreated({ unit }));
     })
-    .catch((error) => {
+    .catch(error => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 
-export const fetchUnits = (queryParams) => (dispatch) => {
+export const fetchUnits = queryParams => dispatch => {
   dispatch(actions.startCall({ callType: callTypes.list }));
 
   let { pageNumber, pageSize, filter } = queryParams;
   let { firstName, type } = filter;
-  let customerType = typeof type === 'undefined' ? '' : type.toString();
+  let customerType = typeof type === "undefined" ? "" : type.toString();
 
   return UnitAPI.getUnits(pageNumber, pageSize, firstName, customerType)
-    .then((units) => {
+    .then(units => {
       let { totalCount, entities } = units;
       dispatch(actions.unitsFetched({ totalCount, entities }));
     })
-    .catch((error) => {
+    .catch(error => {
       dispatch(actions.catchError({ error, callType: callTypes.list }));
     });
 };
