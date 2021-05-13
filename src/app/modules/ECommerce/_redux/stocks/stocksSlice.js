@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialUnitsState = {
+const initialStocksState = {
   listLoading: false,
   actionsLoading: false,
   totalCount: 0,
   entities: null,
-  unitForEdit: undefined,
+  stockForEdit: undefined,
   lastError: null,
 };
 export const callTypes = {
@@ -13,9 +13,9 @@ export const callTypes = {
   action: 'action',
 };
 
-export const unitsSlice = createSlice({
-  name: 'units',
-  initialState: initialUnitsState,
+export const stocksSlice = createSlice({
+  name: 'stocks',
+  initialState: initialStocksState,
   reducers: {
     catchError: (state, action) => {
       state.error = `${action.type}: ${action.payload.error}`;
@@ -33,14 +33,14 @@ export const unitsSlice = createSlice({
         state.actionsLoading = true;
       }
     },
-    // getUnitById
-    unitFetched: (state, action) => {
+    // getStockById
+    stockFetched: (state, action) => {
       state.actionsLoading = false;
-      state.unitForEdit = action.payload.unitForEdit;
+      state.stockForEdit = action.payload.stockForEdit;
       state.error = null;
     },
-    // findUnits
-    unitsFetched: (state, action) => {
+    // findStocks
+    stocksFetched: (state, action) => {
       const { totalCount, entities } = action.payload;
       state.listLoading = false;
       state.error = null;
@@ -48,13 +48,13 @@ export const unitsSlice = createSlice({
       state.totalCount = totalCount;
     },
     // findUnitsForProduct
-    unitsForProductFetched: (state, action) => {
-      const { totalCount, entities } = action.payload;
-      state.listLoading = false;
-      state.error = null;
-      state.entities = entities;
-      state.totalCount = totalCount;
-    },
+    // unitsForProductFetched: (state, action) => {
+    //   const { totalCount, entities } = action.payload;
+    //   state.listLoading = false;
+    //   state.error = null;
+    //   state.entities = entities;
+    //   state.totalCount = totalCount;
+    // },
     // findSalesForDebt
     // salesForDebtFetched: (state, action) => {
     //   const { totalCount, entities } = action.payload;
@@ -63,39 +63,39 @@ export const unitsSlice = createSlice({
     //   state.entities = entities;
     //   state.totalCount = totalCount;
     // },
-    // createUnit
-    unitCreated: (state, action) => {
+    // createStock
+    stockCreated: (state, action) => {
       state.actionsLoading = false;
       state.error = null;
       state.entities.push(action.payload.sale);
     },
     // updateSale
-    // saleUpdated: (state, action) => {
-    //   state.error = null;
-    //   state.actionsLoading = false;
-    //   state.entities = state.entities.map(entity => {
-    //     if (entity._id === action.payload.sale._id) {
-    //       return action.payload.sale;
-    //     }
-    //     return entity;
-    //   });
-    // },
+    stockUpdated: (state, action) => {
+      state.error = null;
+      state.actionsLoading = false;
+      state.entities = state.entities.map((entity) => {
+        if (entity._id === action.payload.sale._id) {
+          return action.payload.sale;
+        }
+        return entity;
+      });
+    },
     // deleteSale
-    // saleDeleted: (state, action) => {
-    //   state.error = null;
-    //   state.actionsLoading = false;
-    //   state.entities = state.entities.filter(
-    //     el => el._id !== action.payload._id
-    //   );
-    // },
+    stockDeleted: (state, action) => {
+      state.error = null;
+      state.actionsLoading = false;
+      state.entities = state.entities.filter(
+        (el) => el._id !== action.payload._id
+      );
+    },
     // deleteSales
-    // salesDeleted: (state, action) => {
-    //   state.error = null;
-    //   state.actionsLoading = false;
-    //   state.entities = state.entities.filter(
-    //     el => !action.payload.ids.includes(el._id)
-    //   );
-    // },
+    salesDeleted: (state, action) => {
+      state.error = null;
+      state.actionsLoading = false;
+      state.entities = state.entities.filter(
+        (el) => !action.payload.ids.includes(el._id)
+      );
+    },
     // salesUpdateState
     //     salesStatusUpdated: (state, action) => {
     //       state.actionsLoading = false;

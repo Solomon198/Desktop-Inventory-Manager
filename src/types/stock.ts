@@ -7,7 +7,11 @@ export type StockProperties = {
 
   unit_id: any;
 
-  quantity: string;
+  product_name?: string;
+
+  unit_name?: string;
+
+  quantity: any;
 
   date: string;
 };

@@ -1,26 +1,26 @@
 // React bootstrap table next =>
 // DOCS: https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/
 // STORYBOOK: https://react-bootstrap-table.github.io/react-bootstrap-table2/storybook/index.html
-import React, { useEffect, useMemo } from "react";
-import BootstrapTable from "react-bootstrap-table-next";
+import React, { useEffect, useMemo } from 'react';
+import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory, {
-  PaginationProvider
-} from "react-bootstrap-table2-paginator";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import * as actions from "../../../_redux/customers/customersActions";
-import * as unitActions from "../../../_redux/units/unitsActions";
+  PaginationProvider,
+} from 'react-bootstrap-table2-paginator';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import * as actions from '../../../_redux/stocks/stocksActions';
+import * as unitActions from '../../../_redux/units/unitsActions';
 import {
   getSelectRow,
   getHandlerTableChange,
   NoRecordsFoundMessage,
   PleaseWaitMessage,
   sortCaret,
-  headerSortingClasses
-} from "../../../../../../_metronic/_helpers";
-import * as uiHelpers from "../CustomersUIHelpers";
-import * as columnFormatters from "./column-formatters";
-import { Pagination } from "../../../../../../_metronic/_partials/controls";
-import { useCustomersUIContext } from "../CustomersUIContext";
+  headerSortingClasses,
+} from '../../../../../../_metronic/_helpers';
+import * as uiHelpers from '../CustomersUIHelpers';
+import * as columnFormatters from './column-formatters';
+import { Pagination } from '../../../../../../_metronic/_partials/controls';
+import { useCustomersUIContext } from '../CustomersUIContext';
 
 export function CustomersTable() {
   // Customers UI Context
@@ -29,29 +29,25 @@ export function CustomersTable() {
     return {
       ids: customersUIContext.ids,
       setIds: customersUIContext.setIds,
+      initStock: customersUIContext.initStock,
       queryParams: customersUIContext.queryParams,
       setQueryParams: customersUIContext.setQueryParams,
       openEditCustomerDialog: customersUIContext.openEditCustomerDialog,
-      openDeleteCustomerDialog: customersUIContext.openDeleteCustomerDialog
+      openDeleteCustomerDialog: customersUIContext.openDeleteCustomerDialog,
     };
   }, [customersUIContext]);
 
   // Getting curret state of customers list from store (Redux)
-  const { currentState } = useSelector(
-    state => ({ currentState: state.customers }),
+  const { stockCurrentState } = useSelector(
+    (state) => ({
+      stockCurrentState: state.stocks,
+    }),
     shallowEqual
   );
-  const { totalCount, entities, listLoading } = currentState;
-
-  // Getting current state of units list from store (Redux)
-  const { unitCurrentState } = useSelector(
-    state => ({ unitCurrentState: state.units }),
-    shallowEqual
-  );
+  const { totalCount, entities, listLoading } = stockCurrentState;
+  console.log(entities);
 
   // const {entities} = unitCurrentState;
-
-  console.log("******Unit********", unitCurrentState);
 
   // Customers Redux state
   const dispatch = useDispatch();
@@ -59,38 +55,37 @@ export function CustomersTable() {
     // clear selections list
     customersUIProps.setIds([]);
     // server call by queryParams
-    dispatch(actions.fetchCustomers(customersUIProps.queryParams));
-    dispatch(unitActions.fetchUnits(customersUIProps.queryParams));
+    dispatch(actions.fetchStocks(customersUIProps.queryParams));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customersUIProps.queryParams, dispatch]);
   // Table columns
   const columns = [
     {
-      dataField: "first_name",
-      text: "Firstname",
+      dataField: 'product_name',
+      text: 'Product',
       sort: true,
       sortCaret: sortCaret,
-      headerSortingClasses
+      headerSortingClasses,
     },
     {
-      dataField: "last_name",
-      text: "Lastname",
+      dataField: 'unit_name',
+      text: 'Unit',
       sort: true,
       sortCaret: sortCaret,
-      headerSortingClasses
+      headerSortingClasses,
     },
     {
-      dataField: "phone_no",
-      text: "Phone",
+      dataField: 'quantity',
+      text: 'Quantity',
       sort: true,
       sortCaret: sortCaret,
-      headerSortingClasses
+      headerSortingClasses,
     },
     {
-      dataField: "gender",
-      text: "Gender",
+      dataField: 'date',
+      text: 'Date',
       sort: true,
-      sortCaret: sortCaret
+      sortCaret: sortCaret,
     },
     // {
     //   dataField: "status",
@@ -101,26 +96,19 @@ export function CustomersTable() {
     //   headerSortingClasses
     // },
     {
-      dataField: "cus_type",
-      text: "Type",
-      sort: true,
-      sortCaret: sortCaret,
-      formatter: columnFormatters.TypeColumnFormatter
-    },
-    {
-      dataField: "action",
-      text: "Actions",
+      dataField: 'action',
+      text: 'Actions',
       formatter: columnFormatters.ActionsColumnFormatter,
       formatExtraData: {
         openEditCustomerDialog: customersUIProps.openEditCustomerDialog,
-        openDeleteCustomerDialog: customersUIProps.openDeleteCustomerDialog
+        openDeleteCustomerDialog: customersUIProps.openDeleteCustomerDialog,
       },
-      classes: "text-right pr-0",
-      headerClasses: "text-right pr-3",
+      classes: 'text-right pr-0',
+      headerClasses: 'text-right pr-3',
       style: {
-        minWidth: "100px"
-      }
-    }
+        minWidth: '100px',
+      },
+    },
   ];
   // Table pagination properties
   const paginationOptions = {
@@ -128,7 +116,7 @@ export function CustomersTable() {
     totalSize: totalCount,
     sizePerPageList: uiHelpers.sizePerPageList,
     sizePerPage: customersUIProps.queryParams.pageSize,
-    page: customersUIProps.queryParams.pageNumber
+    page: customersUIProps.queryParams.pageNumber,
   };
 
   return (
@@ -153,11 +141,11 @@ export function CustomersTable() {
                 onTableChange={getHandlerTableChange(
                   customersUIProps.setQueryParams
                 )}
-                selectRow={getSelectRow({
-                  entities,
-                  ids: customersUIProps.ids,
-                  setIds: customersUIProps.setIds
-                })}
+                // selectRow={getSelectRow({
+                //   entities,
+                //   ids: customersUIProps.ids,
+                //   setIds: customersUIProps.setIds,
+                // })}
                 {...paginationTableProps}
               >
                 <PleaseWaitMessage entities={entities} />

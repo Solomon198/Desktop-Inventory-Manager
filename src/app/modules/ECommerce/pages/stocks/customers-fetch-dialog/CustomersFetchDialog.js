@@ -1,16 +1,16 @@
-import React, { useEffect, useMemo } from "react";
-import { Modal } from "react-bootstrap";
-import { shallowEqual, useSelector } from "react-redux";
+import React, { useEffect, useMemo } from 'react';
+import { Modal } from 'react-bootstrap';
+import { shallowEqual, useSelector } from 'react-redux';
 import {
   CustomerStatusCssClasses,
-  CustomerStatusTitles
-} from "../CustomersUIHelpers";
-import { useCustomersUIContext } from "../CustomersUIContext";
+  CustomerStatusTitles,
+} from '../CustomersUIHelpers';
+import { useCustomersUIContext } from '../CustomersUIContext';
 
 const selectedCustomers = (entities, ids) => {
   const _customers = [];
-  ids.forEach(id => {
-    const customer = entities.find(el => el.id === id);
+  ids.forEach((id) => {
+    const customer = entities.find((el) => el.id === id);
     if (customer) {
       _customers.push(customer);
     }
@@ -23,17 +23,14 @@ export function CustomersFetchDialog({ show, onHide }) {
   const customersUIContext = useCustomersUIContext();
   const customersUIProps = useMemo(() => {
     return {
-      ids: customersUIContext.ids
+      ids: customersUIContext.ids,
     };
   }, [customersUIContext]);
 
   // Customers Redux state
   const { customers } = useSelector(
-    state => ({
-      customers: selectedCustomers(
-        state.customers.entities,
-        customersUIProps.ids
-      )
+    (state) => ({
+      customers: selectedCustomers(state.stocks.entities, customersUIProps.ids),
     }),
     shallowEqual
   );
@@ -62,27 +59,16 @@ export function CustomersFetchDialog({ show, onHide }) {
           <thead>
             <tr>
               <th>ID</th>
-              <th>STATUS</th>
-              <th>CUSTOMER</th>
+              <th>STOCK</th>
             </tr>
           </thead>
           <tbody>
-            {customers.map(customer => (
-              <tr key={`id${customer.id}`}>
-                <td>{customer.id}</td>
-                <td>
-                  <span
-                    className={`label label-lg label-light-${
-                      CustomerStatusCssClasses[customer.status]
-                    } label-inline`}
-                  >
-                    {" "}
-                    {CustomerStatusTitles[customer.status]}
-                  </span>
-                </td>
+            {customers.map((customer) => (
+              <tr key={`id${customer._id}`}>
+                <td>{customer._id}</td>
                 <td>
                   <span className="ml-3">
-                    {customer.lastName}, {customer.firstName}
+                    {customer.quantity}, {customer.product_name}
                   </span>
                 </td>
               </tr>

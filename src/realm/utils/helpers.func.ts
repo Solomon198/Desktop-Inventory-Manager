@@ -1,4 +1,4 @@
-import * as mongoose from "mongoose";
+import * as mongoose from 'mongoose';
 
 /**
  * @function getPaginationPartition
@@ -44,6 +44,17 @@ function transformRealmStringToNumber(str: any) {
 }
 
 /**
+ * @function transformStringToUpperCase
+ * @param {string} string - A string
+ * @description Convert string to uppercase
+ * @returns {String} return a string
+ */
+
+function transformStringToUpperCase(str: any) {
+  return str.toUpperCase();
+}
+
+/**
  * @function transfromDateObjectToString
  * @param {Object} date - Date of object
  * @description Convert date object to string
@@ -52,11 +63,11 @@ function transformRealmStringToNumber(str: any) {
 
 function transformDateObjectToString(date: any) {
   let d = date;
-  let day = d.getDate() + "";
+  let day = d.getDate() + '';
   let year = d.getFullYear();
-  let month = d.getMonth() + 1 + "";
-  let _day = day.length == 1 ? "0" + day : day;
-  let _month = month.length == 1 ? "0" + month : month;
+  let month = d.getMonth() + 1 + '';
+  let _day = day.length == 1 ? '0' + day : day;
+  let _month = month.length == 1 ? '0' + month : month;
   let newDate = `${_day}-${_month}-${year}`;
 
   return newDate;
@@ -70,11 +81,11 @@ function transformDateObjectToString(date: any) {
  */
 
 function transformToCurrencyString(totalAmount) {
-  const formatter = new Intl.NumberFormat("en-ng", {
-    style: "currency",
-    currency: "NGN",
+  const formatter = new Intl.NumberFormat('en-ng', {
+    style: 'currency',
+    currency: 'NGN',
     minimumFractionDigits: 2,
-    currencyDisplay: "symbol"
+    currencyDisplay: 'symbol',
   });
 
   return formatter.format(totalAmount);
@@ -88,5 +99,6 @@ export default {
   transformRealmObjectsToJsObject,
   transformDateObjectToString,
   transformToCurrencyString,
-  transformRealmStringToNumber
+  transformRealmStringToNumber,
+  transformStringToUpperCase,
 };

@@ -1,17 +1,17 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { Modal } from "react-bootstrap";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState, useMemo } from 'react';
+import { Modal } from 'react-bootstrap';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import {
   CustomerStatusCssClasses,
-  CustomerStatusTitles
-} from "../CustomersUIHelpers";
-import * as actions from "../../../_redux/customers/customersActions";
-import { useCustomersUIContext } from "../CustomersUIContext";
+  CustomerStatusTitles,
+} from '../CustomersUIHelpers';
+import * as actions from '../../../_redux/stocks/stocksActions';
+import { useCustomersUIContext } from '../CustomersUIContext';
 
 const selectedCustomers = (entities, ids) => {
   const _customers = [];
-  ids.forEach(id => {
-    const customer = entities.find(el => el.id === id);
+  ids.forEach((id) => {
+    const customer = entities.find((el) => el.id === id);
     if (customer) {
       _customers.push(customer);
     }
@@ -26,18 +26,15 @@ export function CustomersUpdateStateDialog({ show, onHide }) {
     return {
       ids: customersUIContext.ids,
       setIds: customersUIContext.setIds,
-      queryParams: customersUIContext.queryParams
+      queryParams: customersUIContext.queryParams,
     };
   }, [customersUIContext]);
 
   // Customers Redux state
   const { customers, isLoading } = useSelector(
-    state => ({
-      customers: selectedCustomers(
-        state.customers.entities,
-        customersUIProps.ids
-      ),
-      isLoading: state.customers.actionsLoading
+    (state) => ({
+      customers: selectedCustomers(state.stocks.entities, customersUIProps.ids),
+      isLoading: state.stocks.actionsLoading,
     }),
     shallowEqual
   );
@@ -78,7 +75,7 @@ export function CustomersUpdateStateDialog({ show, onHide }) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="example-modal-sizes-title-lg">
-          Status has been updated for selected customers
+          Status has been updated for selected stocks
         </Modal.Title>
       </Modal.Header>
       <Modal.Body className="overlay overlay-block cursor-default">
@@ -93,28 +90,15 @@ export function CustomersUpdateStateDialog({ show, onHide }) {
           <thead>
             <tr>
               <th>ID</th>
-              <th>STATUS</th>
-              <th>CUSTOMER</th>
+              <th>STOCK</th>
             </tr>
           </thead>
           <tbody>
-            {customers.map(customer => (
-              <tr key={`id${customer.id}`}>
-                <td>{customer.id}</td>
+            {customers.map((customer) => (
+              <tr key={`id${customer._id}`}>
+                <td>{customer._id}</td>
                 <td>
-                  <span
-                    className={`label label-lg label-light-${
-                      CustomerStatusCssClasses[customer.status]
-                    } label-inline`}
-                  >
-                    {" "}
-                    {CustomerStatusTitles[customer.status]}
-                  </span>
-                </td>
-                <td>
-                  <span className="ml-3">
-                    {customer.lastName}, {customer.firstName}
-                  </span>
+                  <span className="ml-3">{customer.product_name}</span>
                 </td>
               </tr>
             ))}
@@ -126,7 +110,7 @@ export function CustomersUpdateStateDialog({ show, onHide }) {
           <select
             className="form-control"
             value={status}
-            onChange={e => setStatus(+e.target.value)}
+            onChange={(e) => setStatus(+e.target.value)}
           >
             <option value="0">Suspended</option>
             <option value="1">Active</option>

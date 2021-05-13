@@ -1,12 +1,13 @@
-import RealmApp from "../dbConfig/config";
-import * as mongoose from "mongoose";
-import Schemas from "../schemas/index";
-import { UnitProperties } from "../../types/unit";
-import { ProductProperties } from "../../types/product";
+import RealmApp from '../dbConfig/config';
+import * as mongoose from 'mongoose';
+import Schemas from '../schemas/index';
+import { UnitProperties } from '../../types/unit';
+import { ProductProperties } from '../../types/product';
 // import { productForSaleProps } from '../../types/productForSale';
-import helperFuncs from "../utils/helpers.func";
-import Realm from "realm";
-import ProductAPI from "./products";
+import helperFuncs from '../utils/helpers.func';
+import Realm from 'realm';
+import ProductAPI from './products';
+import helpersFunc from '../utils/helpers.func';
 
 const app = RealmApp();
 
@@ -69,59 +70,74 @@ function createUnit(unit: UnitProperties) {
   });
 }
 
-// /**
-//  * @description Get Sale by id
-//  * @async
-//  * @function getSale
-//  * @param  {string} saleId - The ID(identity) of the sale
-//  * @returns {Promise<Sale>} Returns the sale
-//  */
-// function getSale(saleId: string) {
-//   return new Promise<UnitProperties>((resolve, reject) => {
-//     try {
-//       let convertIdToObjectId = mongoose.Types.ObjectId(saleId);
+/**
+ * @description Get unit by id
+ * @async
+ * @function getUnitSync
+ * @param  {string} unitId - The ID(identity) of the unit
+ * @returns {Promise<Unit>} Returns the unit
+ */
+function getUnitSync(unitId: string) {
+  try {
+    let convertIdToObjectId = mongoose.Types.ObjectId(unitId);
 
-//       let sale = app.objectForPrimaryKey(
-//         Schemas.SaleSchema.name,
-//         convertIdToObjectId as ObjectId
-//       );
-//       let saleObject: UnitProperties = sale?.toJSON() as any;
-//       saleObject._id = saleObject._id.toHexString();
-//       saleObject.customer_id = saleObject.customer_id.toHexString();
-//       try {
-//         saleObject.products.forEach((obj) => {
-//           obj._id = obj._id.toHexString();
-//           obj.amount = helperFuncs.transformToCurrencyString(obj.amount);
-//           obj.totalAmount = helperFuncs.transformToCurrencyString(
-//             obj.totalAmount
-//           );
-//         });
-//       } catch (e) {}
-//       let customer = CustomerAPI.getCustomerSync(
-//         saleObject.customer_id
-//       ) as CustomerProperties;
-//       saleObject.customer_name = `${customer.first_name} ${customer.last_name}`;
-//       saleObject.customer_phone = `${customer.phone_no}`;
-//       try {
-//         saleObject.date = helperFuncs.transformDateObjectToString(
-//           saleObject.date
-//         );
-//         saleObject.total_amount = helperFuncs.transformToCurrencyString(
-//           saleObject.total_amount
-//         );
-//         saleObject.part_payment = helperFuncs.transformToCurrencyString(
-//           saleObject.part_payment
-//         );
-//         saleObject.outstanding = helperFuncs.transformToCurrencyString(
-//           saleObject.outstanding
-//         );
-//       } catch (e) {}
-//       resolve(saleObject);
-//     } catch (e) {
-//       reject(e.message);
-//     }
-//   });
-// }
+    let unit = app.objectForPrimaryKey(
+      Schemas.UnitSchema.name,
+      convertIdToObjectId as ObjectId
+    );
+    let unitObject: UnitProperties = unit?.toJSON() as any;
+    unitObject._id = unitObject._id.toHexString();
+    return unitObject as UnitProperties;
+  } catch (e) {
+    return e;
+  }
+}
+
+/**
+ * @description Get all units related to a particular product Id
+ * @async
+ * @function getUnitsForProduct
+ * @param {string} productId - The Id of the product
+ * @returns {Promise<unitsResponse>} returns the total unit count and entities for the product Id
+ */
+function getUnitsForProduct(productId: string) {
+  return new Promise<getUnitsResponse>((resolve, reject) => {
+    try {
+      let units: Realm.Results<Realm.Object>;
+      let changeToObjectId = mongoose.Types.ObjectId(productId);
+      if (changeToObjectId) {
+        units = app
+          .objects(Schemas.UnitSchema.name)
+          .filtered('product_id = $0', changeToObjectId);
+      } else {
+        return false;
+      }
+
+      let result = units.slice();
+
+      let objArr: any[] = [];
+      result.forEach((obj) => {
+        let newObj = obj.toJSON() as UnitProperties;
+        // let prodId = newObj.product_id.toHexString();
+        // let product = ProductAPI.getProductSync(prodId) as ProductProperties;
+        newObj.product_id = newObj.product_id.toHexString();
+        newObj._id = newObj._id.toHexString();
+        try {
+          newObj.price = helpersFunc.transformToCurrencyString(newObj.price);
+        } catch (e) {}
+        objArr.push(newObj);
+      });
+
+      let totalCount = objArr.length;
+
+      let response = { totalCount: totalCount, entities: objArr };
+
+      resolve(response);
+    } catch (e) {
+      reject(e.message);
+    }
+  });
+}
 
 /**
  * @description Get units
@@ -131,24 +147,24 @@ function createUnit(unit: UnitProperties) {
  * @param {number} pageSize - The size of page
  * @returns {Promise<unitsResponse>} returns the total unit count and entities
  */
-function getUnits(page = 1, pageSize = 10, searchQuery = "", type = "") {
+function getUnits(page = 1, pageSize = 10, searchQuery = '', type = '') {
   return new Promise<getUnitsResponse>((resolve, reject) => {
     try {
       let units: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
         units = app
           .objects(Schemas.UnitSchema.name)
           .filtered(query, searchQuery, type);
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
         units = app
           .objects(Schemas.UnitSchema.name)
           .filtered(query, searchQuery);
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = "cus_type == $0";
+        let query = 'cus_type == $0';
         units = app.objects(Schemas.UnitSchema.name).filtered(query, type);
       } else {
         units = app.objects(Schemas.UnitSchema.name);
@@ -160,7 +176,7 @@ function getUnits(page = 1, pageSize = 10, searchQuery = "", type = "") {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach(obj => {
+      result.forEach((obj) => {
         let newObj = obj.toJSON() as UnitProperties;
         let prodId = newObj.product_id.toHexString();
         let product = ProductAPI.getProductSync(prodId) as ProductProperties;
@@ -347,9 +363,9 @@ function getUnits(page = 1, pageSize = 10, searchQuery = "", type = "") {
 
 export default {
   createUnit,
-  // getSale,
-  getUnits
-  // getSalesForDebt,
+  getUnitsForProduct,
+  getUnits,
+  getUnitSync,
   //   removeProduct,
   //   removeProducts,
   //   updateProduct,
