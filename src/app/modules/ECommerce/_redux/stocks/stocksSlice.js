@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialStocksState = {
   listLoading: false,
@@ -6,15 +6,15 @@ const initialStocksState = {
   totalCount: 0,
   entities: null,
   stockForEdit: undefined,
-  lastError: null,
+  lastError: null
 };
 export const callTypes = {
-  list: 'list',
-  action: 'action',
+  list: "list",
+  action: "action"
 };
 
 export const stocksSlice = createSlice({
-  name: 'stocks',
+  name: "stocks",
   initialState: initialStocksState,
   reducers: {
     catchError: (state, action) => {
@@ -73,7 +73,7 @@ export const stocksSlice = createSlice({
     stockUpdated: (state, action) => {
       state.error = null;
       state.actionsLoading = false;
-      state.entities = state.entities.map((entity) => {
+      state.entities = state.entities.map(entity => {
         if (entity._id === action.payload.sale._id) {
           return action.payload.sale;
         }
@@ -85,7 +85,7 @@ export const stocksSlice = createSlice({
       state.error = null;
       state.actionsLoading = false;
       state.entities = state.entities.filter(
-        (el) => el._id !== action.payload._id
+        el => el._id !== action.payload._id
       );
     },
     // deleteSales
@@ -93,9 +93,9 @@ export const stocksSlice = createSlice({
       state.error = null;
       state.actionsLoading = false;
       state.entities = state.entities.filter(
-        (el) => !action.payload.ids.includes(el._id)
+        el => !action.payload.ids.includes(el._id)
       );
-    },
+    }
     // salesUpdateState
     //     salesStatusUpdated: (state, action) => {
     //       state.actionsLoading = false;
@@ -108,5 +108,5 @@ export const stocksSlice = createSlice({
     //         return entity;
     //       });
     //     }
-  },
+  }
 });

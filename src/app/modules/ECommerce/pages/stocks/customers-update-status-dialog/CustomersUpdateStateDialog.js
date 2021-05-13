@@ -1,17 +1,17 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import { Modal } from 'react-bootstrap';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState, useMemo } from "react";
+import { Modal } from "react-bootstrap";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import {
   CustomerStatusCssClasses,
-  CustomerStatusTitles,
-} from '../CustomersUIHelpers';
-import * as actions from '../../../_redux/stocks/stocksActions';
-import { useCustomersUIContext } from '../CustomersUIContext';
+  CustomerStatusTitles
+} from "../CustomersUIHelpers";
+import * as actions from "../../../_redux/stocks/stocksActions";
+import { useCustomersUIContext } from "../CustomersUIContext";
 
 const selectedCustomers = (entities, ids) => {
   const _customers = [];
-  ids.forEach((id) => {
-    const customer = entities.find((el) => el.id === id);
+  ids.forEach(id => {
+    const customer = entities.find(el => el.id === id);
     if (customer) {
       _customers.push(customer);
     }
@@ -26,15 +26,15 @@ export function CustomersUpdateStateDialog({ show, onHide }) {
     return {
       ids: customersUIContext.ids,
       setIds: customersUIContext.setIds,
-      queryParams: customersUIContext.queryParams,
+      queryParams: customersUIContext.queryParams
     };
   }, [customersUIContext]);
 
   // Customers Redux state
   const { customers, isLoading } = useSelector(
-    (state) => ({
+    state => ({
       customers: selectedCustomers(state.stocks.entities, customersUIProps.ids),
-      isLoading: state.stocks.actionsLoading,
+      isLoading: state.stocks.actionsLoading
     }),
     shallowEqual
   );
@@ -94,7 +94,7 @@ export function CustomersUpdateStateDialog({ show, onHide }) {
             </tr>
           </thead>
           <tbody>
-            {customers.map((customer) => (
+            {customers.map(customer => (
               <tr key={`id${customer._id}`}>
                 <td>{customer._id}</td>
                 <td>
@@ -110,7 +110,7 @@ export function CustomersUpdateStateDialog({ show, onHide }) {
           <select
             className="form-control"
             value={status}
-            onChange={(e) => setStatus(+e.target.value)}
+            onChange={e => setStatus(+e.target.value)}
           >
             <option value="0">Suspended</option>
             <option value="1">Active</option>
