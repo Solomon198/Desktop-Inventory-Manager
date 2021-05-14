@@ -67,7 +67,7 @@ export const stocksSlice = createSlice({
     stockCreated: (state, action) => {
       state.actionsLoading = false;
       state.error = null;
-      state.entities.push(action.payload.sale);
+      state.entities.push(action.payload.stock);
     },
     // updateSale
     stockUpdated: (state, action) => {

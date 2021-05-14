@@ -67,7 +67,7 @@ export const unitsSlice = createSlice({
     unitCreated: (state, action) => {
       state.actionsLoading = false;
       state.error = null;
-      state.entities.push(action.payload.sale);
+      state.entities.push(action.payload.unit);
     }
     // updateSale
     // saleUpdated: (state, action) => {

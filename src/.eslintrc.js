@@ -18,9 +18,10 @@ const restrictedPaths = [
 // TODO: Wait for https://github.com/facebook/create-react-app/pull/7036 to enable rules in react-scripts.
 
 module.exports = {
-  extends: "eslint-config-react-app",
+  extends: ["eslint-config-react-app","eslint-config-prettier","prettier"],
   rules: {
     // "no-script-url": "warn",
+   // "no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
     "jsx-a11y/anchor-is-valid": "warn",
     "no-restricted-imports": ["error", { paths: [].concat(...restrictedPaths) }]
   },
