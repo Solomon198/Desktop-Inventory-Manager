@@ -1,25 +1,27 @@
-import { ProductForSale } from "../../types/productForSale"; // typescript type validation for daily attendance
+import { ProductForSale } from '../../types/productForSale'; // typescript type validation for daily attendance
 
 const ProductForSaleSchema: ProductForSale = {
-  name: "productForSale",
+  name: 'productForSale',
 
-  primaryKey: "_id",
+  primaryKey: '_id',
 
   properties: {
-    _id: "objectId",
+    _id: 'objectId',
 
-    productId: "objectId",
+    productId: 'objectId',
 
-    unit: "string?",
+    unit_id: 'objectId',
 
-    amount: "int",
+    amount: 'int',
 
-    product: "string",
+    product: 'string',
 
-    quantity: "int",
+    unit: 'string',
 
-    totalAmount: "int"
-  }
+    quantity: 'int',
+
+    totalAmount: 'int',
+  },
 };
 
 export default ProductForSaleSchema;

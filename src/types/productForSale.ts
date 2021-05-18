@@ -3,11 +3,12 @@
 export type productForSaleProps = {
   _id: any;
   productId: any;
-  unit: string;
+  unit_id: any;
   amount: string;
   quantity: string;
   totalAmount: string;
   product: string;
+  unit: string;
 };
 
 export type ProductForSale = {

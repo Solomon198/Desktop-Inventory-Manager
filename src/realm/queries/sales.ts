@@ -1,12 +1,14 @@
-import RealmApp from "../dbConfig/config";
-import * as mongoose from "mongoose";
-import Schemas from "../schemas/index";
-import { SaleProperties } from "../../types/sale";
-import { CustomerProperties } from "../../types/customer";
-import { productForSaleProps } from "../../types/productForSale";
-import helperFuncs from "../utils/helpers.func";
-import Realm from "realm";
-import CustomerAPI from "./customers";
+import RealmApp from '../dbConfig/config';
+import * as mongoose from 'mongoose';
+import Schemas from '../schemas/index';
+import { SaleProperties } from '../../types/sale';
+import { CustomerProperties } from '../../types/customer';
+import { UnitProperties } from '../../types/unit';
+import { productForSaleProps } from '../../types/productForSale';
+import helperFuncs from '../utils/helpers.func';
+import Realm from 'realm';
+import CustomerAPI from './customers';
+import UnitAPI from './units';
 
 const app = RealmApp();
 
@@ -27,9 +29,9 @@ type getSalesResponse = {
 
 /**
  * @typedef {Object} ProductForSale
- * @property {objectId} saleId - ID of the product
- * @property {string} unit - Unit of the product e.g pack, dozen, card, e.t.c
- * @property {string} amount - Amount per unit of the product
+ * @property {objectId} productId - ID of the product
+ * @property {objectId} unit_id - ID of the unit
+ * @property {string} amount - Amount per unit
  * @property {string} name - Name of the product
  * @returns
  */
@@ -50,8 +52,9 @@ type getSalesResponse = {
  */
 
 function createSale(sale: SaleProperties) {
-  sale.products.forEach(val => {
+  sale.products.forEach((val) => {
     val._id = mongoose.Types.ObjectId();
+    val.unit_id = mongoose.Types.ObjectId(val.unit_id);
   });
   return new Promise<SaleProperties>((resolve, reject) => {
     // since _id is primary key realm prefers an ObjectId
@@ -60,9 +63,9 @@ function createSale(sale: SaleProperties) {
 
     sale._id = id;
     sale.customer_id = customerId;
-    sale.part_payment = helperFuncs.transformRealmStringToNumber(
-      sale.part_payment
-    );
+    // sale.part_payment = helperFuncs.transformRealmStringToNumber(
+    //   sale.part_payment
+    // );
 
     app.write(() => {
       try {
@@ -81,13 +84,13 @@ function createSale(sale: SaleProperties) {
         } catch (e) {}
 
         saleObject.customer_name =
-          customer.first_name + " " + customer.last_name;
+          customer.first_name + ' ' + customer.last_name;
         saleObject.customer_phone = customer.phone_no;
         saleObject._id = saleObject._id.toHexString();
         saleObject.customer_id = saleObject.customer_id.toHexString();
         resolve(saleObject);
       } catch (e) {
-        console.log(e);
+        // console.log(e);
         reject(e.message);
       }
     });
@@ -114,7 +117,7 @@ function getSale(saleId: string) {
       saleObject._id = saleObject._id.toHexString();
       saleObject.customer_id = saleObject.customer_id.toHexString();
       try {
-        saleObject.products.forEach(obj => {
+        saleObject.products.forEach((obj) => {
           obj._id = obj._id.toHexString();
           obj.amount = helperFuncs.transformToCurrencyString(obj.amount);
           obj.totalAmount = helperFuncs.transformToCurrencyString(
@@ -156,24 +159,24 @@ function getSale(saleId: string) {
  * @param {number} pageSize - The size of page
  * @returns {Promise<salesResponse>} returns the total sale count and entities
  */
-function getSales(page = 1, pageSize = 10, searchQuery = "", type = "") {
+function getSales(page = 1, pageSize = 10, searchQuery = '', type = '') {
   return new Promise<getSalesResponse>((resolve, reject) => {
     try {
       let sales: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
         sales = app
           .objects(Schemas.SaleSchema.name)
           .filtered(query, searchQuery, type);
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
         sales = app
           .objects(Schemas.SaleSchema.name)
           .filtered(query, searchQuery);
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = "cus_type == $0";
+        let query = 'cus_type == $0';
         sales = app.objects(Schemas.SaleSchema.name).filtered(query, type);
       } else {
         sales = app.objects(Schemas.SaleSchema.name);
@@ -185,37 +188,32 @@ function getSales(page = 1, pageSize = 10, searchQuery = "", type = "") {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach(obj => {
+      result.forEach((obj) => {
         let newObj = obj.toJSON() as SaleProperties;
-        if (newObj.transaction_type === "1" && newObj.status === "1") {
-          let cusId = newObj.customer_id.toHexString();
-          let customer = CustomerAPI.getCustomerSync(
-            cusId
-          ) as CustomerProperties;
-          newObj._id = newObj._id.toHexString();
-          newObj.customer_name = customer.first_name + " " + customer.last_name;
-          newObj.customer_phone = customer.phone_no;
-          try {
-            newObj.date = helperFuncs.transformDateObjectToString(newObj.date);
-            // newObj.total_amount = newObj.total_amount.toString();
-            newObj.total_amount = helperFuncs.transformToCurrencyString(
-              newObj.total_amount
-            );
-            // newObj.part_payment = helperFuncs.transformToCurrencyString(
-            //   newObj.part_payment
-            // );
-            // newObj.outstanding = helperFuncs.transformToCurrencyString(
-            //   newObj.outstanding
-            // );
-          } catch (e) {}
-          objArr.push(newObj);
-        }
+        let cusId = newObj.customer_id.toHexString();
+        let customer = CustomerAPI.getCustomerSync(cusId) as CustomerProperties;
+        newObj._id = newObj._id.toHexString();
+        newObj.customer_name = customer.first_name + ' ' + customer.last_name;
+        newObj.customer_phone = customer.phone_no;
+        try {
+          newObj.date = helperFuncs.transformDateObjectToString(newObj.date);
+          // newObj.total_amount = newObj.total_amount.toString();
+          newObj.total_amount = helperFuncs.transformToCurrencyString(
+            newObj.total_amount
+          );
+          // newObj.part_payment = helperFuncs.transformToCurrencyString(
+          //   newObj.part_payment
+          // );
+          // newObj.outstanding = helperFuncs.transformToCurrencyString(
+          //   newObj.outstanding
+          // );
+        } catch (e) {}
+        objArr.push(newObj);
       });
 
-      let paidArr = objArr.slice(partition.pageStart, partition.pageEnd);
       let totalCount = objArr.length;
 
-      let response = { totalCount: totalCount, entities: paidArr };
+      let response = { totalCount: totalCount, entities: objArr };
 
       resolve(response);
     } catch (e) {
@@ -232,24 +230,24 @@ function getSales(page = 1, pageSize = 10, searchQuery = "", type = "") {
  * @param {number} pageSize - The size of page
  * @returns {Promise<salesResponse>} returns the total saleForDebt count and entities
  */
-function getSalesForDebt(page = 1, pageSize = 10, searchQuery = "", type = "") {
+function getSalesForDebt(page = 1, pageSize = 10, searchQuery = '', type = '') {
   return new Promise<getSalesResponse>((resolve, reject) => {
     try {
       let sales: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
         sales = app
           .objects(Schemas.SaleSchema.name)
           .filtered(query, searchQuery, type);
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
         sales = app
           .objects(Schemas.SaleSchema.name)
           .filtered(query, searchQuery);
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = "cus_type == $0";
+        let query = 'cus_type == $0';
         sales = app.objects(Schemas.SaleSchema.name).filtered(query, type);
       } else {
         sales = app.objects(Schemas.SaleSchema.name);
@@ -257,42 +255,29 @@ function getSalesForDebt(page = 1, pageSize = 10, searchQuery = "", type = "") {
 
       let partition = helperFuncs.getPaginationPartition(page, pageSize);
       // let totalCount = sales.length;
-      let result = sales.slice();
-
+      let result = sales.slice(partition.pageStart, partition.pageEnd);
       let objArr: any[] = [];
-      // let debtArr: any[] = [];
+
       //converting to array of Object
-      result.forEach(obj => {
+      result.forEach((obj) => {
         let newObj = obj.toJSON() as SaleProperties;
-        if (newObj.status === "3" || newObj.status === "2") {
-          let cusId = newObj.customer_id.toHexString();
-          let customer = CustomerAPI.getCustomerSync(
-            cusId
-          ) as CustomerProperties;
-          newObj._id = newObj._id.toHexString();
-          newObj.customer_name = customer.first_name + " " + customer.last_name;
-          newObj.customer_phone = customer.phone_no;
-          try {
-            newObj.date = helperFuncs.transformDateObjectToString(newObj.date);
-            // newObj.total_amount = newObj.total_amount.toString();
-            newObj.total_amount = helperFuncs.transformToCurrencyString(
-              newObj.total_amount
-            );
-            // newObj.part_payment = helperFuncs.transformToCurrencyString(
-            //   newObj.part_payment
-            // );
-            // newObj.outstanding = helperFuncs.transformToCurrencyString(
-            //   newObj.outstanding
-            // );
-          } catch (e) {}
-          objArr.push(newObj);
-        }
+        let cusId = newObj.customer_id.toHexString();
+        let customer = CustomerAPI.getCustomerSync(cusId) as CustomerProperties;
+        newObj._id = newObj._id.toHexString();
+        newObj.customer_name = customer.first_name + ' ' + customer.last_name;
+        newObj.customer_phone = customer.phone_no;
+        try {
+          newObj.date = helperFuncs.transformDateObjectToString(newObj.date);
+          newObj.total_amount = helperFuncs.transformToCurrencyString(
+            newObj.total_amount
+          );
+        } catch (e) {}
+        objArr.push(newObj);
       });
 
-      let debitArr = objArr.slice(partition.pageStart, partition.pageEnd);
       let totalCount = objArr.length;
 
-      let response = { totalCount: totalCount, entities: debitArr };
+      let response = { totalCount: totalCount, entities: objArr };
 
       resolve(response);
     } catch (e) {
@@ -390,7 +375,7 @@ export default {
   createSale,
   getSale,
   getSales,
-  getSalesForDebt
+  getSalesForDebt,
   //   removeProduct,
   //   removeProducts,
   //   updateProduct,

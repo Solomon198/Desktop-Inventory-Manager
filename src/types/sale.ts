@@ -3,13 +3,15 @@
 export type SaleProperties = {
   _id: any;
 
-  customer_id: any;
+  customer_id?: any;
 
   products: any;
 
   total_amount: string;
 
   transaction_type: string;
+
+  transaction_code?: string;
 
   part_payment?: any;
 
@@ -20,8 +22,6 @@ export type SaleProperties = {
   customer_name?: string;
 
   customer_phone?: string;
-
-  status: string;
 };
 
 export type SaleTypes = {
