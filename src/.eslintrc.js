@@ -21,7 +21,10 @@ module.exports = {
   extends: ["eslint-config-react-app", "eslint-config-prettier", "prettier"],
   rules: {
     // "no-script-url": "warn",
-    "no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
+    "no-unused-vars": [
+      "error",
+      { vars: "all", args: "after-used", ignoreRestSiblings: false }
+    ],
     "jsx-a11y/anchor-is-valid": "warn",
     "no-restricted-imports": ["error", { paths: [].concat(...restrictedPaths) }]
   },
