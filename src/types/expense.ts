@@ -3,11 +3,13 @@
 export type ExpenseProperties = {
   _id: any;
 
-  item: string;
+  expense_item_id: any;
+
+  expense_item?: string;
+
+  amount: any;
 
   description: string;
-
-  amount: string;
 
   date: string;
 };

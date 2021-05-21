@@ -28,13 +28,11 @@ export function CustomersUIProvider({ customersUIEvents, children }) {
     });
   }, []);
 
-  const initStock = {
+  const initExpense = {
     _id: '',
-    product_id: '',
-    unit_id: '',
-    product_name: '',
-    unit_name: '',
-    quantity: '',
+    expense_item_id: '',
+    amount: '0',
+    description: '',
     date: '',
   };
 
@@ -46,7 +44,7 @@ export function CustomersUIProvider({ customersUIEvents, children }) {
     tab,
     setTab,
     setQueryParams,
-    initStock,
+    initExpense,
     newCustomerButtonClick: customersUIEvents.newCustomerButtonClick,
     openEditCustomerDialog: customersUIEvents.openEditCustomerDialog,
     openDeleteCustomerDialog: customersUIEvents.openDeleteCustomerDialog,

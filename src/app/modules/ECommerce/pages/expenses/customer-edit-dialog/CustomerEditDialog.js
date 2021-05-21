@@ -1,22 +1,22 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Modal } from 'react-bootstrap';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import * as actions from '../../../_redux/stocks/stocksActions';
+import * as actions from '../../../_redux/expenses/expensesActions';
 import { CustomerEditDialogHeader } from './CustomerEditDialogHeader';
 import { CustomerEditForm } from './CustomerEditForm';
-import { UnitForm } from './UnitForm';
+import { ExpensesItemForm } from './ExpensesItemForm';
 import { useCustomersUIContext } from '../CustomersUIContext';
 import helperFuns from '../../utils/helper.funcs';
 
 export function CustomerEditDialog({ id, show, onHide }) {
   // Create state for tabs
-  // const [tab, setTab] = useState('stock');
+  // const [tab, setTab] = useState('basic');
 
   // Customers UI Context
   const customersUIContext = useCustomersUIContext();
   const customersUIProps = useMemo(() => {
     return {
-      initStock: customersUIContext.initStock,
+      initExpense: customersUIContext.initExpense,
       tab: customersUIContext.tab,
       setTab: customersUIContext.setTab,
     };
@@ -24,42 +24,39 @@ export function CustomerEditDialog({ id, show, onHide }) {
 
   // Customers Redux state
   const dispatch = useDispatch();
-  const { actionsLoading, stockForEdit } = useSelector(
+  const { actionsLoading, expenseForEdit } = useSelector(
     (state) => ({
-      actionsLoading: state.stocks.actionsLoading,
-      stockForEdit: state.stocks.stockForEdit,
+      actionsLoading: state.expenses.actionsLoading,
+      expenseForEdit: state.expenses.expenseForEdit,
     }),
     shallowEqual
   );
 
   useEffect(() => {
-    // server call for getting Stock by id
-    dispatch(actions.fetchStock(id));
+    // server call for getting Expense by id
+    dispatch(actions.fetchExpense(id));
   }, [id, dispatch, customersUIProps.tab]);
 
-  // server request for saving stock
-  const saveStock = (values, resetForm) => {
+  // server request for saving expense
+  const saveExpense = (values, resetForm) => {
     if (!id) {
-      // server request for creating stock
+      // server request for creating expense
       let newValues = { ...values };
       let _date = helperFuns.transformDateStringToDateType(newValues.date);
 
-      let _saveStock = {
-        product_id: newValues.product_id,
-        unit_id: newValues.unit_id,
-        product_name: newValues.product_name,
-        unit_name: newValues.unit_name,
-        quantity: newValues.quantity,
+      let _saveExpense = {
+        expense_item_id: newValues.expense_item_id,
+        expense_item: newValues.expense_item,
+        amount: newValues.amount,
+        description: newValues.description,
         date: new Date(_date),
       };
 
-      // console.log(_saveStock);
-      // dispatch(stockActions.createStock(_saveStock));
-      dispatch(actions.createStock(_saveStock)).then(() => onHide());
+      dispatch(actions.createExpense(_saveExpense)).then(() => onHide());
       resetForm({ values: '' });
     } else {
-      // server request for updating stock
-      dispatch(actions.updateStock(values)).then(() => onHide());
+      // server request for updating expense
+      dispatch(actions.updateExpense(values)).then(() => onHide());
     }
   };
 
@@ -83,34 +80,36 @@ export function CustomerEditDialog({ id, show, onHide }) {
             role="tab"
             aria-selected={(customersUIProps.tab === 'basic').toString()}
           >
-            Add Stock
+            Basis Info
           </a>
         </li>
         <li
           className="nav-item"
-          onClick={() => customersUIProps.setTab('unit')}
+          onClick={() => customersUIProps.setTab('expenseItem')}
         >
           <a
-            className={`nav-link ${customersUIProps.tab === 'unit' &&
+            className={`nav-link ${customersUIProps.tab === 'expenseItem' &&
               'active'}`}
             data-toggle="tab"
             role="tab"
-            aria-selected={(customersUIProps.tab === 'unit').toString()}
+            aria-selected={(customersUIProps.tab === 'expenseItem').toString()}
           >
-            Unit for product
+            Add Expense
           </a>
         </li>
       </ul>
       <div className="mt-5">
         {customersUIProps.tab === 'basic' && (
           <CustomerEditForm
-            saveStock={saveStock}
+            saveExpense={saveExpense}
             actionsLoading={actionsLoading}
-            stock={stockForEdit || customersUIProps.initStock}
+            expense={expenseForEdit || customersUIProps.initExpense}
             onHide={onHide}
           />
         )}
-        {customersUIProps.tab === 'unit' && <UnitForm onHide={onHide} />}
+        {customersUIProps.tab === 'expenseItem' && (
+          <ExpensesItemForm onHide={onHide} />
+        )}
       </div>
     </Modal>
   );
