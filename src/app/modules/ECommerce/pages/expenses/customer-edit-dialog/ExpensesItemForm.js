@@ -2,20 +2,20 @@
 // Data validation is based on Yup
 // Please, be familiar with article first:
 // https://hackernoon.com/react-form-validation-with-formik-and-yup-8b76bda62e10
-import React, { useEffect, useMemo } from 'react';
-import { Modal } from 'react-bootstrap';
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
+import React, { useEffect, useMemo } from "react";
+import { Modal } from "react-bootstrap";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
 import {
   Input,
   Select,
-  DatePickerField,
-} from '../../../../../../_metronic/_partials/controls';
-import helperFuncs from '../../../../../../dist/realm/utils/helpers.func';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import * as actions from '../../../_redux/expensesItem/expensesItemActions';
-import helperFuns from '../../utils/helper.funcs';
-import { useCustomersUIContext } from '../CustomersUIContext';
+  DatePickerField
+} from "../../../../../../_metronic/_partials/controls";
+import helperFuncs from "../../../../../../dist/realm/utils/helpers.func";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as actions from "../../../_redux/expensesItem/expensesItemActions";
+import helperFuns from "../../utils/helper.funcs";
+import { useCustomersUIContext } from "../CustomersUIContext";
 
 export function ExpensesItemForm({ actionsLoading, onHide }) {
   //   customer = typeof customer === 'object' ? customer : {};
@@ -25,7 +25,7 @@ export function ExpensesItemForm({ actionsLoading, onHide }) {
   const customersUIProps = useMemo(() => {
     return {
       queryParams: customersUIContext.queryParams,
-      setQueryParams: customersUIContext.setQueryParams,
+      setQueryParams: customersUIContext.setQueryParams
       // queryParams: customersUIContext.queryParams,
       // initTransaction: customersUIContext.initTransaction,
       // productsSelected: customersUIContext.productsSelected,
@@ -39,7 +39,7 @@ export function ExpensesItemForm({ actionsLoading, onHide }) {
 
   // Getting curret state of expenses item list from store (Redux)
   const { currentState } = useSelector(
-    (state) => ({ currentState: state.expensesItem }),
+    state => ({ currentState: state.expensesItem }),
     shallowEqual
   );
   const { totalCount, entities } = currentState;
@@ -60,9 +60,9 @@ export function ExpensesItemForm({ actionsLoading, onHide }) {
   // Validation schema
   const ExpenseItemSchema = Yup.object().shape({
     item: Yup.string()
-      .min(2, 'Minimum 2 symbols')
-      .max(50, 'Maximum 50 symbols')
-      .required('Expense name is required'),
+      .min(2, "Minimum 2 symbols")
+      .max(50, "Maximum 50 symbols")
+      .required("Expense name is required")
   });
 
   const saveExpenseItem = (values, { resetForm }) => {
@@ -70,14 +70,14 @@ export function ExpensesItemForm({ actionsLoading, onHide }) {
 
     dispatch(actions.createExpenseItem(_newValues));
 
-    resetForm({ values: '' });
+    resetForm({ values: "" });
   };
 
   return (
     <>
       <Formik
         initialValues={{
-          item: '',
+          item: ""
         }}
         enableReinitialize={true}
         validationSchema={ExpenseItemSchema}
@@ -92,7 +92,7 @@ export function ExpensesItemForm({ actionsLoading, onHide }) {
           handleChange,
           setFieldValue,
           errors,
-          touched,
+          touched
         }) => (
           <>
             <Modal.Body className="overlay overlay-block cursor-default">
@@ -113,15 +113,15 @@ export function ExpensesItemForm({ actionsLoading, onHide }) {
                         onBlur={handleBlur}
                         // disabled={true}
                         value={values.item}
-                        onChange={(e) => {
-                          setFieldValue('item', e.target.value);
+                        onChange={e => {
+                          setFieldValue("item", e.target.value);
                         }}
                       />
                       <small className="form-text text-muted">
                         <b>Expense</b>
                       </small>
                       {errors.item && touched.item ? (
-                        <div style={{ color: 'red' }}>{errors.item}</div>
+                        <div style={{ color: "red" }}>{errors.item}</div>
                       ) : null}
                     </div>
                   </div>
@@ -129,7 +129,7 @@ export function ExpensesItemForm({ actionsLoading, onHide }) {
                     <div className="form-group">
                       <button
                         type="submit"
-                        style={{ display: 'block' }}
+                        style={{ display: "block" }}
                         className="btn btn-primary"
                         // disabled={disabled}
                       >

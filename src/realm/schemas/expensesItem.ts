@@ -1,15 +1,15 @@
-import { ExpenseItemTypes } from '../../types/expensesItem'; // typescript type validation for daily attendance
+import { ExpenseItemTypes } from "../../types/expensesItem"; // typescript type validation for daily attendance
 
 const ExpenseItemSchema: ExpenseItemTypes = {
-  name: 'expensesItem',
+  name: "expensesItem",
 
-  primaryKey: '_id',
+  primaryKey: "_id",
 
   properties: {
-    _id: 'objectId',
+    _id: "objectId",
 
-    item: 'string?',
-  },
+    item: "string?"
+  }
 };
 
 export default ExpenseItemSchema;

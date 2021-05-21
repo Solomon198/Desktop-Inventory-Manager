@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
-import { isEqual, isFunction } from 'lodash';
-import { initialFilter } from './CustomersUIHelpers';
+import React, { createContext, useContext, useState, useCallback } from "react";
+import { isEqual, isFunction } from "lodash";
+import { initialFilter } from "./CustomersUIHelpers";
 
 const CustomersUIContext = createContext();
 
@@ -13,9 +13,9 @@ export const CustomersUIConsumer = CustomersUIContext.Consumer;
 export function CustomersUIProvider({ customersUIEvents, children }) {
   const [queryParams, setQueryParamsBase] = useState(initialFilter);
   const [ids, setIds] = useState([]);
-  const [tab, setTab] = useState('basic');
-  const setQueryParams = useCallback((nextQueryParams) => {
-    setQueryParamsBase((prevQueryParams) => {
+  const [tab, setTab] = useState("basic");
+  const setQueryParams = useCallback(nextQueryParams => {
+    setQueryParamsBase(prevQueryParams => {
       if (isFunction(nextQueryParams)) {
         nextQueryParams = nextQueryParams(prevQueryParams);
       }
@@ -29,11 +29,11 @@ export function CustomersUIProvider({ customersUIEvents, children }) {
   }, []);
 
   const initExpense = {
-    _id: '',
-    expense_item_id: '',
-    amount: '0',
-    description: '',
-    date: '',
+    _id: "",
+    expense_item_id: "",
+    amount: "0",
+    description: "",
+    date: ""
   };
 
   const value = {
@@ -51,7 +51,7 @@ export function CustomersUIProvider({ customersUIEvents, children }) {
     openDeleteCustomersDialog: customersUIEvents.openDeleteCustomersDialog,
     openFetchCustomersDialog: customersUIEvents.openFetchCustomersDialog,
     openUpdateCustomersStatusDialog:
-      customersUIEvents.openUpdateCustomersStatusDialog,
+      customersUIEvents.openUpdateCustomersStatusDialog
   };
 
   return (
