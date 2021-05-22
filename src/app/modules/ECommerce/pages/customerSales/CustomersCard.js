@@ -1,14 +1,14 @@
-import React, { useMemo } from 'react';
+import React, { useMemo } from "react";
 import {
   Card,
   CardBody,
   CardHeader,
-  CardHeaderToolbar,
-} from '../../../../../_metronic/_partials/controls';
-import { CustomersFilter } from './customers-filter/CustomersFilter';
-import { CustomersTable } from './customers-table/CustomersTable';
-import { CustomersGrouping } from './customers-grouping/CustomersGrouping';
-import { useCustomersUIContext } from './CustomersUIContext';
+  CardHeaderToolbar
+} from "../../../../../_metronic/_partials/controls";
+import { CustomersFilter } from "./customers-filter/CustomersFilter";
+import { CustomersTable } from "./customers-table/CustomersTable";
+import { CustomersGrouping } from "./customers-grouping/CustomersGrouping";
+import { useCustomersUIContext } from "./CustomersUIContext";
 
 export function CustomersCard() {
   const customersUIContext = useCustomersUIContext();
@@ -17,7 +17,7 @@ export function CustomersCard() {
       id: customersUIContext.id,
       ids: customersUIContext.ids,
       newCustomerButtonClick: customersUIContext.newCustomerButtonClick,
-      proceedToQuickSale: customersUIContext.proceedToQuickSale,
+      proceedToQuickSale: customersUIContext.proceedToQuickSale
     };
   }, [customersUIContext]);
 
