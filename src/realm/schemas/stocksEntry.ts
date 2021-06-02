@@ -1,19 +1,19 @@
-import { StockEntryTypes } from '../../types/stockEntry';
+import { StockEntryTypes } from "../../types/stockEntry";
 
 const StockEntrySchema: StockEntryTypes = {
-  name: 'stocksEntry',
+  name: "stocksEntry",
 
-  primaryKey: '_id',
+  primaryKey: "_id",
 
   properties: {
-    _id: 'objectId',
+    _id: "objectId",
 
-    unit_id: 'objectId',
+    unit_id: "objectId",
 
-    product_id: 'objectId',
+    product_id: "objectId",
 
-    quantity: 'int?',
-  },
+    quantity: "int?"
+  }
 };
 
 export default StockEntrySchema;

@@ -1,14 +1,14 @@
-import RealmApp from '../dbConfig/config';
-import * as mongoose from 'mongoose';
-import Schemas from '../schemas/index';
-import { StockEntryProperties } from '../../types/stockEntry';
-import { ProductProperties } from '../../types/product';
-import { UnitProperties } from '../../types/unit';
-import helperFuncs from '../utils/helpers.func';
-import Realm from 'realm';
-import ProductAPI from './products';
-import UnitAPI from './units';
-import helpersFunc from '../utils/helpers.func';
+import RealmApp from "../dbConfig/config";
+import * as mongoose from "mongoose";
+import Schemas from "../schemas/index";
+import { StockEntryProperties } from "../../types/stockEntry";
+import { ProductProperties } from "../../types/product";
+import { UnitProperties } from "../../types/unit";
+import helperFuncs from "../utils/helpers.func";
+import Realm from "realm";
+import ProductAPI from "./products";
+import UnitAPI from "./units";
+import helpersFunc from "../utils/helpers.func";
 
 const app = RealmApp();
 
@@ -56,7 +56,7 @@ function createStockEntry(stock: StockEntryProperties) {
         let newStock: Realm.Object;
         let getStockEntry = app
           .objects(Schemas.StockEntrySchema.name)
-          .filtered('unit_id == $0', stock.unit_id);
+          .filtered("unit_id == $0", stock.unit_id);
         if (getStockEntry.length > 0) {
           //run an update
           let objToUpdate: any = getStockEntry[0];
@@ -153,8 +153,8 @@ function getStockEntry(stockId: string) {
 function getStocksEntryForUnitQuatity(
   page = 1,
   pageSize = 10,
-  searchQuery = '',
-  type = '',
+  searchQuery = "",
+  type = "",
   unitId
 ) {
   return new Promise<getStocksEntryResponse>((resolve, reject) => {
@@ -162,18 +162,18 @@ function getStocksEntryForUnitQuatity(
       let stocks: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
+          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1";
         stocks = app
           .objects(Schemas.StockEntrySchema.name)
           .filtered(query, searchQuery, type);
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
+          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
         stocks = app
           .objects(Schemas.StockEntrySchema.name)
           .filtered(query, searchQuery);
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = 'cus_type == $0';
+        let query = "cus_type == $0";
         stocks = app
           .objects(Schemas.StockEntrySchema.name)
           .filtered(query, type);
@@ -187,7 +187,7 @@ function getStocksEntryForUnitQuatity(
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach((obj) => {
+      result.forEach(obj => {
         let newObj = obj.toJSON() as StockEntryProperties;
         let unitId = newObj.unit_id.toHexString();
         let unit = UnitAPI.getUnitSync(unitId) as UnitProperties;
@@ -218,24 +218,24 @@ function getStocksEntryForUnitQuatity(
  * @param {number} pageSize - The size of page
  * @returns {Promise<stocksEntryResponse>} returns the total stock entry count and entities
 //  */
-function getStocksEntry(page = 1, pageSize = 10, searchQuery = '', type = '') {
+function getStocksEntry(page = 1, pageSize = 10, searchQuery = "", type = "") {
   return new Promise<getStocksEntryResponse>((resolve, reject) => {
     try {
       let stocks: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
+          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1";
         stocks = app
           .objects(Schemas.StockEntrySchema.name)
           .filtered(query, searchQuery, type);
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
+          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
         stocks = app
           .objects(Schemas.StockEntrySchema.name)
           .filtered(query, searchQuery);
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = 'cus_type == $0';
+        let query = "cus_type == $0";
         stocks = app
           .objects(Schemas.StockEntrySchema.name)
           .filtered(query, type);
@@ -249,12 +249,12 @@ function getStocksEntry(page = 1, pageSize = 10, searchQuery = '', type = '') {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach((obj) => {
+      result.forEach(obj => {
         let newObj = obj.toJSON() as StockEntryProperties;
         let unitId = newObj.unit_id.toHexString();
         let unit = UnitAPI.getUnitSync(unitId) as UnitProperties;
         let prodId = newObj.product_id.toHexString();
-        console.log('----stock entry product ids---');
+        console.log("----stock entry product ids---");
         console.log(prodId);
         let product = ProductAPI.getProductSync(prodId) as ProductProperties;
         newObj._id = newObj._id.toHexString();
@@ -318,12 +318,12 @@ function removeStocksEntry(stockIds: string[]) {
     try {
       let changeToObjectIds: ObjectId[] = [];
 
-      stockIds.forEach((id) => {
+      stockIds.forEach(id => {
         changeToObjectIds.push(mongoose.Types.ObjectId(id) as ObjectId);
       });
 
       app.write(() => {
-        changeToObjectIds.forEach((id) => {
+        changeToObjectIds.forEach(id => {
           let stock = app.objectForPrimaryKey(
             Schemas.StockEntrySchema.name,
             id
@@ -375,5 +375,5 @@ export default {
   getStocksEntryForUnitQuatity,
   removeStockEntry,
   removeStocksEntry,
-  updateStockEntry,
+  updateStockEntry
 };
