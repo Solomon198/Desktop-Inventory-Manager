@@ -195,6 +195,42 @@ export function AsideSearch({ isActive }) {
       {/* end::Item */}
 
       {/* begin::Item */}
+      <div className="list-item hoverable p-2 p-lg-3 mb-2">
+        <div className="d-flex align-items-center">
+          {/* begin::Symbol */}
+          <div className="symbol symbol-40 symbol-light mr-4">
+            <span className="symbol-label bg-hover-white">
+              <span className="svg-icon h-50 align-self-center">
+                <SVG src={toAbsoluteUrl("/media/svg/misc/006-plurk.svg")} />
+              </span>
+            </span>
+          </div>
+          {/* end::Symbol */}
+          {/* begin::Text */}
+          <div className="d-flex flex-column flex-grow-1 mr-2">
+            {/* <span className="text-dark-75 font-size-h6 mb-0">Products</span> */}
+
+            <NavLink className="menu-link" to="/e-commerce/stocks-entry">
+              <i className="menu-bullet menu-bullet-dot">
+                <span />
+              </i>
+              <span className="menu-text">
+                <h6>Stocks Entry</h6>
+              </span>
+            </NavLink>
+            {/* <a
+              href="#"
+              className="text-muted text-hover-primary font-weight-bold"
+            >
+              By James
+            </a> */}
+          </div>
+          {/* begin::End */}
+        </div>
+      </div>
+      {/* end::Item */}
+
+      {/* begin::Item */}
       {/* <div className="list-item hoverable p-2 p-lg-3 mb-2">
         <div className="d-flex align-items-center"> */}
       {/* begin::Symbol */}

@@ -7,9 +7,7 @@ import paginationFactory, {
   PaginationProvider,
 } from 'react-bootstrap-table2-paginator';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import * as actions from '../../../_redux/stocks/stocksActions';
-import * as stockEntryActions from '../../../_redux/stocksEntry/stocksEntryActions';
-import * as unitActions from '../../../_redux/units/unitsActions';
+import * as actions from '../../../_redux/stocksEntry/stocksEntryActions';
 import {
   getSelectRow,
   getHandlerTableChange,
@@ -39,15 +37,13 @@ export function CustomersTable() {
   }, [customersUIContext]);
 
   // Getting curret state of customers list from store (Redux)
-  const { stockCurrentState, stockEntryCurrentState } = useSelector(
+  const { stockEntryCurrentState } = useSelector(
     (state) => ({
-      stockCurrentState: state.stocks,
       stockEntryCurrentState: state.stocksEntry,
     }),
     shallowEqual
   );
-  const { totalCount, entities, listLoading } = stockCurrentState;
-  console.log(stockEntryCurrentState.entities);
+  const { totalCount, entities, listLoading } = stockEntryCurrentState;
 
   // const {entities} = unitCurrentState;
 
@@ -57,8 +53,7 @@ export function CustomersTable() {
     // clear selections list
     customersUIProps.setIds([]);
     // server call by queryParams
-    dispatch(actions.fetchStocks(customersUIProps.queryParams));
-    dispatch(stockEntryActions.fetchStocksEntry(customersUIProps.queryParams));
+    dispatch(actions.fetchStocksEntry(customersUIProps.queryParams));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customersUIProps.queryParams, dispatch]);
   // Table columns
@@ -83,12 +78,6 @@ export function CustomersTable() {
       sort: true,
       sortCaret: sortCaret,
       headerSortingClasses,
-    },
-    {
-      dataField: 'date',
-      text: 'Date',
-      sort: true,
-      sortCaret: sortCaret,
     },
     // {
     //   dataField: "status",

@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialStocksState = {
+const initialStocksEntryState = {
   listLoading: false,
   actionsLoading: false,
   totalCount: 0,
   entities: null,
-  stockForEdit: undefined,
+  stockEntryForEdit: undefined,
   lastError: null,
 };
 export const callTypes = {
@@ -13,9 +13,9 @@ export const callTypes = {
   action: 'action',
 };
 
-export const stocksSlice = createSlice({
-  name: 'stocks',
-  initialState: initialStocksState,
+export const stocksEntrySlice = createSlice({
+  name: 'stocksEntry',
+  initialState: initialStocksEntryState,
   reducers: {
     catchError: (state, action) => {
       state.error = `${action.type}: ${action.payload.error}`;
@@ -33,64 +33,52 @@ export const stocksSlice = createSlice({
         state.actionsLoading = true;
       }
     },
-    // getStockById
-    stockFetched: (state, action) => {
+    // getStockEntryById
+    stockEntryFetched: (state, action) => {
       state.actionsLoading = false;
-      state.stockForEdit = action.payload.stockForEdit;
+      state.stockEntryForEdit = action.payload.stockEntryForEdit;
       state.error = null;
     },
-    // findStocks
-    stocksFetched: (state, action) => {
+    // findStocksEntry
+    stocksEntryFetched: (state, action) => {
       const { totalCount, entities } = action.payload;
       state.listLoading = false;
       state.error = null;
       state.entities = entities;
       state.totalCount = totalCount;
     },
-    // createStock
-    stockCreated: (state, action) => {
+    // createStockEntry
+    stockEntryCreated: (state, action) => {
       state.actionsLoading = false;
       state.error = null;
-      state.entities.push(action.payload.stock);
+      state.entities.push(action.payload.stockEntry);
     },
-    // updateSale
-    stockUpdated: (state, action) => {
+    // updateStockEntry
+    stockEntryUpdated: (state, action) => {
       state.error = null;
       state.actionsLoading = false;
       state.entities = state.entities.map((entity) => {
-        if (entity._id === action.payload.stock._id) {
-          return action.payload.stock;
+        if (entity._id === action.payload.stockEntry._id) {
+          return action.payload.stockEntry;
         }
         return entity;
       });
     },
-    // deleteSale
-    stockDeleted: (state, action) => {
+    // deleteStockEntry
+    stockEntryDeleted: (state, action) => {
       state.error = null;
       state.actionsLoading = false;
       state.entities = state.entities.filter(
         (el) => el._id !== action.payload._id
       );
     },
-    // deleteSales
-    salesDeleted: (state, action) => {
+    // deleteStocksEntry
+    stocksEntryDeleted: (state, action) => {
       state.error = null;
       state.actionsLoading = false;
       state.entities = state.entities.filter(
         (el) => !action.payload.ids.includes(el._id)
       );
     },
-    // salesUpdateState
-    //     salesStatusUpdated: (state, action) => {
-    //       state.actionsLoading = false;
-    //       state.error = null;
-    //       const { ids, status } = action.payload;
-    //       state.entities = state.entities.map(entity => {
-    //         if (ids.findIndex(id => id === entity._id) > -1) {
-    //           entity.status = status;
-    //         }
-    //         return entity;
-    //       });
-    //     }
   },
 });

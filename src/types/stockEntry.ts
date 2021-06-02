@@ -5,7 +5,13 @@ export type StockEntryProperties = {
 
   unit_id: any;
 
-  quantity: string;
+  product_id: any;
+
+  unit_name?: string;
+
+  product_name?: string;
+
+  quantity: any;
 };
 
 export type StockEntryTypes = {

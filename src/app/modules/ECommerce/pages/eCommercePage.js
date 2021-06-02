@@ -1,21 +1,22 @@
-import React, { Suspense } from "react";
-import { Redirect, Switch } from "react-router-dom";
-import { CustomersPage } from "./customers/CustomersPage";
-import { CustomerSalesPage } from "./customerSales/CustomersPage";
-import { CustomersTransactionPage } from "./customersTransaction/CustomersPage";
-import { StocksPage } from "./stocks/CustomersPage";
-import { EmployeesPage } from "./employees/CustomersPage";
-import { ProductsPage } from "./products/ProductsPage";
+import React, { Suspense } from 'react';
+import { Redirect, Switch } from 'react-router-dom';
+import { CustomersPage } from './customers/CustomersPage';
+import { CustomerSalesPage } from './customerSales/CustomersPage';
+import { CustomersTransactionPage } from './customersTransaction/CustomersPage';
+import { StocksPage } from './stocks/CustomersPage';
+import { StocksEntryPage } from './stocksEntry/CustomersPage';
+import { EmployeesPage } from './employees/CustomersPage';
+import { ProductsPage } from './products/ProductsPage';
 // import { StocksPage } from "./stocks2/ProductsPage";
-import { SalesPage } from "./sales/ProductsPage";
-import { ExpensesPage } from "./expenses/CustomersPage";
-import { DebtsManagerPage } from "./debtsManager/ProductsPage";
-import { ProductEdit } from "./products/product-edit/ProductEdit";
+import { SalesPage } from './sales/ProductsPage';
+import { ExpensesPage } from './expenses/CustomersPage';
+import { DebtsManagerPage } from './debtsManager/ProductsPage';
+import { ProductEdit } from './products/product-edit/ProductEdit';
 // import { StockEdit } from "./stocks2/product-edit/ProductEdit";
-import { SalesEdit } from "./sales/product-edit/ProductEdit";
+import { SalesEdit } from './sales/product-edit/ProductEdit';
 // import { ExpenseEdit } from "./expenses/product-edit/ProductEdit";
-import { DebtsManagerEdit } from "./debtsManager/product-edit/ProductEdit";
-import { LayoutSplashScreen, ContentRoute } from "../../../../_metronic/layout";
+import { DebtsManagerEdit } from './debtsManager/product-edit/ProductEdit';
+import { LayoutSplashScreen, ContentRoute } from '../../../../_metronic/layout';
 
 export default function eCommercePage() {
   return (
@@ -31,6 +32,10 @@ export default function eCommercePage() {
         }
         <ContentRoute path="/e-commerce/customers" component={CustomersPage} />
         <ContentRoute path="/e-commerce/stocks" component={StocksPage} />
+        <ContentRoute
+          path="/e-commerce/stocks-entry"
+          component={StocksEntryPage}
+        />
         <ContentRoute path="/e-commerce/expenses" component={ExpensesPage} />
         <ContentRoute
           path="/e-commerce/customer-sales"

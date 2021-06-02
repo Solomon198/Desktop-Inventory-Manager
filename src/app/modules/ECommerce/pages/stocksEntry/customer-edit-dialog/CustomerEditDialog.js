@@ -55,7 +55,6 @@ export function CustomerEditDialog({ id, show, onHide }) {
       };
 
       let _saveStockEntry = {
-        product_id: newValues.product_id,
         unit_id: newValues.unit_id,
         product_name: newValues.product_name,
         unit_name: newValues.unit_name,

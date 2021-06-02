@@ -1,14 +1,14 @@
-import RealmApp from "../dbConfig/config";
-import * as mongoose from "mongoose";
-import Schemas from "../schemas/index";
-import { StockProperties } from "../../types/stock";
-import { ProductProperties } from "../../types/product";
-import { UnitProperties } from "../../types/unit";
-import helperFuncs from "../utils/helpers.func";
-import Realm from "realm";
-import ProductAPI from "./products";
-import UnitAPI from "./units";
-import helpersFunc from "../utils/helpers.func";
+import RealmApp from '../dbConfig/config';
+import * as mongoose from 'mongoose';
+import Schemas from '../schemas/index';
+import { StockProperties } from '../../types/stock';
+import { ProductProperties } from '../../types/product';
+import { UnitProperties } from '../../types/unit';
+import helperFuncs from '../utils/helpers.func';
+import Realm from 'realm';
+import ProductAPI from './products';
+import UnitAPI from './units';
+import helpersFunc from '../utils/helpers.func';
 
 const app = RealmApp();
 
@@ -64,17 +64,19 @@ function createStock(stock: StockProperties) {
         let product = ProductAPI.getProductSync(prodId) as ProductProperties;
         let unit = UnitAPI.getUnitSync(uId) as UnitProperties;
 
-        try {
-          stockObject.date = helperFuncs.transformDateObjectToString(
-            stockObject.date
-          );
-        } catch (e) {}
-
         stockObject.product_name = product.model;
         stockObject.unit_name = unit.name;
         stockObject._id = stockObject._id.toHexString();
         stockObject.product_id = stockObject.product_id.toHexString();
         stockObject.unit_id = stockObject.unit_id.toHexString();
+        try {
+          stockObject.date = helperFuncs.transformDateObjectToString(
+            stockObject.date
+          );
+          stockObject.unit_name = helperFuncs.transformStringToUpperCase(
+            stockObject.unit_name
+          );
+        } catch (e) {}
         resolve(stockObject);
       } catch (e) {
         console.log(e);
@@ -97,7 +99,7 @@ function getStock(stockId: string) {
       let convertIdToObjectId = mongoose.Types.ObjectId(stockId);
 
       let stock = app.objectForPrimaryKey(
-        Schemas.SaleSchema.name,
+        Schemas.StockSchema.name,
         convertIdToObjectId as ObjectId
       );
       let stockObject: StockProperties = stock?.toJSON() as any;
@@ -130,24 +132,24 @@ function getStock(stockId: string) {
  * @param {number} pageSize - The size of page
  * @returns {Promise<stocksResponse>} returns the total stock count and entities
 //  */
-function getStocks(page = 1, pageSize = 10, searchQuery = "", type = "") {
+function getStocks(page = 1, pageSize = 10, searchQuery = '', type = '') {
   return new Promise<getStocksResponse>((resolve, reject) => {
     try {
       let stocks: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
         stocks = app
           .objects(Schemas.StockSchema.name)
           .filtered(query, searchQuery, type);
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
         stocks = app
           .objects(Schemas.StockSchema.name)
           .filtered(query, searchQuery);
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = "cus_type == $0";
+        let query = 'cus_type == $0';
         stocks = app.objects(Schemas.StockSchema.name).filtered(query, type);
       } else {
         stocks = app.objects(Schemas.StockSchema.name);
@@ -159,7 +161,7 @@ function getStocks(page = 1, pageSize = 10, searchQuery = "", type = "") {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach(obj => {
+      result.forEach((obj) => {
         let newObj = obj.toJSON() as StockProperties;
         let prodId = newObj.product_id.toHexString();
         let unitId = newObj.unit_id.toHexString();
@@ -171,9 +173,6 @@ function getStocks(page = 1, pageSize = 10, searchQuery = "", type = "") {
         try {
           newObj.date = helperFuncs.transformDateObjectToString(newObj.date);
           newObj.quantity = newObj.quantity.toString();
-          newObj.unit_name = helperFuncs.transformStringToUpperCase(
-            newObj.unit_name
-          );
         } catch (e) {}
         objArr.push(newObj);
       });
@@ -227,14 +226,14 @@ function removeStocks(stockIds: string[]) {
     try {
       let changeToObjectIds: ObjectId[] = [];
 
-      stockIds.forEach(id => {
+      stockIds.forEach((id) => {
         changeToObjectIds.push(mongoose.Types.ObjectId(id) as ObjectId);
       });
 
       app.write(() => {
-        changeToObjectIds.forEach(id => {
-          let product = app.objectForPrimaryKey(Schemas.StockSchema.name, id);
-          app.delete(product);
+        changeToObjectIds.forEach((id) => {
+          let stock = app.objectForPrimaryKey(Schemas.StockSchema.name, id);
+          app.delete(stock);
         });
 
         resolve(true);
@@ -280,5 +279,5 @@ export default {
   getStocks,
   removeStock,
   removeStocks,
-  updateStock
+  updateStock,
 };
