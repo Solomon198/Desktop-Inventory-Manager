@@ -1,25 +1,25 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { shallowEqual, useSelector, useDispatch } from 'react-redux';
-import * as actions from '../../_redux/sales/salesActions';
-import * as Yup from 'yup';
+import React, { useState, useEffect, useMemo, useCallback } from "react";
+import { shallowEqual, useSelector, useDispatch } from "react-redux";
+import * as actions from "../../_redux/sales/salesActions";
+import * as Yup from "yup";
 import {
   Card,
   CardBody,
   CardHeader,
-  CardHeaderToolbar,
-} from '../../../../../_metronic/_partials/controls';
+  CardHeaderToolbar
+} from "../../../../../_metronic/_partials/controls";
 import {
   CustomerStatusTitles,
   CustomerTypeUnits,
-  CustomerTransactionType,
-} from './CustomersUIHelpers';
-import { Formik } from 'formik';
-import { CustomersFilter } from './customers-filter/CustomersFilter';
-import { CustomersTable } from './customers-table/CustomersTable';
-import { CustomersGrouping } from './customers-grouping/CustomersGrouping';
-import { useCustomersUIContext } from './CustomersUIContext';
-import { useHistory, useLocation } from 'react-router-dom';
-import helperFuns from '../utils/helper.funcs';
+  CustomerTransactionType
+} from "./CustomersUIHelpers";
+import { Formik } from "formik";
+import { CustomersFilter } from "./customers-filter/CustomersFilter";
+import { CustomersTable } from "./customers-table/CustomersTable";
+import { CustomersGrouping } from "./customers-grouping/CustomersGrouping";
+import { useCustomersUIContext } from "./CustomersUIContext";
+import { useHistory, useLocation } from "react-router-dom";
+import helperFuns from "../utils/helper.funcs";
 
 let customerId;
 
@@ -28,8 +28,8 @@ export function CustomersCard(props) {
   const [disabled, setDisabled] = useState(true);
   const [showTransactionCode, setShowTransactionCode] = useState(false);
   const [validateTransactions, setValidateTransactions] = useState({
-    transactionType: '',
-    transactionStatus: '',
+    transactionType: "",
+    transactionStatus: ""
   });
   const customersUIContext = useCustomersUIContext();
   const history = useHistory();
@@ -37,13 +37,13 @@ export function CustomersCard(props) {
     return {
       ids: customersUIContext.ids,
       newCustomerButtonClick: customersUIContext.newCustomerButtonClick,
-      productsSelected: customersUIContext.productsSelected,
+      productsSelected: customersUIContext.productsSelected
     };
   }, [customersUIContext]);
 
   const validateFinishSale = useCallback(() => {
     const checkProduct = customersUIProps.productsSelected.some(
-      (item) => item.product
+      item => item.product
     );
     validateTransactions.transactionType && checkProduct && setDisabled(false);
   });
@@ -71,7 +71,7 @@ export function CustomersCard(props) {
     validateTransactions,
     validateFinishSale,
     cusId,
-    location,
+    location
   ]);
 
   const getClasses = () => {
@@ -87,7 +87,7 @@ export function CustomersCard(props) {
 
     let _newProductsSelected = [...customersUIProps.productsSelected];
     let grossTotal = 0;
-    _newProductsSelected.map((prod) => {
+    _newProductsSelected.map(prod => {
       prod.productId = helperFuns.transformHexStringToObjectId(prod.productId);
       grossTotal += prod.totalAmount;
     });
@@ -98,26 +98,26 @@ export function CustomersCard(props) {
       total_amount: grossTotal,
       transaction_type: _newValues.transaction_type,
       transaction_code: _newValues.transaction_code,
-      date: new Date(_date),
+      date: new Date(_date)
     };
 
-    console.log('********* Finished Sales ****************', saveSale);
+    console.log("********* Finished Sales ****************", saveSale);
 
     dispatch(actions.createSale(saveSale));
 
-    resetForm({ values: '' });
+    resetForm({ values: "" });
 
-    history.push('/e-commerce/sales');
+    history.push("/e-commerce/sales");
   };
 
   // const customerId = props.match.params.id;
   // console.log(customerId);
 
   const transactionTypeSchema = Yup.object().shape({
-    transaction_type: Yup.string().required('Transaction type is required!'),
+    transaction_type: Yup.string().required("Transaction type is required!"),
     // transaction_code: Yup.string().required('Transaction code is required!'),
     // part_payment: Yup.number().required('Part payment is required!'),
-    date: Yup.date().required('Date is required.'),
+    date: Yup.date().required("Date is required.")
   });
 
   return (
@@ -126,10 +126,10 @@ export function CustomersCard(props) {
         <CardHeaderToolbar>
           <Formik
             initialValues={{
-              transaction_type: '',
+              transaction_type: "",
               // status: '',
-              transaction_code: '',
-              date: '',
+              transaction_code: "",
+              date: ""
             }}
             enableReinitialize={true}
             validationSchema={transactionTypeSchema}
@@ -144,7 +144,7 @@ export function CustomersCard(props) {
               handleChange,
               setFieldValue,
               errors,
-              touched,
+              touched
             }) => (
               <form onSubmit={handleSubmit} className="form form-label-right">
                 <div className="form-group row">
@@ -154,14 +154,14 @@ export function CustomersCard(props) {
                       placeholder="Transaction type"
                       name="transaction_type"
                       onBlur={handleBlur}
-                      onChange={(e) => {
-                        setFieldValue('transaction_type', e.target.value);
+                      onChange={e => {
+                        setFieldValue("transaction_type", e.target.value);
                         setValidateTransactions({
                           ...validateTransactions,
-                          transactionType: e.target.value,
+                          transactionType: e.target.value
                         });
 
-                        if (e.target.value === '3') {
+                        if (e.target.value === "3") {
                           setShowTransactionCode(true);
                         } else {
                           setShowTransactionCode(false);
@@ -176,7 +176,7 @@ export function CustomersCard(props) {
                       ))}
                     </select>
                     {errors.transaction_type && touched.transaction_type ? (
-                      <div style={{ color: 'red' }}>
+                      <div style={{ color: "red" }}>
                         {errors.transaction_type}
                       </div>
                     ) : null}
@@ -228,8 +228,8 @@ export function CustomersCard(props) {
                         placeholder="Transaction Code"
                         onBlur={handleBlur}
                         value={values.transaction_code}
-                        onChange={(e) => {
-                          setFieldValue('transaction_code', e.target.value);
+                        onChange={e => {
+                          setFieldValue("transaction_code", e.target.value);
                         }}
                       />
                       <small className="form-text text-muted">
@@ -251,12 +251,12 @@ export function CustomersCard(props) {
                       placeholder="Date"
                       onBlur={handleBlur}
                       value={values.date}
-                      onChange={(e) => {
-                        setFieldValue('date', e.target.value);
+                      onChange={e => {
+                        setFieldValue("date", e.target.value);
                       }}
                     />
                     {errors.date && touched.date ? (
-                      <div style={{ color: 'red' }}>{errors.date}</div>
+                      <div style={{ color: "red" }}>{errors.date}</div>
                     ) : null}
                     <small className="form-text text-muted">
                       <b>Date</b>
@@ -266,7 +266,7 @@ export function CustomersCard(props) {
                   <div className={getClasses()}>
                     <button
                       type="submit"
-                      style={{ display: 'block' }}
+                      style={{ display: "block" }}
                       className="btn btn-primary"
                       disabled={disabled}
                     >
