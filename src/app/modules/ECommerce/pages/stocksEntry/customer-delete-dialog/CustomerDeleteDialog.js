@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo } from "react";
-import { Modal } from "react-bootstrap";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
-import * as actions from "../../../_redux/stocks/stocksActions";
-import { useCustomersUIContext } from "../CustomersUIContext";
+import React, { useEffect, useMemo } from 'react';
+import { Modal } from 'react-bootstrap';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { ModalProgressBar } from '../../../../../../_metronic/_partials/controls';
+import * as actions from '../../../_redux/stocksEntry/stocksEntryActions';
+import { useCustomersUIContext } from '../CustomersUIContext';
 
 export function CustomerDeleteDialog({ id, show, onHide }) {
   // Customers UI Context
@@ -11,14 +11,14 @@ export function CustomerDeleteDialog({ id, show, onHide }) {
   const customersUIProps = useMemo(() => {
     return {
       setIds: customersUIContext.setIds,
-      queryParams: customersUIContext.queryParams
+      queryParams: customersUIContext.queryParams,
     };
   }, [customersUIContext]);
 
   // Customers Redux state
   const dispatch = useDispatch();
   const { isLoading } = useSelector(
-    state => ({ isLoading: state.stocks.actionsLoading }),
+    (state) => ({ isLoading: state.stocksEntry.actionsLoading }),
     shallowEqual
   );
 
@@ -35,9 +35,9 @@ export function CustomerDeleteDialog({ id, show, onHide }) {
 
   const deleteStock = () => {
     // server request for deleting customer by id
-    dispatch(actions.deleteStock(id)).then(() => {
+    dispatch(actions.deleteStockEntry(id)).then(() => {
       // refresh list after deletion
-      dispatch(actions.fetchStocks(customersUIProps.queryParams));
+      dispatch(actions.fetchStocksEntry(customersUIProps.queryParams));
       // clear selections list
       customersUIProps.setIds([]);
       // closing delete modal

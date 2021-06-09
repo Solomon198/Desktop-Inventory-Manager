@@ -1,14 +1,14 @@
-import RealmApp from "../dbConfig/config";
-import * as mongoose from "mongoose";
-import Schemas from "../schemas/index";
-import { StockEntryProperties } from "../../types/stockEntry";
-import { ProductProperties } from "../../types/product";
-import { UnitProperties } from "../../types/unit";
-import helperFuncs from "../utils/helpers.func";
-import Realm from "realm";
-import ProductAPI from "./products";
-import UnitAPI from "./units";
-import helpersFunc from "../utils/helpers.func";
+import RealmApp from '../dbConfig/config';
+import * as mongoose from 'mongoose';
+import Schemas from '../schemas/index';
+import { StockEntryProperties } from '../../types/stockEntry';
+import { ProductProperties } from '../../types/product';
+import { UnitProperties } from '../../types/unit';
+import helperFuncs from '../utils/helpers.func';
+import Realm from 'realm';
+import ProductAPI from './products';
+import UnitAPI from './units';
+import helpersFunc from '../utils/helpers.func';
 
 const app = RealmApp();
 
@@ -56,7 +56,7 @@ function createStockEntry(stock: StockEntryProperties) {
         let newStock: Realm.Object;
         let getStockEntry = app
           .objects(Schemas.StockEntrySchema.name)
-          .filtered("unit_id == $0", stock.unit_id);
+          .filtered('unit_id == $0', stock.unit_id);
         if (getStockEntry.length > 0) {
           //run an update
           let objToUpdate: any = getStockEntry[0];
@@ -143,6 +143,102 @@ function getStockEntry(stockId: string) {
 }
 
 /**
+ * @description Get product quantity by unit ID
+ * @async
+ * @function getQuantityByUnitId
+ * @param  {string} unitId - The ID(identity) of the unit
+ * @returns {Promise<Stock>} Returns the total quantity of the unit
+ */
+function getQuantityByUnitId(unitId: string) {
+  return new Promise<getStocksEntryResponse>((resolve, reject) => {
+    try {
+      let stocks: Realm.Results<Realm.Object>;
+      let changeToObjectId = mongoose.Types.ObjectId(unitId);
+      // let convertIdToObjectId = mongoose.Types.ObjectId(stockId);
+
+      if (changeToObjectId) {
+        stocks = app
+          .objects(Schemas.StockEntrySchema.name)
+          .filtered('unit_id = $0', changeToObjectId);
+      } else {
+        return false;
+      }
+
+      let result = stocks.slice();
+
+      let objArr: any[] = [];
+
+      result.forEach((obj) => {
+        let newObj = obj.toJSON() as StockEntryProperties;
+        newObj._id = newObj._id.toHexString();
+        newObj.product_id = newObj.product_id.toHexString();
+        newObj.unit_id = newObj.unit_id.toHexString();
+        objArr.push(newObj);
+      });
+
+      let totalCount = objArr.length;
+
+      let response = { totalCount, entities: objArr };
+      resolve(response);
+    } catch (e) {
+      reject(e.message);
+    }
+  });
+}
+
+/**
+ * @description Get unit ID and quantity for a products
+ * @async
+ * @function decrementStocksEntry
+ * @param  {any[]} stocksEntry - unit ID and quantity
+ * @returns {Promise<Stock>} Returns the quantity of unit
+ */
+function decrementStocksEntry(stocksEntry: any[]) {
+  return new Promise<getStocksEntryResponse>((resolve, reject) => {
+    try {
+      // let stocks: Realm.Results<Realm.Object>;
+      let stocks;
+      let changeToObjectIds: ObjectId[] = [];
+
+      stocksEntry.forEach((val) => {
+        changeToObjectIds.push(
+          mongoose.Types.ObjectId(val.unit_id) as ObjectId
+        );
+      });
+
+      if (changeToObjectIds) {
+        changeToObjectIds.forEach((unitId) => {
+          stocks = app
+            .objects(Schemas.StockEntrySchema.name)
+            .filtered('unit_id $0', unitId);
+        });
+      } else {
+        return false;
+      }
+
+      let result = stocks.slice();
+
+      let objArr: any[] = [];
+
+      result.forEach((obj) => {
+        let newObj = obj.toJSON() as StockEntryProperties;
+        newObj._id = newObj._id.toHexString();
+        newObj.product_id = newObj.product_id.toHexString();
+        newObj.unit_id = newObj.unit_id.toHexString();
+        objArr.push(newObj);
+      });
+
+      let totalCount = objArr.length;
+
+      let response = { totalCount, entities: objArr };
+      resolve(response);
+    } catch (e) {
+      reject(e.message);
+    }
+  });
+}
+
+/**
  * @description Get stocks entries for unit quantities
 //  * @async
  * @function getStocksEntryForUnitQuatity
@@ -153,8 +249,8 @@ function getStockEntry(stockId: string) {
 function getStocksEntryForUnitQuatity(
   page = 1,
   pageSize = 10,
-  searchQuery = "",
-  type = "",
+  searchQuery = '',
+  type = '',
   unitId
 ) {
   return new Promise<getStocksEntryResponse>((resolve, reject) => {
@@ -162,18 +258,18 @@ function getStocksEntryForUnitQuatity(
       let stocks: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
         stocks = app
           .objects(Schemas.StockEntrySchema.name)
           .filtered(query, searchQuery, type);
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
         stocks = app
           .objects(Schemas.StockEntrySchema.name)
           .filtered(query, searchQuery);
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = "cus_type == $0";
+        let query = 'cus_type == $0';
         stocks = app
           .objects(Schemas.StockEntrySchema.name)
           .filtered(query, type);
@@ -187,7 +283,7 @@ function getStocksEntryForUnitQuatity(
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach(obj => {
+      result.forEach((obj) => {
         let newObj = obj.toJSON() as StockEntryProperties;
         let unitId = newObj.unit_id.toHexString();
         let unit = UnitAPI.getUnitSync(unitId) as UnitProperties;
@@ -218,24 +314,24 @@ function getStocksEntryForUnitQuatity(
  * @param {number} pageSize - The size of page
  * @returns {Promise<stocksEntryResponse>} returns the total stock entry count and entities
 //  */
-function getStocksEntry(page = 1, pageSize = 10, searchQuery = "", type = "") {
+function getStocksEntry(page = 1, pageSize = 10, searchQuery = '', type = '') {
   return new Promise<getStocksEntryResponse>((resolve, reject) => {
     try {
       let stocks: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
         stocks = app
           .objects(Schemas.StockEntrySchema.name)
           .filtered(query, searchQuery, type);
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
         stocks = app
           .objects(Schemas.StockEntrySchema.name)
           .filtered(query, searchQuery);
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = "cus_type == $0";
+        let query = 'cus_type == $0';
         stocks = app
           .objects(Schemas.StockEntrySchema.name)
           .filtered(query, type);
@@ -249,12 +345,11 @@ function getStocksEntry(page = 1, pageSize = 10, searchQuery = "", type = "") {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach(obj => {
+      result.forEach((obj) => {
         let newObj = obj.toJSON() as StockEntryProperties;
         let unitId = newObj.unit_id.toHexString();
         let unit = UnitAPI.getUnitSync(unitId) as UnitProperties;
         let prodId = newObj.product_id.toHexString();
-        console.log("----stock entry product ids---");
         console.log(prodId);
         let product = ProductAPI.getProductSync(prodId) as ProductProperties;
         newObj._id = newObj._id.toHexString();
@@ -318,12 +413,12 @@ function removeStocksEntry(stockIds: string[]) {
     try {
       let changeToObjectIds: ObjectId[] = [];
 
-      stockIds.forEach(id => {
+      stockIds.forEach((id) => {
         changeToObjectIds.push(mongoose.Types.ObjectId(id) as ObjectId);
       });
 
       app.write(() => {
-        changeToObjectIds.forEach(id => {
+        changeToObjectIds.forEach((id) => {
           let stock = app.objectForPrimaryKey(
             Schemas.StockEntrySchema.name,
             id
@@ -372,8 +467,10 @@ export default {
   createStockEntry,
   getStockEntry,
   getStocksEntry,
+  getQuantityByUnitId,
   getStocksEntryForUnitQuatity,
+  decrementStocksEntry,
   removeStockEntry,
   removeStocksEntry,
-  updateStockEntry
+  updateStockEntry,
 };
