@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo } from "react";
-import { Modal } from "react-bootstrap";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
-import * as actions from "../../../_redux/stocks/stocksActions";
-import { useCustomersUIContext } from "../CustomersUIContext";
+import React, { useEffect, useMemo } from 'react';
+import { Modal } from 'react-bootstrap';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { ModalProgressBar } from '../../../../../../_metronic/_partials/controls';
+import * as actions from '../../../_redux/expenses/expensesActions';
+import { useCustomersUIContext } from '../CustomersUIContext';
 
 export function CustomerDeleteDialog({ id, show, onHide }) {
   // Customers UI Context
@@ -11,14 +11,14 @@ export function CustomerDeleteDialog({ id, show, onHide }) {
   const customersUIProps = useMemo(() => {
     return {
       setIds: customersUIContext.setIds,
-      queryParams: customersUIContext.queryParams
+      queryParams: customersUIContext.queryParams,
     };
   }, [customersUIContext]);
 
   // Customers Redux state
   const dispatch = useDispatch();
   const { isLoading } = useSelector(
-    state => ({ isLoading: state.stocks.actionsLoading }),
+    (state) => ({ isLoading: state.expenses.actionsLoading }),
     shallowEqual
   );
 
@@ -35,9 +35,9 @@ export function CustomerDeleteDialog({ id, show, onHide }) {
 
   const deleteStock = () => {
     // server request for deleting customer by id
-    dispatch(actions.deleteStock(id)).then(() => {
+    dispatch(actions.deleteExpense(id)).then(() => {
       // refresh list after deletion
-      dispatch(actions.fetchStocks(customersUIProps.queryParams));
+      dispatch(actions.fetchExpenses(customersUIProps.queryParams));
       // clear selections list
       customersUIProps.setIds([]);
       // closing delete modal
@@ -56,14 +56,14 @@ export function CustomerDeleteDialog({ id, show, onHide }) {
       {/*end::Loading*/}
       <Modal.Header closeButton>
         <Modal.Title id="example-modal-sizes-title-lg">
-          Stock Delete
+          Delete Expense
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {!isLoading && (
-          <span>Are you sure to permanently delete this stock?</span>
+          <span>Are you sure to permanently delete this expense?</span>
         )}
-        {isLoading && <span>Stock is deleting...</span>}
+        {isLoading && <span>Expense is deleting...</span>}
       </Modal.Body>
       <Modal.Footer>
         <div>

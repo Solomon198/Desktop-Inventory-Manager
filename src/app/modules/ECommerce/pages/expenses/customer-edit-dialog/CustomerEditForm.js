@@ -2,40 +2,39 @@
 // Data validation is based on Yup
 // Please, be familiar with article first:
 // https://hackernoon.com/react-form-validation-with-formik-and-yup-8b76bda62e10
-import React, { useState, useEffect, useMemo } from "react";
-import { Modal } from "react-bootstrap";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
+import React, { useState, useEffect, useMemo } from 'react';
+import { Modal } from 'react-bootstrap';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 import {
   Input,
   Select,
-  DatePickerField
-} from "../../../../../../_metronic/_partials/controls";
-import helperFuncs from "../../../../../../dist/realm/utils/helpers.func";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import * as actions from "../../../_redux/expensesItem/expensesItemActions";
-import helperFuns from "../../utils/helper.funcs";
-import { useCustomersUIContext } from "../CustomersUIContext";
+  DatePickerField,
+} from '../../../../../../_metronic/_partials/controls';
+import helperFuncs from '../../../../../../dist/realm/utils/helpers.func';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import * as actions from '../../../_redux/expensesItem/expensesItemActions';
+import helperFuns from '../../utils/helper.funcs';
+import { useCustomersUIContext } from '../CustomersUIContext';
 
 // Validation schema
 const ExpenseEditSchema = Yup.object().shape({
   expense_item_id: Yup.string()
-    .min(2, "Mininum 2 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("Expense is required"),
-  amount: Yup.number()
-    .min(1, "₦1 is minimum")
-    // .max(1000000, '₦1000000 is maximum')
-    .required("Amount is required"),
-  description: Yup.string().required("Description is required"),
-  date: Yup.date().required("Date is required")
+    .min(2, 'Mininum 2 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('Expense is required'),
+  amount: Yup.string().required('Amount is required'),
+  // .min(1, '₦1 is minimum')
+  // .max(1000000, '₦1000000 is maximum')
+  description: Yup.string().required('Description is required'),
+  date: Yup.date().required('Date is required'),
 });
 
 export function CustomerEditForm({
   saveExpense,
   expense,
   actionsLoading,
-  onHide
+  onHide,
 }) {
   // Customers UI Context
   const customersUIContext = useCustomersUIContext();
@@ -43,7 +42,7 @@ export function CustomerEditForm({
     return {
       queryParams: customersUIContext.queryParams,
       setQueryParams: customersUIContext.setQueryParams,
-      tab: customersUIContext.tab
+      tab: customersUIContext.tab,
       // queryParams: customersUIContext.queryParams,
       // initTransaction: customersUIContext.initTransaction,
       // productsSelected: customersUIContext.productsSelected,
@@ -57,8 +56,8 @@ export function CustomerEditForm({
 
   // Getting curret state of expenses item list from store (Redux)
   const { currentState } = useSelector(
-    state => ({
-      currentState: state.expensesItem
+    (state) => ({
+      currentState: state.expensesItem,
     }),
     shallowEqual
   );
@@ -90,7 +89,7 @@ export function CustomerEditForm({
           handleChange,
           setFieldValue,
           errors,
-          touched
+          touched,
         }) => (
           <>
             <Modal.Body className="overlay overlay-block cursor-default">
@@ -108,17 +107,17 @@ export function CustomerEditForm({
                         placeholder="Expense"
                         name="expense_item_id"
                         onBlur={handleBlur}
-                        onChange={e => {
+                        onChange={(e) => {
                           let selectedExpenseItemId = e.target.value;
-                          if (selectedExpenseItemId === "select") return false;
+                          if (selectedExpenseItemId === 'select') return false;
                           let expenseItem = {};
-                          entities.map(prod => {
+                          entities.map((prod) => {
                             if (prod._id === selectedExpenseItemId) {
                               expenseItem = prod;
                             }
                           });
-                          setFieldValue("expense_item_id", expenseItem._id);
-                          setFieldValue("expense_item", expenseItem.item);
+                          setFieldValue('expense_item_id', expenseItem._id);
+                          setFieldValue('expense_item', expenseItem.item);
                           // setProductId(expenseItem._id);
                           // productId
                           //   ? setDisabledUnit(false)
@@ -138,7 +137,7 @@ export function CustomerEditForm({
                         <b>Expense</b>
                       </small>
                       {errors.expense_item_id && touched.expense_item_id ? (
-                        <div style={{ color: "red" }}>
+                        <div style={{ color: 'red' }}>
                           {errors.expense_item_id}
                         </div>
                       ) : null}
@@ -153,21 +152,23 @@ export function CustomerEditForm({
                         placeholder="Amount"
                         onBlur={handleBlur}
                         // disabled={true}
-                        value={values.amount}
-                        onChange={e => {
-                          setFieldValue("amount", e.target.value);
+                        value={helperFuns
+                          .transformCurrencyStringToNumber(values.amount)
+                          .toLocaleString()}
+                        onChange={(e) => {
+                          setFieldValue('amount', e.target.value);
                         }}
                       />
                       <small className="form-text text-muted">
                         <b>Amount</b>
                       </small>
                       {errors.amount && touched.amount ? (
-                        <div style={{ color: "red" }}>{errors.amount}</div>
+                        <div style={{ color: 'red' }}>{errors.amount}</div>
                       ) : null}
                     </div>
                   </div>
                   <div className="col-lg-12">
-                    <div class="form-group">
+                    <div className="form-group">
                       <Field
                         name="description"
                         placeholder="Enter Description here..."
@@ -178,7 +179,7 @@ export function CustomerEditForm({
                         <b>Description</b>
                       </small>
                       {errors.description && touched.description ? (
-                        <div style={{ color: "red" }}>{errors.description}</div>
+                        <div style={{ color: 'red' }}>{errors.description}</div>
                       ) : null}
                     </div>
                   </div>
@@ -191,15 +192,15 @@ export function CustomerEditForm({
                         placeholder="Date"
                         onBlur={handleBlur}
                         value={values.date}
-                        onChange={e => {
-                          setFieldValue("date", e.target.value);
+                        onChange={(e) => {
+                          setFieldValue('date', e.target.value);
                         }}
                       />
                       <small className="form-text text-muted">
                         <b>Date</b>
                       </small>
                       {errors.date && touched.date ? (
-                        <div style={{ color: "red" }}>{errors.date}</div>
+                        <div style={{ color: 'red' }}>{errors.date}</div>
                       ) : null}
                     </div>
                   </div>

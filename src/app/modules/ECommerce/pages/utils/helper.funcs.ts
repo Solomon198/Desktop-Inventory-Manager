@@ -1,4 +1,4 @@
-import * as mongoose from "mongoose";
+import * as mongoose from 'mongoose';
 
 /**
  * @function transformHexStringToObjectId
@@ -19,9 +19,24 @@ function transformHexStringToObjectId(str: any) {
  */
 
 function transformDateStringToDateType(str: any) {
-  let _dateType = str.split(" ");
+  let _dateType = str.split(' ');
   let _newDateType = `${_dateType[1]}-${_dateType[2]}-${_dateType[0]}`;
   return _newDateType;
 }
 
-export default { transformHexStringToObjectId, transformDateStringToDateType };
+/**
+ * @function transformCurrencyStringToNumber
+ * @param {string} currencyString - The currency string to be tranformed
+ * @description Convert currency string to number
+ * @returns {number} returns a number
+ */
+
+function transformCurrencyStringToNumber(currencyString: string) {
+  return Number(currencyString.replace(/[^0-9.-]+/g, ''));
+}
+
+export default {
+  transformHexStringToObjectId,
+  transformDateStringToDateType,
+  transformCurrencyStringToNumber,
+};
