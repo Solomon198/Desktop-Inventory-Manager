@@ -1,4 +1,4 @@
-import * as mongoose from 'mongoose';
+import * as mongoose from "mongoose";
 
 /**
  * @function getPaginationPartition
@@ -51,7 +51,7 @@ function transformRealmStringToNumber(str: any) {
  */
 
 function removeSymbolFromNumber(amount: string) {
-  return amount.replace(/,/g, '');
+  return amount.replace(/,/g, "");
 }
 
 /**
@@ -74,11 +74,11 @@ function transformStringToUpperCase(str: any) {
 
 function transformDateObjectToString(date: any) {
   let d = date;
-  let day = d.getDate() + '';
+  let day = d.getDate() + "";
   let year = d.getFullYear();
-  let month = d.getMonth() + 1 + '';
-  let _day = day.length == 1 ? '0' + day : day;
-  let _month = month.length == 1 ? '0' + month : month;
+  let month = d.getMonth() + 1 + "";
+  let _day = day.length == 1 ? "0" + day : day;
+  let _month = month.length == 1 ? "0" + month : month;
   let newDate = `${_day}-${_month}-${year}`;
 
   return newDate;
@@ -92,11 +92,11 @@ function transformDateObjectToString(date: any) {
  */
 
 function transformToCurrencyString(totalAmount) {
-  const formatter = new Intl.NumberFormat('en-ng', {
-    style: 'currency',
-    currency: 'NGN',
+  const formatter = new Intl.NumberFormat("en-ng", {
+    style: "currency",
+    currency: "NGN",
     minimumFractionDigits: 2,
-    currencyDisplay: 'symbol',
+    currencyDisplay: "symbol"
   });
 
   return formatter.format(totalAmount);
@@ -113,5 +113,5 @@ export default {
   transformRealmStringToNumber,
   transformStringToUpperCase,
   removeEventListener,
-  removeSymbolFromNumber,
+  removeSymbolFromNumber
 };
