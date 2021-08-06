@@ -15,6 +15,7 @@ export const fetchEmployees = queryParams => dispatch => {
     .then(employees => {
       let { totalCount, entities } = employees;
       dispatch(actions.employeesFetched({ totalCount, entities }));
+      console.log('EmployeeType:', employeeType)
     })
     .catch(error => {
       dispatch(actions.catchError({ error, callType: callTypes.list }));
