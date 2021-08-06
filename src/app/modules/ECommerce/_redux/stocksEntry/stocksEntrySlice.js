@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialStocksEntryState = {
   listLoading: false,
@@ -7,15 +7,15 @@ const initialStocksEntryState = {
   entities: null,
   stockEntryQuantity: null,
   stockEntryForEdit: undefined,
-  lastError: null,
+  lastError: null
 };
 export const callTypes = {
-  list: 'list',
-  action: 'action',
+  list: "list",
+  action: "action"
 };
 
 export const stocksEntrySlice = createSlice({
-  name: 'stocksEntry',
+  name: "stocksEntry",
   initialState: initialStocksEntryState,
   reducers: {
     catchError: (state, action) => {
@@ -60,7 +60,7 @@ export const stocksEntrySlice = createSlice({
     stockEntryUnitQuantityFetched: (state, action) => {
       state.error = null;
       state.actionsLoading = false;
-      state.entities = state.entities.forEach((obj) => {
+      state.entities = state.entities.forEach(obj => {
         if (obj.unit_id === action.payload.unit_id)
           return (obj.quantity -= action.payload.quantity);
       });
@@ -75,7 +75,7 @@ export const stocksEntrySlice = createSlice({
     stockEntryUpdated: (state, action) => {
       state.error = null;
       state.actionsLoading = false;
-      state.entities = state.entities.map((entity) => {
+      state.entities = state.entities.map(entity => {
         if (entity._id === action.payload.stockEntry._id) {
           return action.payload.stockEntry;
         }
@@ -98,7 +98,7 @@ export const stocksEntrySlice = createSlice({
       state.error = null;
       state.actionsLoading = false;
       state.entities = state.entities.filter(
-        (el) => el._id !== action.payload._id
+        el => el._id !== action.payload._id
       );
     },
     // deleteStocksEntry
@@ -106,8 +106,8 @@ export const stocksEntrySlice = createSlice({
       state.error = null;
       state.actionsLoading = false;
       state.entities = state.entities.filter(
-        (el) => !action.payload.ids.includes(el._id)
+        el => !action.payload.ids.includes(el._id)
       );
-    },
-  },
+    }
+  }
 });
