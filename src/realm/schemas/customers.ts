@@ -1,35 +1,25 @@
-import { CustomerTypes } from "../../types/customer"; // typescript type validation for customers
+import { CustomerTypes } from '../../types/customer'; // typescript type validation for customers
 
 const CustomerSchema: CustomerTypes = {
-  name: "customers",
+  name: 'customers',
 
-  primaryKey: "_id",
+  primaryKey: '_id',
 
   properties: {
-    _id: "objectId",
+    _id: 'objectId',
 
-    title: "string?",
+    first_name: 'string?',
 
-    first_name: "string?",
+    last_name: 'string?',
 
-    last_name: "string?",
+    gender: 'string?',
 
-    display_name: "string?",
+    email: 'string?',
 
-    gender: "string?",
+    phone_no: 'string?',
 
-    login: "string?",
-
-    email: "string?",
-
-    phone_no: "string?",
-
-    ip_address: "string?",
-
-    website: "string?",
-
-    cus_type: "string?"
-  }
+    address: 'string?',
+  },
 };
 
 export default CustomerSchema;

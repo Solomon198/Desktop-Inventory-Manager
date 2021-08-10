@@ -50,23 +50,12 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 export default function AlertDialog(props) {
-//   const [open, setOpen] = React.useState(false);
-
-//   const handleClickOpen = () => {
-//     setOpen(true);
-//   };
-//   const handleClose = () => {
-//     setOpen(false);
-//   };
 
   return (
     <div>
-      {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open dialog
-      </Button> */}
       <Dialog onClose={props.onCloseDialog} aria-labelledby="customized-dialog-title" open={props.open}>
         <DialogTitle id="customized-dialog-title" onClose={props.onCloseDialog}>
-          {props.modalTitle}
+          <h3 style={{fontWeight: 'bold', color: 'red'}}>{props.modalTitle}</h3>
         </DialogTitle>
         <DialogContent dividers>
           <Typography gutterBottom>

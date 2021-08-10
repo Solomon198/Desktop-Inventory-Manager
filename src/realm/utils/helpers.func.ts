@@ -1,4 +1,4 @@
-import * as mongoose from "mongoose";
+import * as mongoose from 'mongoose';
 
 /**
  * @function getPaginationPartition
@@ -10,7 +10,7 @@ import * as mongoose from "mongoose";
 
 function getPaginationPartition(pageNo: number, pageSize: number) {
   let pageStart = (pageNo - 1) * pageSize;
-  let pageEnd = pageNo * pageSize - 1;
+  let pageEnd = pageNo * pageSize;
   return { pageStart: pageStart, pageEnd: pageEnd };
 }
 
@@ -28,7 +28,6 @@ function transformRealmObjectsToJsObject(obj: any) {
     doc[val] = obj[val];
   });
 
-  console.log(doc);
   return doc;
 }
 
@@ -51,7 +50,7 @@ function transformRealmStringToNumber(str: any) {
  */
 
 function removeSymbolFromNumber(amount: string) {
-  return amount.replace(/,/g, "");
+  return amount.replace(/,/g, '');
 }
 
 /**
@@ -74,11 +73,11 @@ function transformStringToUpperCase(str: any) {
 
 function transformDateObjectToString(date: any) {
   let d = date;
-  let day = d.getDate() + "";
+  let day = d.getDate() + '';
   let year = d.getFullYear();
-  let month = d.getMonth() + 1 + "";
-  let _day = day.length == 1 ? "0" + day : day;
-  let _month = month.length == 1 ? "0" + month : month;
+  let month = d.getMonth() + 1 + '';
+  let _day = day.length == 1 ? '0' + day : day;
+  let _month = month.length == 1 ? '0' + month : month;
   let newDate = `${_day}-${_month}-${year}`;
 
   return newDate;
@@ -86,23 +85,23 @@ function transformDateObjectToString(date: any) {
 
 /**
  * @function transformToCurrencyString
- * @param {Number} totalAmount - Total Amount
- * @description Convert total amount number to currency string
- * @returns {string} returns a string of total amount
+ * @param {Number} number - Number
+ * @description Convert number to currency string
+ * @returns {string} returns a currency string
  */
 
-function transformToCurrencyString(totalAmount) {
-  const formatter = new Intl.NumberFormat("en-ng", {
-    style: "currency",
-    currency: "NGN",
+function transformToCurrencyString(number) {
+  const formatter = new Intl.NumberFormat('en-ng', {
+    style: 'currency',
+    currency: 'NGN',
     minimumFractionDigits: 2,
-    currencyDisplay: "symbol"
+    currencyDisplay: 'symbol',
   });
 
-  return formatter.format(totalAmount);
+  return formatter.format(number);
 
   // "10000".replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") # => "10,000"
-  // return totalAmount.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  // return number.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 
 export default {
@@ -113,5 +112,5 @@ export default {
   transformRealmStringToNumber,
   transformStringToUpperCase,
   removeEventListener,
-  removeSymbolFromNumber
+  removeSymbolFromNumber,
 };

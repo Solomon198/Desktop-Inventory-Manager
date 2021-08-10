@@ -7,17 +7,17 @@ export type SaleProperties = {
 
   products: any;
 
-  total_amount: string;
+  total_amount: any;
 
   transaction_type: string;
 
-  transaction_code?: string;
+  transaction_code?: any;
 
   part_payment?: any;
 
-  outstanding?: string;
+  outstanding?: any;
 
-  date: string;
+  date: any;
 
   customer_name?: string;
 
