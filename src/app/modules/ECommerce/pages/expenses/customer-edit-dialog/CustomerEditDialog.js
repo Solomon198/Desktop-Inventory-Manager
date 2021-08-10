@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Modal } from 'react-bootstrap';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import * as actions from '../../../_redux/expenses/expensesActions';
-import { CustomerEditDialogHeader } from './CustomerEditDialogHeader';
-import { CustomerEditForm } from './CustomerEditForm';
-import { ExpensesItemForm } from './ExpensesItemForm';
-import { useCustomersUIContext } from '../CustomersUIContext';
-import helperFuns from '../../utils/helper.funcs';
+import React, { useState, useEffect, useMemo } from "react";
+import { Modal } from "react-bootstrap";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as actions from "../../../_redux/expenses/expensesActions";
+import { CustomerEditDialogHeader } from "./CustomerEditDialogHeader";
+import { CustomerEditForm } from "./CustomerEditForm";
+import { ExpensesItemForm } from "./ExpensesItemForm";
+import { useCustomersUIContext } from "../CustomersUIContext";
+import helperFuns from "../../utils/helper.funcs";
 
 export function CustomerEditDialog({ id, show, onHide }) {
   // Create state for tabs
@@ -18,16 +18,16 @@ export function CustomerEditDialog({ id, show, onHide }) {
     return {
       initExpense: customersUIContext.initExpense,
       tab: customersUIContext.tab,
-      setTab: customersUIContext.setTab,
+      setTab: customersUIContext.setTab
     };
   }, [customersUIContext]);
 
   // Customers Redux state
   const dispatch = useDispatch();
   const { actionsLoading, expenseForEdit } = useSelector(
-    (state) => ({
+    state => ({
       actionsLoading: state.expenses.actionsLoading,
-      expenseForEdit: state.expenses.expenseForEdit,
+      expenseForEdit: state.expenses.expenseForEdit
     }),
     shallowEqual
   );
@@ -52,16 +52,16 @@ export function CustomerEditDialog({ id, show, onHide }) {
         expense_item: newValues.expense_item,
         amount: newValues.amount,
         description: newValues.description,
-        date: new Date(_date),
+        date: new Date(_date)
       };
 
       dispatch(actions.createExpense(_saveExpense)).then(() => onHide());
-      resetForm({ values: '' });
+      resetForm({ values: "" });
     } else {
       // server request for updating expense
       dispatch(actions.updateExpense(values)).then(() => onHide());
       if (values) {
-        console.log('Updated Expense', values);
+        console.log("Updated Expense", values);
       }
     }
   };
@@ -77,35 +77,35 @@ export function CustomerEditDialog({ id, show, onHide }) {
       <ul className="nav nav-tabs nav-tabs-line ml-5 " role="tablist">
         <li
           className="nav-item"
-          onClick={() => customersUIProps.setTab('basic')}
+          onClick={() => customersUIProps.setTab("basic")}
         >
           <a
-            className={`nav-link ${customersUIProps.tab === 'basic' &&
-              'active'}`}
+            className={`nav-link ${customersUIProps.tab === "basic" &&
+              "active"}`}
             data-toggle="tab"
             role="tab"
-            aria-selected={(customersUIProps.tab === 'basic').toString()}
+            aria-selected={(customersUIProps.tab === "basic").toString()}
           >
             Basis Info
           </a>
         </li>
         <li
           className="nav-item"
-          onClick={() => customersUIProps.setTab('expenseItem')}
+          onClick={() => customersUIProps.setTab("expenseItem")}
         >
           <a
-            className={`nav-link ${customersUIProps.tab === 'expenseItem' &&
-              'active'}`}
+            className={`nav-link ${customersUIProps.tab === "expenseItem" &&
+              "active"}`}
             data-toggle="tab"
             role="tab"
-            aria-selected={(customersUIProps.tab === 'expenseItem').toString()}
+            aria-selected={(customersUIProps.tab === "expenseItem").toString()}
           >
             Add Expense
           </a>
         </li>
       </ul>
       <div className="mt-5">
-        {customersUIProps.tab === 'basic' && (
+        {customersUIProps.tab === "basic" && (
           <CustomerEditForm
             saveExpense={saveExpense}
             actionsLoading={actionsLoading}
@@ -113,7 +113,7 @@ export function CustomerEditDialog({ id, show, onHide }) {
             onHide={onHide}
           />
         )}
-        {customersUIProps.tab === 'expenseItem' && (
+        {customersUIProps.tab === "expenseItem" && (
           <ExpensesItemForm onHide={onHide} />
         )}
       </div>

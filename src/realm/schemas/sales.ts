@@ -1,29 +1,29 @@
-import { SaleTypes } from '../../types/sale'; // typescript type validation for daily attendance
+import { SaleTypes } from "../../types/sale"; // typescript type validation for daily attendance
 
 const SaleSchema: SaleTypes = {
-  name: 'sales',
+  name: "sales",
 
-  primaryKey: '_id',
+  primaryKey: "_id",
 
   properties: {
-    _id: 'objectId',
+    _id: "objectId",
 
-    customer_id: 'objectId?',
+    customer_id: "objectId?",
 
-    products: 'productForSale[]',
+    products: "productForSale[]",
 
-    total_amount: 'double?',
+    total_amount: "double?",
 
-    part_payment: 'double?',
+    part_payment: "double?",
 
-    outstanding: 'double?',
+    outstanding: "double?",
 
-    transaction_type: 'string?',
+    transaction_type: "string?",
 
-    transaction_code: 'string?',
+    transaction_code: "string?",
 
-    date: 'date?',
-  },
+    date: "date?"
+  }
 };
 
 export default SaleSchema;
