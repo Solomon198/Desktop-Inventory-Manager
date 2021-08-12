@@ -1,47 +1,47 @@
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid,jsx-a11y/role-supports-aria-props */
-import React, { useEffect, useState, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { shallowEqual, useSelector } from "react-redux";
-import * as actions from "../../../_redux/products/productsActions";
+import React, { useEffect, useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
+import * as actions from '../../../_redux/products/productsActions';
 import {
   Card,
   CardBody,
   CardHeader,
-  CardHeaderToolbar
-} from "../../../../../../_metronic/_partials/controls";
-import { ProductEditForm } from "./ProductEditForm";
-import { Specifications } from "../product-specifications/Specifications";
-import { SpecificationsUIProvider } from "../product-specifications/SpecificationsUIContext";
-import { useSubheader } from "../../../../../../_metronic/layout";
-import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
-import { RemarksUIProvider } from "../product-remarks/RemarksUIContext";
-import { Remarks } from "../product-remarks/Remarks";
+  CardHeaderToolbar,
+} from '../../../../../../_metronic/_partials/controls';
+import { ProductEditForm } from './ProductEditForm';
+import { Specifications } from '../product-specifications/Specifications';
+import { SpecificationsUIProvider } from '../product-specifications/SpecificationsUIContext';
+import { useSubheader } from '../../../../../../_metronic/layout';
+import { ModalProgressBar } from '../../../../../../_metronic/_partials/controls';
+import { RemarksUIProvider } from '../product-remarks/RemarksUIContext';
+import { Remarks } from '../product-remarks/Remarks';
 
 const initProduct = {
   id: undefined,
-  product_name: "",
-  manufacturer: "Pontiac",
-  description: ""
+  product_name: '',
+  manufacturer: 'Pontiac',
+  description: '',
 };
 
 export function ProductEdit({
   history,
   match: {
-    params: { id }
-  }
+    params: { id },
+  },
 }) {
   // Subheader
   const suhbeader = useSubheader();
 
   // Tabs
-  const [tab, setTab] = useState("basic");
-  const [title, setTitle] = useState("");
+  const [tab, setTab] = useState('basic');
+  const [title, setTitle] = useState('');
   const dispatch = useDispatch();
   // const layoutDispatch = useContext(LayoutContext.Dispatch);
   const { actionsLoading, productForEdit } = useSelector(
-    state => ({
+    (state) => ({
       actionsLoading: state.products.actionsLoading,
-      productForEdit: state.products.productForEdit
+      productForEdit: state.products.productForEdit,
     }),
     shallowEqual
   );
@@ -51,7 +51,7 @@ export function ProductEdit({
   }, [id, dispatch]);
 
   useEffect(() => {
-    let _title = id ? "" : "New Product";
+    let _title = id ? '' : 'New Product';
     if (productForEdit && id) {
       _title = `Edit product '${productForEdit.manufacturer} ${productForEdit.model} - ${productForEdit.model_year}'`;
     }
@@ -61,7 +61,7 @@ export function ProductEdit({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productForEdit, id]);
 
-  const saveProduct = values => {
+  const saveProduct = (values) => {
     if (!id) {
       dispatch(actions.createProduct(values)).then(() => backToProductsList());
     } else {
@@ -110,35 +110,35 @@ export function ProductEdit({
       </CardHeader>
       <CardBody>
         <ul className="nav nav-tabs nav-tabs-line " role="tablist">
-          <li className="nav-item" onClick={() => setTab("basic")}>
+          <li className="nav-item" onClick={() => setTab('basic')}>
             <a
-              className={`nav-link ${tab === "basic" && "active"}`}
+              className={`nav-link ${tab === 'basic' && 'active'}`}
               data-toggle="tab"
               role="tab"
-              aria-selected={(tab === "basic").toString()}
+              aria-selected={(tab === 'basic').toString()}
             >
               Basic info
             </a>
           </li>
           {id && (
             <>
-              {" "}
-              <li className="nav-item" onClick={() => setTab("remarks")}>
+              {' '}
+              <li className="nav-item" onClick={() => setTab('remarks')}>
                 <a
-                  className={`nav-link ${tab === "remarks" && "active"}`}
+                  className={`nav-link ${tab === 'remarks' && 'active'}`}
                   data-toggle="tab"
                   role="button"
-                  aria-selected={(tab === "remarks").toString()}
+                  aria-selected={(tab === 'remarks').toString()}
                 >
                   Product remarks
                 </a>
               </li>
-              <li className="nav-item" onClick={() => setTab("specs")}>
+              <li className="nav-item" onClick={() => setTab('specs')}>
                 <a
-                  className={`nav-link ${tab === "specs" && "active"}`}
+                  className={`nav-link ${tab === 'specs' && 'active'}`}
                   data-toggle="tab"
                   role="tab"
-                  aria-selected={(tab === "specs").toString()}
+                  aria-selected={(tab === 'specs').toString()}
                 >
                   Product specifications
                 </a>
@@ -147,7 +147,7 @@ export function ProductEdit({
           )}
         </ul>
         <div className="mt-5">
-          {tab === "basic" && (
+          {tab === 'basic' && (
             <ProductEditForm
               actionsLoading={actionsLoading}
               product={productForEdit || initProduct}
@@ -155,12 +155,12 @@ export function ProductEdit({
               saveProduct={saveProduct}
             />
           )}
-          {tab === "remarks" && id && (
+          {tab === 'remarks' && id && (
             <RemarksUIProvider currentProductId={id}>
               <Remarks />
             </RemarksUIProvider>
           )}
-          {tab === "specs" && id && (
+          {tab === 'specs' && id && (
             <SpecificationsUIProvider currentProductId={id}>
               <Specifications />
             </SpecificationsUIProvider>

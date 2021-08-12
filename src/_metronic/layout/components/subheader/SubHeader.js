@@ -74,22 +74,22 @@ export function SubHeader() {
           {/* end::Mobile Toggle */}
 
           {/* begin::Heading */}
-          <div className="d-flex align-items-baseline mr-5">
+           {/* <div className="d-flex align-items-baseline mr-5"> */}
             {/* begin::Title */}
-            <h2 className="subheader-title text-dark font-weight-bold my-2 mr-3">
+            {/* <h2 className="subheader-title text-dark font-weight-bold my-2 mr-3">
               {subheader.title}
-            </h2>
+            </h2> */}
             {/* end::Title */}
 
             <BreadCrumbs items={subheader.breadcrumbs} />
-          </div>
+          </div> 
           {/* end::Heading */}
         </div>
         {/* Info */}
 
         {/* Toolbar */}
         <div className="d-flex align-items-center flex-wrap">
-          <button
+          {/* <button
             type="button"
             className={`btn btn-primary btn-fixed-height font-weight-bold px-2 px-lg-5 mr-2`}
           >
@@ -101,12 +101,12 @@ export function SubHeader() {
               />
             </span>
             {` `}New Member
-          </button>
+          </button> */}
 
-          <QuickActions />
+          {/* <QuickActions /> */}
 
           {/* Button */}
-          <button
+          {/* <button
             className="btn btn-primary btn-icon font-weight-bolds   "
             data-toggle="modal"
             data-target="#kt_chat_modal"
@@ -118,9 +118,9 @@ export function SubHeader() {
                 )}
               />
             </span>
-          </button>
+          </button> */}
         </div>
       </div>
-    </div>
+    // </div>
   );
 }

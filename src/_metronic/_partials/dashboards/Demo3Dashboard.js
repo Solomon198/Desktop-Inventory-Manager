@@ -19,18 +19,18 @@ export function Demo3Dashboard() {
 
       {/* begin::Row */}
       <div className="row">
-        <div className="col-xl-4">
+        <div className="col-xl-12">
           <MixedWidget4 className="gutter-b card-stretch" />
         </div>
-        <div className="col-xl-8">
+        {/* <div className="col-xl-8">
           <BaseTablesWidget6 className="gutter-b" />
-        </div>
+        </div> */}
       </div>
       {/* end::Row */}
 
       {/* begin::Row */}
       <div className="row">
-        <div className="col-xl-4">
+        <div className="col-xl-12">
           <div className="row">
             <div className="col-xl-12">
               <StatsWidget11
@@ -48,9 +48,9 @@ export function Demo3Dashboard() {
             </div>
           </div>
         </div>
-        <div className="col-xl-8">
+        {/* <div className="col-xl-8">
           <ListsWidget14 className="gutter-b card-stretch" />
-        </div>
+        </div> */}
       </div>
       {/* end::Row */}
 

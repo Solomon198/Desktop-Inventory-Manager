@@ -1629,6 +1629,66 @@ export function AsideMenuList({ layoutProps }) {
               {/*begin::2 Level*/}
               <li
                 className={`menu-item ${getMenuItemActive(
+                  "/e-commerce/sales"
+                )}`}
+                aria-haspopup="true"
+              >
+                <NavLink className="menu-link" to="/e-commerce/sales">
+                  <i className="menu-bullet menu-bullet-dot">
+                    <span />
+                  </i>
+                  <span className="menu-text">Sales</span>
+                </NavLink>
+              </li>
+              {/*end::2 Level*/}
+              {/*begin::2 Level*/}
+              <li
+                className={`menu-item ${getMenuItemActive(
+                  "/e-commerce/employees"
+                )}`}
+                aria-haspopup="true"
+              >
+                <NavLink className="menu-link" to="/e-commerce/employees">
+                  <i className="menu-bullet menu-bullet-dot">
+                    <span />
+                  </i>
+                  <span className="menu-text">Employees</span>
+                </NavLink>
+              </li>
+              {/*end::2 Level*/}
+              {/*begin::2 Level*/}
+              <li
+                className={`menu-item ${getMenuItemActive(
+                  "/e-commerce/expenses"
+                )}`}
+                aria-haspopup="true"
+              >
+                <NavLink className="menu-link" to="/e-commerce/expenses">
+                  <i className="menu-bullet menu-bullet-dot">
+                    <span />
+                  </i>
+                  <span className="menu-text">Expenses</span>
+                </NavLink>
+              </li>
+              {/*end::2 Level*/}
+              {/*begin::2 Level*/}
+              <li
+                className={`menu-item ${getMenuItemActive(
+                  "/e-commerce/debts-manager"
+                )}`}
+                aria-haspopup="true"
+              >
+                <NavLink className="menu-link" to="/e-commerce/debts-manager">
+                  <i className="menu-bullet menu-bullet-dot">
+                    <span />
+                  </i>
+                  <span className="menu-text">Debts Manager</span>
+                </NavLink>
+              </li>
+              {/*end::2 Level*/}
+              {/*begin::2 Level*/}
+              <li
+                className={`menu-item ${getMenuItemActive(
                   "/e-commerce/products"
                 )}`}
                 aria-haspopup="true"

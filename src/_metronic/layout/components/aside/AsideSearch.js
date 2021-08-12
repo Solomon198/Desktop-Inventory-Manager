@@ -9,6 +9,7 @@ import {
   DropdownItemToggler,
   DropdownMenu4
 } from "../../../_partials/dropdowns";
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 
 import { useLocation } from "react-router";
 import { NavLink } from "react-router-dom";
@@ -32,7 +33,7 @@ export function AsideSearch({ isActive }) {
       aria-haspopup="true"
     >
       {/* begin::Form */}
-      <form className="p-2 p-lg-3">
+      {/* <form className="p-2 p-lg-3">
         <div className="d-flex">
           <div className="input-icon h-40px">
             <input
@@ -80,7 +81,7 @@ export function AsideSearch({ isActive }) {
             </Dropdown.Menu>
           </Dropdown>
         </div>
-      </form>
+      </form> */}
       {/* end::Form */}
 
       {/* <h3 className="p-2 p-lg-3 my-1 my-lg-3">Projects</h3> */}
@@ -94,7 +95,9 @@ export function AsideSearch({ isActive }) {
           <div className="symbol symbol-40 symbol-light mr-4">
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
-                <SVG src={toAbsoluteUrl("/media/svg/misc/010-vimeo.svg")} />
+                {/* <MonetizationOnIcon style={{ color: 'red', fontSize: '40px'}} /> */}
+                <SVG src={toAbsoluteUrl("/media/ecommerce/svg/sales1.svg")} />
+                {/* <img alt="sales" src={toAbsoluteUrl("/media/ecommerce/sales.png")} /> */}
               </span>
             </span>
           </div>
@@ -129,7 +132,7 @@ export function AsideSearch({ isActive }) {
           <div className="symbol symbol-40 symbol-light mr-4">
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
-                <SVG src={toAbsoluteUrl("/media/svg/misc/006-plurk.svg")} />
+              <SVG src={toAbsoluteUrl("/media/ecommerce/svg/product2.svg")} />
               </span>
             </span>
           </div>
@@ -158,41 +161,7 @@ export function AsideSearch({ isActive }) {
       </div>
       {/* end::Item */}
 
-      {/* begin::Item */}
-      <div className="list-item hoverable p-2 p-lg-3 mb-2">
-        <div className="d-flex align-items-center">
-          {/* begin::Symbol */}
-          <div className="symbol symbol-40 symbol-light mr-4">
-            <span className="symbol-label bg-hover-white">
-              <span className="svg-icon h-50 align-self-center">
-                <SVG src={toAbsoluteUrl("/media/svg/misc/006-plurk.svg")} />
-              </span>
-            </span>
-          </div>
-          {/* end::Symbol */}
-          {/* begin::Text */}
-          <div className="d-flex flex-column flex-grow-1 mr-2">
-            {/* <span className="text-dark-75 font-size-h6 mb-0">Products</span> */}
-
-            <NavLink className="menu-link" to="/e-commerce/stocks">
-              <i className="menu-bullet menu-bullet-dot">
-                <span />
-              </i>
-              <span className="menu-text">
-                <h6>Stocks</h6>
-              </span>
-            </NavLink>
-            {/* <a
-              href="#"
-              className="text-muted text-hover-primary font-weight-bold"
-            >
-              By James
-            </a> */}
-          </div>
-          {/* begin::End */}
-        </div>
-      </div>
-      {/* end::Item */}
+      
 
       {/* begin::Item */}
       <div className="list-item hoverable p-2 p-lg-3 mb-2">
@@ -215,7 +184,7 @@ export function AsideSearch({ isActive }) {
                 <span />
               </i>
               <span className="menu-text">
-                <h6>Stocks Entry</h6>
+                <h6>Stocks</h6>
               </span>
             </NavLink>
             {/* <a
@@ -231,40 +200,68 @@ export function AsideSearch({ isActive }) {
       {/* end::Item */}
 
       {/* begin::Item */}
-      {/* <div className="list-item hoverable p-2 p-lg-3 mb-2">
-        <div className="d-flex align-items-center"> */}
-      {/* begin::Symbol */}
-      {/* <div className="symbol symbol-40 symbol-light mr-4">
+      <div className="list-item hoverable p-2 p-lg-3 mb-2">
+        <div className="d-flex align-items-center">
+          {/* begin::Symbol */}
+          <div className="symbol symbol-40 symbol-light mr-4">
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
-                <SVG
-                  src={toAbsoluteUrl('/media/svg/misc/014-kickstarter.svg')}
-                />
+                <SVG src={toAbsoluteUrl("/media/ecommerce/svg/stock-history.svg")} />
               </span>
             </span>
-          </div> */}
-      {/* end::Symbol */}
-      {/* begin::Text */}
-      {/* <div className="d-flex flex-column flex-grow-1 mr-2"> */}
-      {/* <span className="text-dark-75 font-size-h6 mb-0">Stocks</span> */}
-      {/* <NavLink className="menu-link" to="/e-commerce/stocks">
+          </div>
+          {/* end::Symbol */}
+          {/* begin::Text */}
+          <div className="d-flex flex-column flex-grow-1 mr-2">
+            {/* <span className="text-dark-75 font-size-h6 mb-0">Products</span> */}
+
+            <NavLink className="menu-link" to="/e-commerce/stocks">
               <i className="menu-bullet menu-bullet-dot">
                 <span />
               </i>
               <span className="menu-text">
-                <h6>Stocks</h6>
+                <h6>Stocks History</h6>
               </span>
-            </NavLink> */}
-      {/* <a
+            </NavLink>
+            {/* <a
               href="#"
               className="text-muted text-hover-primary font-weight-bold"
             >
-              By Adam
+              By James
             </a> */}
-      {/* </div> */}
-      {/* begin::End */}
-      {/* </div>
-      </div> */}
+          </div>
+          {/* begin::End */}
+        </div>
+      </div>
+      {/* end::Item */}
+
+      {/* begin::Item */}
+      <div className="list-item hoverable p-2 p-lg-3 mb-2">
+        <div className="d-flex align-items-center">
+          {/* begin::Symbol */}
+          <div className="symbol symbol-40 symbol-light mr-4">
+            <span className="symbol-label bg-hover-white">
+              <span className="svg-icon h-50 align-self-center">
+                <SVG src={toAbsoluteUrl("/media/ecommerce/svg/stock-history.svg")} />
+              </span>
+            </span>
+          </div>
+          {/* end::Symbol */}
+          {/* begin::Text */}
+          <div className="d-flex flex-column flex-grow-1 mr-2">
+
+            <NavLink className="menu-link" to="/e-commerce/units">
+              <i className="menu-bullet menu-bullet-dot">
+                <span />
+              </i>
+              <span className="menu-text">
+                <h6>Unit Manager</h6>
+              </span>
+            </NavLink>
+          </div>
+          {/* begin::End */}
+        </div>
+      </div>
       {/* end::Item */}
 
       {/* begin::Item */}
@@ -275,7 +272,7 @@ export function AsideSearch({ isActive }) {
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
                 <SVG
-                  src={toAbsoluteUrl("/media/svg/misc/009-hot-air-balloon.svg")}
+                  src={toAbsoluteUrl("/media/ecommerce/svg/customer2.svg")}
                 />
               </span>
             </span>
@@ -314,7 +311,7 @@ export function AsideSearch({ isActive }) {
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
                 <SVG
-                  src={toAbsoluteUrl("/media/svg/misc/008-infography.svg")}
+                  src={toAbsoluteUrl("/media/ecommerce/svg/employee.svg")}
                 />
               </span>
             </span>
@@ -350,7 +347,7 @@ export function AsideSearch({ isActive }) {
           <div className="symbol symbol-40 symbol-light mr-4">
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
-                <SVG src={toAbsoluteUrl("/media/svg/misc/007-disqus.svg")} />
+                <SVG src={toAbsoluteUrl("/media/ecommerce/svg/expenses.svg")} />
               </span>
             </span>
           </div>
@@ -385,7 +382,7 @@ export function AsideSearch({ isActive }) {
           <div className="symbol symbol-40 symbol-light mr-4">
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
-                <SVG src={toAbsoluteUrl("/media/svg/misc/006-plurk.svg")} />
+                <SVG src={toAbsoluteUrl("/media/ecommerce/svg/debt.svg")} />
               </span>
             </span>
           </div>

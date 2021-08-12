@@ -94,6 +94,19 @@ export function getHandlerTableChange(setQueryParams) {
   };
 }
 
+export function getHandlerTableChangeForCustomer(setQueryParams) {
+  return (type, { page, sizePerPage, sortField, sortOrder, data }) => {
+    const pageNumber = page || 1;
+    setQueryParams(prev =>
+      type === "sort"
+        ? { ...prev, sortOrder, sortField }
+        : type === "pagination"
+        ? { ...prev, pageNumber, pageSize: sizePerPage }
+        : prev
+    );
+  };
+}
+
 export function PleaseWaitMessage({ entities }) {
   return <>{entities === null && <div>Please wait...</div>}</>;
 }
