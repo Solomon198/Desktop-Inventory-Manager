@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
-import React from 'react';
-import SVG from 'react-inlinesvg';
-import { toAbsoluteUrl } from '../../../../../../_metronic/_helpers';
+import React from "react";
+import SVG from "react-inlinesvg";
+import { toAbsoluteUrl } from "../../../../../../_metronic/_helpers";
 
 export function CustomerSalesHistory({ className }) {
   return (
@@ -27,19 +27,19 @@ export function CustomerSalesHistory({ className }) {
               <table className="table table-head-custom table-vertical-center table-head-bg table-borderless">
                 <thead>
                   <tr className="text-left">
-                    <th style={{ minWidth: '250px' }} className="pl-7">
+                    <th style={{ minWidth: "250px" }} className="pl-7">
                       <span className="text-dark-75">products</span>
                     </th>
-                    <th style={{ minWidth: '120px' }}>
+                    <th style={{ minWidth: "120px" }}>
                       <span className="text-dark-75">quantity</span>
                     </th>
-                    <th style={{ minWidth: '100px' }}>
+                    <th style={{ minWidth: "100px" }}>
                       <span className="text-dark-75">total amount</span>
                     </th>
-                    <th style={{ minWidth: '100px' }}>
+                    <th style={{ minWidth: "100px" }}>
                       <span className="text-dark-75">date</span>
                     </th>
-                    <th style={{ minWidth: '100px' }} />
+                    <th style={{ minWidth: "100px" }} />
                   </tr>
                 </thead>
                 <tbody>

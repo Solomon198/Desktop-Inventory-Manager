@@ -1,8 +1,8 @@
 /* eslint-disable no-restricted-imports */
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
-import React from 'react';
-import { Card } from '../../../../../../_metronic/_partials/controls';
-import { toAbsoluteUrl } from '../../../../../../_metronic/_helpers';
+import React from "react";
+import { Card } from "../../../../../../_metronic/_partials/controls";
+import { toAbsoluteUrl } from "../../../../../../_metronic/_helpers";
 
 export function CustomerProfileAccount({ actionsLoading, customer }) {
   if (!customer) {
@@ -19,7 +19,7 @@ export function CustomerProfileAccount({ actionsLoading, customer }) {
         <div
           className="d-flex align-items-center mb-5 justify-content-between flex-wrap p-8 bgi-size-cover bgi-no-repeat rounded-top"
           style={{
-            backgroundImage: `url(${toAbsoluteUrl('/media/misc/bg-1.jpg')})`,
+            backgroundImage: `url(${toAbsoluteUrl("/media/misc/bg-1.jpg")})`
           }}
         >
           <div className="symbol bg-white-o-15 mr-3">

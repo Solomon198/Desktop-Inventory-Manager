@@ -1,5 +1,5 @@
 // TODO: Rename all formatters
-export { StatusColumnFormatter } from './StatusColumnFormatter';
-export { TypeColumnFormatter } from './TypeColumnFormatter';
-export { ActionsColumnFormatter } from './ActionsColumnFormatter';
-export { CustomerProfileFormatter } from './CustomerProfileFormatter';
+export { StatusColumnFormatter } from "./StatusColumnFormatter";
+export { TypeColumnFormatter } from "./TypeColumnFormatter";
+export { ActionsColumnFormatter } from "./ActionsColumnFormatter";
+export { CustomerProfileFormatter } from "./CustomerProfileFormatter";

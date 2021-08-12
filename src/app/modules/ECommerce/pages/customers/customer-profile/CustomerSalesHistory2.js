@@ -1,15 +1,15 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
-import React, { useMemo } from 'react';
-import BootstrapTable from 'react-bootstrap-table-next';
+import React, { useMemo } from "react";
+import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory, {
-  PaginationProvider,
-} from 'react-bootstrap-table2-paginator';
-import { Card } from '../../../../../../_metronic/_partials/controls';
-import { Pagination } from '../../../../../../_metronic/_partials/controls';
-import * as uiHelpers from './CustomerUIHelpers';
-import { useCustomerUIContext } from './CustomerProfile';
-import { getHandlerTableChangeForCustomer } from '../../../../../../_metronic/_helpers';
+  PaginationProvider
+} from "react-bootstrap-table2-paginator";
+import { Card } from "../../../../../../_metronic/_partials/controls";
+import { Pagination } from "../../../../../../_metronic/_partials/controls";
+import * as uiHelpers from "./CustomerUIHelpers";
+import { useCustomerUIContext } from "./CustomerProfile";
+import { getHandlerTableChangeForCustomer } from "../../../../../../_metronic/_helpers";
 
 export function CustomerSalesHistory2() {
   const customerUIContext = useCustomerUIContext();
@@ -17,7 +17,7 @@ export function CustomerSalesHistory2() {
     () => ({
       queryParams: customerUIContext.queryParams,
       setQueryParams: customerUIContext.setQueryParams,
-      lang: customerUIContext.lang,
+      lang: customerUIContext.lang
     }),
     [customerUIContext]
   );
@@ -25,57 +25,57 @@ export function CustomerSalesHistory2() {
   const sales = [
     {
       id: 1,
-      product_name: 'Golden Morn',
-      quantity: '18',
-      total_amount: '₦8,009.00',
-      date: '18th Aug, 2021',
+      product_name: "Golden Morn",
+      quantity: "18",
+      total_amount: "₦8,009.00",
+      date: "18th Aug, 2021"
     },
     {
       id: 2,
-      product_name: 'Corn Flakes',
-      quantity: '18',
-      total_amount: '₦8,009.00',
-      date: '18th Aug, 2021',
+      product_name: "Corn Flakes",
+      quantity: "18",
+      total_amount: "₦8,009.00",
+      date: "18th Aug, 2021"
     },
     {
       id: 3,
-      product_name: 'Cocoa Pops',
-      quantity: '18',
-      total_amount: '₦8,009.00',
-      date: '18th Aug, 2021',
+      product_name: "Cocoa Pops",
+      quantity: "18",
+      total_amount: "₦8,009.00",
+      date: "18th Aug, 2021"
     },
     {
       id: 4,
-      product_name: 'Youghurt',
-      quantity: '18',
-      total_amount: '₦8,009.00',
-      date: '18th Aug, 2021',
+      product_name: "Youghurt",
+      quantity: "18",
+      total_amount: "₦8,009.00",
+      date: "18th Aug, 2021"
     },
     {
       id: 5,
-      product_name: 'Cream Salad',
-      quantity: '18',
-      total_amount: '₦8,009.00',
-      date: '18th Aug, 2021',
-    },
+      product_name: "Cream Salad",
+      quantity: "18",
+      total_amount: "₦8,009.00",
+      date: "18th Aug, 2021"
+    }
   ];
   const columns = [
     {
-      dataField: 'product_name',
-      text: 'Product',
+      dataField: "product_name",
+      text: "Product"
     },
     {
-      dataField: 'quantity',
-      text: 'Quantity',
+      dataField: "quantity",
+      text: "Quantity"
     },
     {
-      dataField: 'total_amount',
-      text: 'Total Amount',
+      dataField: "total_amount",
+      text: "Total Amount"
     },
     {
-      dataField: 'date',
-      text: 'Date',
-    },
+      dataField: "date",
+      text: "Date"
+    }
     // {
     //   dataField: 'action',
     //   text: 'Actions',
@@ -100,7 +100,7 @@ export function CustomerSalesHistory2() {
     totalSize: sales.length,
     sizePerPageList: uiHelpers.sizePerPageList,
     sizePerPage: uiHelpers.initialFilter.pageSize,
-    page: uiHelpers.initialFilter.pageNumber,
+    page: uiHelpers.initialFilter.pageNumber
   };
 
   return (
