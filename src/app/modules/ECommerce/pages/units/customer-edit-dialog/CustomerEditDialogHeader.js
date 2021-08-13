@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { shallowEqual, useSelector } from "react-redux";
-import { Modal } from "react-bootstrap";
-import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
+import React, { useState, useEffect } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
+import { Modal } from 'react-bootstrap';
+import { ModalProgressBar } from '../../../../../../_metronic/_partials/controls';
 
 export function CustomerEditDialogHeader({ id }) {
   // Customers Redux state
-  const { stockForEdit, actionsLoading } = useSelector(
-    state => ({
-      stockForEdit: state.stocks.stockForEdit,
-      actionsLoading: state.stocks.actionsLoading
+  const { unitForEdit, actionsLoading } = useSelector(
+    (state) => ({
+      unitForEdit: state.units.unitForEdit,
+      actionsLoading: state.units.actionsLoading,
     }),
     shallowEqual
   );
 
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState('');
   // Title couting
   useEffect(() => {
-    let _title = id ? "" : "New Stock";
-    if (stockForEdit && id) {
-      _title = `Edit stock '${stockForEdit.product_name}'`;
+    let _title = id ? '' : 'New Unit';
+    if (unitForEdit && id) {
+      _title = `Edit Unit '${unitForEdit.name}'`;
     }
 
     setTitle(_title);
     // eslint-disable-next-line
-  }, [stockForEdit, actionsLoading]);
+  }, [unitForEdit, actionsLoading]);
 
   return (
     <>
