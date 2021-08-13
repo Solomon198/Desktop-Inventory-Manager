@@ -1,23 +1,23 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-import { CustomersLoadingDialog } from './customers-loading-dialog/CustomersLoadingDialog';
-import { CustomerEditDialog } from './customer-edit-dialog/CustomerEditDialog';
-import { CustomerDeleteDialog } from './customer-delete-dialog/CustomerDeleteDialog';
-import { CustomersDeleteDialog } from './customers-delete-dialog/CustomersDeleteDialog';
-import { CustomersFetchDialog } from './customers-fetch-dialog/CustomersFetchDialog';
-import { CustomersUpdateStateDialog } from './customers-update-status-dialog/CustomersUpdateStateDialog';
-import { CustomersUIProvider } from './CustomersUIContext';
-import { CustomersCard } from './CustomersCard';
+import React from "react";
+import { Route } from "react-router-dom";
+import { CustomersLoadingDialog } from "./customers-loading-dialog/CustomersLoadingDialog";
+import { CustomerEditDialog } from "./customer-edit-dialog/CustomerEditDialog";
+import { CustomerDeleteDialog } from "./customer-delete-dialog/CustomerDeleteDialog";
+import { CustomersDeleteDialog } from "./customers-delete-dialog/CustomersDeleteDialog";
+import { CustomersFetchDialog } from "./customers-fetch-dialog/CustomersFetchDialog";
+import { CustomersUpdateStateDialog } from "./customers-update-status-dialog/CustomersUpdateStateDialog";
+import { CustomersUIProvider } from "./CustomersUIContext";
+import { CustomersCard } from "./CustomersCard";
 
 export function SuppliersPage({ history }) {
   const customersUIEvents = {
     newCustomerButtonClick: () => {
-      history.push('/e-commerce/suppliers/new');
+      history.push("/e-commerce/suppliers/new");
     },
-    openEditCustomerDialog: (id) => {
+    openEditCustomerDialog: id => {
       history.push(`/e-commerce/suppliers/${id}/edit`);
     },
-    openDeleteCustomerDialog: (id) => {
+    openDeleteCustomerDialog: id => {
       history.push(`/e-commerce/suppliers/${id}/delete`);
     },
     openDeleteCustomersDialog: () => {
@@ -27,8 +27,8 @@ export function SuppliersPage({ history }) {
       history.push(`/e-commerce/suppliers/fetch`);
     },
     openUpdateCustomersStatusDialog: () => {
-      history.push('/e-commerce/suppliers/updateStatus');
-    },
+      history.push("/e-commerce/suppliers/updateStatus");
+    }
   };
 
   return (
@@ -39,7 +39,7 @@ export function SuppliersPage({ history }) {
           <CustomerEditDialog
             show={match != null}
             onHide={() => {
-              history.push('/e-commerce/suppliers');
+              history.push("/e-commerce/suppliers");
             }}
           />
         )}
@@ -50,7 +50,7 @@ export function SuppliersPage({ history }) {
             show={match != null}
             id={match && match.params.id}
             onHide={() => {
-              history.push('/e-commerce/suppliers');
+              history.push("/e-commerce/suppliers");
             }}
           />
         )}
@@ -60,7 +60,7 @@ export function SuppliersPage({ history }) {
           <CustomersDeleteDialog
             show={match != null}
             onHide={() => {
-              history.push('/e-commerce/suppliers');
+              history.push("/e-commerce/suppliers");
             }}
           />
         )}
@@ -71,7 +71,7 @@ export function SuppliersPage({ history }) {
             show={match != null}
             id={match && match.params.id}
             onHide={() => {
-              history.push('/e-commerce/suppliers');
+              history.push("/e-commerce/suppliers");
             }}
           />
         )}
@@ -81,7 +81,7 @@ export function SuppliersPage({ history }) {
           <CustomersFetchDialog
             show={match != null}
             onHide={() => {
-              history.push('/e-commerce/suppliers');
+              history.push("/e-commerce/suppliers");
             }}
           />
         )}
@@ -91,7 +91,7 @@ export function SuppliersPage({ history }) {
           <CustomersUpdateStateDialog
             show={match != null}
             onHide={() => {
-              history.push('/e-commerce/suppliers');
+              history.push("/e-commerce/suppliers");
             }}
           />
         )}

@@ -1,27 +1,27 @@
-import * as requestFromServer from './suppliersCrud';
-import { suppliersSlice, callTypes } from './suppliersSlice';
-import Queries from '../../../../../dist/realm/queries/index';
+import * as requestFromServer from "./suppliersCrud";
+import { suppliersSlice, callTypes } from "./suppliersSlice";
+import Queries from "../../../../../dist/realm/queries/index";
 const { actions } = suppliersSlice;
 const SupplierAPI = Queries.SupplierAPI;
 
-export const fetchSuppliers = (queryParams) => (dispatch) => {
+export const fetchSuppliers = queryParams => dispatch => {
   dispatch(actions.startCall({ callType: callTypes.list }));
 
   let { pageNumber, pageSize, filter } = queryParams;
   let { firstName, type } = filter;
-  let supplierType = typeof type === 'undefined' ? '' : type.toString();
+  let supplierType = typeof type === "undefined" ? "" : type.toString();
 
   return SupplierAPI.getSuppliers(pageNumber, pageSize, firstName, supplierType)
-    .then((suppliers) => {
+    .then(suppliers => {
       let { totalCount, entities } = suppliers;
       dispatch(actions.suppliersFetched({ totalCount, entities }));
     })
-    .catch((error) => {
+    .catch(error => {
       dispatch(actions.catchError({ error, callType: callTypes.list }));
     });
 };
 
-export const fetchSupplier = (id) => (dispatch) => {
+export const fetchSupplier = id => dispatch => {
   if (!id) {
     return dispatch(actions.supplierFetched({ supplierForEdit: undefined }));
   }
@@ -29,54 +29,54 @@ export const fetchSupplier = (id) => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
 
   return SupplierAPI.getSupplier(id)
-    .then((supplier) => {
+    .then(supplier => {
       dispatch(actions.supplierFetched({ supplierForEdit: supplier }));
     })
-    .catch((error) => {
+    .catch(error => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 
-export const createSupplier = (supplierForCreation) => (dispatch) => {
+export const createSupplier = supplierForCreation => dispatch => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return SupplierAPI.createSupplier(supplierForCreation)
-    .then((supplier) => {
+    .then(supplier => {
       dispatch(actions.supplierCreated({ supplier }));
     })
-    .catch((error) => {
+    .catch(error => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 
-export const updateSupplier = (supplierUpdates) => (dispatch) => {
+export const updateSupplier = supplierUpdates => dispatch => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return SupplierAPI.updateCustomer(supplierUpdates)
-    .then((supplier) => {
+    .then(supplier => {
       dispatch(actions.supplierUpdated({ supplier }));
     })
-    .catch((error) => {
+    .catch(error => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 
-export const deleteSupplier = (id) => (dispatch) => {
+export const deleteSupplier = id => dispatch => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return SupplierAPI.removeSupplier(id)
-    .then((result) => {
+    .then(result => {
       dispatch(actions.supplierDeleted({ id }));
     })
-    .catch((error) => {
+    .catch(error => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 
-export const deleteSuppliers = (ids) => (dispatch) => {
+export const deleteSuppliers = ids => dispatch => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return SupplierAPI.removeSuppliers(ids)
     .then(() => {
       dispatch(actions.suppliersDeleted({ ids }));
     })
-    .catch((error) => {
+    .catch(error => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };

@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
-import { Modal } from 'react-bootstrap';
-import { ModalProgressBar } from '../../../../../../_metronic/_partials/controls';
+import React, { useState, useEffect } from "react";
+import { shallowEqual, useSelector } from "react-redux";
+import { Modal } from "react-bootstrap";
+import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
 
 export function CustomerEditDialogHeader({ id }) {
   // Customers Redux state
   const { unitForEdit, actionsLoading } = useSelector(
-    (state) => ({
+    state => ({
       unitForEdit: state.units.unitForEdit,
-      actionsLoading: state.units.actionsLoading,
+      actionsLoading: state.units.actionsLoading
     }),
     shallowEqual
   );
 
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState("");
   // Title couting
   useEffect(() => {
-    let _title = id ? '' : 'New Unit';
+    let _title = id ? "" : "New Unit";
     if (unitForEdit && id) {
       _title = `Edit Unit '${unitForEdit.name}'`;
     }
