@@ -2,36 +2,36 @@
 // Data validation is based on Yup
 // Please, be familiar with article first:
 // https://hackernoon.com/react-form-validation-with-formik-and-yup-8b76bda62e10
-import React from 'react';
-import { Modal } from 'react-bootstrap';
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
+import React from "react";
+import { Modal } from "react-bootstrap";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
 import {
   Input,
   Select,
-  DatePickerField,
-} from '../../../../../../_metronic/_partials/controls';
-import helperFuncs from '../../utils/helper.funcs';
+  DatePickerField
+} from "../../../../../../_metronic/_partials/controls";
+import helperFuncs from "../../utils/helper.funcs";
 // Validation schema
 const CustomerEditSchema = Yup.object().shape({
   supplier_name: Yup.string()
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Firstname is required'),
+    .min(3, "Minimum 3 symbols")
+    .max(50, "Maximum 50 symbols")
+    .required("Firstname is required"),
   address: Yup.string()
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Lastname is required'),
-  phone_no: Yup.number().required('Phone Number is required'),
+    .min(3, "Minimum 3 symbols")
+    .max(50, "Maximum 50 symbols")
+    .required("Lastname is required"),
+  phone_no: Yup.number().required("Phone Number is required")
 });
 
 export function CustomerEditForm({
   saveSupplier,
   supplier,
   actionsLoading,
-  onHide,
+  onHide
 }) {
-  supplier = typeof supplier === 'object' ? supplier : {};
+  supplier = typeof supplier === "object" ? supplier : {};
 
   return (
     <>
@@ -39,7 +39,7 @@ export function CustomerEditForm({
         enableReinitialize={true}
         initialValues={supplier}
         validationSchema={CustomerEditSchema}
-        onSubmit={(values) => {
+        onSubmit={values => {
           saveSupplier(values);
         }}
       >
@@ -50,7 +50,7 @@ export function CustomerEditForm({
           handleChange,
           setFieldValue,
           errors,
-          touched,
+          touched
         }) => (
           <>
             <Modal.Body className="overlay overlay-block cursor-default">
@@ -76,7 +76,7 @@ export function CustomerEditForm({
                       <b>Supplier Name</b>
                     </small>
                     {errors.supplier_name && touched.supplier_name ? (
-                      <div style={{ color: 'red' }}>{errors.supplier_name}</div>
+                      <div style={{ color: "red" }}>{errors.supplier_name}</div>
                     ) : null}
                   </div>
                   {/* Address */}
@@ -94,7 +94,7 @@ export function CustomerEditForm({
                       <b>Address</b>
                     </small>
                     {errors.address && touched.address ? (
-                      <div style={{ color: 'red' }}>{errors.address}</div>
+                      <div style={{ color: "red" }}>{errors.address}</div>
                     ) : null}
                   </div>
                   {/* Mobile */}
@@ -112,7 +112,7 @@ export function CustomerEditForm({
                       <b>Mobile</b>
                     </small>
                     {errors.phone_no && touched.phone_no ? (
-                      <div style={{ color: 'red' }}>{errors.phone_no}</div>
+                      <div style={{ color: "red" }}>{errors.phone_no}</div>
                     ) : null}
                   </div>
                 </div>

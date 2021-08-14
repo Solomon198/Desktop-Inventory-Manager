@@ -1,9 +1,9 @@
-import RealmApp from '../dbConfig/config';
-import * as mongoose from 'mongoose';
-import Schemas from '../schemas/index';
-import { SupplierProperties } from '../../types/supplier';
-import helperFuncs from '../utils/helpers.func';
-import Realm from 'realm';
+import RealmApp from "../dbConfig/config";
+import * as mongoose from "mongoose";
+import Schemas from "../schemas/index";
+import { SupplierProperties } from "../../types/supplier";
+import helperFuncs from "../utils/helpers.func";
+import Realm from "realm";
 
 const app = RealmApp();
 
@@ -116,12 +116,12 @@ function getSupplier(supplierId: string) {
  * @param {number} pageSize - The size of page
  * @returns {Promise<suppliersResponse>} returns the total supplier count and entities
  */
-function getSuppliers(page = 1, pageSize = 10, searchQuery = '') {
+function getSuppliers(page = 1, pageSize = 10, searchQuery = "") {
   return new Promise<getSuppliersResponse>((resolve, reject) => {
     try {
       let suppliers: Realm.Results<Realm.Object>;
       if (searchQuery.trim()) {
-        let query = 'supplier_name CONTAINS[c] $0 || phone_no CONTAINS[c] $0';
+        let query = "supplier_name CONTAINS[c] $0 || phone_no CONTAINS[c] $0";
         suppliers = app
           .objects(Schemas.SupplierSchema.name)
           .filtered(query, searchQuery);
@@ -135,7 +135,7 @@ function getSuppliers(page = 1, pageSize = 10, searchQuery = '') {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach((obj) => {
+      result.forEach(obj => {
         let newObj: SupplierProperties = obj.toJSON();
         newObj._id = newObj._id.toHexString();
         objArr.push(newObj);
@@ -188,12 +188,12 @@ function removeSuppliers(supplierIds: string[]) {
     try {
       let changeToObjectIds: ObjectId[] = [];
 
-      supplierIds.forEach((id) => {
+      supplierIds.forEach(id => {
         changeToObjectIds.push(mongoose.Types.ObjectId(id) as ObjectId);
       });
 
       app.write(() => {
-        changeToObjectIds.forEach((id) => {
+        changeToObjectIds.forEach(id => {
           let supplier = app.objectForPrimaryKey(
             Schemas.SupplierSchema.name,
             id
@@ -246,5 +246,5 @@ export default {
   removeSupplier,
   removeSuppliers,
   updateSupplier,
-  getSupplierSync,
+  getSupplierSync
 };

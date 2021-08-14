@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { Formik, Form } from 'formik';
-import { Modal } from 'react-bootstrap';
-import * as actions from '../../../_redux/products/productsActions';
-import * as unitActions from '../../../_redux/units/unitsActions';
-import { useCustomersUIContext } from '../CustomersUIContext';
+import React, { useState, useEffect, useMemo } from "react";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { Formik, Form } from "formik";
+import { Modal } from "react-bootstrap";
+import * as actions from "../../../_redux/products/productsActions";
+import * as unitActions from "../../../_redux/units/unitsActions";
+import { useCustomersUIContext } from "../CustomersUIContext";
 
 export function UnitConversionForm({ show, onHide }) {
   const [unitConversionState, setUnitConversionState] = useState({
@@ -14,9 +14,9 @@ export function UnitConversionForm({ show, onHide }) {
     showConvertFromQty: null,
     showConvertToQty: null,
     convertFromQty: 0,
-    conveertToQty: 0,
+    conveertToQty: 0
   });
-  const [productId, setProductId] = useState('');
+  const [productId, setProductId] = useState("");
   const [disabledUnit, setDisabledUnit] = useState(true);
 
   // Customers UI Context
@@ -25,15 +25,15 @@ export function UnitConversionForm({ show, onHide }) {
     return {
       queryParams: customersUIContext.queryParams,
       setQueryParams: customersUIContext.setQueryParams,
-      tab: customersUIContext.tab,
+      tab: customersUIContext.tab
     };
   }, [customersUIContext]);
 
   // Getting curret state of products list from store (Redux)
   const { productCurrentState, unitCurrentState } = useSelector(
-    (state) => ({
+    state => ({
       productCurrentState: state.products,
-      unitCurrentState: state.units,
+      unitCurrentState: state.units
     }),
     shallowEqual
   );
@@ -50,11 +50,11 @@ export function UnitConversionForm({ show, onHide }) {
   }, [dispatch, customersUIProps.tab, productId, disabledUnit]);
 
   const initialValues = {
-    product_id: '',
-    unit1: '',
-    qty1: '',
-    unit2: '',
-    qty2: '',
+    product_id: "",
+    unit1: "",
+    qty1: "",
+    unit2: "",
+    qty2: ""
   };
 
   return (
@@ -74,7 +74,7 @@ export function UnitConversionForm({ show, onHide }) {
         handleChange,
         setFieldValue,
         errors,
-        touched,
+        touched
       }) => (
         <>
           <Modal show={show} onHide={onHide}>
@@ -93,17 +93,17 @@ export function UnitConversionForm({ show, onHide }) {
                         placeholder="Product"
                         name="product_id"
                         onBlur={handleBlur}
-                        onChange={(e) => {
+                        onChange={e => {
                           let selectedProductId = e.target.value;
-                          if (selectedProductId === 'select') return false;
+                          if (selectedProductId === "select") return false;
                           let product = {};
-                          productCurrentState.entities.map((prod) => {
+                          productCurrentState.entities.map(prod => {
                             if (prod._id === selectedProductId) {
                               product = prod;
                             }
                           });
-                          setFieldValue('product_id', product._id);
-                          setFieldValue('product_name', product.product_name);
+                          setFieldValue("product_id", product._id);
+                          setFieldValue("product_name", product.product_name);
                           setProductId(product._id);
                           productId
                             ? setDisabledUnit(false)
@@ -123,7 +123,7 @@ export function UnitConversionForm({ show, onHide }) {
                         <b>Product</b>
                       </small>
                       {errors.product_id && touched.product_id ? (
-                        <div style={{ color: 'red' }}>{errors.product_id}</div>
+                        <div style={{ color: "red" }}>{errors.product_id}</div>
                       ) : null}
                     </div>
                   </div>
@@ -135,17 +135,17 @@ export function UnitConversionForm({ show, onHide }) {
                         name="unit1"
                         // disabled={disabledUnit}
                         onBlur={handleBlur}
-                        onChange={(e) => {
+                        onChange={e => {
                           let selectedUnitId = e.target.value;
-                          if (selectedUnitId === 'select') return false;
+                          if (selectedUnitId === "select") return false;
                           let unitObj = {};
-                          unitCurrentState.entities.map((unit) => {
+                          unitCurrentState.entities.map(unit => {
                             if (unit._id === selectedUnitId) {
                               unitObj = unit;
                             }
                           });
-                          setFieldValue('unit_id', unitObj._id);
-                          setFieldValue('unit_name', unitObj.name);
+                          setFieldValue("unit_id", unitObj._id);
+                          setFieldValue("unit_name", unitObj.name);
                         }}
                         value={values.unit_id}
                       >
@@ -161,7 +161,7 @@ export function UnitConversionForm({ show, onHide }) {
                         <b>Unit</b>
                       </small>
                       {errors.unit_id && touched.unit_id ? (
-                        <div style={{ color: 'red' }}>{errors.unit_id}</div>
+                        <div style={{ color: "red" }}>{errors.unit_id}</div>
                       ) : null}
                     </div>
                   </div>
@@ -175,8 +175,8 @@ export function UnitConversionForm({ show, onHide }) {
                         onBlur={handleBlur}
                         // disabled={true}
                         value={values.qty1}
-                        onChange={(e) => {
-                          setFieldValue('quantity', e.target.value);
+                        onChange={e => {
+                          setFieldValue("quantity", e.target.value);
                           console.log(e.target.value);
                         }}
                       />
@@ -184,7 +184,7 @@ export function UnitConversionForm({ show, onHide }) {
                         <b>Quantity 1</b>
                       </small>
                       {errors.quantity && touched.quantity ? (
-                        <div style={{ color: 'red' }}>{errors.quantity}</div>
+                        <div style={{ color: "red" }}>{errors.quantity}</div>
                       ) : null}
                     </div>
                   </div>
@@ -196,17 +196,17 @@ export function UnitConversionForm({ show, onHide }) {
                         name="unit2"
                         // disabled={disabledUnit}
                         onBlur={handleBlur}
-                        onChange={(e) => {
+                        onChange={e => {
                           let selectedUnitId = e.target.value;
-                          if (selectedUnitId === 'select') return false;
+                          if (selectedUnitId === "select") return false;
                           let unitObj = {};
-                          unitCurrentState.entities.map((unit) => {
+                          unitCurrentState.entities.map(unit => {
                             if (unit._id === selectedUnitId) {
                               unitObj = unit;
                             }
                           });
-                          setFieldValue('unit_id', unitObj._id);
-                          setFieldValue('unit_name', unitObj.name);
+                          setFieldValue("unit_id", unitObj._id);
+                          setFieldValue("unit_name", unitObj.name);
                         }}
                         value={values.unit_id}
                       >
@@ -222,7 +222,7 @@ export function UnitConversionForm({ show, onHide }) {
                         <b>Unit</b>
                       </small>
                       {errors.unit_id && touched.unit_id ? (
-                        <div style={{ color: 'red' }}>{errors.unit_id}</div>
+                        <div style={{ color: "red" }}>{errors.unit_id}</div>
                       ) : null}
                     </div>
                   </div>
@@ -236,8 +236,8 @@ export function UnitConversionForm({ show, onHide }) {
                         onBlur={handleBlur}
                         // disabled={true}
                         value={values.qty1}
-                        onChange={(e) => {
-                          setFieldValue('quantity', e.target.value);
+                        onChange={e => {
+                          setFieldValue("quantity", e.target.value);
                           console.log(e.target.value);
                         }}
                       />
@@ -245,7 +245,7 @@ export function UnitConversionForm({ show, onHide }) {
                         <b>Quantity 2</b>
                       </small>
                       {errors.quantity && touched.quantity ? (
-                        <div style={{ color: 'red' }}>{errors.quantity}</div>
+                        <div style={{ color: "red" }}>{errors.quantity}</div>
                       ) : null}
                     </div>
                   </div>

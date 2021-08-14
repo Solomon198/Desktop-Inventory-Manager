@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Modal } from 'react-bootstrap';
-import { ModalProgressBar } from '../../../../../../_metronic/_partials/controls';
+import React, { useState, useEffect } from "react";
+import { Modal } from "react-bootstrap";
+import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
 
 export function UnitConversionHeader() {
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState("");
 
   return (
     <>
