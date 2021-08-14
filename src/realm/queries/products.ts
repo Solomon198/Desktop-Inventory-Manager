@@ -1,9 +1,11 @@
-import RealmApp from "../dbConfig/config";
-import * as mongoose from "mongoose";
-import Schemas from "../schemas/index";
-import { ProductProperties } from "../../types/product";
-import helperFuncs from "../utils/helpers.func";
-import Realm from "realm";
+import RealmApp from '../dbConfig/config';
+import * as mongoose from 'mongoose';
+import Schemas from '../schemas/index';
+import { ProductProperties } from '../../types/product';
+import { SupplierProperties } from '../../types/supplier';
+import helperFuncs from '../utils/helpers.func';
+import SupplierAPI from './suppliers';
+import Realm from 'realm';
 
 const app = RealmApp();
 
@@ -15,7 +17,7 @@ type getProductsResponse = {
 /**
  * @typedef {Object} Product
  * @property {string} product_name - Product model
- * @property {string} manufacturer - Product manufacturer
+ * @property {string} supplier_id - The supplier ID
  * @property {string} description - Product description
  */
 
@@ -38,8 +40,10 @@ function createProduct(product: ProductProperties) {
   return new Promise<ProductProperties>((resolve, reject) => {
     // since _id is primary key realm prefers an ObjectId
     let id = mongoose.Types.ObjectId();
+    let supplierId = mongoose.Types.ObjectId(product.supplier_id);
 
     product._id = id;
+    product.supplier_id = supplierId;
 
     app.write(() => {
       try {
@@ -47,7 +51,20 @@ function createProduct(product: ProductProperties) {
         newProduct = app.create(Schemas.ProductSchema.name, product);
         newProduct = newProduct.toJSON();
         let productObject: ProductProperties = newProduct as any;
+        let supplierId = productObject.supplier_id.toHexString();
+        let supplier = SupplierAPI.getSupplierSync(
+          supplierId
+        ) as SupplierProperties;
+
+        if (Object.keys(supplier).length !== 0) {
+          productObject.supplier_name = supplier.supplier_name;
+        } else {
+          productObject.supplier_name = `N/A`;
+        }
+
         productObject._id = productObject._id.toHexString();
+        productObject.supplier_id = productObject.supplier_id.toHexString();
+
         resolve(productObject);
       } catch (e) {
         console.log(e);
@@ -74,6 +91,18 @@ function getProductSync(productId: string) {
     );
     let productObject: ProductProperties = product?.toJSON() as any;
     productObject._id = productObject._id.toHexString();
+    productObject.supplier_id = productObject.supplier_id.toHexString();
+
+    let supplier = SupplierAPI.getSupplierSync(
+      productObject.supplier_id
+    ) as SupplierProperties;
+
+    if (Object.keys(supplier).length !== 0) {
+      productObject.supplier_name = supplier.supplier_name;
+    } else {
+      productObject.supplier_name = 'N/A';
+    }
+
     return productObject as ProductProperties;
   } catch (e) {
     return e;
@@ -98,6 +127,17 @@ function getProduct(productId: string) {
       );
       let productObject: ProductProperties = product?.toJSON() as any;
       productObject._id = productObject._id.toHexString();
+
+      let supplier = SupplierAPI.getSupplierSync(
+        productObject.supplier_id
+      ) as SupplierProperties;
+
+      if (Object.keys(supplier).length !== 0) {
+        productObject.supplier_name = supplier.supplier_name;
+      } else {
+        productObject.supplier_name = 'N/A';
+      }
+
       resolve(productObject);
     } catch (e) {
       reject(e.message);
@@ -113,12 +153,12 @@ function getProduct(productId: string) {
  * @param {number} pageSize - The size of page
  * @returns {Promise<productsResponse>} returns the total product count and entities
  */
-function getProducts(page = 1, pageSize = 10, searchQuery = "") {
+function getProducts(page = 1, pageSize = 10, searchQuery = '') {
   return new Promise<getProductsResponse>((resolve, reject) => {
     try {
       let products: Realm.Results<Realm.Object>;
       if (searchQuery.trim()) {
-        let query = "model CONTAINS[c] $0 || manufacturer CONTAINS[c] $0";
+        let query = 'model CONTAINS[c] $0 || manufacturer CONTAINS[c] $0';
         products = app
           .objects(Schemas.ProductSchema.name)
           .filtered(query, searchQuery);
@@ -132,15 +172,23 @@ function getProducts(page = 1, pageSize = 10, searchQuery = "") {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach(obj => {
-        let newObj = obj.toJSON();
+      result.forEach((obj) => {
+        let newObj: ProductProperties = obj.toJSON();
         newObj._id = newObj._id.toHexString();
-        // try {
-        //   newObj.price = helperFuncs.transformToCurrencyString(newObj.price);
-        // } catch (e) {}
+        newObj.supplier_id = newObj.supplier_id.toHexString();
+
+        let supplier = SupplierAPI.getSupplierSync(
+          newObj.supplier_id
+        ) as SupplierProperties;
+
+        if (Object.keys(supplier).length !== 0) {
+          newObj.supplier_name = supplier.supplier_name;
+        } else {
+          newObj.supplier_name = 'N/A';
+        }
+
         objArr.push(newObj);
       });
-      console.log(objArr);
 
       let response = { totalCount: totalCount, entities: objArr };
 
@@ -162,26 +210,26 @@ function getProducts(page = 1, pageSize = 10, searchQuery = "") {
 function getProductsForSale(
   page = 1,
   pageSize = 10,
-  searchQuery = "",
-  type = ""
+  searchQuery = '',
+  type = ''
 ) {
   return new Promise<getProductsResponse>((resolve, reject) => {
     try {
       let products: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
         products = app
           .objects(Schemas.ProductSchema.name)
           .filtered(query, searchQuery, type);
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
         products = app
           .objects(Schemas.ProductSchema.name)
           .filtered(query, searchQuery);
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = "cus_type == $0";
+        let query = 'cus_type == $0';
         products = app
           .objects(Schemas.ProductSchema.name)
           .filtered(query, type);
@@ -195,7 +243,7 @@ function getProductsForSale(
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach(obj => {
+      result.forEach((obj) => {
         let newObj = obj.toJSON();
         newObj._id = newObj._id.toHexString();
         objArr.push(newObj);
@@ -248,12 +296,12 @@ function removeProducts(productIds: string[]) {
     try {
       let changeToObjectIds: ObjectId[] = [];
 
-      productIds.forEach(id => {
+      productIds.forEach((id) => {
         changeToObjectIds.push(mongoose.Types.ObjectId(id) as ObjectId);
       });
 
       app.write(() => {
-        changeToObjectIds.forEach(id => {
+        changeToObjectIds.forEach((id) => {
           let product = app.objectForPrimaryKey(Schemas.ProductSchema.name, id);
           app.delete(product);
         });
@@ -277,6 +325,7 @@ function removeProducts(productIds: string[]) {
 function updateProduct(productForEdit: ProductProperties) {
   let product = Object.assign({}, productForEdit);
   product._id = mongoose.Types.ObjectId(product._id);
+  product.supplier_id = mongoose.Types.ObjectId(product.supplier_id);
   return new Promise<ProductProperties>((resolve, reject) => {
     app.write(() => {
       try {
@@ -289,6 +338,7 @@ function updateProduct(productForEdit: ProductProperties) {
         productObject._id = productObject._id.toHexString();
         resolve(productObject);
       } catch (e) {
+        console.log(e);
         reject(e.message);
       }
     });
@@ -303,5 +353,5 @@ export default {
   getProductsForSale,
   removeProduct,
   removeProducts,
-  updateProduct
+  updateProduct,
 };

@@ -8,8 +8,6 @@ export type SupplierProperties = {
   address: string;
 
   phone_no: string;
-
-  balance: any;
 };
 
 export type SupplierType = {

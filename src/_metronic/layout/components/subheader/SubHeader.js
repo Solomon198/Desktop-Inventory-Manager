@@ -81,7 +81,7 @@ export function SubHeader() {
             </h2> */}
             {/* end::Title */}
 
-            <BreadCrumbs items={subheader.breadcrumbs} />
+            {/* <BreadCrumbs items={subheader.breadcrumbs} /> */}
           </div> 
           {/* end::Heading */}
         </div>

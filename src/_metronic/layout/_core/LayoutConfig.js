@@ -70,14 +70,15 @@ export function getInitLayoutConfig() {
     loader: {
       enabled: true,
       type: "", // default|spinner-message|spinner-logo
-      logo: toAbsoluteUrl("/media/logos/logo-dark-sm.png"),
+      // logo: toAbsoluteUrl("/media/logos/logo-dark-sm.png"),
+      logo: toAbsoluteUrl("/media/logos/dixre-logo.jpg"),
       message: "Please wait..."
     },
     header: {
       self: {
         fixed: {
           mobile: true
-        }
+        } 
       }
     },
     subheader: {

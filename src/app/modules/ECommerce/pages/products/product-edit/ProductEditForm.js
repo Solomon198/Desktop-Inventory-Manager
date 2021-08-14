@@ -2,61 +2,77 @@
 // Data validation is based on Yup
 // Please, be familiar with article first:
 // https://hackernoon.com/react-form-validation-with-formik-and-yup-8b76bda62e10
-import React from "react";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import { Input, Select } from "../../../../../../_metronic/_partials/controls";
-import {
-  AVAILABLE_COLORS,
-  AVAILABLE_MANUFACTURES,
-  ProductStatusTitles,
-  ProductConditionTitles
-} from "../ProductsUIHelpers";
+import React from 'react';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 
 // Validation schema
 const ProductEditSchema = Yup.object().shape({
   product_name: Yup.string()
-    .min(2, "Minimum 2 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("Model is required"),
-  description: Yup.string()
-  // manufacturer: Yup.string()
-  //   .min(2, "Minimum 2 symbols")
-  //   .max(50, "Maximum 50 symbols")
-  //   .required("Manufacture is required"),
+    .min(2, 'Minimum 2 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('Model is required'),
 });
 
-export function ProductEditForm({ product, btnRef, saveProduct }) {
+export function ProductEditForm({
+  product,
+  supplierEntities,
+  btnRef,
+  saveProduct,
+}) {
   return (
     <>
       <Formik
         enableReinitialize={true}
         initialValues={product}
         validationSchema={ProductEditSchema}
-        onSubmit={values => {
+        onSubmit={(values) => {
           saveProduct(values);
         }}
       >
-        {({ handleSubmit }) => (
+        {({
+          values,
+          handleSubmit,
+          handleBlur,
+          handleChange,
+          setFieldValue,
+          errors,
+          touched,
+        }) => (
           <>
             <Form className="form form-label-right">
               <div className="form-group row">
                 <div className="col-lg-6">
-                  <Field
+                  <input
+                    className="form-control"
                     name="product_name"
-                    component={Input}
+                    value={values.product_name}
+                    onBlur={handleBlur}
+                    onChange={handleChange}
                     placeholder="Product Name"
-                    label="Product Name"
                   />
+                  <small className="form-text text-muted">
+                    <b>Product</b>
+                  </small>
+                  {errors.product_name && touched.product_name ? (
+                    <div style={{ color: 'red' }}>{errors.product_name}</div>
+                  ) : null}
                 </div>
                 <div className="col-lg-6">
-                  <Select name="manufacturer" label="Manufacturer">
-                    {AVAILABLE_MANUFACTURES.map(manufacturer => (
-                      <option key={manufacturer} value={manufacturer}>
-                        {manufacturer}
-                      </option>
-                    ))}
-                  </Select>
+                  <select
+                    name="supplier_id"
+                    className="form-control"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                  >
+                    <option value="">Select Supplier</option>
+                    {supplierEntities &&
+                      supplierEntities.map((entity) => (
+                        <option key={entity._id} value={entity._id}>
+                          {entity.supplier_name}
+                        </option>
+                      ))}
+                  </select>
                 </div>
               </div>
               <div className="form-group row"></div>
@@ -70,7 +86,7 @@ export function ProductEditForm({ product, btnRef, saveProduct }) {
               </div>
               <button
                 type="submit"
-                style={{ display: "none" }}
+                style={{ display: 'none' }}
                 ref={btnRef}
                 onSubmit={() => handleSubmit()}
               ></button>

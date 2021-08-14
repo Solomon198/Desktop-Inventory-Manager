@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo } from "react";
-import { Modal } from "react-bootstrap";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
-import * as actions from "../../../_redux/customers/customersActions";
-import { useCustomersUIContext } from "../CustomersUIContext";
+import React, { useEffect, useMemo } from 'react';
+import { Modal } from 'react-bootstrap';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { ModalProgressBar } from '../../../../../../_metronic/_partials/controls';
+import * as actions from '../../../_redux/suppliers/suppliersActions';
+import { useCustomersUIContext } from '../CustomersUIContext';
 
 export function CustomerDeleteDialog({ id, show, onHide }) {
   // Customers UI Context
@@ -11,14 +11,14 @@ export function CustomerDeleteDialog({ id, show, onHide }) {
   const customersUIProps = useMemo(() => {
     return {
       setIds: customersUIContext.setIds,
-      queryParams: customersUIContext.queryParams
+      queryParams: customersUIContext.queryParams,
     };
   }, [customersUIContext]);
 
   // Customers Redux state
   const dispatch = useDispatch();
   const { isLoading } = useSelector(
-    state => ({ isLoading: state.customers.actionsLoading }),
+    (state) => ({ isLoading: state.suppliers.actionsLoading }),
     shallowEqual
   );
 
@@ -33,11 +33,11 @@ export function CustomerDeleteDialog({ id, show, onHide }) {
   // looking for loading/dispatch
   useEffect(() => {}, [isLoading, dispatch]);
 
-  const deleteCustomer = () => {
+  const deleteSupplier = () => {
     // server request for deleting customer by id
-    dispatch(actions.deleteCustomer(id)).then(() => {
+    dispatch(actions.deleteSupplier(id)).then(() => {
       // refresh list after deletion
-      dispatch(actions.fetchCustomers(customersUIProps.queryParams));
+      dispatch(actions.fetchSuppliers(customersUIProps.queryParams));
       // clear selections list
       customersUIProps.setIds([]);
       // closing delete modal
@@ -56,14 +56,14 @@ export function CustomerDeleteDialog({ id, show, onHide }) {
       {/*end::Loading*/}
       <Modal.Header closeButton>
         <Modal.Title id="example-modal-sizes-title-lg">
-          Customer Delete
+          Supplier Delete
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {!isLoading && (
-          <span>Are you sure to permanently delete this customer?</span>
+          <span>Are you sure to permanently delete this supplier?</span>
         )}
-        {isLoading && <span>Customer is deleting...</span>}
+        {isLoading && <span>Supplier is deleting...</span>}
       </Modal.Body>
       <Modal.Footer>
         <div>
@@ -77,7 +77,7 @@ export function CustomerDeleteDialog({ id, show, onHide }) {
           <> </>
           <button
             type="button"
-            onClick={deleteCustomer}
+            onClick={deleteSupplier}
             className="btn btn-primary btn-elevate"
           >
             Delete

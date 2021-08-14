@@ -1,34 +1,34 @@
-import React, { useMemo } from "react";
+import React, { useMemo } from 'react';
 import {
   Card,
   CardBody,
   CardHeader,
-  CardHeaderToolbar
-} from "../../../../../_metronic/_partials/controls";
-import { CustomersFilter } from "./customers-filter/CustomersFilter";
-import { CustomersTable } from "./customers-table/CustomersTable";
-import { CustomersGrouping } from "./customers-grouping/CustomersGrouping";
-import { useCustomersUIContext } from "./CustomersUIContext";
+  CardHeaderToolbar,
+} from '../../../../../_metronic/_partials/controls';
+import { CustomersFilter } from './customers-filter/CustomersFilter';
+import { CustomersTable } from './customers-table/CustomersTable';
+import { CustomersGrouping } from './customers-grouping/CustomersGrouping';
+import { useCustomersUIContext } from './CustomersUIContext';
 
 export function CustomersCard() {
   const customersUIContext = useCustomersUIContext();
   const customersUIProps = useMemo(() => {
     return {
       ids: customersUIContext.ids,
-      newCustomerButtonClick: customersUIContext.newCustomerButtonClick
+      newCustomerButtonClick: customersUIContext.newCustomerButtonClick,
     };
   }, [customersUIContext]);
 
   return (
     <Card>
-      <CardHeader title="Customers list">
+      <CardHeader title="Suppliers list">
         <CardHeaderToolbar>
           <button
             type="button"
             className="btn btn-primary"
             onClick={customersUIProps.newCustomerButtonClick}
           >
-            New Customer
+            New Supplier
           </button>
         </CardHeaderToolbar>
       </CardHeader>

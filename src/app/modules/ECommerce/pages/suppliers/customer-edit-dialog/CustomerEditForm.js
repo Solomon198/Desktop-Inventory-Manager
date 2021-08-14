@@ -2,51 +2,56 @@
 // Data validation is based on Yup
 // Please, be familiar with article first:
 // https://hackernoon.com/react-form-validation-with-formik-and-yup-8b76bda62e10
-import React from "react";
-import { Modal } from "react-bootstrap";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
+import React from 'react';
+import { Modal } from 'react-bootstrap';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 import {
   Input,
   Select,
-  DatePickerField
-} from "../../../../../../_metronic/_partials/controls";
-import helperFuncs from "../../../../../../dist/realm/utils/helpers.func";
+  DatePickerField,
+} from '../../../../../../_metronic/_partials/controls';
+import helperFuncs from '../../utils/helper.funcs';
 // Validation schema
 const CustomerEditSchema = Yup.object().shape({
-  first_name: Yup.string()
-    .min(3, "Minimum 3 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("Firstname is required"),
-  last_name: Yup.string()
-    .min(3, "Minimum 3 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("Lastname is required"),
-  // email: Yup.string()
-  //   .email("Invalid email")
-  //   .required("Email is required"),
-  phone_no: Yup.number().required("Phone Number is required")
+  supplier_name: Yup.string()
+    .min(3, 'Minimum 3 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('Firstname is required'),
+  address: Yup.string()
+    .min(3, 'Minimum 3 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('Lastname is required'),
+  phone_no: Yup.number().required('Phone Number is required'),
 });
 
 export function CustomerEditForm({
-  saveCustomer,
-  customer,
+  saveSupplier,
+  supplier,
   actionsLoading,
-  onHide
+  onHide,
 }) {
-  customer = typeof customer === "object" ? customer : {};
+  supplier = typeof supplier === 'object' ? supplier : {};
 
   return (
     <>
       <Formik
         enableReinitialize={true}
-        initialValues={customer}
+        initialValues={supplier}
         validationSchema={CustomerEditSchema}
-        onSubmit={values => {
-          saveCustomer(values);
+        onSubmit={(values) => {
+          saveSupplier(values);
         }}
       >
-        {({ handleSubmit }) => (
+        {({
+          values,
+          handleSubmit,
+          handleBlur,
+          handleChange,
+          setFieldValue,
+          errors,
+          touched,
+        }) => (
           <>
             <Modal.Body className="overlay overlay-block cursor-default">
               {actionsLoading && (
@@ -56,61 +61,59 @@ export function CustomerEditForm({
               )}
               <Form className="form form-label-right">
                 <div className="form-group row">
-                  {/* First Name */}
+                  {/* Supplier Name */}
                   <div className="col-lg-4">
-                    <Field
-                      name="first_name"
-                      component={Input}
-                      placeholder="First Name"
-                      label="First Name"
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="supplier_name"
+                      placeholder="Supplier Name"
+                      value={values.supplier_name}
+                      onBlur={handleBlur}
+                      onChange={handleChange}
                     />
-                  </div>
-                  {/* Last Name */}
-                  <div className="col-lg-4">
-                    <Field
-                      name="last_name"
-                      component={Input}
-                      placeholder="Last Name"
-                      label="Last Name"
-                    />
-                  </div>
-                  {/* Mobile */}
-                  <div className="col-lg-4">
-                    <Field
-                      name="phone_no"
-                      component={Input}
-                      placeholder="Mobile"
-                      label="Mobile"
-                    />
-                  </div>
-                </div>
-                <div className="form-group row">
-                  {/* Email */}
-                  <div className="col-lg-4">
-                    <Field
-                      type="email"
-                      name="email"
-                      component={Input}
-                      placeholder="Email"
-                      label="Email"
-                    />
-                  </div>
-                  {/* Gender */}
-                  <div className="col-lg-4">
-                    <Select name="gender" label="Gender">
-                      <option value="">Select Gender</option>
-                      <option value="Female">Female</option>
-                      <option value="Male">Male</option>
-                    </Select>
+                    <small className="form-text text-muted">
+                      <b>Supplier Name</b>
+                    </small>
+                    {errors.supplier_name && touched.supplier_name ? (
+                      <div style={{ color: 'red' }}>{errors.supplier_name}</div>
+                    ) : null}
                   </div>
                   {/* Address */}
                   <div className="col-lg-4">
-                    <Field
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={values.address}
+                      onBlur={handleBlur}
+                      onChange={handleChange}
                       name="address"
-                      component={Input}
                       placeholder="Address"
-                      label="Address"
                     />
+                    <small className="form-text text-muted">
+                      <b>Address</b>
+                    </small>
+                    {errors.address && touched.address ? (
+                      <div style={{ color: 'red' }}>{errors.address}</div>
+                    ) : null}
+                  </div>
+                  {/* Mobile */}
+                  <div className="col-lg-4">
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={values.phone_no}
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      name="phone_no"
+                      placeholder="Mobile"
+                    />
+                    <small className="form-text text-muted">
+                      <b>Mobile</b>
+                    </small>
+                    {errors.phone_no && touched.phone_no ? (
+                      <div style={{ color: 'red' }}>{errors.phone_no}</div>
+                    ) : null}
                   </div>
                 </div>
               </Form>

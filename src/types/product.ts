@@ -5,7 +5,9 @@ export type ProductProperties = {
 
   product_name: string;
 
-  manufacturer: string;
+  supplier_id?: any;
+
+  supplier_name?: string;
 
   description: string;
 };

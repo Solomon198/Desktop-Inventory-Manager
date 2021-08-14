@@ -1,23 +1,29 @@
-import React from "react";
-import { Route } from "react-router-dom";
-import { CustomersLoadingDialog } from "./customers-loading-dialog/CustomersLoadingDialog";
-import { CustomerEditDialog } from "./customer-edit-dialog/CustomerEditDialog";
-import { CustomerDeleteDialog } from "./customer-delete-dialog/CustomerDeleteDialog";
-import { CustomersDeleteDialog } from "./customers-delete-dialog/CustomersDeleteDialog";
-import { CustomersFetchDialog } from "./customers-fetch-dialog/CustomersFetchDialog";
-import { CustomersUpdateStateDialog } from "./customers-update-status-dialog/CustomersUpdateStateDialog";
-import { CustomersUIProvider } from "./CustomersUIContext";
-import { CustomersCard } from "./CustomersCard";
+import React from 'react';
+import { Route } from 'react-router-dom';
+import { CustomersLoadingDialog } from './customers-loading-dialog/CustomersLoadingDialog';
+import { CustomerEditDialog } from './customer-edit-dialog/CustomerEditDialog';
+import { CustomerDeleteDialog } from './customer-delete-dialog/CustomerDeleteDialog';
+import { CustomersDeleteDialog } from './customers-delete-dialog/CustomersDeleteDialog';
+import { CustomersFetchDialog } from './customers-fetch-dialog/CustomersFetchDialog';
+import { CustomersUpdateStateDialog } from './customers-update-status-dialog/CustomersUpdateStateDialog';
+import { CustomersUIProvider } from './CustomersUIContext';
+import { CustomersCard } from './CustomersCard';
+import UnitConversionSimulation from './unit-conversion/UnitConversionSimulation';
+import { UnitConversionForm } from './unit-conversion/UnitConversionForm';
 
 export function UnitsPage({ history }) {
   const customersUIEvents = {
     newCustomerButtonClick: () => {
-      history.push("/e-commerce/units/new");
+      history.push('/e-commerce/units/new');
+      // history.push('/e-commerce/units/convert2');
     },
-    openEditCustomerDialog: id => {
+    convertUnitButtonClick: () => {
+      history.push('/e-commerce/units/convert');
+    },
+    openEditCustomerDialog: (id) => {
       history.push(`/e-commerce/units/${id}/edit`);
     },
-    openDeleteCustomerDialog: id => {
+    openDeleteCustomerDialog: (id) => {
       history.push(`/e-commerce/units/${id}/delete`);
     },
     openDeleteCustomersDialog: () => {
@@ -27,8 +33,8 @@ export function UnitsPage({ history }) {
       history.push(`/e-commerce/units/fetch`);
     },
     openUpdateCustomersStatusDialog: () => {
-      history.push("/e-commerce/units/updateStatus");
-    }
+      history.push('/e-commerce/units/updateStatus');
+    },
   };
 
   return (
@@ -39,8 +45,26 @@ export function UnitsPage({ history }) {
           <CustomerEditDialog
             show={match != null}
             onHide={() => {
-              history.push("/e-commerce/units");
+              history.push('/e-commerce/units');
             }}
+          />
+        )}
+      </Route>
+      <Route path="/e-commerce/units/convert2">
+        {({ history, match }) => (
+          <UnitConversionSimulation
+            show={match != null}
+            onHide={() => {
+              history.push('/e-commerce/units');
+            }}
+          />
+        )}
+      </Route>
+      <Route path="/e-commerce/units/convert">
+        {({ history, match }) => (
+          <UnitConversionForm
+            show={match != null}
+            onHide={() => history.push('/e-commerce/units')}
           />
         )}
       </Route>
@@ -50,7 +74,7 @@ export function UnitsPage({ history }) {
             show={match != null}
             id={match && match.params.id}
             onHide={() => {
-              history.push("/e-commerce/units");
+              history.push('/e-commerce/units');
             }}
           />
         )}
@@ -60,7 +84,7 @@ export function UnitsPage({ history }) {
           <CustomersDeleteDialog
             show={match != null}
             onHide={() => {
-              history.push("/e-commerce/units");
+              history.push('/e-commerce/units');
             }}
           />
         )}
@@ -71,7 +95,7 @@ export function UnitsPage({ history }) {
             show={match != null}
             id={match && match.params.id}
             onHide={() => {
-              history.push("/e-commerce/units");
+              history.push('/e-commerce/units');
             }}
           />
         )}
@@ -81,7 +105,7 @@ export function UnitsPage({ history }) {
           <CustomersFetchDialog
             show={match != null}
             onHide={() => {
-              history.push("/e-commerce/units");
+              history.push('/e-commerce/units');
             }}
           />
         )}
@@ -91,7 +115,7 @@ export function UnitsPage({ history }) {
           <CustomersUpdateStateDialog
             show={match != null}
             onHide={() => {
-              history.push("/e-commerce/units");
+              history.push('/e-commerce/units');
             }}
           />
         )}

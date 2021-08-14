@@ -55,33 +55,33 @@ export function Demo3Dashboard() {
       {/* end::Row */}
 
       {/* begin::Row */}
-      <div className="row">
+      {/* <div className="row">
         <div className="col-lg-12 col-xxl-12">
           <AdvanceTablesWidget9 className="card-stretch gutter-b" />
         </div>
-      </div>
+      </div> */}
       {/* end::Row */}
 
       {/* begin::Row */}
-      <div className="row">
+      {/* <div className="row">
         <div className="col-xl-6">
           <ListsWidget10 className="card-stretch gutter-b" />
         </div>
         <div className="col-xl-6">
           <BaseTablesWidget1 className="card-stretch gutter-b" />
         </div>
-      </div>
+      </div> */}
       {/* end::Row */}
 
       {/* begin::Row */}
-      <div className="row">
+      {/* <div className="row">
         <div className="col-lg-4">
           <ListsWidget8 className="card-stretch gutter-b" />
         </div>
         <div className="col-lg-8">
           <BaseTablesWidget2 className="card-stretch gutter-b" />
         </div>
-      </div>
+      </div> */}
       {/* end::Row */}
 
       {/* end::Dashboard */}

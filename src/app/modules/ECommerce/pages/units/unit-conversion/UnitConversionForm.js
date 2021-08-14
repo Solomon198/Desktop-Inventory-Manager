@@ -1,50 +1,22 @@
-// Form is based on Formik
-// Data validation is based on Yup
-// Please, be familiar with article first:
-// https://hackernoon.com/react-form-validation-with-formik-and-yup-8b76bda62e10
 import React, { useState, useEffect, useMemo } from 'react';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { Formik, Form } from 'formik';
 import { Modal } from 'react-bootstrap';
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
-import {
-  Input,
-  Select,
-  DatePickerField,
-} from '../../../../../../_metronic/_partials/controls';
-import helperFuncs from '../../../../../../dist/realm/utils/helpers.func';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import * as stockActions from '../../../_redux/stocks/stocksActions';
 import * as actions from '../../../_redux/products/productsActions';
 import * as unitActions from '../../../_redux/units/unitsActions';
-import helperFuns from '../../utils/helper.funcs';
 import { useCustomersUIContext } from '../CustomersUIContext';
 
-// Validation schema
-const CustomerEditSchema = Yup.object().shape({
-  product_id: Yup.string()
-    .min(2, 'Mininum 2 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Product is required'),
-  unit_id: Yup.string()
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Unit is required'),
-  product_name: Yup.string()
-    .min(2, 'Mininum 2 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Product is required'),
-  unit_name: Yup.string()
-    .min(2, 'Mininum 2 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Product is required'),
-  quantity: Yup.number()
-    .min(1, 'Minimum 3 symbols')
-    .required('Quantity is required'),
-  date: Yup.date().required('Date is required'),
-});
-
-export function CustomerEditForm({ saveStock, stock, actionsLoading, onHide }) {
-  const [productId, setProductId] = useState();
+export function UnitConversionForm({ show, onHide }) {
+  const [unitConversionState, setUnitConversionState] = useState({
+    productId: null,
+    convertFrom: 0,
+    convertTo: 0,
+    showConvertFromQty: null,
+    showConvertToQty: null,
+    convertFromQty: 0,
+    conveertToQty: 0,
+  });
+  const [productId, setProductId] = useState('');
   const [disabledUnit, setDisabledUnit] = useState(true);
 
   // Customers UI Context
@@ -77,50 +49,41 @@ export function CustomerEditForm({ saveStock, stock, actionsLoading, onHide }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, customersUIProps.tab, productId, disabledUnit]);
 
-  // const saveStock = (values, resetForm) => {
-  //   let newValues = { ...values };
-  //   let _date = helperFuns.transformDateStringToDateType(newValues.date);
-
-  //   let _saveStock = {
-  //     product_id: newValues.product_id,
-  //     unit_id: newValues.unit_id,
-  //     product_name: newValues.product_name,
-  //     unit_name: newValues.unit_name,
-  //     quantity: newValues.quantity,
-  //     date: new Date(_date),
-  //   };
-
-  //   // console.log(_saveStock);
-  //   dispatch(stockActions.createStock(_saveStock));
-  //   resetForm({ values: '' });
-  // };
+  const initialValues = {
+    product_id: '',
+    unit1: '',
+    qty1: '',
+    unit2: '',
+    qty2: '',
+  };
 
   return (
-    <>
-      <Formik
-        enableReinitialize={true}
-        initialValues={stock}
-        validationSchema={CustomerEditSchema}
-        onSubmit={(values, { resetForm }) => {
-          saveStock(values, resetForm);
-        }}
-      >
-        {({
-          values,
-          handleSubmit,
-          handleBlur,
-          handleChange,
-          setFieldValue,
-          errors,
-          touched,
-        }) => (
-          <>
+    <Formik
+      enableReinitialize={true}
+      initialValues={initialValues}
+      //   validationSchema={CustomerEditSchema}
+      onSubmit={(values, { resetForm }) => {
+        // saveStock(values, resetForm);
+        console.log(values);
+      }}
+    >
+      {({
+        values,
+        handleSubmit,
+        handleBlur,
+        handleChange,
+        setFieldValue,
+        errors,
+        touched,
+      }) => (
+        <>
+          <Modal show={show} onHide={onHide}>
             <Modal.Body className="overlay overlay-block cursor-default">
-              {actionsLoading && (
+              {/* {actionsLoading && (
                 <div className="overlay-layer bg-transparent">
                   <div className="spinner spinner-lg spinner-success" />
                 </div>
-              )}
+              )} */}
               <Form className="form form-label-right">
                 <div className="form-group row">
                   <div className="col-lg-12">
@@ -168,8 +131,8 @@ export function CustomerEditForm({ saveStock, stock, actionsLoading, onHide }) {
                     <div className="form-group">
                       <select
                         className="form-control"
-                        placeholder="Unit"
-                        name="unit_id"
+                        placeholder="Convert From"
+                        name="unit1"
                         // disabled={disabledUnit}
                         onBlur={handleBlur}
                         onChange={(e) => {
@@ -205,20 +168,20 @@ export function CustomerEditForm({ saveStock, stock, actionsLoading, onHide }) {
                   <div className="col-lg-12">
                     <div className="form-group">
                       <input
-                        type="text"
+                        type="number"
                         className="form-control"
-                        name="quantity"
-                        placeholder="Quantity"
+                        name="qty1"
+                        placeholder="Quantity 1"
                         onBlur={handleBlur}
                         // disabled={true}
-                        value={values.quantity}
+                        value={values.qty1}
                         onChange={(e) => {
                           setFieldValue('quantity', e.target.value);
                           console.log(e.target.value);
                         }}
                       />
                       <small className="form-text text-muted">
-                        <b>Quantity</b>
+                        <b>Quantity 1</b>
                       </small>
                       {errors.quantity && touched.quantity ? (
                         <div style={{ color: 'red' }}>{errors.quantity}</div>
@@ -227,39 +190,65 @@ export function CustomerEditForm({ saveStock, stock, actionsLoading, onHide }) {
                   </div>
                   <div className="col-lg-12">
                     <div className="form-group">
-                      <input
-                        type="date"
+                      <select
                         className="form-control"
-                        name="date"
-                        placeholder="Date"
+                        placeholder="Convert To"
+                        name="unit2"
+                        // disabled={disabledUnit}
+                        onBlur={handleBlur}
+                        onChange={(e) => {
+                          let selectedUnitId = e.target.value;
+                          if (selectedUnitId === 'select') return false;
+                          let unitObj = {};
+                          unitCurrentState.entities.map((unit) => {
+                            if (unit._id === selectedUnitId) {
+                              unitObj = unit;
+                            }
+                          });
+                          setFieldValue('unit_id', unitObj._id);
+                          setFieldValue('unit_name', unitObj.name);
+                        }}
+                        value={values.unit_id}
+                      >
+                        <option value="select">Select unit</option>
+                        {unitCurrentState.entities &&
+                          unitCurrentState.entities.map((unit, index) => (
+                            <option key={unit._id} value={unit._id}>
+                              {unit.name}
+                            </option>
+                          ))}
+                      </select>
+                      <small className="form-text text-muted">
+                        <b>Unit</b>
+                      </small>
+                      {errors.unit_id && touched.unit_id ? (
+                        <div style={{ color: 'red' }}>{errors.unit_id}</div>
+                      ) : null}
+                    </div>
+                  </div>
+                  <div className="col-lg-12">
+                    <div className="form-group">
+                      <input
+                        type="number"
+                        className="form-control"
+                        name="qty2"
+                        placeholder="Quantity 2"
                         onBlur={handleBlur}
                         // disabled={true}
-                        value={values.date}
+                        value={values.qty1}
                         onChange={(e) => {
-                          setFieldValue('date', e.target.value);
+                          setFieldValue('quantity', e.target.value);
                           console.log(e.target.value);
                         }}
                       />
                       <small className="form-text text-muted">
-                        <b>Date</b>
+                        <b>Quantity 2</b>
                       </small>
-                      {errors.date && touched.date ? (
-                        <div style={{ color: 'red' }}>{errors.date}</div>
+                      {errors.quantity && touched.quantity ? (
+                        <div style={{ color: 'red' }}>{errors.quantity}</div>
                       ) : null}
                     </div>
                   </div>
-                  {/* <div className="col-lg-12">
-                    <div className="form-group">
-                      <button
-                        type="submit"
-                        style={{ display: "block" }}
-                        className="btn btn-primary"
-                        // disabled={disabled}
-                      >
-                        Finish sale
-                      </button>
-                    </div>
-                  </div> */}
                 </div>
               </Form>
             </Modal.Body>
@@ -279,12 +268,12 @@ export function CustomerEditForm({ saveStock, stock, actionsLoading, onHide }) {
                 }}
                 className="btn btn-primary btn-elevate"
               >
-                Save
+                Convert Unit
               </button>
             </Modal.Footer>
-          </>
-        )}
-      </Formik>
-    </>
+          </Modal>
+        </>
+      )}
+    </Formik>
   );
 }

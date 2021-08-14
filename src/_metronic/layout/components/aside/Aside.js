@@ -412,12 +412,38 @@ export function Aside() {
             )}
             {/* end::Quick Panel */}
 
+            {/* begin::Logout */}
+              <OverlayTrigger
+                placement="right"
+                overlay={
+                  <Tooltip id="toggle-quick-panel">Logout</Tooltip>
+                }
+              >
+                <a
+                  href="#"
+                  className="btn btn-icon btn-clean btn-lg mb-1 position-relative"
+                  id="kt_quick_panel_toggle"
+                  data-placement="right"
+                  data-container="body"
+                  data-boundary="window"
+                >
+                  <span className="svg-icon svg-icon-lg">
+                    <SVG
+                      src={toAbsoluteUrl(
+                        "/media/svg/icons/General/logout.svg"
+                      )}
+                    />
+                  </span>
+                </a>
+              </OverlayTrigger>
+            {/* end::Quick Panel */}
+
             {/* begin::Languages*/}
-            {layoutProps.extrasLanguagesDisplay && <LanguageSelectorDropdown />}
+            {/* {layoutProps.extrasLanguagesDisplay && <LanguageSelectorDropdown />} */}
             {/* end::Languages */}
 
             {/* begin::User*/}
-            {layoutProps.extrasUserDisplay && <QuickUserToggler />}
+            {/* {layoutProps.extrasUserDisplay && <QuickUserToggler />}   */}
             {/* end::User */}
           </div>
           {/* end::Footer */}
