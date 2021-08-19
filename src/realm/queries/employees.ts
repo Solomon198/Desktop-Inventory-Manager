@@ -1,9 +1,9 @@
-import RealmApp from '../dbConfig/config';
-import * as mongoose from 'mongoose';
-import Schemas from '../schemas/index';
-import { EmployeeProperties } from '../../types/employee';
-import helperFuncs from '../utils/helpers.func';
-import Realm from 'realm';
+import RealmApp from "../dbConfig/config";
+import * as mongoose from "mongoose";
+import Schemas from "../schemas/index";
+import { EmployeeProperties } from "../../types/employee";
+import helperFuncs from "../utils/helpers.func";
+import Realm from "realm";
 
 const app = RealmApp();
 
@@ -95,24 +95,24 @@ function getEmployee(employeeId: string) {
  * @param {number} pageSize - The size of page
  * @returns {Promise<employeesResponse>} returns the total employee count and entities
  */
-function getEmployees(page = 1, pageSize = 10, searchQuery = '', type = '') {
+function getEmployees(page = 1, pageSize = 10, searchQuery = "", type = "") {
   return new Promise<getEmployeesResponse>((resolve, reject) => {
     try {
       let employees: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && role CONTAINS[c] $1';
+          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && role CONTAINS[c] $1";
         employees = app
           .objects(Schemas.EmployeeSchema.name)
           .filtered(query, searchQuery, type);
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
+          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
         employees = app
           .objects(Schemas.EmployeeSchema.name)
           .filtered(query, searchQuery);
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = 'role == $0';
+        let query = "role == $0";
         employees = app
           .objects(Schemas.EmployeeSchema.name)
           .filtered(query, type);
@@ -126,7 +126,7 @@ function getEmployees(page = 1, pageSize = 10, searchQuery = '', type = '') {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach((obj) => {
+      result.forEach(obj => {
         let newObj = obj.toJSON();
         newObj._id = newObj._id.toHexString();
         objArr.push(newObj);
@@ -178,12 +178,12 @@ function removeEmployees(employeeIds: string[]) {
     try {
       let changeToObjectIds: ObjectId[] = [];
 
-      employeeIds.forEach((id) => {
+      employeeIds.forEach(id => {
         changeToObjectIds.push(mongoose.Types.ObjectId(id) as ObjectId);
       });
 
       app.write(() => {
-        changeToObjectIds.forEach((id) => {
+        changeToObjectIds.forEach(id => {
           let employee = app.objectForPrimaryKey(
             Schemas.EmployeeSchema.name,
             id
@@ -233,5 +233,5 @@ export default {
   getEmployees,
   removeEmployee,
   removeEmployees,
-  updateEmployee,
+  updateEmployee
 };

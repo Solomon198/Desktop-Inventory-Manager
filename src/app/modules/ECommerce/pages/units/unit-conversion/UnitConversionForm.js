@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { Formik, Form } from 'formik';
-import { Modal } from 'react-bootstrap';
-import * as actions from '../../../_redux/products/productsActions';
-import * as unitActions from '../../../_redux/units/unitsActions';
-import * as stockEntryActions from '../../../_redux/stocksEntry/stocksEntryActions';
-import { useCustomersUIContext } from '../CustomersUIContext';
-import { UnitConversionHeader } from './UnitConversionHeader';
+import React, { useState, useEffect, useMemo } from "react";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { Formik, Form } from "formik";
+import { Modal } from "react-bootstrap";
+import * as actions from "../../../_redux/products/productsActions";
+import * as unitActions from "../../../_redux/units/unitsActions";
+import * as stockEntryActions from "../../../_redux/stocksEntry/stocksEntryActions";
+import { useCustomersUIContext } from "../CustomersUIContext";
+import { UnitConversionHeader } from "./UnitConversionHeader";
 
 export function UnitConversionForm({ show, onHide }) {
-  const [productId, setProductId] = useState('');
+  const [productId, setProductId] = useState("");
 
   // Customers UI Context
   const customersUIContext = useCustomersUIContext();
@@ -17,15 +17,15 @@ export function UnitConversionForm({ show, onHide }) {
     return {
       queryParams: customersUIContext.queryParams,
       setQueryParams: customersUIContext.setQueryParams,
-      tab: customersUIContext.tab,
+      tab: customersUIContext.tab
     };
   }, [customersUIContext]);
 
   // Getting curret state of products list from store (Redux)
   const { productCurrentState, unitCurrentState } = useSelector(
-    (state) => ({
+    state => ({
       productCurrentState: state.products,
-      unitCurrentState: state.units,
+      unitCurrentState: state.units
     }),
     shallowEqual
   );
@@ -52,11 +52,11 @@ export function UnitConversionForm({ show, onHide }) {
 
     // getting the unit object for convertFromUnitId & convertToUnitId
     const convertFromObj = unitCurrentState.entities.find(
-      (unit) => unit._id === convertFromUnitId
+      unit => unit._id === convertFromUnitId
     );
 
     const convertToObj = unitCurrentState.entities.find(
-      (unit) => unit._id === convertToUnitId
+      unit => unit._id === convertToUnitId
     );
 
     // checking if convertFromObj has bulk size
@@ -75,12 +75,12 @@ export function UnitConversionForm({ show, onHide }) {
       // Define the stock entry object for decrementing & incrementing the stock and    // check if it's out of stock
       const deductFromStockEntryObj = {
         unit_id: convertFromUnitId,
-        quantity: totalDeduction,
+        quantity: totalDeduction
       };
 
       const addToStockEntryObj = {
         unit_id: convertToUnitId,
-        quantity: convertToQty,
+        quantity: convertToQty
       };
 
       const isOutOfStockResponse = await stockEntryActions.getIsOutOfStocksEntryResponse(
@@ -98,13 +98,13 @@ export function UnitConversionForm({ show, onHide }) {
           );
 
           isStockEntryDecrementedResponse && isStockEntryIncrementedResponse
-            ? alert('Unit converted successfully')
-            : alert('Something went wrong.');
+            ? alert("Unit converted successfully")
+            : alert("Something went wrong.");
         } catch (e) {
           console.log(e.message);
         }
       } else {
-        alert('We are out of stock!!!');
+        alert("We are out of stock!!!");
       }
     } else {
       /**
@@ -120,12 +120,12 @@ export function UnitConversionForm({ show, onHide }) {
       // Define the stock entry object for decrementing & incrementing the stock and    // check if it's out of stock
       const addToStockEntryObj = {
         unit_id: convertToUnitId,
-        quantity: totalAddition,
+        quantity: totalAddition
       };
 
       const deductFromStockEntryObj = {
         unit_id: convertFromUnitId,
-        quantity: convertFromQty,
+        quantity: convertFromQty
       };
 
       // Check if it's not out of stock
@@ -144,25 +144,25 @@ export function UnitConversionForm({ show, onHide }) {
           );
 
           isStockEntryDecrementedResponse && isStockEntryIncrementedResponse
-            ? alert('Unit converted successfully')
-            : alert('Something went wrong.');
+            ? alert("Unit converted successfully")
+            : alert("Something went wrong.");
         } catch (e) {
           console.log(e.message);
         }
       } else {
-        alert('We are out of stock!!!');
+        alert("We are out of stock!!!");
       }
     }
   };
 
   const initialValues = {
-    product_id: '',
-    convertFromUnitId: '',
-    convertFromQty: '',
+    product_id: "",
+    convertFromUnitId: "",
+    convertFromQty: "",
     showConvertFromQty: null,
-    convertToUnitId: '',
-    convertToQty: '',
-    showConvertToQty: null,
+    convertToUnitId: "",
+    convertToQty: "",
+    showConvertToQty: null
   };
 
   return (
@@ -181,7 +181,7 @@ export function UnitConversionForm({ show, onHide }) {
         handleChange,
         setFieldValue,
         errors,
-        touched,
+        touched
       }) => (
         <>
           <Modal show={show} onHide={onHide}>
@@ -201,16 +201,16 @@ export function UnitConversionForm({ show, onHide }) {
                         placeholder="Product"
                         name="product_id"
                         onBlur={handleBlur}
-                        onChange={(e) => {
+                        onChange={e => {
                           let selectedProductId = e.target.value;
-                          if (selectedProductId === 'select') return false;
+                          if (selectedProductId === "select") return false;
                           let product = {};
-                          productCurrentState.entities.map((prod) => {
+                          productCurrentState.entities.map(prod => {
                             if (prod._id === selectedProductId) {
                               product = prod;
                             }
                           });
-                          setFieldValue('product_id', product._id);
+                          setFieldValue("product_id", product._id);
                           setProductId(product._id);
                         }}
                         value={values.product_id}
@@ -227,7 +227,7 @@ export function UnitConversionForm({ show, onHide }) {
                         <b>Product</b>
                       </small>
                       {errors.product_id && touched.product_id ? (
-                        <div style={{ color: 'red' }}>{errors.product_id}</div>
+                        <div style={{ color: "red" }}>{errors.product_id}</div>
                       ) : null}
                     </div>
                   </div>
@@ -240,12 +240,12 @@ export function UnitConversionForm({ show, onHide }) {
                             placeholder="Convert From"
                             name="convertFromUnitId"
                             onBlur={handleBlur}
-                            onChange={(e) => {
+                            onChange={e => {
                               // validating convertFromUnitId
                               let selectedUnitId = e.target.value;
-                              if (selectedUnitId === 'select') return;
+                              if (selectedUnitId === "select") return;
                               let unitObj = {};
-                              unitCurrentState.entities.map((unit) => {
+                              unitCurrentState.entities.map(unit => {
                                 if (unit._id === selectedUnitId) {
                                   unitObj = unit;
                                 }
@@ -257,18 +257,18 @@ export function UnitConversionForm({ show, onHide }) {
                                 let isShowConvertFromQty = unitObj.bulk_size
                                   ? false
                                   : true;
-                                setFieldValue('convertFromUnitId', unitObj._id);
+                                setFieldValue("convertFromUnitId", unitObj._id);
                                 setFieldValue(
-                                  'showConvertFromQty',
+                                  "showConvertFromQty",
                                   isShowConvertFromQty
                                 );
                               } else {
                                 let convertToUnitId = values.convertToUnitId;
-                                console.log('__cToUnitId__', convertToUnitId);
+                                console.log("__cToUnitId__", convertToUnitId);
                                 const convertToObj = unitCurrentState.entities.find(
-                                  (unit) => unit._id === convertToUnitId
+                                  unit => unit._id === convertToUnitId
                                 );
-                                console.log('__cToObj__', convertToObj);
+                                console.log("__cToObj__", convertToObj);
 
                                 if (
                                   convertToObj.bulk_size &&
@@ -287,20 +287,20 @@ export function UnitConversionForm({ show, onHide }) {
                                   !unitObj.bulk_size
                                 ) {
                                   setFieldValue(
-                                    'convertFromUnitId',
+                                    "convertFromUnitId",
                                     e.target.value
                                   );
-                                  setFieldValue('showConvertFromQty', true);
+                                  setFieldValue("showConvertFromQty", true);
                                 }
                                 if (
                                   !convertToObj.bulk_size &&
                                   unitObj.bulk_size
                                 ) {
                                   setFieldValue(
-                                    'convertFromUnitId',
+                                    "convertFromUnitId",
                                     e.target.value
                                   );
-                                  setFieldValue('showConvertToQty', true);
+                                  setFieldValue("showConvertToQty", true);
                                 }
                               }
                             }}
@@ -318,7 +318,7 @@ export function UnitConversionForm({ show, onHide }) {
                             <b>Convert From</b>
                           </small>
                           {errors.convertFromQty && touched.convertFromQty ? (
-                            <div style={{ color: 'red' }}>
+                            <div style={{ color: "red" }}>
                               {errors.convertFromQty}
                             </div>
                           ) : null}
@@ -336,15 +336,15 @@ export function UnitConversionForm({ show, onHide }) {
                               onBlur={handleBlur}
                               // disabled={true}
                               value={values.convertFromQty}
-                              onChange={(e) => {
-                                setFieldValue('convertFromQty', e.target.value);
+                              onChange={e => {
+                                setFieldValue("convertFromQty", e.target.value);
                               }}
                             />
                             <small className="form-text">
                               <b>Quantity</b>
                             </small>
                             {errors.convertFromQty && touched.convertFromQty ? (
-                              <div style={{ color: 'red' }}>
+                              <div style={{ color: "red" }}>
                                 {errors.convertFromQty}
                               </div>
                             ) : null}
@@ -360,12 +360,12 @@ export function UnitConversionForm({ show, onHide }) {
                             name="convertToUnitId"
                             disabled={values.convertFromUnitId ? false : true}
                             onBlur={handleBlur}
-                            onChange={(e) => {
+                            onChange={e => {
                               // validating convertToUnitId
                               let selectedUnitId = e.target.value;
-                              if (selectedUnitId === 'select') return false;
+                              if (selectedUnitId === "select") return false;
                               let unitObj = {};
-                              unitCurrentState.entities.map((unit) => {
+                              unitCurrentState.entities.map(unit => {
                                 if (unit._id === selectedUnitId) {
                                   unitObj = unit;
                                 }
@@ -375,11 +375,11 @@ export function UnitConversionForm({ show, onHide }) {
                               // using convertFromUnitId to get the corresponding unit object
                               const convertFromUnitId =
                                 values.convertFromUnitId;
-                              console.log('cFromUnitId', convertFromUnitId);
+                              console.log("cFromUnitId", convertFromUnitId);
                               const convertFromObj = unitCurrentState.entities.find(
-                                (unit) => unit._id === convertFromUnitId
+                                unit => unit._id === convertFromUnitId
                               );
-                              console.log('cFromObj', convertFromObj);
+                              console.log("cFromObj", convertFromObj);
 
                               if (
                                 convertFromObj.bulk_size &&
@@ -400,10 +400,10 @@ export function UnitConversionForm({ show, onHide }) {
                                 !unitObj.bulk_size
                               ) {
                                 setFieldValue(
-                                  'convertToUnitId',
+                                  "convertToUnitId",
                                   e.target.value
                                 );
-                                setFieldValue('showConvertToQty', true);
+                                setFieldValue("showConvertToQty", true);
                               }
 
                               if (
@@ -411,10 +411,10 @@ export function UnitConversionForm({ show, onHide }) {
                                 unitObj.bulk_size
                               ) {
                                 setFieldValue(
-                                  'convertToUnitId',
+                                  "convertToUnitId",
                                   e.target.value
                                 );
-                                setFieldValue('showConvertFromQty', true);
+                                setFieldValue("showConvertFromQty", true);
                               }
                             }}
                             value={values.convertToUnitId}
@@ -431,7 +431,7 @@ export function UnitConversionForm({ show, onHide }) {
                             <b>Convert To</b>
                           </small>
                           {errors.convertToUnitId && touched.convertToUnitId ? (
-                            <div style={{ color: 'red' }}>
+                            <div style={{ color: "red" }}>
                               {errors.convertToUnitId}
                             </div>
                           ) : null}
@@ -449,15 +449,15 @@ export function UnitConversionForm({ show, onHide }) {
                               onBlur={handleBlur}
                               // disabled={true}
                               value={values.convertToQty}
-                              onChange={(e) => {
-                                setFieldValue('convertToQty', e.target.value);
+                              onChange={e => {
+                                setFieldValue("convertToQty", e.target.value);
                               }}
                             />
                             <small className="form-text">
                               <b>Quantity</b>
                             </small>
                             {errors.convertToQty && touched.convertToQty ? (
-                              <div style={{ color: 'red' }}>
+                              <div style={{ color: "red" }}>
                                 {errors.convertToQty}
                               </div>
                             ) : null}
