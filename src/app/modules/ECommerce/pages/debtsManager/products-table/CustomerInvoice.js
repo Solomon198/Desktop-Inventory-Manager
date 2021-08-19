@@ -1,33 +1,32 @@
 // React bootstrap table next =>
 // DOCS: https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/
 // STORYBOOK: https://react-bootstrap-table.github.io/react-bootstrap-table2/storybook/index.html
-import React, { useEffect, useMemo } from "react";
-import BootstrapTable from "react-bootstrap-table-next";
+import React, { useEffect, useMemo } from 'react';
+import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory, {
-  PaginationProvider
-} from "react-bootstrap-table2-paginator";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import * as actions from "../../../_redux/sales/salesActions";
-import * as uiHelpers from "../ProductsUIHelpers";
+  PaginationProvider,
+} from 'react-bootstrap-table2-paginator';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import * as actions from '../../../_redux/sales/salesActions';
+import * as uiHelpers from '../ProductsUIHelpers';
 import {
   getSelectRow,
   getHandlerTableChange,
   NoRecordsFoundMessage,
   PleaseWaitMessage,
-  sortCaret
-} from "../../../../../../_metronic/_helpers";
-import * as columnFormatters from "./column-formatters";
-import { Pagination } from "../../../../../../_metronic/_partials/controls";
-import { useSalesUIContext } from "../ProductsUIContext";
+  sortCaret,
+} from '../../../../../../_metronic/_helpers';
+import * as columnFormatters from './column-formatters';
+import { Pagination } from '../../../../../../_metronic/_partials/controls';
+import { useSalesUIContext } from '../ProductsUIContext';
 
 export function CustomerInvoice({ id }) {
   // Getting curret state of sales list from store (Redux)
   const { currentState } = useSelector(
-    state => ({ currentState: state.sales }),
+    (state) => ({ currentState: state.sales }),
     shallowEqual
   );
   const { totalCount, entities, listLoading, saleForEdit } = currentState;
-  console.log(saleForEdit);
   // Products Redux state
   const dispatch = useDispatch();
   useEffect(() => {
@@ -40,61 +39,61 @@ export function CustomerInvoice({ id }) {
   const products = [
     {
       _id: 1,
-      product: "MacBook",
+      product: 'MacBook',
       quantity: 2,
-      unit: "pieces",
+      unit: 'pieces',
       amount: 78968,
-      date: "23-04-2021"
+      date: '23-04-2021',
     },
     {
       _id: 2,
-      product: "HP ProBook",
+      product: 'HP ProBook',
       quantity: 2,
-      unit: "pieces",
+      unit: 'pieces',
       amount: 78968,
-      date: "23-04-2021"
+      date: '23-04-2021',
     },
     {
       _id: 3,
-      product: "Dell Corei5",
+      product: 'Dell Corei5',
       quantity: 2,
-      unit: "pieces",
+      unit: 'pieces',
       amount: 78968,
-      date: "23-04-2021"
-    }
+      date: '23-04-2021',
+    },
   ];
 
   // Table columns
   const columns = [
     {
-      dataField: "product",
-      text: "Product",
+      dataField: 'product',
+      text: 'Product',
       sort: true,
-      sortCaret: sortCaret
+      sortCaret: sortCaret,
     },
     {
-      dataField: "quantity",
-      text: "Quantity",
+      dataField: 'quantity',
+      text: 'Quantity',
       sort: true,
-      sortCaret: sortCaret
+      sortCaret: sortCaret,
     },
     {
-      dataField: "unit",
-      text: "Unit",
+      dataField: 'unit',
+      text: 'Unit',
       sort: true,
-      sortCaret: sortCaret
+      sortCaret: sortCaret,
     },
     {
-      dataField: "totalAmount",
-      text: "Amount",
+      dataField: 'totalAmount',
+      text: 'Amount',
       sort: true,
-      sortCaret: sortCaret
-    }
+      sortCaret: sortCaret,
+    },
   ];
   return (
     <>
       <div className="mb-5">
-        {saleForEdit && saleForEdit.outstanding !== "₦0.00" ? (
+        {saleForEdit && saleForEdit.outstanding !== '₦0.00' ? (
           <h1>OUTSTANDING MANAGER</h1>
         ) : (
           <h1>DEBT MANAGER</h1>
@@ -115,12 +114,12 @@ export function CustomerInvoice({ id }) {
           <div>
             <h3 className="mb-2">CUSTOMER INFO</h3>
             <span>
-              Full Name:{"  "}
+              Full Name:{'  '}
               <strong>{saleForEdit && saleForEdit.customer_name}</strong>
             </span>
             <br />
             <span>
-              Phone no:{"  "}
+              Phone no:{'  '}
               <strong>{saleForEdit && saleForEdit.customer_phone}</strong>
             </span>
           </div>
@@ -142,22 +141,22 @@ export function CustomerInvoice({ id }) {
         <div className="d-flex justify-content-between">
           <div>
             {saleForEdit &&
-            saleForEdit.outstanding !== "₦0.00" &&
-            saleForEdit.part_payment !== "₦0.00" ? (
+            saleForEdit.outstanding !== '₦0.00' &&
+            saleForEdit.part_payment !== '₦0.00' ? (
               <div>
                 <h3>OUTSTANDING</h3>
                 <p>
                   <strong>
-                    PAID:{" "}
-                    <span style={{ color: "red" }}>
+                    PAID:{' '}
+                    <span style={{ color: 'red' }}>
                       {saleForEdit && saleForEdit.part_payment}
                     </span>
                   </strong>
                 </p>
                 <p>
                   <strong>
-                    OUTSTANDING:{" "}
-                    <span style={{ color: "red" }}>
+                    OUTSTANDING:{' '}
+                    <span style={{ color: 'red' }}>
                       {saleForEdit && saleForEdit.outstanding}
                     </span>
                   </strong>
@@ -167,7 +166,7 @@ export function CustomerInvoice({ id }) {
               <div>
                 <h3>DEBT</h3>
                 <strong>
-                  <p style={{ color: "red" }}>
+                  <p style={{ color: 'red' }}>
                     {saleForEdit && saleForEdit.total_amount}
                   </p>
                 </strong>
@@ -177,7 +176,7 @@ export function CustomerInvoice({ id }) {
 
           <div>
             <h3>TOTAL AMOUNT</h3>
-            <h2 style={{ color: "red" }}>
+            <h2 style={{ color: 'red' }}>
               {saleForEdit && saleForEdit.total_amount}
             </h2>
           </div>

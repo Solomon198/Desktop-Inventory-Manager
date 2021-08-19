@@ -1,9 +1,9 @@
-import RealmApp from "../dbConfig/config";
-import * as mongoose from "mongoose";
-import Schemas from "../schemas/index";
-import { CustomerProperties } from "../../types/customer";
-import helperFuncs from "../utils/helpers.func";
-import Realm from "realm";
+import RealmApp from '../dbConfig/config';
+import * as mongoose from 'mongoose';
+import Schemas from '../schemas/index';
+import { CustomerProperties } from '../../types/customer';
+import helperFuncs from '../utils/helpers.func';
+import Realm from 'realm';
 
 const app = RealmApp();
 
@@ -52,7 +52,6 @@ function createCustomer(customer: CustomerProperties) {
         customerObject._id = customerObject._id.toHexString();
         resolve(customerObject);
       } catch (e) {
-        console.log(e);
         reject(e.message);
       }
     });
@@ -118,24 +117,24 @@ function getCustomer(customerId: string) {
  * @param {number} pageSize - The size of page
  * @returns {Promise<customersResponse>} returns the total customer count and entities
  */
-function getCustomers(page = 1, pageSize = 10, searchQuery = "", type = "") {
+function getCustomers(page = 1, pageSize = 10, searchQuery = '', type = '') {
   return new Promise<getCustomersResponse>((resolve, reject) => {
     try {
       let customers: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
         customers = app
           .objects(Schemas.CustomerSchema.name)
           .filtered(query, searchQuery, type);
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
         customers = app
           .objects(Schemas.CustomerSchema.name)
           .filtered(query, searchQuery);
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = "cus_type == $0";
+        let query = 'cus_type == $0';
         customers = app
           .objects(Schemas.CustomerSchema.name)
           .filtered(query, type);
@@ -149,7 +148,7 @@ function getCustomers(page = 1, pageSize = 10, searchQuery = "", type = "") {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach(obj => {
+      result.forEach((obj) => {
         let newObj = obj.toJSON();
         newObj._id = newObj._id.toHexString();
         objArr.push(newObj);
@@ -184,7 +183,6 @@ function removeCustomer(customerId: string) {
         resolve(true);
       });
     } catch (e) {
-      console.log(e);
       reject(e.message);
     }
   });
@@ -202,12 +200,12 @@ function removeCustomers(customerIds: string[]) {
     try {
       let changeToObjectIds: ObjectId[] = [];
 
-      customerIds.forEach(id => {
+      customerIds.forEach((id) => {
         changeToObjectIds.push(mongoose.Types.ObjectId(id) as ObjectId);
       });
 
       app.write(() => {
-        changeToObjectIds.forEach(id => {
+        changeToObjectIds.forEach((id) => {
           let customer = app.objectForPrimaryKey(
             Schemas.CustomerSchema.name,
             id
@@ -218,7 +216,6 @@ function removeCustomers(customerIds: string[]) {
         resolve(true);
       });
     } catch (e) {
-      console.log(e);
       reject(e.message);
     }
   });
@@ -259,5 +256,5 @@ export default {
   removeCustomer,
   removeCustomers,
   updateCustomer,
-  getCustomerSync
+  getCustomerSync,
 };

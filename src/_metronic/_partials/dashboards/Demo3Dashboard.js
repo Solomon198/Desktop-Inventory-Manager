@@ -11,6 +11,11 @@ import {
   ListsWidget14,
   AdvanceTablesWidget9
 } from "../widgets";
+import AdminChart1 from "./adminDashboard/AdminChart1";
+import AdminChart3 from "./adminDashboard/AdminChart3";
+import AdminChart4 from "./adminDashboard/AdminChart4";
+import AdminChart5 from "./adminDashboard/AdminChart5";
+import AdminChart6 from "./adminDashboard/AdminChart6";
 
 export function Demo3Dashboard() {
   return (
@@ -18,10 +23,18 @@ export function Demo3Dashboard() {
       {/* begin::Dashboard */}
 
       {/* begin::Row */}
-      <div className="row">
-        <div className="col-xl-12">
-          <MixedWidget4 className="gutter-b card-stretch" />
+      <div className="row mb-5">
+      <div className="col-xl-12 mb-5">
+          <AdminChart5 />
         </div>
+        <div className="col-xl-12 mb-5">
+          <AdminChart4 />
+        </div>
+        
+        {/* <div className="col-xl-12">
+          <AdminChart1 />
+          <MixedWidget4 className="gutter-b card-stretch" />
+        </div> */}
         {/* <div className="col-xl-8">
           <BaseTablesWidget6 className="gutter-b" />
         </div> */}
@@ -32,20 +45,24 @@ export function Demo3Dashboard() {
       <div className="row">
         <div className="col-xl-12">
           <div className="row">
+          <div className="col-xl-12 mb-5">
+          <AdminChart6 />
+        </div>
             <div className="col-xl-12">
-              <StatsWidget11
+              <AdminChart3 />
+              {/* <StatsWidget11
                 className="gutter-b"
                 symbolShape="circle"
                 baseColor="danger"
-              />
+              /> */}
             </div>
-            <div className="col-xl-12">
+            {/* <div className="col-xl-12">
               <StatsWidget10
                 className="gutter-b"
                 symbolShape="circle"
                 baseColor="info"
               />
-            </div>
+            </div> */}
           </div>
         </div>
         {/* <div className="col-xl-8">

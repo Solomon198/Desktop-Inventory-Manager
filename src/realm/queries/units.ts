@@ -1,13 +1,13 @@
-import RealmApp from "../dbConfig/config";
-import * as mongoose from "mongoose";
-import Schemas from "../schemas/index";
-import { UnitProperties } from "../../types/unit";
-import { ProductProperties } from "../../types/product";
+import RealmApp from '../dbConfig/config';
+import * as mongoose from 'mongoose';
+import Schemas from '../schemas/index';
+import { UnitProperties } from '../../types/unit';
+import { ProductProperties } from '../../types/product';
 // import { productForSaleProps } from '../../types/productForSale';
-import helperFuncs from "../utils/helpers.func";
-import Realm from "realm";
-import ProductAPI from "./products";
-import helpersFunc from "../utils/helpers.func";
+import helperFuncs from '../utils/helpers.func';
+import Realm from 'realm';
+import ProductAPI from './products';
+import helpersFunc from '../utils/helpers.func';
 
 const app = RealmApp();
 
@@ -67,9 +67,9 @@ function createUnit(unit: UnitProperties) {
         unitObject.price = helpersFunc.transformToCurrencyString(
           unitObject.price
         );
+        // unitObject.bulk_size = parseInt(unitObject.bulk_size);
         resolve(unitObject);
       } catch (e) {
-        console.log(e);
         reject(e.message);
       }
     });
@@ -93,6 +93,8 @@ function getUnitSync(unitId: string) {
     );
     let unitObject: UnitProperties = unit?.toJSON() as any;
     unitObject._id = unitObject._id.toHexString();
+    unitObject.price = helpersFunc.transformToCurrencyString(unitObject.price);
+    // unitObject.bulk_size = parseInt(unitObject.bulk_size);
     return unitObject as UnitProperties;
   } catch (e) {
     return e;
@@ -118,13 +120,14 @@ function getUnit(unitId: string) {
       let unitObject: UnitProperties = unit?.toJSON() as any;
       unitObject._id = unitObject._id.toHexString();
       try {
-        unitObject.price = unitObject.price.toString();
+        unitObject.price = helpersFunc.transformToCurrencyString(
+          unitObject.price
+        );
+        // unitObject.bulk_size = parseInt(unitObject.bulk_size);
       } catch (e) {}
       //  return unitObject as UnitProperties;
       resolve(unitObject);
-      console.log(unitObject);
     } catch (e) {
-      console.log(e);
       //  return e;
       reject(e.message);
     }
@@ -146,7 +149,7 @@ function getUnitsForProduct(productId: string) {
       if (changeToObjectId) {
         units = app
           .objects(Schemas.UnitSchema.name)
-          .filtered("product_id = $0", changeToObjectId);
+          .filtered('product_id = $0', changeToObjectId);
       } else {
         return false;
       }
@@ -154,12 +157,13 @@ function getUnitsForProduct(productId: string) {
       let result = units.slice();
 
       let objArr: any[] = [];
-      result.forEach(obj => {
+      result.forEach((obj) => {
         let newObj = obj.toJSON() as UnitProperties;
         newObj.product_id = newObj.product_id.toHexString();
         newObj._id = newObj._id.toHexString();
         try {
           newObj.price = helpersFunc.transformToCurrencyString(newObj.price);
+          // newObj.bulk_size = parseInt(newObj.bulk_size);
         } catch (e) {}
         objArr.push(newObj);
       });
@@ -183,24 +187,24 @@ function getUnitsForProduct(productId: string) {
  * @param {number} pageSize - The size of page
  * @returns {Promise<unitsResponse>} returns the total unit count and entities
  */
-function getUnits(page = 1, pageSize = 10, searchQuery = "", type = "") {
+function getUnits(page = 1, pageSize = 10, searchQuery = '', type = '') {
   return new Promise<getUnitsResponse>((resolve, reject) => {
     try {
       let units: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
         units = app
           .objects(Schemas.UnitSchema.name)
           .filtered(query, searchQuery, type);
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
         units = app
           .objects(Schemas.UnitSchema.name)
           .filtered(query, searchQuery);
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = "cus_type == $0";
+        let query = 'cus_type == $0';
         units = app.objects(Schemas.UnitSchema.name).filtered(query, type);
       } else {
         units = app.objects(Schemas.UnitSchema.name);
@@ -212,7 +216,7 @@ function getUnits(page = 1, pageSize = 10, searchQuery = "", type = "") {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach(obj => {
+      result.forEach((obj) => {
         let newObj = obj.toJSON() as UnitProperties;
         let prodId = newObj.product_id.toHexString();
         let product = ProductAPI.getProductSync(prodId) as ProductProperties;
@@ -221,11 +225,10 @@ function getUnits(page = 1, pageSize = 10, searchQuery = "", type = "") {
         try {
           newObj.name = helperFuncs.transformStringToUpperCase(newObj.name);
           newObj.price = helperFuncs.transformToCurrencyString(newObj.price);
+          // newObj.bulk_size = parseInt(newObj.bulk_size);
         } catch (e) {}
         objArr.push(newObj);
       });
-
-      console.log(objArr);
 
       let paidArr = objArr.slice(partition.pageStart, partition.pageEnd);
       let totalCount = objArr.length;
@@ -248,8 +251,12 @@ function getUnits(page = 1, pageSize = 10, searchQuery = "", type = "") {
  */
 function updateUnit(unitForEdit: UnitProperties) {
   let unit = Object.assign({}, unitForEdit);
-  unit._id = mongoose.Types.ObjectId(unit._id);
+  console.log('API for Unit', unit);
   return new Promise<UnitProperties>((resolve, reject) => {
+    unit._id = mongoose.Types.ObjectId(unit._id);
+    unit.bulk_size = parseInt(unit.bulk_size);
+    unit.price = helpersFunc.removeSymbolFromNumber(unit.price);
+    unit.price = helpersFunc.transformRealmStringToNumber(unit.price);
     app.write(() => {
       try {
         let unitUpdate = app.create(
@@ -259,8 +266,12 @@ function updateUnit(unitForEdit: UnitProperties) {
         );
         let unitObject: UnitProperties = unitUpdate.toJSON();
         unitObject._id = unitObject._id.toHexString();
+        unitObject.price = helpersFunc.transformToCurrencyString(
+          unitObject.price
+        );
         resolve(unitObject);
       } catch (e) {
+        console.log(e);
         reject(e.message);
       }
     });
@@ -273,5 +284,5 @@ export default {
   getUnit,
   getUnits,
   getUnitSync,
-  updateUnit
+  updateUnit,
 };

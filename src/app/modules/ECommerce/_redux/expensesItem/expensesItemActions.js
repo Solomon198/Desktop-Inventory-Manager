@@ -1,26 +1,26 @@
-import * as requestFromServer from "./expensesItemCrud";
-import { expensesItemSlice, callTypes } from "./expensesItemSlice";
-import Queries from "../../../../../dist/realm/queries/index";
+import * as requestFromServer from './expensesItemCrud';
+import { expensesItemSlice, callTypes } from './expensesItemSlice';
+import Queries from '../../../../../dist/realm/queries/index';
 const { actions } = expensesItemSlice;
 const ExpenseItemAPI = Queries.ExpenseItemAPI;
 
-export const createExpenseItem = expenseItemForCreation => dispatch => {
+export const createExpenseItem = (expenseItemForCreation) => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return ExpenseItemAPI.createExpenseItem(expenseItemForCreation)
-    .then(expenseItem => {
+    .then((expenseItem) => {
       dispatch(actions.expenseItemCreated({ expenseItem }));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 
-export const fetchExpensesItem = queryParams => dispatch => {
+export const fetchExpensesItem = (queryParams) => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.list }));
 
   let { pageNumber, pageSize, filter } = queryParams;
   let { firstName, type } = filter;
-  let customerType = typeof type === "undefined" ? "" : type.toString();
+  let customerType = typeof type === 'undefined' ? '' : type.toString();
 
   return ExpenseItemAPI.getExpensesItem(
     pageNumber,
@@ -28,16 +28,16 @@ export const fetchExpensesItem = queryParams => dispatch => {
     firstName,
     customerType
   )
-    .then(expensesItem => {
+    .then((expensesItem) => {
       let { totalCount, entities } = expensesItem;
       dispatch(actions.expensesItemFetched({ totalCount, entities }));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(actions.catchError({ error, callType: callTypes.list }));
     });
 };
 
-export const fetchExpenseItem = id => dispatch => {
+export const fetchExpenseItem = (id) => (dispatch) => {
   if (!id) {
     return dispatch(
       actions.expenseItemFetched({ expenseItemForEdit: undefined })
@@ -47,44 +47,43 @@ export const fetchExpenseItem = id => dispatch => {
   dispatch(actions.startCall({ callType: callTypes.action }));
 
   return ExpenseItemAPI.getExpenseItem(id)
-    .then(expenseItem => {
+    .then((expenseItem) => {
       dispatch(actions.expenseItemFetched({ expenseItemForEdit: expenseItem }));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 
-export const deleteExpenseItem = id => dispatch => {
+export const deleteExpenseItem = (id) => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return ExpenseItemAPI.removeExpenseItem(id)
-    .then(result => {
+    .then((result) => {
       dispatch(actions.expenseItemDeleted({ id }));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 
-export const updateExpenseItem = expenseItem => dispatch => {
+export const updateExpenseItem = (expenseItem) => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return ExpenseItemAPI.updateExpenseItem(expenseItem)
-    .then(expenseItem => {
+    .then((expenseItem) => {
       dispatch(actions.expenseItemUpdated({ expenseItem }));
     })
-    .catch(error => {
-      console.log(error);
+    .catch((error) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 
-export const deleteExpensesItem = ids => dispatch => {
+export const deleteExpensesItem = (ids) => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return ExpenseItemAPI.removeExpensesItem(ids)
     .then(() => {
       dispatch(actions.expensesItemDeleted({ ids }));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };

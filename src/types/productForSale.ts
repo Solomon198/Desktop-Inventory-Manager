@@ -9,6 +9,7 @@ export type productForSaleProps = {
   totalAmount: string;
   product: string;
   unit: string;
+  date?: any;
 };
 
 export type ProductForSale = {

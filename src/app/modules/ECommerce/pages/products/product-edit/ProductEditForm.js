@@ -2,23 +2,23 @@
 // Data validation is based on Yup
 // Please, be familiar with article first:
 // https://hackernoon.com/react-form-validation-with-formik-and-yup-8b76bda62e10
-import React from "react";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
+import React from 'react';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 
 // Validation schema
 const ProductEditSchema = Yup.object().shape({
   product_name: Yup.string()
-    .min(2, "Minimum 2 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("Model is required")
+    .min(2, 'Minimum 2 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('Model is required'),
 });
 
 export function ProductEditForm({
   product,
   supplierEntities,
   btnRef,
-  saveProduct
+  saveProduct,
 }) {
   return (
     <>
@@ -26,7 +26,7 @@ export function ProductEditForm({
         enableReinitialize={true}
         initialValues={product}
         validationSchema={ProductEditSchema}
-        onSubmit={values => {
+        onSubmit={(values) => {
           saveProduct(values);
         }}
       >
@@ -37,7 +37,7 @@ export function ProductEditForm({
           handleChange,
           setFieldValue,
           errors,
-          touched
+          touched,
         }) => (
           <>
             <Form className="form form-label-right">
@@ -55,19 +55,20 @@ export function ProductEditForm({
                     <b>Product</b>
                   </small>
                   {errors.product_name && touched.product_name ? (
-                    <div style={{ color: "red" }}>{errors.product_name}</div>
+                    <div style={{ color: 'red' }}>{errors.product_name}</div>
                   ) : null}
                 </div>
                 <div className="col-lg-6">
                   <select
                     name="supplier_id"
                     className="form-control"
+                    value={values.supplier_id}
                     onBlur={handleBlur}
                     onChange={handleChange}
                   >
                     <option value="">Select Supplier</option>
                     {supplierEntities &&
-                      supplierEntities.map(entity => (
+                      supplierEntities.map((entity) => (
                         <option key={entity._id} value={entity._id}>
                           {entity.supplier_name}
                         </option>
@@ -86,7 +87,7 @@ export function ProductEditForm({
               </div>
               <button
                 type="submit"
-                style={{ display: "none" }}
+                style={{ display: 'none' }}
                 ref={btnRef}
                 onSubmit={() => handleSubmit()}
               ></button>

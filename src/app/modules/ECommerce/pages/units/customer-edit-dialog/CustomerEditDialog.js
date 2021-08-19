@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { Modal } from "react-bootstrap";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import * as actions from "../../../_redux/units/unitsActions";
-import { CustomerEditDialogHeader } from "./CustomerEditDialogHeader";
-import { CustomerEditForm } from "./CustomerEditForm";
-import { useCustomersUIContext } from "../CustomersUIContext";
-import helperFuns from "../../utils/helper.funcs";
+import React, { useState, useEffect, useMemo } from 'react';
+import { Modal } from 'react-bootstrap';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import * as actions from '../../../_redux/units/unitsActions';
+import { CustomerEditDialogHeader } from './CustomerEditDialogHeader';
+import { CustomerEditForm } from './CustomerEditForm';
+import { useCustomersUIContext } from '../CustomersUIContext';
+import helperFuns from '../../utils/helper.funcs';
 
 export function CustomerEditDialog({ id, show, onHide }) {
   // Create state for tabs
@@ -15,16 +15,16 @@ export function CustomerEditDialog({ id, show, onHide }) {
   const customersUIContext = useCustomersUIContext();
   const customersUIProps = useMemo(() => {
     return {
-      initUnit: customersUIContext.initUnit
+      initUnit: customersUIContext.initUnit,
     };
   }, [customersUIContext]);
 
   // Customers Redux state
   const dispatch = useDispatch();
   const { actionsLoading, unitForEdit } = useSelector(
-    state => ({
+    (state) => ({
       actionsLoading: state.units.actionsLoading,
-      unitForEdit: state.units.unitForEdit
+      unitForEdit: state.units.unitForEdit,
     }),
     shallowEqual
   );
@@ -37,13 +37,10 @@ export function CustomerEditDialog({ id, show, onHide }) {
   // server request for saving stock
   const saveUnit = (values, resetForm) => {
     if (!id) {
-      console.log(values);
-      // dispatch(stockActions.createStock(_saveStock));
       dispatch(actions.createUnit(values)).then(() => onHide());
-      resetForm({ values: "" });
+      resetForm({ values: '' });
     } else {
       let _newValues = Object.assign({}, values);
-      _newValues.price = parseInt(_newValues.price);
       // server request for updating stock
       dispatch(actions.updateUnit(_newValues)).then(() => onHide());
     }

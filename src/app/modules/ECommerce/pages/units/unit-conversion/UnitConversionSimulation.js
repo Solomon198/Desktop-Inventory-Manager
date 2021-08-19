@@ -1,5 +1,5 @@
-import React from "react";
-import { Modal } from "react-bootstrap";
+import React from 'react';
+import { Modal } from 'react-bootstrap';
 
 class UnitConversionSimulation extends React.Component {
   state = {
@@ -14,20 +14,20 @@ class UnitConversionSimulation extends React.Component {
     //mock database of Products and units mapping
     dataBase: {
       products: [
-        { id: 1, name: "Klin" },
-        { id: 2, name: "Sugar" },
-        { id: 5, name: "Maggi" }
+        { id: 1, name: 'Klin' },
+        { id: 2, name: 'Sugar' },
+        { id: 5, name: 'Maggi' },
       ],
 
       units: [
-        { id: 1, prodId: 1, name: "Pieces", bulkSize: 200, stock: 200 },
-        { id: 2, prodId: 1, name: "Carton", bulkSize: null, stock: 200 },
-        { id: 3, prodId: 2, name: "Sack", bulkSize: null, stock: 300 },
-        { id: 4, prodId: 2, name: "packet", bulkSize: 300, stock: 400 },
-        { id: 5, prodId: 5, name: "Sack", bulkSize: null, stock: 500 },
-        { id: 6, prodId: 5, name: "Packet", bulkSize: 200, stock: 200 }
-      ]
-    }
+        { id: 1, prodId: 1, name: 'Pieces', bulkSize: 200, stock: 200 },
+        { id: 2, prodId: 1, name: 'Carton', bulkSize: null, stock: 200 },
+        { id: 3, prodId: 2, name: 'Sack', bulkSize: null, stock: 300 },
+        { id: 4, prodId: 2, name: 'packet', bulkSize: 300, stock: 400 },
+        { id: 5, prodId: 5, name: 'Sack', bulkSize: null, stock: 500 },
+        { id: 6, prodId: 5, name: 'Packet', bulkSize: 200, stock: 200 },
+      ],
+    },
   };
 
   convert() {
@@ -75,7 +75,7 @@ class UnitConversionSimulation extends React.Component {
         parseInt(convertFrom.bulkSize) * this.state.convertToQty;
 
       // using map function to return the update database
-      const newUnits = this.state.dataBase.units.map(unit => {
+      const newUnits = this.state.dataBase.units.map((unit) => {
         // check if unit id is equal to convertFromId so that we can get the unit we want to deduct from
         if (unit.id === convertFrom.id) {
           // =>>>>>>>>>>>>>> if true
@@ -87,7 +87,7 @@ class UnitConversionSimulation extends React.Component {
             return unit; // we return the current element in the unit collection to map and continue iteration
           }
 
-          alert("You dont have sufficient stock"); // whenever the condition at the top doesnt hold it means for the specified unit we are out of stock !!!!
+          alert('You dont have sufficient stock'); // whenever the condition at the top doesnt hold it means for the specified unit we are out of stock !!!!
           return unit; // return unit still without any modification
         }
 
@@ -108,7 +108,7 @@ class UnitConversionSimulation extends React.Component {
         convertFrom: 0,
         convertTo: 0,
         showConvertFromQty: null,
-        showConvertToQty: null
+        showConvertToQty: null,
       });
     } else {
       // Conversely
@@ -118,7 +118,7 @@ class UnitConversionSimulation extends React.Component {
         parseInt(convertTo.bulkSize) * this.state.convertFromQty;
 
       // updating database using map
-      const newUnits = this.state.dataBase.units.map(unit => {
+      const newUnits = this.state.dataBase.units.map((unit) => {
         // we check to get unit to convertTo which is the unit with the bulkSize now
         if (unit.id === convertTo.id) {
           // if true
@@ -128,7 +128,7 @@ class UnitConversionSimulation extends React.Component {
             return unit; // return the unit
           }
 
-          alert("You dont have sufficient stock");
+          alert('You dont have sufficient stock');
           return unit;
         }
 
@@ -149,7 +149,7 @@ class UnitConversionSimulation extends React.Component {
         convertFrom: 0,
         convertTo: 0,
         showConvertFromQty: null,
-        showConvertToQty: null
+        showConvertToQty: null,
       });
     }
   }
@@ -163,7 +163,7 @@ class UnitConversionSimulation extends React.Component {
     if (!this.state.convertTo) {
       this.setState({
         convertFrom: unitId,
-        showConvertFromQty: unit.bulkSize ? false : true
+        showConvertFromQty: unit.bulkSize ? false : true,
       });
     } else {
       const convertTo = this.state.dataBase.units.find(
@@ -218,18 +218,19 @@ class UnitConversionSimulation extends React.Component {
       <Modal size="md" show={this.props.show} onHide={this.props.onHide}>
         <div className="UnitConversionSimulation" style={{ marginTop: 20 }}>
           {/* Select product first before seeing option for convertion */}
-          <div style={{ display: "flex" }}>
+          <div style={{ display: 'flex' }}>
             <div style={{ flexGrow: 1 }}>
               <div>
                 <p>Select product</p>
                 <select
                   value={this.state.selectedProduct}
                   style={{ width: 300, height: 30 }}
-                  onChange={e =>
+                  onChange={(e) =>
                     this.setState({ selectedProduct: e.target.value })
                   }
                 >
-                  {this.state.dataBase.products.map(product => (
+                  <option value="">Select Product</option>
+                  {this.state.dataBase.products.map((product) => (
                     <option value={product.id}>{product.name}</option>
                   ))}
                 </select>
@@ -241,12 +242,12 @@ class UnitConversionSimulation extends React.Component {
                     <p>Conver from </p>
                     <select
                       value={this.state.convertFrom}
-                      onChange={e => this.validateConvertFrom(e.target.value)}
+                      onChange={(e) => this.validateConvertFrom(e.target.value)}
                       style={{ width: 300, height: 30 }}
                     >
                       <option value={0}>Select Item</option>
                       {this.state.dataBase.units.map(
-                        unit =>
+                        (unit) =>
                           unit.prodId ===
                             parseInt(this.state.selectedProduct) && (
                             <option value={unit.id}>{unit.name}</option>
@@ -258,9 +259,9 @@ class UnitConversionSimulation extends React.Component {
                       <div>
                         <input
                           value={this.state.convertFromQty}
-                          onChange={e =>
+                          onChange={(e) =>
                             this.setState({
-                              convertFromQty: parseInt(e.target.value)
+                              convertFromQty: parseInt(e.target.value),
                             })
                           }
                           style={{ width: 300, height: 30, marginTop: 10 }}
@@ -275,13 +276,13 @@ class UnitConversionSimulation extends React.Component {
                     <p>Convert to</p>
                     <select
                       value={this.state.convertTo}
-                      onChange={e => this.validateConvertTo(e.target.value)}
+                      onChange={(e) => this.validateConvertTo(e.target.value)}
                       disabled={this.state.convertFrom ? false : true}
                       style={{ width: 300, height: 30 }}
                     >
                       <option value={0}>Select Item</option>
                       {this.state.dataBase.units.map(
-                        unit =>
+                        (unit) =>
                           unit.prodId ===
                             parseInt(this.state.selectedProduct) && (
                             <option value={unit.id}>{unit.name}</option>
@@ -292,9 +293,9 @@ class UnitConversionSimulation extends React.Component {
                       <div>
                         <input
                           value={this.state.convertToQty}
-                          onChange={e =>
+                          onChange={(e) =>
                             this.setState({
-                              convertToQty: parseInt(e.target.value)
+                              convertToQty: parseInt(e.target.value),
                             })
                           }
                           style={{ width: 300, height: 30, marginTop: 10 }}
@@ -316,11 +317,11 @@ class UnitConversionSimulation extends React.Component {
             <div style={{ flexGrow: 1 }}>
               <h1>Stock History</h1>
               <div>
-                {this.state.dataBase.products.map(product => (
+                {this.state.dataBase.products.map((product) => (
                   <>
                     <h4>{product.name} Stock</h4>
                     {this.state.dataBase.units.map(
-                      unit =>
+                      (unit) =>
                         unit.prodId === product.id && (
                           <p>
                             {unit.name} : {unit.stock}

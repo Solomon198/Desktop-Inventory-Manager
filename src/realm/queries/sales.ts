@@ -1,20 +1,27 @@
-import RealmApp from "../dbConfig/config";
-import * as mongoose from "mongoose";
-import Schemas from "../schemas/index";
-import { SaleProperties } from "../../types/sale";
-import { CustomerProperties } from "../../types/customer";
-import { UnitProperties } from "../../types/unit";
-import { productForSaleProps } from "../../types/productForSale";
-import helperFuncs from "../utils/helpers.func";
-import Realm from "realm";
-import CustomerAPI from "./customers";
-import UnitAPI from "./units";
+import RealmApp from '../dbConfig/config';
+import * as mongoose from 'mongoose';
+import Schemas from '../schemas/index';
+import { SaleProperties } from '../../types/sale';
+import { CustomerProperties } from '../../types/customer';
+import { ProductProperties } from '../../types/product';
+import { UnitProperties } from '../../types/unit';
+import { productForSaleProps } from '../../types/productForSale';
+import helperFuncs from '../utils/helpers.func';
+import Realm from 'realm';
+import CustomerAPI from './customers';
+import ProductAPI from './products';
+import UnitAPI from './units';
 
 const app = RealmApp();
 
 type getSalesResponse = {
   totalCount: number;
   entities: any[];
+};
+
+type getCustomerSalesHistory = {
+  customerId: any;
+  transaction_type: string;
 };
 
 /**
@@ -52,8 +59,9 @@ type getSalesResponse = {
  */
 
 function createSale(sale: SaleProperties) {
-  sale.products.forEach(val => {
+  sale.products.forEach((val) => {
     val._id = mongoose.Types.ObjectId();
+    val.productId = mongoose.Types.ObjectId(val.productId);
     val.unit_id = mongoose.Types.ObjectId(val.unit_id);
   });
   return new Promise<SaleProperties>((resolve, reject) => {
@@ -87,13 +95,13 @@ function createSale(sale: SaleProperties) {
           saleObject.customer_name = `${customer.first_name} ${customer.last_name}`;
           saleObject.customer_phone = `${customer.phone_no}`;
         } else {
-          saleObject.customer_name = "N/A";
-          saleObject.customer_phone = "N/A";
+          saleObject.customer_name = 'N/A';
+          saleObject.customer_phone = 'N/A';
         }
         saleObject._id = saleObject._id.toHexString();
         saleObject.customer_id = saleObject.customer_id.toHexString();
         try {
-          saleObject.products.forEach(obj => {
+          saleObject.products.forEach((obj) => {
             obj._id = obj._id.toHexString();
             obj.amount = helperFuncs.transformToCurrencyString(obj.amount);
             obj.totalAmount = helperFuncs.transformToCurrencyString(
@@ -103,7 +111,6 @@ function createSale(sale: SaleProperties) {
         } catch (e) {}
         resolve(saleObject);
       } catch (e) {
-        // console.log(e);
         reject(e.message);
       }
     });
@@ -130,7 +137,7 @@ function getSale(saleId: string) {
       saleObject._id = saleObject._id.toHexString();
       saleObject.customer_id = saleObject.customer_id.toHexString();
       try {
-        saleObject.products.forEach(obj => {
+        saleObject.products.forEach((obj) => {
           obj._id = obj._id.toHexString();
           obj.amount = helperFuncs.transformToCurrencyString(obj.amount);
           obj.totalAmount = helperFuncs.transformToCurrencyString(
@@ -145,8 +152,8 @@ function getSale(saleId: string) {
         saleObject.customer_name = `${customer.first_name} ${customer.last_name}`;
         saleObject.customer_phone = `${customer.phone_no}`;
       } else {
-        saleObject.customer_name = "N/A";
-        saleObject.customer_phone = "N/A";
+        saleObject.customer_name = 'N/A';
+        saleObject.customer_phone = 'N/A';
       }
       try {
         saleObject.date = helperFuncs.transformDateObjectToString(
@@ -170,6 +177,77 @@ function getSale(saleId: string) {
 }
 
 /**
+ * @description Get Sale by id
+ * @async
+ * @function getCustomerSalesHistory
+ * @param  {string} customerId - The ID(identity) of the customer
+ * @param {string} transaction_type - The sale transaction type
+ * @returns {Promise<salesResponse>} Returns the sale
+ */
+function getCustomerSalesHistory(
+  pageNumber = 1,
+  pageSize = 5,
+  customerId,
+  transaction_type
+) {
+  return new Promise<getSalesResponse>((resolve, reject) => {
+    mongoose.Types.ObjectId(customerId);
+    try {
+      let sales: Realm.Results<Realm.Object>;
+      let convertIdToObjectId = mongoose.Types.ObjectId(customerId);
+      let transactionType = transaction_type;
+
+      sales = app
+        .objects(Schemas.SaleSchema.name)
+        .filtered(
+          'customer_id = $0',
+          convertIdToObjectId,
+          'transaction_type = $0',
+          transactionType
+        );
+
+      let partition = helperFuncs.getPaginationPartition(pageNumber, pageSize);
+      let totalCount = sales.length;
+      let result = sales.slice(partition.pageStart, partition.pageEnd);
+
+      let objArr: any[] = [];
+
+      result.forEach((obj) => {
+        let newObj = obj.toJSON() as SaleProperties;
+        newObj._id = newObj._id.toHexString();
+        newObj.customer_id = newObj.customer_id.toHexString();
+        newObj.date = helperFuncs.transformDateObjectToString(newObj.date);
+
+        let createdDate = newObj.date;
+
+        let arrProducts: any[] = newObj.products;
+
+        arrProducts.forEach((productObj: productForSaleProps) => {
+          let _newObj = productObj as productForSaleProps;
+          _newObj._id = _newObj._id.toHexString();
+          _newObj.productId = _newObj.productId.toHexString();
+          _newObj.unit_id = _newObj.unit_id.toHexString();
+          _newObj.date = createdDate;
+
+          try {
+            _newObj.totalAmount = helperFuncs.transformToCurrencyString(
+              _newObj.totalAmount
+            );
+          } catch (e) {}
+          objArr.push(_newObj);
+        });
+      });
+
+      let response = { totalCount: totalCount, entities: objArr };
+
+      resolve(response);
+    } catch (e) {
+      reject(e.message);
+    }
+  });
+}
+
+/**
  * @description Get sales
  * @async
  * @function getSales
@@ -177,24 +255,24 @@ function getSale(saleId: string) {
  * @param {number} pageSize - The size of page
  * @returns {Promise<salesResponse>} returns the total sale count and entities
  */
-function getSales(page = 1, pageSize = 10, searchQuery = "", type = "") {
+function getSales(page = 1, pageSize = 10, searchQuery = '', type = '') {
   return new Promise<getSalesResponse>((resolve, reject) => {
     try {
       let sales: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
         sales = app
           .objects(Schemas.SaleSchema.name)
           .filtered(query, searchQuery, type);
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
         sales = app
           .objects(Schemas.SaleSchema.name)
           .filtered(query, searchQuery);
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = "cus_type == $0";
+        let query = 'cus_type == $0';
         sales = app.objects(Schemas.SaleSchema.name).filtered(query, type);
       } else {
         sales = app.objects(Schemas.SaleSchema.name);
@@ -206,7 +284,7 @@ function getSales(page = 1, pageSize = 10, searchQuery = "", type = "") {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach(obj => {
+      result.forEach((obj) => {
         let newObj = obj.toJSON() as SaleProperties;
         let cusId = newObj.customer_id.toHexString();
         let customer = CustomerAPI.getCustomerSync(cusId) as CustomerProperties;
@@ -227,7 +305,6 @@ function getSales(page = 1, pageSize = 10, searchQuery = "", type = "") {
         } catch (e) {}
         objArr.push(newObj);
       });
-      console.log("__________TOTAL SALES______________", objArr);
 
       let response = { totalCount: totalCount, entities: objArr };
 
@@ -246,24 +323,24 @@ function getSales(page = 1, pageSize = 10, searchQuery = "", type = "") {
  * @param {number} pageSize - The size of page
  * @returns {Promise<salesResponse>} returns the total saleForDebt count and entities
  */
-function getSalesForDebt(page = 1, pageSize = 10, searchQuery = "", type = "") {
+function getSalesForDebt(page = 1, pageSize = 10, searchQuery = '', type = '') {
   return new Promise<getSalesResponse>((resolve, reject) => {
     try {
       let sales: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
         sales = app
           .objects(Schemas.SaleSchema.name)
           .filtered(query, searchQuery, type);
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
         sales = app
           .objects(Schemas.SaleSchema.name)
           .filtered(query, searchQuery);
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = "cus_type == $0";
+        let query = 'cus_type == $0';
         sales = app.objects(Schemas.SaleSchema.name).filtered(query, type);
       } else {
         sales = app.objects(Schemas.SaleSchema.name);
@@ -275,15 +352,15 @@ function getSalesForDebt(page = 1, pageSize = 10, searchQuery = "", type = "") {
       let objArr: any[] = [];
 
       //converting to array of Object
-      result.forEach(obj => {
+      result.forEach((obj) => {
         let newObj = obj.toJSON() as SaleProperties;
         let cusId = newObj.customer_id.toHexString();
         let customer = CustomerAPI.getCustomerSync(cusId) as CustomerProperties;
         newObj._id = newObj._id.toHexString();
         newObj.customer_name =
-          typeof newObj.customer_name === "undefined"
+          typeof newObj.customer_name === 'undefined'
             ? `Quick Sale`
-            : customer.first_name + " " + customer.last_name;
+            : customer.first_name + ' ' + customer.last_name;
         newObj.customer_phone = customer.phone_no;
         try {
           newObj.date = helperFuncs.transformDateObjectToString(newObj.date);
@@ -305,97 +382,10 @@ function getSalesForDebt(page = 1, pageSize = 10, searchQuery = "", type = "") {
   });
 }
 
-// /**
-//  * @description Remove product by id
-//  * @async
-//  * @function removeProduct
-//  * @param  {string} saleId - The ID(identity) of the product
-//  * @returns {Promise<boolean>} Returns true or false if operation is successful
-//  */
-// function removeProduct(saleId: string) {
-//   return new Promise<boolean>((resolve, reject) => {
-//     try {
-//       let changeToObjectId = mongoose.Types.ObjectId(saleId);
-//       app.write(() => {
-//         let product = app.objectForPrimaryKey(
-//           Schemas.ProductSchema.name,
-//           changeToObjectId as ObjectId
-//         );
-//         app.delete(product);
-//         resolve(true);
-//       });
-//     } catch (e) {
-//       console.log(e);
-//       reject(e.message);
-//     }
-//   });
-// }
-
-// /**
-//  * @description Remove product by id
-//  * @async
-//  * @function removeProducts
-//  * @param  {string[]} productIds - The IDs(identities) of the products
-//  * @returns {Promise<boolean>} Returns true or false if operation is successful
-//  */
-// function removeProducts(productIds: string[]) {
-//   return new Promise<boolean>((resolve, reject) => {
-//     try {
-//       let changeToObjectIds: ObjectId[] = [];
-
-//       productIds.forEach((id) => {
-//         changeToObjectIds.push(mongoose.Types.ObjectId(id) as ObjectId);
-//       });
-
-//       app.write(() => {
-//         changeToObjectIds.forEach((id) => {
-//           let product = app.objectForPrimaryKey(Schemas.ProductSchema.name, id);
-//           app.delete(product);
-//         });
-
-//         resolve(true);
-//       });
-//     } catch (e) {
-//       console.log(e);
-//       reject(e.message);
-//     }
-//   });
-// }
-
-// /**
-//  * @description Update Product information
-//  * @async
-//  * @function updateProduct
-//  * @param  {...Product} product - the properties to be updated
-//  * @returns {Promise<Product>} returns the updated product Object
-//  */
-// function updateProduct(productForEdit: SaleProperties) {
-//   let product = Object.assign({}, productForEdit);
-//   product._id = mongoose.Types.ObjectId(product._id);
-//   return new Promise<SaleProperties>((resolve, reject) => {
-//     app.write(() => {
-//       try {
-//         let productUpdate = app.create(
-//           Schemas.ProductSchema.name,
-//           product,
-//           Realm.UpdateMode.Modified
-//         );
-//         let productObject: SaleProperties = productUpdate.toJSON();
-//         productObject._id = productObject._id.toHexString();
-//         resolve(productObject);
-//       } catch (e) {
-//         reject(e.message);
-//       }
-//     });
-//   });
-// }
-
 export default {
   createSale,
   getSale,
+  getCustomerSalesHistory,
   getSales,
-  getSalesForDebt
-  //   removeProduct,
-  //   removeProducts,
-  //   updateProduct,
+  getSalesForDebt,
 };

@@ -3,16 +3,15 @@ import React, {
   useState,
   useCallback,
   useContext,
-  createContext
-} from "react";
-import { shallowEqual, useSelector, useDispatch } from "react-redux";
-import { isEqual, isFunction } from "lodash";
-import * as actions from "../../../_redux/customers/customersActions";
-import { CustomerProfileAccount } from "./CustomerProfileAccount";
-import { CustomerProfileHeader } from "./CustomerProfileHeader";
-import { CustomerSalesHistory } from "./CustomerSalesHistory";
-import { CustomerSalesHistory2 } from "./CustomerSalesHistory2";
-import { initialFilter } from "./CustomerUIHelpers";
+  createContext,
+} from 'react';
+import { shallowEqual, useSelector, useDispatch } from 'react-redux';
+import { isEqual, isFunction } from 'lodash';
+import * as actions from '../../../_redux/customers/customersActions';
+import { CustomerProfileAccount } from './CustomerProfileAccount';
+import { CustomerProfileHeader } from './CustomerProfileHeader';
+import { CustomerSalesHistory } from './CustomerSalesHistory';
+import { CustomerSalesHistory2 } from './CustomerSalesHistory2';
 
 const CustomerUIContext = createContext();
 
@@ -23,22 +22,32 @@ export function useCustomerUIContext() {
 export function CustomerProfile({
   history,
   match: {
-    params: { id }
-  }
+    params: { id },
+  },
 }) {
+  const initialFilter = {
+    filter: {
+      product_name: '',
+    },
+    customerId: id,
+    transaction_type: '1',
+    sortOrder: 'asc', // asc||desc
+    sortField: 'id',
+    pageNumber: 1,
+    pageSize: 5,
+  };
   const [queryParams, setQueryParamsBase] = useState(initialFilter);
-  const [lang, setLang] = useState("en");
 
   const { actionsLoading, customerForEdit } = useSelector(
-    state => ({
+    (state) => ({
       actionsLoading: state.customers.actionsLoading,
-      customerForEdit: state.customers.customerForEdit
+      customerForEdit: state.customers.customerForEdit,
     }),
     shallowEqual
   );
 
-  const setQueryParams = useCallback(nextQueryParams => {
-    setQueryParamsBase(prevQueryParams => {
+  const setQueryParams = useCallback((nextQueryParams) => {
+    setQueryParamsBase((prevQueryParams) => {
       if (isFunction(nextQueryParams)) {
         nextQueryParams = nextQueryParams(prevQueryParams);
       }
@@ -55,7 +64,6 @@ export function CustomerProfile({
     queryParams,
     setQueryParamsBase,
     setQueryParams,
-    lang
   };
 
   const dispatch = useDispatch();

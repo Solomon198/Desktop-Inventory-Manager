@@ -1,15 +1,17 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
-import React, { useMemo } from "react";
-import BootstrapTable from "react-bootstrap-table-next";
+import React, { useEffect, useMemo } from 'react';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory, {
-  PaginationProvider
-} from "react-bootstrap-table2-paginator";
-import { Card } from "../../../../../../_metronic/_partials/controls";
-import { Pagination } from "../../../../../../_metronic/_partials/controls";
-import * as uiHelpers from "./CustomerUIHelpers";
-import { useCustomerUIContext } from "./CustomerProfile";
-import { getHandlerTableChangeForCustomer } from "../../../../../../_metronic/_helpers";
+  PaginationProvider,
+} from 'react-bootstrap-table2-paginator';
+import { Card } from '../../../../../../_metronic/_partials/controls';
+import { Pagination } from '../../../../../../_metronic/_partials/controls';
+import * as uiHelpers from './CustomerUIHelpers';
+import { useCustomerUIContext } from './CustomerProfile';
+import * as actions from '../../../_redux/sales/salesActions';
+import { getHandlerTableChangeForCustomer } from '../../../../../../_metronic/_helpers';
 
 export function CustomerSalesHistory2() {
   const customerUIContext = useCustomerUIContext();
@@ -17,65 +19,46 @@ export function CustomerSalesHistory2() {
     () => ({
       queryParams: customerUIContext.queryParams,
       setQueryParams: customerUIContext.setQueryParams,
-      lang: customerUIContext.lang
     }),
     [customerUIContext]
   );
 
-  const sales = [
-    {
-      id: 1,
-      product_name: "Golden Morn",
-      quantity: "18",
-      total_amount: "₦8,009.00",
-      date: "18th Aug, 2021"
-    },
-    {
-      id: 2,
-      product_name: "Corn Flakes",
-      quantity: "18",
-      total_amount: "₦8,009.00",
-      date: "18th Aug, 2021"
-    },
-    {
-      id: 3,
-      product_name: "Cocoa Pops",
-      quantity: "18",
-      total_amount: "₦8,009.00",
-      date: "18th Aug, 2021"
-    },
-    {
-      id: 4,
-      product_name: "Youghurt",
-      quantity: "18",
-      total_amount: "₦8,009.00",
-      date: "18th Aug, 2021"
-    },
-    {
-      id: 5,
-      product_name: "Cream Salad",
-      quantity: "18",
-      total_amount: "₦8,009.00",
-      date: "18th Aug, 2021"
-    }
-  ];
+  const { currentState } = useSelector(
+    (state) => ({
+      currentState: state.sales,
+    }),
+    shallowEqual
+  );
+
+  const { entities, totalCount } = currentState;
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(actions.fetchSalesHistoryForCustomer(customerUIProps.queryParams));
+  }, [customerUIProps.queryParams, dispatch]);
+
   const columns = [
     {
-      dataField: "product_name",
-      text: "Product"
+      dataField: 'product',
+      text: 'Product',
     },
     {
-      dataField: "quantity",
-      text: "Quantity"
+      dataField: 'quantity',
+      text: 'Quantity',
     },
     {
-      dataField: "total_amount",
-      text: "Total Amount"
+      dataField: 'unit',
+      text: 'Unit',
     },
     {
-      dataField: "date",
-      text: "Date"
-    }
+      dataField: 'totalAmount',
+      text: 'Total Amount',
+    },
+    {
+      dataField: 'date',
+      text: 'Date',
+    },
     // {
     //   dataField: 'action',
     //   text: 'Actions',
@@ -97,10 +80,10 @@ export function CustomerSalesHistory2() {
   // Table Pagination Properties
   const paginationOptions = {
     custom: true,
-    totalSize: sales.length,
+    totalSize: totalCount,
     sizePerPageList: uiHelpers.sizePerPageList,
     sizePerPage: uiHelpers.initialFilter.pageSize,
-    page: uiHelpers.initialFilter.pageNumber
+    page: uiHelpers.initialFilter.pageNumber,
   };
 
   return (
@@ -129,7 +112,7 @@ export function CustomerSalesHistory2() {
                     bootstrap4
                     remote
                     keyField="id"
-                    data={sales}
+                    data={entities === null ? [] : entities}
                     columns={columns}
                     onTableChange={getHandlerTableChangeForCustomer(
                       customerUIProps.setQueryParams
