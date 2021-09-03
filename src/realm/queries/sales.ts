@@ -1,16 +1,16 @@
-import RealmApp from '../dbConfig/config';
-import * as mongoose from 'mongoose';
-import Schemas from '../schemas/index';
-import { SaleProperties } from '../../types/sale';
-import { CustomerProperties } from '../../types/customer';
-import { ProductProperties } from '../../types/product';
-import { UnitProperties } from '../../types/unit';
-import { productForSaleProps } from '../../types/productForSale';
-import helperFuncs from '../utils/helpers.func';
-import Realm from 'realm';
-import CustomerAPI from './customers';
-import ProductAPI from './products';
-import UnitAPI from './units';
+import RealmApp from "../dbConfig/config";
+import * as mongoose from "mongoose";
+import Schemas from "../schemas/index";
+import { SaleProperties } from "../../types/sale";
+import { CustomerProperties } from "../../types/customer";
+import { ProductProperties } from "../../types/product";
+import { UnitProperties } from "../../types/unit";
+import { productForSaleProps } from "../../types/productForSale";
+import helperFuncs from "../utils/helpers.func";
+import Realm from "realm";
+import CustomerAPI from "./customers";
+import ProductAPI from "./products";
+import UnitAPI from "./units";
 
 const app = RealmApp();
 
@@ -59,7 +59,7 @@ type getCustomerSalesHistory = {
  */
 
 function createSale(sale: SaleProperties) {
-  sale.products.forEach((val) => {
+  sale.products.forEach(val => {
     val._id = mongoose.Types.ObjectId();
     val.productId = mongoose.Types.ObjectId(val.productId);
     val.unit_id = mongoose.Types.ObjectId(val.unit_id);
@@ -78,7 +78,7 @@ function createSale(sale: SaleProperties) {
     // sale.part_payment = helperFuncs.transformRealmStringToNumber(
     //   sale.part_payment
     // );
-    console.log('Created sales', sale);
+    console.log("Created sales", sale);
 
     app.write(() => {
       try {
@@ -100,8 +100,8 @@ function createSale(sale: SaleProperties) {
           saleObject.customer_name = `${customer.first_name} ${customer.last_name}`;
           saleObject.customer_phone = `${customer.phone_no}`;
         } else {
-          saleObject.customer_name = 'N/A';
-          saleObject.customer_phone = 'N/A';
+          saleObject.customer_name = "N/A";
+          saleObject.customer_phone = "N/A";
         }
         saleObject._id = saleObject._id.toHexString();
         saleObject.customer_id = saleObject.customer_id.toHexString();
@@ -112,7 +112,7 @@ function createSale(sale: SaleProperties) {
           saleObject.outstanding
         );
         try {
-          saleObject.products.forEach((obj) => {
+          saleObject.products.forEach(obj => {
             obj._id = obj._id.toHexString();
             obj.amount = helperFuncs.transformToCurrencyString(obj.amount);
             obj.totalAmount = helperFuncs.transformToCurrencyString(
@@ -121,7 +121,7 @@ function createSale(sale: SaleProperties) {
           });
         } catch (e) {}
         resolve(saleObject);
-        console.log('Resolved Sale', saleObject);
+        console.log("Resolved Sale", saleObject);
       } catch (e) {
         reject(e.message);
         console.log(e);
@@ -150,7 +150,7 @@ function getSale(saleId: string) {
       saleObject._id = saleObject._id.toHexString();
       saleObject.customer_id = saleObject.customer_id.toHexString();
       try {
-        saleObject.products.forEach((obj) => {
+        saleObject.products.forEach(obj => {
           obj._id = obj._id.toHexString();
           obj.amount = helperFuncs.transformToCurrencyString(obj.amount);
           obj.totalAmount = helperFuncs.transformToCurrencyString(
@@ -165,8 +165,8 @@ function getSale(saleId: string) {
         saleObject.customer_name = `${customer.first_name} ${customer.last_name}`;
         saleObject.customer_phone = `${customer.phone_no}`;
       } else {
-        saleObject.customer_name = 'N/A';
-        saleObject.customer_phone = 'N/A';
+        saleObject.customer_name = "N/A";
+        saleObject.customer_phone = "N/A";
       }
       try {
         saleObject.date = helperFuncs.transformDateObjectToString(
@@ -197,7 +197,7 @@ function getSale(saleId: string) {
  * @returns {Promise<salesResponse>} Returns the sale
  */
 function getCustomerSalesHistory(pageNumber = 1, pageSize = 5, customerId) {
-  console.log('CustomerID', customerId);
+  console.log("CustomerID", customerId);
   return new Promise<getSalesResponse>((resolve, reject) => {
     mongoose.Types.ObjectId(customerId);
     try {
@@ -206,7 +206,7 @@ function getCustomerSalesHistory(pageNumber = 1, pageSize = 5, customerId) {
 
       sales = app
         .objects(Schemas.SaleSchema.name)
-        .filtered('customer_id = $0', convertIdToObjectId);
+        .filtered("customer_id = $0", convertIdToObjectId);
 
       let partition = helperFuncs.getPaginationPartition(pageNumber, pageSize);
       let totalCount = sales.length;
@@ -214,9 +214,9 @@ function getCustomerSalesHistory(pageNumber = 1, pageSize = 5, customerId) {
 
       let objArr: any[] = [];
 
-      result.forEach((obj) => {
+      result.forEach(obj => {
         let newObj = obj.toJSON() as SaleProperties;
-        if (newObj.transaction_type === '1' && !newObj.outstanding) {
+        if (newObj.transaction_type === "1" && !newObj.outstanding) {
           newObj._id = newObj._id.toHexString();
           newObj.customer_id = newObj.customer_id.toHexString();
           newObj.date = helperFuncs.transformDateObjectToString(newObj.date);
@@ -273,7 +273,7 @@ function getCustomerDebtsHistory(pageNumber = 1, pageSize = 5, customerId) {
 
       sales = app
         .objects(Schemas.SaleSchema.name)
-        .filtered('customer_id = $0', convertIdToObjectId);
+        .filtered("customer_id = $0", convertIdToObjectId);
 
       let partition = helperFuncs.getPaginationPartition(pageNumber, pageSize);
       let totalCount = sales.length;
@@ -281,9 +281,9 @@ function getCustomerDebtsHistory(pageNumber = 1, pageSize = 5, customerId) {
 
       let objArr: any[] = [];
 
-      result.forEach((obj) => {
+      result.forEach(obj => {
         let newObj = obj.toJSON() as SaleProperties;
-        if (newObj.transaction_type === '2') {
+        if (newObj.transaction_type === "2") {
           newObj._id = newObj._id.toHexString();
           newObj.customer_id = newObj.customer_id.toHexString();
           newObj.date = helperFuncs.transformDateObjectToString(newObj.date);
@@ -337,24 +337,24 @@ function getCustomerDebtsHistory(pageNumber = 1, pageSize = 5, customerId) {
  * @param {number} pageSize - The size of page
  * @returns {Promise<salesResponse>} returns the total sale count and entities
  */
-function getSales(page = 1, pageSize = 10, searchQuery = '', type = '') {
+function getSales(page = 1, pageSize = 10, searchQuery = "", type = "") {
   return new Promise<getSalesResponse>((resolve, reject) => {
     try {
       let sales: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
+          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1";
         sales = app
           .objects(Schemas.SaleSchema.name)
           .filtered(query, searchQuery, type);
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
+          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
         sales = app
           .objects(Schemas.SaleSchema.name)
           .filtered(query, searchQuery);
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = 'cus_type == $0';
+        let query = "cus_type == $0";
         sales = app.objects(Schemas.SaleSchema.name).filtered(query, type);
       } else {
         sales = app.objects(Schemas.SaleSchema.name);
@@ -366,7 +366,7 @@ function getSales(page = 1, pageSize = 10, searchQuery = '', type = '') {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach((obj) => {
+      result.forEach(obj => {
         let newObj = obj.toJSON() as SaleProperties;
         let cusId = newObj.customer_id.toHexString();
         let customer = CustomerAPI.getCustomerSync(cusId) as CustomerProperties;
@@ -397,7 +397,7 @@ function getSales(page = 1, pageSize = 10, searchQuery = '', type = '') {
       let response = { totalCount: totalCount, entities: objArr };
 
       resolve(response);
-      console.log('All sales', objArr);
+      console.log("All sales", objArr);
     } catch (e) {
       reject(e.message);
       console.log(e);
@@ -413,24 +413,24 @@ function getSales(page = 1, pageSize = 10, searchQuery = '', type = '') {
  * @param {number} pageSize - The size of page
  * @returns {Promise<salesResponse>} returns the total saleForDebt count and entities
  */
-function getSalesForDebt(page = 1, pageSize = 10, searchQuery = '', type = '') {
+function getSalesForDebt(page = 1, pageSize = 10, searchQuery = "", type = "") {
   return new Promise<getSalesResponse>((resolve, reject) => {
     try {
       let sales: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
+          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1";
         sales = app
           .objects(Schemas.SaleSchema.name)
           .filtered(query, searchQuery, type);
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
+          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
         sales = app
           .objects(Schemas.SaleSchema.name)
           .filtered(query, searchQuery);
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = 'cus_type == $0';
+        let query = "cus_type == $0";
         sales = app.objects(Schemas.SaleSchema.name).filtered(query, type);
       } else {
         sales = app.objects(Schemas.SaleSchema.name);
@@ -442,9 +442,9 @@ function getSalesForDebt(page = 1, pageSize = 10, searchQuery = '', type = '') {
       let objArr: any[] = [];
 
       //converting to array of Object
-      result.forEach((obj) => {
+      result.forEach(obj => {
         let newObj = obj.toJSON() as SaleProperties;
-        if (newObj.transaction_type === '2') {
+        if (newObj.transaction_type === "2") {
           let cusId = newObj.customer_id.toHexString();
           let customer = CustomerAPI.getCustomerSync(
             cusId
@@ -492,5 +492,5 @@ export default {
   getCustomerSalesHistory,
   getCustomerDebtsHistory,
   getSales,
-  getSalesForDebt,
+  getSalesForDebt
 };

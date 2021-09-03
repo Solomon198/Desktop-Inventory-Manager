@@ -1,2 +1,2 @@
 // TODO: Rename all formatters
-export { ActionsColumnFormatter } from './ActionsColumnFormatter';
+export { ActionsColumnFormatter } from "./ActionsColumnFormatter";

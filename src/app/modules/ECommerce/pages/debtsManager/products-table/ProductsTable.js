@@ -1,24 +1,24 @@
 // React bootstrap table next =>
 // DOCS: https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/
 // STORYBOOK: https://react-bootstrap-table.github.io/react-bootstrap-table2/storybook/index.html
-import React, { useEffect, useMemo } from 'react';
-import BootstrapTable from 'react-bootstrap-table-next';
+import React, { useEffect, useMemo } from "react";
+import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory, {
-  PaginationProvider,
-} from 'react-bootstrap-table2-paginator';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import * as actions from '../../../_redux/sales/salesActions';
-import * as uiHelpers from '../ProductsUIHelpers';
+  PaginationProvider
+} from "react-bootstrap-table2-paginator";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as actions from "../../../_redux/sales/salesActions";
+import * as uiHelpers from "../ProductsUIHelpers";
 import {
   getSelectRow,
   getHandlerTableChange,
   NoRecordsFoundMessage,
   PleaseWaitMessage,
-  sortCaret,
-} from '../../../../../../_metronic/_helpers';
-import * as columnFormatters from './column-formatters';
-import { Pagination } from '../../../../../../_metronic/_partials/controls';
-import { useSalesUIContext } from '../ProductsUIContext';
+  sortCaret
+} from "../../../../../../_metronic/_helpers";
+import * as columnFormatters from "./column-formatters";
+import { Pagination } from "../../../../../../_metronic/_partials/controls";
+import { useSalesUIContext } from "../ProductsUIContext";
 
 export function ProductsTable() {
   // Products UI Context
@@ -32,13 +32,13 @@ export function ProductsTable() {
       queryParams: salesUIContext.queryParams,
       setQueryParams: salesUIContext.setQueryParams,
       openEditSalePage: salesUIContext.openEditSalePage,
-      openDeleteSaleDialog: salesUIContext.openDeleteSaleDialog,
+      openDeleteSaleDialog: salesUIContext.openDeleteSaleDialog
     };
   }, [salesUIContext]);
 
   // Getting curret state of sales list from store (Redux)
   const { currentState } = useSelector(
-    (state) => ({ currentState: state.sales }),
+    state => ({ currentState: state.sales }),
     shallowEqual
   );
   const { totalCount, entities, listLoading } = currentState;
@@ -55,34 +55,34 @@ export function ProductsTable() {
   // Table columns
   const columns = [
     {
-      dataField: 'customer_name',
-      text: 'Customer',
+      dataField: "customer_name",
+      text: "Customer",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
-      dataField: 'customer_phone',
-      text: 'Phone Number',
+      dataField: "customer_phone",
+      text: "Phone Number",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
-      dataField: 'total_amount',
-      text: 'Total Amount',
+      dataField: "total_amount",
+      text: "Total Amount",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
-      dataField: 'part_payment',
-      text: 'Part Payment',
+      dataField: "part_payment",
+      text: "Part Payment",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
-      dataField: 'outstanding',
-      text: 'Outstanding',
+      dataField: "outstanding",
+      text: "Outstanding",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     // {
     //   dataField: "status",
@@ -92,27 +92,27 @@ export function ProductsTable() {
     //   formatter: columnFormatters.StatusColumnFormatter
     // },
     {
-      dataField: 'date',
-      text: 'Date',
+      dataField: "date",
+      text: "Date",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
-      dataField: 'action',
-      text: 'Actions',
+      dataField: "action",
+      text: "Actions",
       formatter: columnFormatters.ActionsColumnFormatter,
       formatExtraData: {
         openEditSalePage: salesUIProps.openEditSalePage,
         openDeleteSaleDialog: salesUIProps.openDeleteSaleDialog,
         customerInvoice: salesUIProps.customerInvoice,
-        setCustomerInvoice: salesUIProps.setCustomerInvoice,
+        setCustomerInvoice: salesUIProps.setCustomerInvoice
       },
-      classes: 'text-right pr-0',
-      headerClasses: 'text-right pr-3',
+      classes: "text-right pr-0",
+      headerClasses: "text-right pr-3",
       style: {
-        minWidth: '100px',
-      },
-    },
+        minWidth: "100px"
+      }
+    }
   ];
   // Table pagination properties
   const paginationOptions = {
@@ -120,7 +120,7 @@ export function ProductsTable() {
     totalSize: totalCount,
     sizePerPageList: uiHelpers.sizePerPageList,
     sizePerPage: salesUIProps.queryParams.pageSize,
-    page: salesUIProps.queryParams.pageNumber,
+    page: salesUIProps.queryParams.pageNumber
   };
   return (
     <>

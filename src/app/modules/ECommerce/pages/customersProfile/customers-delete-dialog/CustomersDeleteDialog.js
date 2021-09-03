@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo } from 'react';
-import { Modal } from 'react-bootstrap';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import * as actions from '../../../_redux/customers/customersActions';
-import { useCustomersUIContext } from '../CustomersUIContext';
-import { ModalProgressBar } from '../../../../../../_metronic/_partials/controls';
-import { setSnackbar } from '../../../_redux/snackbar/snackbarActions';
+import React, { useEffect, useMemo } from "react";
+import { Modal } from "react-bootstrap";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as actions from "../../../_redux/customers/customersActions";
+import { useCustomersUIContext } from "../CustomersUIContext";
+import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
+import { setSnackbar } from "../../../_redux/snackbar/snackbarActions";
 
 export function CustomersDeleteDialog({ show, onHide }) {
   // Customers UI Context
@@ -13,16 +13,16 @@ export function CustomersDeleteDialog({ show, onHide }) {
     return {
       ids: customersUIContext.ids,
       setIds: customersUIContext.setIds,
-      queryParams: customersUIContext.queryParams,
+      queryParams: customersUIContext.queryParams
     };
   }, [customersUIContext]);
 
   // Customers Redux state
   const dispatch = useDispatch();
   const { isLoading, error } = useSelector(
-    (state) => ({
+    state => ({
       isLoading: state.customers.actionsLoading,
-      error: state.customers.error,
+      error: state.customers.error
     }),
     shallowEqual
   );
@@ -50,13 +50,13 @@ export function CustomersDeleteDialog({ show, onHide }) {
           onHide();
           dispatch(
             setSnackbar({
-              status: !error ? 'success' : 'error',
+              status: !error ? "success" : "error",
               message: (
-                <p style={{ fontSize: '16px' }}>
+                <p style={{ fontSize: "16px" }}>
                   Customers deleted successfully!
                 </p>
               ),
-              show: true,
+              show: true
             })
           );
         }

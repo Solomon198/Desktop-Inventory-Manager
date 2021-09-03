@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo } from 'react';
-import { Modal } from 'react-bootstrap';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { ModalProgressBar } from '../../../../../../_metronic/_partials/controls';
-import * as actions from '../../../_redux/expenses/expensesActions';
-import { useCustomersUIContext } from '../CustomersUIContext';
-import { setSnackbar } from '../../../_redux/snackbar/snackbarActions';
+import React, { useEffect, useMemo } from "react";
+import { Modal } from "react-bootstrap";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
+import * as actions from "../../../_redux/expenses/expensesActions";
+import { useCustomersUIContext } from "../CustomersUIContext";
+import { setSnackbar } from "../../../_redux/snackbar/snackbarActions";
 
 export function CustomerDeleteDialog({ id, show, onHide }) {
   // Customers UI Context
@@ -12,16 +12,16 @@ export function CustomerDeleteDialog({ id, show, onHide }) {
   const customersUIProps = useMemo(() => {
     return {
       setIds: customersUIContext.setIds,
-      queryParams: customersUIContext.queryParams,
+      queryParams: customersUIContext.queryParams
     };
   }, [customersUIContext]);
 
   // Customers Redux state
   const dispatch = useDispatch();
   const { isLoading, error } = useSelector(
-    (state) => ({
+    state => ({
       isLoading: state.expenses.actionsLoading,
-      error: state.expenses.error,
+      error: state.expenses.error
     }),
     shallowEqual
   );
@@ -49,11 +49,11 @@ export function CustomerDeleteDialog({ id, show, onHide }) {
       // show snackbar message
       dispatch(
         setSnackbar({
-          status: !error ? 'success' : 'error',
+          status: !error ? "success" : "error",
           message: (
-            <p style={{ fontSize: '16px' }}>Expense deleted successfully!</p>
+            <p style={{ fontSize: "16px" }}>Expense deleted successfully!</p>
           ),
-          show: true,
+          show: true
         })
       );
     });

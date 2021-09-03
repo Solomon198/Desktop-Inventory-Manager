@@ -1,26 +1,26 @@
 // React bootstrap table next =>
 // DOCS: https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/
 // STORYBOOK: https://react-bootstrap-table.github.io/react-bootstrap-table2/storybook/index.html
-import React, { useEffect, useMemo } from 'react';
-import BootstrapTable from 'react-bootstrap-table-next';
+import React, { useEffect, useMemo } from "react";
+import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory, {
-  PaginationProvider,
-} from 'react-bootstrap-table2-paginator';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import * as actions from '../../../_redux/sales/salesActions';
-import { Card } from '../../../../../../_metronic/_partials/controls';
+  PaginationProvider
+} from "react-bootstrap-table2-paginator";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as actions from "../../../_redux/sales/salesActions";
+import { Card } from "../../../../../../_metronic/_partials/controls";
 import {
   getSelectRow,
   getHandlerTableChange,
   NoRecordsFoundMessage,
   PleaseWaitMessage,
   sortCaret,
-  headerSortingClasses,
-} from '../../../../../../_metronic/_helpers';
-import * as uiHelpers from '../CustomersUIHelpers';
-import * as columnFormatters from './column-formatters';
-import { Pagination } from '../../../../../../_metronic/_partials/controls';
-import { useCustomersUIContext } from '../CustomersUIContext';
+  headerSortingClasses
+} from "../../../../../../_metronic/_helpers";
+import * as uiHelpers from "../CustomersUIHelpers";
+import * as columnFormatters from "./column-formatters";
+import { Pagination } from "../../../../../../_metronic/_partials/controls";
+import { useCustomersUIContext } from "../CustomersUIContext";
 
 export function CustomerDebtHistoryItems({ customerId }) {
   // Customers UI Context
@@ -36,14 +36,14 @@ export function CustomerDebtHistoryItems({ customerId }) {
       openEditCustomerDialog: customersUIContext.openEditCustomerDialog,
       openDeleteCustomerDialog: customersUIContext.openDeleteCustomerDialog,
       viewCustomerProfileButtonClick:
-        customersUIContext.viewCustomerProfileButtonClick,
+        customersUIContext.viewCustomerProfileButtonClick
     };
   }, [customersUIContext]);
 
   // Getting curret state of customers list from store (Redux)
   const { currentState } = useSelector(
-    (state) => ({
-      currentState: state.sales,
+    state => ({
+      currentState: state.sales
     }),
     shallowEqual
   );
@@ -59,41 +59,41 @@ export function CustomerDebtHistoryItems({ customerId }) {
         customerId
       )
     );
-  }, [customersUIProps.queryParams, dispatch]);
+  }, [customerId, customersUIProps.queryParams, dispatch]);
   // Table columns
   const columns = [
     {
-      dataField: 'total_amount',
-      text: 'Total Amount',
+      dataField: "total_amount",
+      text: "Total Amount"
     },
     {
-      dataField: 'part_payment',
-      text: 'Part Payment',
+      dataField: "part_payment",
+      text: "Part Payment"
     },
     {
-      dataField: 'outstanding',
-      text: 'Outstanding',
+      dataField: "outstanding",
+      text: "Outstanding"
     },
     {
-      dataField: 'date',
-      text: 'Date',
+      dataField: "date",
+      text: "Date"
     },
     {
-      dataField: 'action',
-      text: 'Actions',
+      dataField: "action",
+      text: "Actions",
       formatter: columnFormatters.ActionsColumnFormatter,
       formatExtraData: {
         // openEditCustomerDialog: customersUIProps.openEditCustomerDialog,
         // openDeleteCustomerDialog: customersUIProps.openDeleteCustomerDialog,
         viewCustomerProfileButtonClick:
-          customersUIProps.viewCustomerProfileButtonClick,
+          customersUIProps.viewCustomerProfileButtonClick
       },
-      classes: 'text-right pr-0',
-      headerClasses: 'text-right pr-3',
+      classes: "text-right pr-0",
+      headerClasses: "text-right pr-3",
       style: {
-        minWidth: '100px',
-      },
-    },
+        minWidth: "100px"
+      }
+    }
   ];
   // Table pagination properties
   const paginationOptions = {
@@ -101,7 +101,7 @@ export function CustomerDebtHistoryItems({ customerId }) {
     totalSize: totalDebtCount,
     sizePerPageList: uiHelpers.sizePerPageList,
     sizePerPage: customersUIProps.queryParams.pageSize,
-    page: customersUIProps.queryParams.pageNumber,
+    page: customersUIProps.queryParams.pageNumber
   };
 
   return (

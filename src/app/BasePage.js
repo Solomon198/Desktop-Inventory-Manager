@@ -1,26 +1,26 @@
-import React, { Suspense, lazy } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Redirect, Switch, Route } from 'react-router-dom';
-import { LayoutSplashScreen, ContentRoute } from '../_metronic/layout';
-import { BuilderPage } from './pages/BuilderPage';
-import { MyPage } from './pages/MyPage';
-import { DashboardPage } from './pages/DashboardPage';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-import { makeStyles } from '@material-ui/core/styles';
-import { setSnackbar } from './modules/ECommerce/_redux/snackbar/snackbarActions';
+import React, { Suspense, lazy } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Redirect, Switch, Route } from "react-router-dom";
+import { LayoutSplashScreen, ContentRoute } from "../_metronic/layout";
+import { BuilderPage } from "./pages/BuilderPage";
+import { MyPage } from "./pages/MyPage";
+import { DashboardPage } from "./pages/DashboardPage";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import { makeStyles } from "@material-ui/core/styles";
+import { setSnackbar } from "./modules/ECommerce/_redux/snackbar/snackbarActions";
 
 const GoogleMaterialPage = lazy(() =>
-  import('./modules/GoogleMaterialExamples/GoogleMaterialPage')
+  import("./modules/GoogleMaterialExamples/GoogleMaterialPage")
 );
 const ReactBootstrapPage = lazy(() =>
-  import('./modules/ReactBootstrapExamples/ReactBootstrapPage')
+  import("./modules/ReactBootstrapExamples/ReactBootstrapPage")
 );
 const ECommercePage = lazy(() =>
-  import('./modules/ECommerce/pages/eCommercePage')
+  import("./modules/ECommerce/pages/eCommercePage")
 );
 const UserProfilepage = lazy(() =>
-  import('./modules/UserProfile/UserProfilePage')
+  import("./modules/UserProfile/UserProfilePage")
 );
 
 function Alert(props) {
@@ -29,10 +29,10 @@ function Alert(props) {
 
 export default function BasePage() {
   const { snackbarStatus, snackbarMessage, snackbarShow } = useSelector(
-    (state) => ({
+    state => ({
       snackbarStatus: state.snackbar.snackbarStatus,
       snackbarMessage: state.snackbar.snackbarMessage,
-      snackbarShow: state.snackbar.snackbarShow,
+      snackbarShow: state.snackbar.snackbarShow
     })
   );
   const dispatch = useDispatch();
@@ -46,11 +46,11 @@ export default function BasePage() {
       <Snackbar
         open={snackbarShow}
         autoHideDuration={6000}
-        onClose={() => dispatch(setSnackbar({ show: false, message: '' }))}
+        onClose={() => dispatch(setSnackbar({ show: false, message: "" }))}
       >
         <Alert
-          onClose={() => dispatch(setSnackbar({ show: true, message: '' }))}
-          severity={snackbarStatus || 'success'}
+          onClose={() => dispatch(setSnackbar({ show: true, message: "" }))}
+          severity={snackbarStatus || "success"}
         >
           {snackbarMessage}
         </Alert>

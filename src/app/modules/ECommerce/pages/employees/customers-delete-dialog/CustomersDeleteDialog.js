@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo } from 'react';
-import { Modal } from 'react-bootstrap';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import * as actions from '../../../_redux/employees/employeesActions';
-import { useEmployeesUIContext } from '../CustomersUIContext';
-import { ModalProgressBar } from '../../../../../../_metronic/_partials/controls';
-import { setSnackbar } from '../../../_redux/snackbar/snackbarActions';
+import React, { useEffect, useMemo } from "react";
+import { Modal } from "react-bootstrap";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as actions from "../../../_redux/employees/employeesActions";
+import { useEmployeesUIContext } from "../CustomersUIContext";
+import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
+import { setSnackbar } from "../../../_redux/snackbar/snackbarActions";
 
 export function EmployeesDeleteDialog({ show, onHide }) {
   // Employees UI Context
@@ -13,16 +13,16 @@ export function EmployeesDeleteDialog({ show, onHide }) {
     return {
       ids: employeesUIContext.ids,
       setIds: employeesUIContext.setIds,
-      queryParams: employeesUIContext.queryParams,
+      queryParams: employeesUIContext.queryParams
     };
   }, [employeesUIContext]);
 
   // Customers Redux state
   const dispatch = useDispatch();
   const { isLoading, error } = useSelector(
-    (state) => ({
+    state => ({
       isLoading: state.employees.actionsLoading,
-      error: state.employees.error,
+      error: state.employees.error
     }),
     shallowEqual
   );
@@ -51,13 +51,13 @@ export function EmployeesDeleteDialog({ show, onHide }) {
           // show snackbar message
           dispatch(
             setSnackbar({
-              status: !error ? 'success' : 'error',
+              status: !error ? "success" : "error",
               message: (
-                <p style={{ fontSize: '16px' }}>
+                <p style={{ fontSize: "16px" }}>
                   Employees deleted successfully!
                 </p>
               ),
-              show: true,
+              show: true
             })
           );
         }

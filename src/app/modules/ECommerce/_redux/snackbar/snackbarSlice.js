@@ -1,13 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialSnackbarState = {
-  snackbarStatus: 'success',
-  snackbarMessage: '',
-  snackbarShow: false,
+  snackbarStatus: "success",
+  snackbarMessage: "",
+  snackbarShow: false
 };
 
 export const snackbarSlice = createSlice({
-  name: 'snackbar',
+  name: "snackbar",
   initialState: initialSnackbarState,
   reducers: {
     setSnackbar: (state, action) => {
@@ -15,6 +15,6 @@ export const snackbarSlice = createSlice({
       state.snackbarStatus = status;
       state.snackbarMessage = message;
       state.snackbarShow = show;
-    },
-  },
+    }
+  }
 });

@@ -1,15 +1,15 @@
 /* eslint-disable no-restricted-imports */
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
-import React from 'react';
-import { Card } from '../../../../../../_metronic/_partials/controls';
-import { toAbsoluteUrl } from '../../../../../../_metronic/_helpers';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import React from "react";
+import { Card } from "../../../../../../_metronic/_partials/controls";
+import { toAbsoluteUrl } from "../../../../../../_metronic/_helpers";
+import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
+import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 
 export function CustomerProfileAccount({
   actionsLoading,
   customer,
-  customerTransactions,
+  customerTransactions
 }) {
   if (!customer) {
     return null;
@@ -25,7 +25,7 @@ export function CustomerProfileAccount({
         <div
           className="d-flex align-items-center mb-5 justify-content-between flex-wrap p-8 bgi-size-cover bgi-no-repeat rounded-top"
           style={{
-            backgroundImage: `url(${toAbsoluteUrl('/media/misc/bg-1.jpg')})`,
+            backgroundImage: `url(${toAbsoluteUrl("/media/misc/bg-1.jpg")})`
           }}
         >
           <div className="symbol bg-white-o-15 mr-3">
@@ -80,7 +80,7 @@ export function CustomerProfileAccount({
           <hr />
 
           {customerTransactions &&
-            customerTransactions.map((transaction) => (
+            customerTransactions.map(transaction => (
               <>
                 <div className="d-flex mb-5">
                   <div className="navi-icon mr-2">
@@ -90,7 +90,7 @@ export function CustomerProfileAccount({
                     <div className="font-weight-bold">Total Sales</div>
                     <div
                       className="text-primary"
-                      style={{ fontSize: '16px', fontWeight: 'bold' }}
+                      style={{ fontSize: "16px", fontWeight: "bold" }}
                     >
                       {transaction.total_amount}
                     </div>
@@ -99,13 +99,13 @@ export function CustomerProfileAccount({
 
                 <div className="d-flex mb-5">
                   <div className="navi-icon mr-2">
-                    <AccountBalanceWalletIcon style={{ color: 'orangered' }} />
+                    <AccountBalanceWalletIcon style={{ color: "orangered" }} />
                   </div>
                   <div className="navi-text">
                     <div className="font-weight-bold">Total Debt</div>
                     <div
                       className="text-danger"
-                      style={{ fontSize: '16px', fontWeight: 'bold' }}
+                      style={{ fontSize: "16px", fontWeight: "bold" }}
                     >
                       {transaction.total_outstanding}
                     </div>

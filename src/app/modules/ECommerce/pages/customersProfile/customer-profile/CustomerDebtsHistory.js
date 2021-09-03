@@ -1,38 +1,38 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
-import React, { useEffect, useMemo } from 'react';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import BootstrapTable from 'react-bootstrap-table-next';
+import React, { useEffect, useMemo } from "react";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory, {
-  PaginationProvider,
-} from 'react-bootstrap-table2-paginator';
-import { Card } from '../../../../../../_metronic/_partials/controls';
-import { Pagination } from '../../../../../../_metronic/_partials/controls';
-import * as uiHelpers from './CustomerUIHelpers';
-import { useCustomerUIContext } from './CustomerProfile';
-import * as actions from '../../../_redux/sales/salesActions';
-import { getHandlerTableChangeForCustomer } from '../../../../../../_metronic/_helpers';
+  PaginationProvider
+} from "react-bootstrap-table2-paginator";
+import { Card } from "../../../../../../_metronic/_partials/controls";
+import { Pagination } from "../../../../../../_metronic/_partials/controls";
+import * as uiHelpers from "./CustomerUIHelpers";
+import { useCustomerUIContext } from "./CustomerProfile";
+import * as actions from "../../../_redux/sales/salesActions";
+import { getHandlerTableChangeForCustomer } from "../../../../../../_metronic/_helpers";
 
 export function CustomerDebtsHistory() {
   const customerUIContext = useCustomerUIContext();
   const customerUIProps = useMemo(
     () => ({
       queryParams: customerUIContext.queryParams,
-      setQueryParams: customerUIContext.setQueryParams,
+      setQueryParams: customerUIContext.setQueryParams
     }),
     [customerUIContext]
   );
 
   const { currentState } = useSelector(
-    (state) => ({
-      currentState: state.sales,
+    state => ({
+      currentState: state.sales
     }),
     shallowEqual
   );
 
   const { debtEntities, totalDebtCount } = currentState;
 
-  console.log('__Debt History', debtEntities);
+  console.log("__Debt History", debtEntities);
 
   const dispatch = useDispatch();
 
@@ -42,21 +42,21 @@ export function CustomerDebtsHistory() {
 
   const columns = [
     {
-      dataField: 'total_amount',
-      text: 'Total Amount',
+      dataField: "total_amount",
+      text: "Total Amount"
     },
     {
-      dataField: 'part_payment',
-      text: 'Part Payment',
+      dataField: "part_payment",
+      text: "Part Payment"
     },
     {
-      dataField: 'outstanding',
-      text: 'Outstanding',
+      dataField: "outstanding",
+      text: "Outstanding"
     },
     {
-      dataField: 'date',
-      text: 'Date',
-    },
+      dataField: "date",
+      text: "Date"
+    }
     // {
     //   dataField: 'action',
     //   text: 'Actions',
@@ -81,7 +81,7 @@ export function CustomerDebtsHistory() {
     totalSize: totalDebtCount,
     sizePerPageList: uiHelpers.sizePerPageList,
     sizePerPage: uiHelpers.initialFilter.pageSize,
-    page: uiHelpers.initialFilter.pageNumber,
+    page: uiHelpers.initialFilter.pageNumber
   };
 
   return (

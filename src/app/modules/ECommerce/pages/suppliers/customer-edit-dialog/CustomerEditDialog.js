@@ -1,28 +1,28 @@
-import React, { useEffect, useMemo } from 'react';
-import { Modal } from 'react-bootstrap';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import * as actions from '../../../_redux/suppliers/suppliersActions';
-import { CustomerEditDialogHeader } from './CustomerEditDialogHeader';
-import { CustomerEditForm } from './CustomerEditForm';
-import { useCustomersUIContext } from '../CustomersUIContext';
-import { setSnackbar } from '../../../_redux/snackbar/snackbarActions';
+import React, { useEffect, useMemo } from "react";
+import { Modal } from "react-bootstrap";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as actions from "../../../_redux/suppliers/suppliersActions";
+import { CustomerEditDialogHeader } from "./CustomerEditDialogHeader";
+import { CustomerEditForm } from "./CustomerEditForm";
+import { useCustomersUIContext } from "../CustomersUIContext";
+import { setSnackbar } from "../../../_redux/snackbar/snackbarActions";
 
 export function CustomerEditDialog({ id, show, onHide }) {
   // Customers UI Context
   const customersUIContext = useCustomersUIContext();
   const customersUIProps = useMemo(() => {
     return {
-      initSupplier: customersUIContext.initSupplier,
+      initSupplier: customersUIContext.initSupplier
     };
   }, [customersUIContext]);
 
   // Customers Redux state
   const dispatch = useDispatch();
   const { actionsLoading, error, supplierForEdit } = useSelector(
-    (state) => ({
+    state => ({
       actionsLoading: state.suppliers.actionsLoading,
       error: state.suppliers.error,
-      supplierForEdit: state.suppliers.supplierForEdit,
+      supplierForEdit: state.suppliers.supplierForEdit
     }),
     shallowEqual
   );
@@ -33,7 +33,7 @@ export function CustomerEditDialog({ id, show, onHide }) {
   }, [id, dispatch]);
 
   // server request for saving supplier
-  const saveSupplier = (supplier) => {
+  const saveSupplier = supplier => {
     if (!id) {
       // server request for creating supplier
       dispatch(actions.createSupplier(supplier)).then(() => {
@@ -41,11 +41,11 @@ export function CustomerEditDialog({ id, show, onHide }) {
         // show snackbar message
         dispatch(
           setSnackbar({
-            status: !error ? 'success' : 'error',
+            status: !error ? "success" : "error",
             message: (
-              <p style={{ fontSize: '16px' }}>Supplier created successfully!</p>
+              <p style={{ fontSize: "16px" }}>Supplier created successfully!</p>
             ),
-            show: true,
+            show: true
           })
         );
       });
@@ -56,11 +56,11 @@ export function CustomerEditDialog({ id, show, onHide }) {
         // show snackbar message
         dispatch(
           setSnackbar({
-            status: !error ? 'success' : 'error',
+            status: !error ? "success" : "error",
             message: (
-              <p style={{ fontSize: '16px' }}>Supplier updated successfully!</p>
+              <p style={{ fontSize: "16px" }}>Supplier updated successfully!</p>
             ),
-            show: true,
+            show: true
           })
         );
       });
