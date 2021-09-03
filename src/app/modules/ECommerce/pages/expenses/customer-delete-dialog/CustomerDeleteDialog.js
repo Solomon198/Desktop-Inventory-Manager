@@ -1,9 +1,10 @@
-import React, { useEffect, useMemo } from "react";
-import { Modal } from "react-bootstrap";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
-import * as actions from "../../../_redux/expenses/expensesActions";
-import { useCustomersUIContext } from "../CustomersUIContext";
+import React, { useEffect, useMemo } from 'react';
+import { Modal } from 'react-bootstrap';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { ModalProgressBar } from '../../../../../../_metronic/_partials/controls';
+import * as actions from '../../../_redux/expenses/expensesActions';
+import { useCustomersUIContext } from '../CustomersUIContext';
+import { setSnackbar } from '../../../_redux/snackbar/snackbarActions';
 
 export function CustomerDeleteDialog({ id, show, onHide }) {
   // Customers UI Context
@@ -11,14 +12,17 @@ export function CustomerDeleteDialog({ id, show, onHide }) {
   const customersUIProps = useMemo(() => {
     return {
       setIds: customersUIContext.setIds,
-      queryParams: customersUIContext.queryParams
+      queryParams: customersUIContext.queryParams,
     };
   }, [customersUIContext]);
 
   // Customers Redux state
   const dispatch = useDispatch();
-  const { isLoading } = useSelector(
-    state => ({ isLoading: state.expenses.actionsLoading }),
+  const { isLoading, error } = useSelector(
+    (state) => ({
+      isLoading: state.expenses.actionsLoading,
+      error: state.expenses.error,
+    }),
     shallowEqual
   );
 
@@ -42,6 +46,16 @@ export function CustomerDeleteDialog({ id, show, onHide }) {
       customersUIProps.setIds([]);
       // closing delete modal
       onHide();
+      // show snackbar message
+      dispatch(
+        setSnackbar({
+          status: !error ? 'success' : 'error',
+          message: (
+            <p style={{ fontSize: '16px' }}>Expense deleted successfully!</p>
+          ),
+          show: true,
+        })
+      );
     });
   };
 

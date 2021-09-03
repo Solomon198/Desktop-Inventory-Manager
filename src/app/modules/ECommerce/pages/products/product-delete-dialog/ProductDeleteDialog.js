@@ -1,10 +1,11 @@
 /* eslint-disable no-restricted-imports */
-import React, { useEffect, useMemo } from "react";
-import { Modal } from "react-bootstrap";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
-import * as actions from "../../../_redux/products/productsActions";
-import { useProductsUIContext } from "../ProductsUIContext";
+import React, { useEffect, useMemo } from 'react';
+import { Modal } from 'react-bootstrap';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { ModalProgressBar } from '../../../../../../_metronic/_partials/controls';
+import * as actions from '../../../_redux/products/productsActions';
+import { useProductsUIContext } from '../ProductsUIContext';
+import { setSnackbar } from '../../../_redux/snackbar/snackbarActions';
 
 export function ProductDeleteDialog({ id, show, onHide }) {
   // Products UI Context
@@ -12,14 +13,17 @@ export function ProductDeleteDialog({ id, show, onHide }) {
   const productsUIProps = useMemo(() => {
     return {
       setIds: productsUIContext.setIds,
-      queryParams: productsUIContext.queryParams
+      queryParams: productsUIContext.queryParams,
     };
   }, [productsUIContext]);
 
   // Products Redux state
   const dispatch = useDispatch();
-  const { isLoading } = useSelector(
-    state => ({ isLoading: state.products.actionsLoading }),
+  const { isLoading, error } = useSelector(
+    (state) => ({
+      isLoading: state.products.actionsLoading,
+      error: state.products.error,
+    }),
     shallowEqual
   );
 
@@ -43,6 +47,16 @@ export function ProductDeleteDialog({ id, show, onHide }) {
       productsUIProps.setIds([]);
       // closing delete modal
       onHide();
+      // show snackbar message
+      dispatch(
+        setSnackbar({
+          status: !error ? 'success' : 'error',
+          message: (
+            <p style={{ fontSize: '16px' }}>Product deleted successfully!</p>
+          ),
+          show: true,
+        })
+      );
     });
   };
 

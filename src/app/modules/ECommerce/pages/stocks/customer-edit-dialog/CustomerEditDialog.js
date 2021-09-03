@@ -1,13 +1,14 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { Modal } from "react-bootstrap";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import * as actions from "../../../_redux/stocks/stocksActions";
-import * as stockEntryActions from "../../../_redux/stocksEntry/stocksEntryActions";
-import { CustomerEditDialogHeader } from "./CustomerEditDialogHeader";
-import { CustomerEditForm } from "./CustomerEditForm";
-import { UnitForm } from "./UnitForm";
-import { useCustomersUIContext } from "../CustomersUIContext";
-import helperFuns from "../../utils/helper.funcs";
+import React, { useState, useEffect, useMemo } from 'react';
+import { Modal } from 'react-bootstrap';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import * as actions from '../../../_redux/stocks/stocksActions';
+import * as stockEntryActions from '../../../_redux/stocksEntry/stocksEntryActions';
+import { CustomerEditDialogHeader } from './CustomerEditDialogHeader';
+import { CustomerEditForm } from './CustomerEditForm';
+import { UnitForm } from './UnitForm';
+import { useCustomersUIContext } from '../CustomersUIContext';
+import helperFuns from '../../utils/helper.funcs';
+import { setSnackbar } from '../../../_redux/snackbar/snackbarActions';
 
 export function CustomerEditDialog({ id, show, onHide }) {
   // Create state for tabs
@@ -19,16 +20,17 @@ export function CustomerEditDialog({ id, show, onHide }) {
     return {
       initStock: customersUIContext.initStock,
       tab: customersUIContext.tab,
-      setTab: customersUIContext.setTab
+      setTab: customersUIContext.setTab,
     };
   }, [customersUIContext]);
 
   // Customers Redux state
   const dispatch = useDispatch();
-  const { actionsLoading, stockForEdit } = useSelector(
-    state => ({
+  const { actionsLoading, error, stockForEdit } = useSelector(
+    (state) => ({
       actionsLoading: state.stocks.actionsLoading,
-      stockForEdit: state.stocks.stockForEdit
+      error: state.stocks.error,
+      stockForEdit: state.stocks.stockForEdit,
     }),
     shallowEqual
   );
@@ -51,7 +53,7 @@ export function CustomerEditDialog({ id, show, onHide }) {
         product_name: newValues.product_name,
         unit_name: newValues.unit_name,
         quantity: newValues.quantity,
-        date: new Date(_date)
+        date: new Date(_date),
       };
 
       let _saveStockEntry = {
@@ -59,18 +61,44 @@ export function CustomerEditDialog({ id, show, onHide }) {
         unit_id: newValues.unit_id,
         product_name: newValues.product_name,
         unit_name: newValues.unit_name,
-        quantity: newValues.quantity
+        quantity: newValues.quantity,
       };
 
       // dispatch(stockActions.createStock(_saveStock));
-      dispatch(actions.createStock(_saveStock)).then(() => onHide());
+      dispatch(actions.createStock(_saveStock)).then(() => {
+        onHide();
+        dispatch(
+          setSnackbar({
+            status: !error ? 'success' : 'error',
+            message: (
+              <p style={{ fontSize: '16px' }}>
+                {!error ? `Stock created successfully!` : error}
+              </p>
+            ),
+            show: true,
+          })
+        );
+      });
       dispatch(stockEntryActions.createStockEntry(_saveStockEntry)).then(() =>
         onHide()
       );
-      resetForm({ values: "" });
+      resetForm({ values: '' });
     } else {
       // server request for updating stock
-      dispatch(actions.updateStock(values)).then(() => onHide());
+      dispatch(actions.updateStock(values)).then(() => {
+        onHide();
+        dispatch(
+          setSnackbar({
+            status: !error ? 'success' : 'error',
+            message: (
+              <p style={{ fontSize: '16px' }}>
+                {!error ? `Stock updated successfully!` : error}
+              </p>
+            ),
+            show: true,
+          })
+        );
+      });
     }
   };
 
@@ -85,35 +113,35 @@ export function CustomerEditDialog({ id, show, onHide }) {
       <ul className="nav nav-tabs nav-tabs-line ml-5 " role="tablist">
         <li
           className="nav-item"
-          onClick={() => customersUIProps.setTab("basic")}
+          onClick={() => customersUIProps.setTab('basic')}
         >
           <a
-            className={`nav-link ${customersUIProps.tab === "basic" &&
-              "active"}`}
+            className={`nav-link ${customersUIProps.tab === 'basic' &&
+              'active'}`}
             data-toggle="tab"
             role="tab"
-            aria-selected={(customersUIProps.tab === "basic").toString()}
+            aria-selected={(customersUIProps.tab === 'basic').toString()}
           >
             Add Stock
           </a>
         </li>
         <li
           className="nav-item"
-          onClick={() => customersUIProps.setTab("unit")}
+          onClick={() => customersUIProps.setTab('unit')}
         >
           <a
-            className={`nav-link ${customersUIProps.tab === "unit" &&
-              "active"}`}
+            className={`nav-link ${customersUIProps.tab === 'unit' &&
+              'active'}`}
             data-toggle="tab"
             role="tab"
-            aria-selected={(customersUIProps.tab === "unit").toString()}
+            aria-selected={(customersUIProps.tab === 'unit').toString()}
           >
             Unit for product
           </a>
         </li>
       </ul>
       <div className="mt-5">
-        {customersUIProps.tab === "basic" && (
+        {customersUIProps.tab === 'basic' && (
           <CustomerEditForm
             saveStock={saveStock}
             actionsLoading={actionsLoading}
@@ -121,7 +149,7 @@ export function CustomerEditDialog({ id, show, onHide }) {
             onHide={onHide}
           />
         )}
-        {customersUIProps.tab === "unit" && <UnitForm onHide={onHide} />}
+        {customersUIProps.tab === 'unit' && <UnitForm onHide={onHide} />}
       </div>
     </Modal>
   );

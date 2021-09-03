@@ -9,7 +9,7 @@ export type UnitProperties = {
 
   price: any;
 
-  bulk_size: any;
+  bulk_size?: any;
 
   product_name?: string;
 };

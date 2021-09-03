@@ -1,25 +1,21 @@
-import { DebtManagerTypes } from "../../types/debtManager"; // typescript type validation for daily attendance
+import { DebtManagerTypes } from '../../types/debtManager'; // typescript type validation for daily attendance
 
 const DebtManagerSchema: DebtManagerTypes = {
-  name: "debtManagers",
+  name: 'debtManagers',
 
-  primaryKey: "_id",
+  primaryKey: '_id',
 
   properties: {
-    _id: "objectId",
+    _id: 'objectId',
 
-    customer_id: "string?",
+    customer_id: 'objectId?',
 
-    product_id: "objectId",
+    total_amount: 'double?',
 
-    employee_id: "objectId",
+    total_outstanding: 'double?',
 
-    amount: "int?",
-
-    description: "string?",
-
-    date: "string?"
-  }
+    date: 'date?',
+  },
 };
 
 export default DebtManagerSchema;

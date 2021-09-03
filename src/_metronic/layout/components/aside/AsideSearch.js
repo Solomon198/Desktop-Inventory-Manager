@@ -89,6 +89,46 @@ export function AsideSearch({ isActive }) {
       {/* begin::List */}
 
       {/* begin::Item */}
+      <div className="list-item hoverable p-2 p-lg-3 mb-5">
+        <div className="d-flex align-items-center">
+          {/* begin::Symbol */}
+          <div className="symbol symbol-40 symbol-light mr-4">
+            <span className="symbol-label bg-hover-white">
+              <span className="svg-icon h-50 align-self-center">
+                {/* <MonetizationOnIcon style={{ color: 'red', fontSize: '40px'}} /> */}
+                <SVG src={toAbsoluteUrl("/media/svg/icons/Layout/Layout-4-blocks.svg")} />
+                {/* <img src={toAbsoluteUrl("/media/module-icons/sales.png")} className="align-self-center text-center" width="70%" /> */}
+                {/* <img alt="sales" src={toAbsoluteUrl("/media/ecommerce/sales.png")} /> */}
+              </span>
+            </span>
+          </div>
+          {/* end::Symbol */}
+          {/* begin::Text */}
+          <div className="d-flex flex-column flex-grow-1 mr-2">
+            {/* <span className="text-dark-75 font-size-h6 mb-0">Sales</span> */}
+            <NavLink className="menu-link" to="/dashboard">
+              <i className="menu-bullet menu-bullet-dot">
+                <span />
+              </i>
+              <span className="menu-text">
+                <h6 className="text-dark">Dashboard</h6>
+              </span>
+            </NavLink>
+            {/* <a
+              href="#"
+              className="text-muted text-hover-primary font-weight-bold"
+            >
+              By Ana
+            </a> */}
+          </div>
+          {/* begin::End */}
+        </div>
+      </div>
+      {/* end::Item */}
+
+      <hr />
+
+      {/* begin::Item */}
       <div className="list-item hoverable p-2 p-lg-3 mb-2">
         <div className="d-flex align-items-center">
           {/* begin::Symbol */}
@@ -96,7 +136,8 @@ export function AsideSearch({ isActive }) {
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
                 {/* <MonetizationOnIcon style={{ color: 'red', fontSize: '40px'}} /> */}
-                <SVG src={toAbsoluteUrl("/media/ecommerce/svg/sales1.svg")} />
+                {/* <SVG src={toAbsoluteUrl("/media/ecommerce/svg/sales1.svg")} /> */}
+                <img src={toAbsoluteUrl("/media/module-icons/sales.png")} className="align-self-center text-center" width="70%" />
                 {/* <img alt="sales" src={toAbsoluteUrl("/media/ecommerce/sales.png")} /> */}
               </span>
             </span>
@@ -132,7 +173,8 @@ export function AsideSearch({ isActive }) {
           <div className="symbol symbol-40 symbol-light mr-4">
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
-              <SVG src={toAbsoluteUrl("/media/ecommerce/svg/product2.svg")} />
+              {/* <SVG src={toAbsoluteUrl("/media/ecommerce/svg/product2.svg")} /> */}
+              <img src={toAbsoluteUrl("/media/module-icons/products.png")} className="align-self-center text-center" width="70%" />
               </span>
             </span>
           </div>
@@ -170,7 +212,8 @@ export function AsideSearch({ isActive }) {
           <div className="symbol symbol-40 symbol-light mr-4">
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
-                <SVG src={toAbsoluteUrl("/media/svg/misc/006-plurk.svg")} />
+                {/* <SVG src={toAbsoluteUrl("/media/svg/misc/006-plurk.svg")} /> */}
+                <img src={toAbsoluteUrl("/media/module-icons/stocks.png")} className="align-self-center text-center" width="70%" />
               </span>
             </span>
           </div>
@@ -206,7 +249,8 @@ export function AsideSearch({ isActive }) {
           <div className="symbol symbol-40 symbol-light mr-4">
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
-                <SVG src={toAbsoluteUrl("/media/ecommerce/svg/stock-history.svg")} />
+                {/* <SVG src={toAbsoluteUrl("/media/ecommerce/svg/stock-history.svg")} /> */}
+                <img src={toAbsoluteUrl("/media/module-icons/stock-history.png")} className="align-self-center text-center" width="70%" />
               </span>
             </span>
           </div>
@@ -242,7 +286,8 @@ export function AsideSearch({ isActive }) {
           <div className="symbol symbol-40 symbol-light mr-4">
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
-                <SVG src={toAbsoluteUrl("/media/ecommerce/svg/stock-history.svg")} />
+                {/* <SVG src={toAbsoluteUrl("/media/ecommerce/svg/stock-history.svg")} /> */}
+                <img src={toAbsoluteUrl("/media/module-icons/unit-manager.png")} className="align-self-center text-center" width="70%" />
               </span>
             </span>
           </div>
@@ -271,9 +316,10 @@ export function AsideSearch({ isActive }) {
           <div className="symbol symbol-40 symbol-light mr-4">
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
-                <SVG
+                {/* <SVG
                   src={toAbsoluteUrl("/media/ecommerce/svg/customer2.svg")}
-                />
+                /> */}
+                <img src={toAbsoluteUrl("/media/module-icons/customers.png")} className="align-self-center text-center" width="70%" />
               </span>
             </span>
           </div>
@@ -310,9 +356,10 @@ export function AsideSearch({ isActive }) {
           <div className="symbol symbol-40 symbol-light mr-4">
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
-                <SVG
+                {/* <SVG
                   src={toAbsoluteUrl("/media/ecommerce/svg/employee.svg")}
-                />
+                /> */}
+                <img src={toAbsoluteUrl("/media/module-icons/employees.png")} className="align-self-center text-center" width="70%" />
               </span>
             </span>
           </div>
@@ -347,7 +394,8 @@ export function AsideSearch({ isActive }) {
           <div className="symbol symbol-40 symbol-light mr-4">
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
-                <SVG src={toAbsoluteUrl("/media/ecommerce/svg/expenses.svg")} />
+                {/* <SVG src={toAbsoluteUrl("/media/ecommerce/svg/expenses.svg")} /> */}
+                <img src={toAbsoluteUrl("/media/module-icons/expense.png")} className="align-self-center text-center" width="70%" />
               </span>
             </span>
           </div>
@@ -382,7 +430,8 @@ export function AsideSearch({ isActive }) {
           <div className="symbol symbol-40 symbol-light mr-4">
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
-                <SVG src={toAbsoluteUrl("/media/ecommerce/svg/debt.svg")} />
+                {/* <SVG src={toAbsoluteUrl("/media/ecommerce/svg/debt.svg")} /> */}
+                <img src={toAbsoluteUrl("/media/module-icons/debts.png")} className="align-self-center text-center" width="70%" />
               </span>
             </span>
           </div>
@@ -417,7 +466,8 @@ export function AsideSearch({ isActive }) {
           <div className="symbol symbol-40 symbol-light mr-4">
             <span className="symbol-label bg-hover-white">
               <span className="svg-icon h-50 align-self-center">
-                <SVG src={toAbsoluteUrl("/media/ecommerce/svg/debt.svg")} />
+                {/* <SVG src={toAbsoluteUrl("/media/ecommerce/svg/debt.svg")} /> */}
+                <img src={toAbsoluteUrl("/media/module-icons/supplier.png")} className="align-self-center text-center" width="70%" />
               </span>
             </span>
           </div>

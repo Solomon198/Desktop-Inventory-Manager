@@ -1,9 +1,10 @@
-import React, { useEffect, useMemo } from "react";
-import { Modal } from "react-bootstrap";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
-import * as actions from "../../../_redux/employees/employeesActions";
-import { useEmployeesUIContext } from "../CustomersUIContext";
+import React, { useEffect, useMemo } from 'react';
+import { Modal } from 'react-bootstrap';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { ModalProgressBar } from '../../../../../../_metronic/_partials/controls';
+import * as actions from '../../../_redux/employees/employeesActions';
+import { useEmployeesUIContext } from '../CustomersUIContext';
+import { setSnackbar } from '../../../_redux/snackbar/snackbarActions';
 
 export function EmployeeDeleteDialog({ id, show, onHide }) {
   // Employees UI Context
@@ -11,14 +12,17 @@ export function EmployeeDeleteDialog({ id, show, onHide }) {
   const employeesUIProps = useMemo(() => {
     return {
       setIds: employeesUIContext.setIds,
-      queryParams: employeesUIContext.queryParams
+      queryParams: employeesUIContext.queryParams,
     };
   }, [employeesUIContext]);
 
   // Employees Redux state
   const dispatch = useDispatch();
-  const { isLoading } = useSelector(
-    state => ({ isLoading: state.employees.actionsLoading }),
+  const { isLoading, error } = useSelector(
+    (state) => ({
+      isLoading: state.employees.actionsLoading,
+      error: state.employees.error,
+    }),
     shallowEqual
   );
 
@@ -42,6 +46,16 @@ export function EmployeeDeleteDialog({ id, show, onHide }) {
       employeesUIProps.setIds([]);
       // closing delete modal
       onHide();
+      // show snackbar message
+      dispatch(
+        setSnackbar({
+          status: !error ? 'success' : 'error',
+          message: (
+            <p style={{ fontSize: '16px' }}>Employee deleted successfully!</p>
+          ),
+          show: true,
+        })
+      );
     });
   };
 

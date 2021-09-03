@@ -1,4 +1,4 @@
-import * as mongoose from "mongoose";
+import * as mongoose from 'mongoose';
 
 /**
  * @function getPaginationPartition
@@ -50,7 +50,7 @@ function transformRealmStringToNumber(str: any) {
  */
 
 function removeSymbolFromNumber(amount: string) {
-  return amount.replace(/,/g, "");
+  return amount.replace(/,/g, '');
 }
 
 /**
@@ -73,11 +73,11 @@ function transformStringToUpperCase(str: any) {
 
 function transformDateObjectToString(date: any) {
   let d = date;
-  let day = d.getDate() + "";
+  let day = d.getDate() + '';
   let year = d.getFullYear();
-  let month = d.getMonth() + 1 + "";
-  let _day = day.length == 1 ? "0" + day : day;
-  let _month = month.length == 1 ? "0" + month : month;
+  let month = d.getMonth() + 1 + '';
+  let _day = day.length == 1 ? '0' + day : day;
+  let _month = month.length == 1 ? '0' + month : month;
   let newDate = `${_day}-${_month}-${year}`;
 
   return newDate;
@@ -91,11 +91,11 @@ function transformDateObjectToString(date: any) {
  */
 
 function transformToCurrencyString(number) {
-  const formatter = new Intl.NumberFormat("en-ng", {
-    style: "currency",
-    currency: "NGN",
+  const formatter = new Intl.NumberFormat('en-ng', {
+    style: 'currency',
+    currency: 'NGN',
     minimumFractionDigits: 2,
-    currencyDisplay: "symbol"
+    currencyDisplay: 'symbol',
   });
 
   return formatter.format(number);
@@ -104,13 +104,25 @@ function transformToCurrencyString(number) {
   // return number.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 
+/**
+ * @function transformCurrencyStringToNumber
+ * @param {string} currencyString - The currency string to be tranformed
+ * @description Convert currency string to number
+ * @returns {number} returns a number
+ */
+
+function transformCurrencyStringToNumber(currencyString: string) {
+  return Number(currencyString.replace(/[^0-9.-]+/g, ''));
+}
+
 export default {
   getPaginationPartition,
   transformRealmObjectsToJsObject,
   transformDateObjectToString,
   transformToCurrencyString,
   transformRealmStringToNumber,
+  transformCurrencyStringToNumber,
   transformStringToUpperCase,
   removeEventListener,
-  removeSymbolFromNumber
+  removeSymbolFromNumber,
 };

@@ -1,9 +1,10 @@
-import React, { useEffect, useMemo } from "react";
-import { Modal } from "react-bootstrap";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
-import * as actions from "../../../_redux/stocks/stocksActions";
-import { useCustomersUIContext } from "../CustomersUIContext";
+import React, { useEffect, useMemo } from 'react';
+import { Modal } from 'react-bootstrap';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { ModalProgressBar } from '../../../../../../_metronic/_partials/controls';
+import * as actions from '../../../_redux/stocks/stocksActions';
+import { useCustomersUIContext } from '../CustomersUIContext';
+import { setSnackbar } from '../../../_redux/snackbar/snackbarActions';
 
 export function CustomerDeleteDialog({ id, show, onHide }) {
   // Customers UI Context
@@ -11,14 +12,14 @@ export function CustomerDeleteDialog({ id, show, onHide }) {
   const customersUIProps = useMemo(() => {
     return {
       setIds: customersUIContext.setIds,
-      queryParams: customersUIContext.queryParams
+      queryParams: customersUIContext.queryParams,
     };
   }, [customersUIContext]);
 
   // Customers Redux state
   const dispatch = useDispatch();
   const { isLoading } = useSelector(
-    state => ({ isLoading: state.stocks.actionsLoading }),
+    (state) => ({ isLoading: state.stocks.actionsLoading }),
     shallowEqual
   );
 

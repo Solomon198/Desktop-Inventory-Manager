@@ -1,26 +1,28 @@
-import React, { useEffect, useMemo } from "react";
-import { Modal } from "react-bootstrap";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import * as actions from "../../../_redux/employees/employeesActions";
-import { EmployeeEditDialogHeader } from "./CustomerEditDialogHeader";
-import { EmployeeEditForm } from "./CustomerEditForm";
-import { useEmployeesUIContext } from "../CustomersUIContext";
+import React, { useEffect, useMemo } from 'react';
+import { Modal } from 'react-bootstrap';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import * as actions from '../../../_redux/employees/employeesActions';
+import { EmployeeEditDialogHeader } from './CustomerEditDialogHeader';
+import { EmployeeEditForm } from './CustomerEditForm';
+import { useEmployeesUIContext } from '../CustomersUIContext';
+import { setSnackbar } from '../../../_redux/snackbar/snackbarActions';
 
 export function EmployeeEditDialog({ id, show, onHide }) {
   //Employees UI Context
   const employeesUIContext = useEmployeesUIContext();
   const employeesUIProps = useMemo(() => {
     return {
-      initEmployee: employeesUIContext.initEmployee
+      initEmployee: employeesUIContext.initEmployee,
     };
   }, [employeesUIContext]);
 
   // Employees Redux state
   const dispatch = useDispatch();
-  const { actionsLoading, employeeForEdit } = useSelector(
-    state => ({
+  const { actionsLoading, error, employeeForEdit } = useSelector(
+    (state) => ({
       actionsLoading: state.employees.actionsLoading,
-      employeeForEdit: state.employees.employeeForEdit
+      error: state.employees.error,
+      employeeForEdit: state.employees.employeeForEdit,
     }),
     shallowEqual
   );
@@ -31,13 +33,35 @@ export function EmployeeEditDialog({ id, show, onHide }) {
   }, [id, dispatch]);
 
   // server request for saving employee
-  const saveEmployee = employee => {
+  const saveEmployee = (employee) => {
     if (!id) {
       // server request for creating employee
-      dispatch(actions.createEmployee(employee)).then(() => onHide());
+      dispatch(actions.createEmployee(employee)).then(() => {
+        onHide();
+        dispatch(
+          setSnackbar({
+            status: !error ? 'success' : 'error',
+            message: (
+              <p style={{ fontSize: '16px' }}>Employee created successfully!</p>
+            ),
+            show: true,
+          })
+        );
+      });
     } else {
       // server request for updating employee
-      dispatch(actions.updateEmployee(employee)).then(() => onHide());
+      dispatch(actions.updateEmployee(employee)).then(() => {
+        onHide();
+        dispatch(
+          setSnackbar({
+            status: !error ? 'success' : 'error',
+            message: (
+              <p style={{ fontSize: '16px' }}>Employee updated successfully!</p>
+            ),
+            show: true,
+          })
+        );
+      });
     }
   };
 

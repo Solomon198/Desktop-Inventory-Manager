@@ -5,13 +5,9 @@ export type DebtManagerProperties = {
 
   customer_id: any;
 
-  product_id: any;
+  total_amount: string;
 
-  employee_id: any;
-
-  amount: string;
-
-  description: string;
+  total_outstanding: string;
 
   date: string;
 };

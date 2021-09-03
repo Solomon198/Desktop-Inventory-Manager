@@ -428,9 +428,10 @@ export function Aside() {
                   data-boundary="window"
                 >
                   <span className="svg-icon svg-icon-lg">
-                    <SVG
+                    <img
+                      width="70%"
                       src={toAbsoluteUrl(
-                        "/media/svg/icons/General/logout.svg"
+                        "/media/svg/icons/General/logout.png"
                       )}
                     />
                   </span>

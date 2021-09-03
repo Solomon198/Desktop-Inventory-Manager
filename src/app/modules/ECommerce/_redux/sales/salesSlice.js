@@ -1,20 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialSalesState = {
   listLoading: false,
   actionsLoading: false,
   totalCount: 0,
+  totalDebtCount: 0,
   entities: null,
+  debtEntities: null,
   saleForEdit: undefined,
-  lastError: null
+  lastError: null,
 };
 export const callTypes = {
-  list: "list",
-  action: "action"
+  list: 'list',
+  action: 'action',
 };
 
 export const salesSlice = createSlice({
-  name: "sales",
+  name: 'sales',
   initialState: initialSalesState,
   reducers: {
     catchError: (state, action) => {
@@ -55,6 +57,14 @@ export const salesSlice = createSlice({
       state.entities = entities;
       state.totalCount = totalCount;
     },
+    // findDebtsHistoryForCustomer
+    debtsHistoryForCustomer: (state, action) => {
+      const { totalDebtCount, debtEntities } = action.payload;
+      state.listLoading = false;
+      state.error = null;
+      state.debtEntities = debtEntities;
+      state.totalDebtCount = totalDebtCount;
+    },
     // findSalesForDebt
     salesForDebtFetched: (state, action) => {
       const { totalCount, entities } = action.payload;
@@ -68,6 +78,6 @@ export const salesSlice = createSlice({
       state.actionsLoading = false;
       state.error = null;
       state.entities.push(action.payload.sale);
-    }
-  }
+    },
+  },
 });

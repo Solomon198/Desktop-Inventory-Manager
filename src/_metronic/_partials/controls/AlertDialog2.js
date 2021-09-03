@@ -6,13 +6,13 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-export default function AlertDialogSlide({open, text, Transition, handleClose, handleConfirm, btnText1, btnText2, title}) {
+export default function AlertDialogSlide({open, text, handleClose, handleConfirm, btnText1, btnText2, title}) {
 
   return (
     <div>
       <Dialog
         open={open}
-        TransitionComponent={Transition}
+        // TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
         aria-labelledby="alert-dialog-slide-title"

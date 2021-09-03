@@ -1,40 +1,82 @@
-import React from 'react'
-import { Card } from '../../controls';
-import {Bar} from 'react-chartjs-2'
+import * as React from 'react';
+import Paper from '@material-ui/core/Paper';
+import {
+  Chart,
+  PieSeries,
+} from '@devexpress/dx-react-chart-material-ui';
+import { Tooltip } from '@devexpress/dx-react-chart-material-ui';
 
-const state = {
-    labels: ['January', 'February', 'March',
-             'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-    datasets: [
-      {
-        label: 'Monthly Sales',
-        backgroundColor: 'rgba(75,192,192,1)',
-        borderColor: 'rgba(0,0,0,1)',
-        borderWidth: 2,
-        data: [65, 59, 80, 81, 56, 65, 59, 80, 81, 56, 99, 80]
-      }
-    ]
+const series = [
+  { country: 'Russia', area: 12 },
+  { country: 'Canada', area: 7 },
+  { country: 'USA', area: 7 },
+  { country: 'China', area: 7 },
+  { country: 'Brazil', area: 6 },
+  { country: 'Australia', area: 5 },
+  { country: 'India', area: 2 },
+  { country: 'Others', area: 55 },
+];
+
+// const TooltipContent = ({
+//   data, text, style, ...props
+// }) => {
+//   const alignStyle = {
+//     ...style,
+//     paddingLeft: '10px',
+//   };
+//   const items = series.map(({ country, area  }) => {
+//     const val = data[area];
+//     return (
+//       <tr key={country}>
+//         {/* <td>
+//           <svg width="10" height="10">
+//             <circle cx="5" cy="5" r="5" fill={} />
+//           </svg>
+//         </td> */}
+//         <td>
+//           <Tooltip.Content style={alignStyle} text={country} {...props} />
+//         </td>
+//         <td align="right">
+//           <Tooltip.Content style={alignStyle} text={val ? formatTooltip(val) : 'N/A'} {...props} />
+//         </td>
+//       </tr>
+//     );
+//   });
+//   return (
+//     <table>
+//       {items}
+//     </table>
+//   );
+// };
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: series,
+    };
   }
 
-export default function AdminBarChart(){
+  render() {
+    const { data: chartData } = this.state;
+
     return (
-        <Card>
-          <div>
-          <Bar
-            data={state}
-            options={{
-              title:{
-                display:true,
-                text:'Average Sales per month',
-                fontSize:20
-              },
-              legend:{
-                display:true,
-                position:'right'
-              }
-            }}
+      <Paper>
+        <Chart
+          data={chartData}
+        >
+          <PieSeries
+            name="Expenses"
+            valueField="area"
+            argumentField="country"
           />
-        </div>
-        </Card>
-      );
+          {/* <Tooltip
+            targetItem={target}
+            contentComponent={this.TooltipContent}
+          /> */}
+        </Chart>
+      </Paper>
+    );
+  }
 }

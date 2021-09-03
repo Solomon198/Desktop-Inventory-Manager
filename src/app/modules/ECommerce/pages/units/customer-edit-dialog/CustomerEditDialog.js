@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { Modal } from "react-bootstrap";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import * as actions from "../../../_redux/units/unitsActions";
-import { CustomerEditDialogHeader } from "./CustomerEditDialogHeader";
-import { CustomerEditForm } from "./CustomerEditForm";
-import { useCustomersUIContext } from "../CustomersUIContext";
-import helperFuns from "../../utils/helper.funcs";
+import React, { useState, useEffect, useMemo } from 'react';
+import { Modal } from 'react-bootstrap';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import * as actions from '../../../_redux/units/unitsActions';
+import { CustomerEditDialogHeader } from './CustomerEditDialogHeader';
+import { CustomerEditForm } from './CustomerEditForm';
+import { useCustomersUIContext } from '../CustomersUIContext';
+import helperFuns from '../../utils/helper.funcs';
+import { setSnackbar } from '../../../_redux/snackbar/snackbarActions';
 
 export function CustomerEditDialog({ id, show, onHide }) {
   // Create state for tabs
@@ -15,16 +16,17 @@ export function CustomerEditDialog({ id, show, onHide }) {
   const customersUIContext = useCustomersUIContext();
   const customersUIProps = useMemo(() => {
     return {
-      initUnit: customersUIContext.initUnit
+      initUnit: customersUIContext.initUnit,
     };
   }, [customersUIContext]);
 
   // Customers Redux state
   const dispatch = useDispatch();
-  const { actionsLoading, unitForEdit } = useSelector(
-    state => ({
+  const { actionsLoading, error, unitForEdit } = useSelector(
+    (state) => ({
       actionsLoading: state.units.actionsLoading,
-      unitForEdit: state.units.unitForEdit
+      error: state.units.error,
+      unitForEdit: state.units.unitForEdit,
     }),
     shallowEqual
   );
@@ -37,12 +39,40 @@ export function CustomerEditDialog({ id, show, onHide }) {
   // server request for saving stock
   const saveUnit = (values, resetForm) => {
     if (!id) {
-      dispatch(actions.createUnit(values)).then(() => onHide());
-      resetForm({ values: "" });
+      dispatch(actions.createUnit(values)).then(() => {
+        onHide();
+        // show snackbar message
+        dispatch(
+          setSnackbar({
+            status: !error ? 'success' : 'error',
+            message: (
+              <p style={{ fontSize: '16px' }}>
+                {!error ? 'Unit created successfully!' : error}
+              </p>
+            ),
+            show: true,
+          })
+        );
+      });
+      resetForm({ values: '' });
     } else {
       let _newValues = Object.assign({}, values);
       // server request for updating stock
-      dispatch(actions.updateUnit(_newValues)).then(() => onHide());
+      dispatch(actions.updateUnit(_newValues)).then(() => {
+        onHide();
+        // show snackbar message
+        dispatch(
+          setSnackbar({
+            status: !error ? 'success' : 'error',
+            message: (
+              <p style={{ fontSize: '16px' }}>
+                {!error ? 'Unit updated successfully!' : error}
+              </p>
+            ),
+            show: true,
+          })
+        );
+      });
     }
   };
 

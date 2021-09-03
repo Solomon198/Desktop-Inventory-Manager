@@ -1,4 +1,4 @@
-import * as mongoose from "mongoose";
+import * as mongoose from 'mongoose';
 
 /**
  * @function transformHexStringToObjectId
@@ -19,7 +19,7 @@ function transformHexStringToObjectId(str: any) {
  */
 
 function transformDateStringToDateType(str: any) {
-  let _dateType = str.split(" ");
+  let _dateType = str.split(' ');
   let _newDateType = `${_dateType[1]}-${_dateType[2]}-${_dateType[0]}`;
   return _newDateType;
 }
@@ -32,11 +32,11 @@ function transformDateStringToDateType(str: any) {
  */
 
 function transformToCurrencyString(number) {
-  const formatter = new Intl.NumberFormat("en-ng", {
-    style: "currency",
-    currency: "NGN",
+  const formatter = new Intl.NumberFormat('en-ng', {
+    style: 'currency',
+    currency: 'NGN',
     minimumFractionDigits: 2,
-    currencyDisplay: "symbol"
+    currencyDisplay: 'symbol',
   });
 
   return formatter.format(number);
@@ -53,12 +53,24 @@ function transformToCurrencyString(number) {
  */
 
 function transformCurrencyStringToNumber(currencyString: string) {
-  return Number(currencyString.replace(/[^0-9.-]+/g, ""));
+  return Number(currencyString.replace(/[^0-9.-]+/g, ''));
+}
+
+/**
+ * @function removeSymbolFromNumber
+ * @param {string} amount - A string value whose commas will be removed from
+ * @description Remove commas from amount string
+ * @returns {string} return a string
+ */
+
+function removeSymbolFromNumber(amount: string) {
+  return amount.replace(/,/g, '');
 }
 
 export default {
   transformHexStringToObjectId,
   transformDateStringToDateType,
   transformToCurrencyString,
-  transformCurrencyStringToNumber
+  transformCurrencyStringToNumber,
+  removeSymbolFromNumber,
 };
