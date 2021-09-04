@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialDebtsManagerState = {
   listLoading: false,
@@ -6,15 +6,15 @@ const initialDebtsManagerState = {
   totalCount: 0,
   entities: null,
   debtForEdit: undefined,
-  lastError: null
+  lastError: null,
 };
 export const callTypes = {
-  list: "list",
-  action: "action"
+  list: 'list',
+  action: 'action',
 };
 
 export const debtsManagerSlice = createSlice({
-  name: "debtsManager",
+  name: 'debtsManager',
   initialState: initialDebtsManagerState,
   reducers: {
     catchError: (state, action) => {
@@ -39,35 +39,18 @@ export const debtsManagerSlice = createSlice({
       state.debtForEdit = action.payload.debtForEdit;
       state.error = null;
     },
-    // findSales
-    // salesFetched: (state, action) => {
-    //   const { totalCount, entities } = action.payload;
-    //   state.listLoading = false;
-    //   state.error = null;
-    //   state.entities = entities;
-    //   state.totalCount = totalCount;
-    // },
-    // findSalesHistoryForCustomer
-    // salesHistoryForCustomer: (state, action) => {
-    //   const { totalCount, entities } = action.payload;
-    //   state.listLoading = false;
-    //   state.error = null;
-    //   state.entities = entities;
-    //   state.totalCount = totalCount;
-    // },
-    // findSalesForDebt
-    // salesForDebtFetched: (state, action) => {
-    //   const { totalCount, entities } = action.payload;
-    //   state.listLoading = false;
-    //   state.error = null;
-    //   state.entities = entities;
-    //   state.totalCount = totalCount;
-    // },
     // createCustomerTransaction
     customerTransactionCreated: (state, action) => {
       state.actionsLoading = false;
       state.error = null;
       state.entities.push(action.payload.customerTransaction);
-    }
-  }
+    },
+    // updateCustomerTransaction
+    customerTransactionUpdated: (state, action) => {
+      state.actionsLoading = false;
+      state.error = null;
+
+      state.debtForEdit = [action.payload.customerTransaction];
+    },
+  },
 });
