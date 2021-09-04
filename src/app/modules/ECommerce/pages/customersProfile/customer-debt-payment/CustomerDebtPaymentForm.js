@@ -1,12 +1,12 @@
-import React from 'react';
-import helperFuncs from '../../utils/helper.funcs';
+import React from "react";
+import helperFuncs from "../../utils/helper.funcs";
 
 const CustomerDebtPaymentForm = ({
   name,
   val,
   onChange,
   onButtonClick,
-  onCancelClick,
+  onCancelClick
 }) => (
   <>
     <div>
@@ -24,7 +24,7 @@ const CustomerDebtPaymentForm = ({
       </div>
       <div className="form-group">
         <button
-          style={{ backgroundColor: '#1d4082', color: '#fff' }}
+          style={{ backgroundColor: "#1d4082", color: "#fff" }}
           className="btn btn-sm mr-3"
           onClick={onButtonClick}
         >

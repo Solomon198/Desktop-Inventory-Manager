@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialDebtsManagerState = {
   listLoading: false,
@@ -6,15 +6,15 @@ const initialDebtsManagerState = {
   totalCount: 0,
   entities: null,
   debtForEdit: undefined,
-  lastError: null,
+  lastError: null
 };
 export const callTypes = {
-  list: 'list',
-  action: 'action',
+  list: "list",
+  action: "action"
 };
 
 export const debtsManagerSlice = createSlice({
-  name: 'debtsManager',
+  name: "debtsManager",
   initialState: initialDebtsManagerState,
   reducers: {
     catchError: (state, action) => {
@@ -51,6 +51,6 @@ export const debtsManagerSlice = createSlice({
       state.error = null;
 
       state.debtForEdit = [action.payload.customerTransaction];
-    },
-  },
+    }
+  }
 });

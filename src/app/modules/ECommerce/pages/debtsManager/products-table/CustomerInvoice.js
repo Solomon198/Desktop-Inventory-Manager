@@ -1,34 +1,34 @@
 // React bootstrap table next =>
 // DOCS: https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/
 // STORYBOOK: https://react-bootstrap-table.github.io/react-bootstrap-table2/storybook/index.html
-import React, { useEffect, useMemo } from 'react';
-import BootstrapTable from 'react-bootstrap-table-next';
+import React, { useEffect, useMemo } from "react";
+import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory, {
-  PaginationProvider,
-} from 'react-bootstrap-table2-paginator';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import * as actions from '../../../_redux/sales/salesActions';
-import * as uiHelpers from '../ProductsUIHelpers';
-import DateRangeSharpIcon from '@material-ui/icons/DateRangeSharp';
-import PersonOutlineSharpIcon from '@material-ui/icons/PersonOutlineSharp';
-import PhoneSharpIcon from '@material-ui/icons/PhoneSharp';
-import MonetizationOnSharpIcon from '@material-ui/icons/MonetizationOnSharp';
-import PaymentSharpIcon from '@material-ui/icons/PaymentSharp';
+  PaginationProvider
+} from "react-bootstrap-table2-paginator";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as actions from "../../../_redux/sales/salesActions";
+import * as uiHelpers from "../ProductsUIHelpers";
+import DateRangeSharpIcon from "@material-ui/icons/DateRangeSharp";
+import PersonOutlineSharpIcon from "@material-ui/icons/PersonOutlineSharp";
+import PhoneSharpIcon from "@material-ui/icons/PhoneSharp";
+import MonetizationOnSharpIcon from "@material-ui/icons/MonetizationOnSharp";
+import PaymentSharpIcon from "@material-ui/icons/PaymentSharp";
 import {
   getSelectRow,
   getHandlerTableChange,
   NoRecordsFoundMessage,
   PleaseWaitMessage,
-  sortCaret,
-} from '../../../../../../_metronic/_helpers';
-import * as columnFormatters from './column-formatters';
-import { Pagination } from '../../../../../../_metronic/_partials/controls';
-import { useSalesUIContext } from '../ProductsUIContext';
+  sortCaret
+} from "../../../../../../_metronic/_helpers";
+import * as columnFormatters from "./column-formatters";
+import { Pagination } from "../../../../../../_metronic/_partials/controls";
+import { useSalesUIContext } from "../ProductsUIContext";
 
 export function CustomerInvoice({ id }) {
   // Getting curret state of sales list from store (Redux)
   const { currentState } = useSelector(
-    (state) => ({ currentState: state.sales }),
+    state => ({ currentState: state.sales }),
     shallowEqual
   );
   const { totalCount, entities, listLoading, saleForEdit } = currentState;
@@ -43,29 +43,29 @@ export function CustomerInvoice({ id }) {
   // Table columns
   const columns = [
     {
-      dataField: 'product',
-      text: 'Product',
+      dataField: "product",
+      text: "Product",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
-      dataField: 'quantity',
-      text: 'Quantity',
+      dataField: "quantity",
+      text: "Quantity",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
-      dataField: 'unit',
-      text: 'Unit',
+      dataField: "unit",
+      text: "Unit",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
-      dataField: 'totalAmount',
-      text: 'Amount',
+      dataField: "totalAmount",
+      text: "Amount",
       sort: true,
-      sortCaret: sortCaret,
-    },
+      sortCaret: sortCaret
+    }
   ];
   return (
     <>
@@ -83,7 +83,7 @@ export function CustomerInvoice({ id }) {
             <div className="d-flex my-5">
               <div className="navi-icon mr-2">
                 {/* <i className="flaticon2-phone text-primary" /> */}
-                <PersonOutlineSharpIcon style={{ color: '#1779a5' }} />
+                <PersonOutlineSharpIcon style={{ color: "#1779a5" }} />
               </div>
               <div className="navi-text">
                 <div className="font-weight-bold cursor-pointer">Full Name</div>
@@ -95,7 +95,7 @@ export function CustomerInvoice({ id }) {
             <div className="d-flex my-5">
               <div className="navi-icon mr-2">
                 {/* <i className="flaticon2-phone text-primary" /> */}
-                <PhoneSharpIcon style={{ color: '#1779a5' }} />
+                <PhoneSharpIcon style={{ color: "#1779a5" }} />
               </div>
               <div className="navi-text">
                 <div className="font-weight-bold cursor-pointer">Full Name</div>
@@ -109,7 +109,7 @@ export function CustomerInvoice({ id }) {
           <div className="d-flex my-5">
             <div className="navi-icon mr-2">
               {/* <i className="flaticon2-phone text-primary" /> */}
-              <DateRangeSharpIcon style={{ color: '#1779a5' }} />
+              <DateRangeSharpIcon style={{ color: "#1779a5" }} />
             </div>
             <div className="navi-text">
               <div className="font-weight-bold cursor-pointer">Date</div>
@@ -124,14 +124,14 @@ export function CustomerInvoice({ id }) {
         <div className="d-flex justify-content-between">
           <div>
             {saleForEdit &&
-            saleForEdit.outstanding !== '₦0.00' &&
-            saleForEdit.part_payment !== '₦0.00' ? (
+            saleForEdit.outstanding !== "₦0.00" &&
+            saleForEdit.part_payment !== "₦0.00" ? (
               <div>
                 <h3>Outstanding</h3>
                 <div className="d-flex my-5">
                   <div className="navi-icon mr-2">
                     {/* <i className="flaticon2-phone text-primary" /> */}
-                    <MonetizationOnSharpIcon style={{ color: '#1779a5' }} />
+                    <MonetizationOnSharpIcon style={{ color: "#1779a5" }} />
                   </div>
                   <div className="navi-text">
                     <div className="font-weight-bold cursor-pointer">Paid</div>
@@ -139,8 +139,8 @@ export function CustomerInvoice({ id }) {
                       <span
                         style={{
                           fontSize: 16,
-                          color: '#1779a5',
-                          fontWeight: 'bold',
+                          color: "#1779a5",
+                          fontWeight: "bold"
                         }}
                       >
                         {saleForEdit && saleForEdit.part_payment}
@@ -151,7 +151,7 @@ export function CustomerInvoice({ id }) {
                 <div className="d-flex my-5">
                   <div className="navi-icon mr-2">
                     {/* <i className="flaticon2-phone text-primary" /> */}
-                    <PaymentSharpIcon style={{ color: 'red' }} />
+                    <PaymentSharpIcon style={{ color: "red" }} />
                   </div>
                   <div className="navi-text">
                     <div className="font-weight-bold cursor-pointer">
@@ -160,9 +160,9 @@ export function CustomerInvoice({ id }) {
                     <div className="text-muted">
                       <span
                         style={{
-                          color: 'red',
-                          fontWeight: 'bold',
-                          fontSize: 16,
+                          color: "red",
+                          fontWeight: "bold",
+                          fontSize: 16
                         }}
                       >
                         {saleForEdit && saleForEdit.outstanding}
@@ -175,7 +175,7 @@ export function CustomerInvoice({ id }) {
               <div>
                 <h3>DEBT</h3>
                 <strong>
-                  <p style={{ color: 'red' }}>
+                  <p style={{ color: "red" }}>
                     {saleForEdit && saleForEdit.total_amount}
                   </p>
                 </strong>
@@ -187,7 +187,7 @@ export function CustomerInvoice({ id }) {
             <div className="d-flex my-5">
               <div className="navi-icon mr-2">
                 {/* <i className="flaticon2-phone text-primary" /> */}
-                <MonetizationOnSharpIcon style={{ color: '#1779a5' }} />
+                <MonetizationOnSharpIcon style={{ color: "#1779a5" }} />
               </div>
               <div className="navi-text">
                 <div className="font-weight-bold cursor-pointer">
@@ -197,8 +197,8 @@ export function CustomerInvoice({ id }) {
                   <span
                     style={{
                       fontSize: 20,
-                      fontWeight: 'bolder',
-                      color: '#1779a5',
+                      fontWeight: "bolder",
+                      color: "#1779a5"
                     }}
                   >
                     {saleForEdit && saleForEdit.total_amount}
