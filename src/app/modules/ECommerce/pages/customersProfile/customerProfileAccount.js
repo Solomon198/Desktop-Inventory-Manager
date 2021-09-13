@@ -1,25 +1,27 @@
 /* eslint-disable no-restricted-imports */
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { Card } from "../../../../../_metronic/_partials/controls";
-import { toAbsoluteUrl } from "../../../../../_metronic/_helpers";
-import * as actions from "../../_redux/debtsManager/debtsManagerActions";
-import MonetizationOnRoundedIcon from "@material-ui/icons/MonetizationOnOutlined";
-import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
-import CustomerDebtPaymentForm from "./customer-debt-payment/CustomerDebtPaymentForm";
-import AlertDialog from "../../../../../_metronic/_partials/controls/AlertDialog";
-import helperFuncs from "../utils/helper.funcs";
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Card } from '../../../../../_metronic/_partials/controls';
+import { toAbsoluteUrl } from '../../../../../_metronic/_helpers';
+import * as actions from '../../_redux/debtsManager/debtsManagerActions';
+import MonetizationOnRoundedIcon from '@material-ui/icons/MonetizationOnOutlined';
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import CustomerDebtPaymentForm from './customer-debt-payment/CustomerDebtPaymentForm';
+import AlertDialog from '../../../../../_metronic/_partials/controls/AlertDialog';
+import { setSnackbar } from '../../_redux/snackbar/snackbarActions';
+import helperFuncs from '../utils/helper.funcs';
 
 export function CustomerProfileAccount({
   actionsLoading,
+  error,
   customer,
-  customerTransactions
+  customerTransactions,
 }) {
   const [showPayDebtBtn, setShowPayDebtBtn] = useState(true);
   const [showDebtPaymentForm, setShowDebtPaymentForm] = useState(false);
   const [showAlertDialog, setShowAlertDialog] = useState(false);
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState('');
 
   const dispatch = useDispatch();
 
@@ -56,12 +58,23 @@ export function CustomerProfileAccount({
       let transactionToUpdate = {
         _id: customerTransactionId,
         customer_id: customer._id,
-        amount
+        amount,
       };
       dispatch(actions.updateCustomerTransaction(transactionToUpdate));
-      setAmount("");
+      setAmount('');
       setShowPayDebtBtn(true);
       setShowDebtPaymentForm(false);
+      dispatch(
+        setSnackbar({
+          status: !error ? 'success' : 'error',
+          message: (
+            <p style={{ fontSize: '16px' }}>
+              {!error ? `Debt paid successfully!` : error}
+            </p>
+          ),
+          show: true,
+        })
+      );
     } else {
       setAmount(
         helperFuncs.transformCurrencyStringToNumber(amount).toLocaleString()
@@ -71,12 +84,12 @@ export function CustomerProfileAccount({
   };
 
   const handleOnCancelClick = () => {
-    setAmount("");
+    setAmount('');
     setShowPayDebtBtn(true);
     setShowDebtPaymentForm(false);
   };
 
-  const handleOnChange = e => {
+  const handleOnChange = (e) => {
     setAmount(e.target.value);
   };
 
@@ -94,7 +107,7 @@ export function CustomerProfileAccount({
         <div
           className="d-flex align-items-center mb-5 justify-content-between flex-wrap p-8 bgi-size-cover bgi-no-repeat rounded-top"
           style={{
-            backgroundImage: `url(${toAbsoluteUrl("/media/misc/bg-1.jpg")})`
+            backgroundImage: `url(${toAbsoluteUrl('/media/misc/bg-1.jpg')})`,
           }}
         >
           <div className="symbol bg-white-o-15 mr-3">
@@ -148,7 +161,7 @@ export function CustomerProfileAccount({
           <br />
 
           {customerTransactions &&
-            customerTransactions.map(transaction => (
+            customerTransactions.map((transaction) => (
               <div key={transaction._id}>
                 <hr />
                 <div className="d-flex mb-5">
@@ -156,10 +169,10 @@ export function CustomerProfileAccount({
                     <MonetizationOnRoundedIcon color="primary" />
                   </div>
                   <div className="navi-text">
-                    <div className="font-weight-bold">Total Amount Paid</div>
+                    <div className="font-weight-bold">Total paid amount</div>
                     <div
                       className="text-primary"
-                      style={{ fontSize: "16px", fontWeight: "bold" }}
+                      style={{ fontSize: '16px', fontWeight: 'bold' }}
                     >
                       {transaction.total_amount}
                     </div>
@@ -171,9 +184,9 @@ export function CustomerProfileAccount({
                     <AccountBalanceWalletIcon
                       style={{
                         color:
-                          transaction.total_outstanding !== "₦0.00"
-                            ? "red"
-                            : "green"
+                          transaction.total_outstanding !== '₦0.00'
+                            ? 'red'
+                            : 'green',
                       }}
                     />
                   </div>
@@ -181,12 +194,12 @@ export function CustomerProfileAccount({
                     <div className="font-weight-bold">Total Debt</div>
                     <div
                       style={{
-                        fontSize: "16px",
-                        fontWeight: "bold",
+                        fontSize: '16px',
+                        fontWeight: 'bold',
                         color:
-                          transaction.total_outstanding !== "₦0.00"
-                            ? "red"
-                            : "green"
+                          transaction.total_outstanding !== '₦0.00'
+                            ? 'red'
+                            : 'green',
                       }}
                     >
                       {transaction.total_outstanding}
@@ -199,7 +212,7 @@ export function CustomerProfileAccount({
           {customerTransactions &&
             customerTransactions.length > 0 &&
             showPayDebtBtn &&
-            customerTransactions[0].total_outstanding !== "₦0.00" && (
+            customerTransactions[0].total_outstanding !== '₦0.00' && (
               <>
                 <hr />
                 <div className="text-center">
@@ -207,9 +220,10 @@ export function CustomerProfileAccount({
                     onClick={handlePayDebtBtn}
                     style={{
                       backgroundImage: `url(${toAbsoluteUrl(
-                        "/media/misc/bg-1.jpg"
+                        '/media/misc/bg-1.jpg'
                       )})`,
-                      border: "none"
+                      border: 'none',
+                      width: '100%',
                     }}
                     className="btn-lg text-white"
                   >

@@ -14,6 +14,7 @@ import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import { useLocation } from "react-router";
 import { NavLink } from "react-router-dom";
 // import { checkIsActive } from '../../../../_helpers';
+import './AsideSearchStyle.css'
 
 export function AsideSearch({ isActive }) {
   const location = useLocation();
@@ -110,7 +111,7 @@ export function AsideSearch({ isActive }) {
               <i className="menu-bullet menu-bullet-dot">
                 <span />
               </i>
-              <span className="menu-text">
+              <span className="text-dark">
                 <h6 className="text-dark">Dashboard</h6>
               </span>
             </NavLink>
@@ -150,8 +151,8 @@ export function AsideSearch({ isActive }) {
               <i className="menu-bullet menu-bullet-dot">
                 <span />
               </i>
-              <span className="menu-text">
-                <h6>Sales</h6>
+              <span className="text-dark nav-link-text">
+                <h6 className="nav-link-text">Sales</h6>
               </span>
             </NavLink>
             {/* <a
@@ -187,8 +188,8 @@ export function AsideSearch({ isActive }) {
               <i className="menu-bullet menu-bullet-dot">
                 <span />
               </i>
-              <span className="menu-text">
-                <h6>Products</h6>
+              <span className="text-dark nav-link-text">
+                <h6 className="nav-link-text">Products</h6>
               </span>
             </NavLink>
             {/* <a
@@ -226,8 +227,8 @@ export function AsideSearch({ isActive }) {
               <i className="menu-bullet menu-bullet-dot">
                 <span />
               </i>
-              <span className="menu-text">
-                <h6>Stocks</h6>
+              <span className="text-dark nav-link-text">
+                <h6 className="nav-link-text">Stocks</h6>
               </span>
             </NavLink>
             {/* <a
@@ -263,8 +264,8 @@ export function AsideSearch({ isActive }) {
               <i className="menu-bullet menu-bullet-dot">
                 <span />
               </i>
-              <span className="menu-text">
-                <h6>Stocks History</h6>
+              <span className="text-dark nav-link-text">
+                <h6 className="nav-link-text">Stocks History</h6>
               </span>
             </NavLink>
             {/* <a
@@ -299,8 +300,8 @@ export function AsideSearch({ isActive }) {
               <i className="menu-bullet menu-bullet-dot">
                 <span />
               </i>
-              <span className="menu-text">
-                <h6>Unit Manager</h6>
+              <span className="text-dark nav-link-text">
+                <h6 className="nav-link-text">Unit Manager</h6>
               </span>
             </NavLink>
           </div>
@@ -332,8 +333,8 @@ export function AsideSearch({ isActive }) {
               <i className="menu-bullet menu-bullet-dot">
                 <span />
               </i>
-              <span className="menu-text">
-                <h6>Customers</h6>
+              <span className="text-dark nav-link-text">
+                <h6 className="nav-link-text">Customers</h6>
               </span>
             </NavLink>
 
@@ -369,8 +370,8 @@ export function AsideSearch({ isActive }) {
             <i className="menu-bullet menu-bullet-dot">
               <span />
             </i>
-            <span className="menu-text">
-              <h6>Employees</h6>
+            <span className="text-dark nav-link-text">
+              <h6 className="nav-link-text">Employees</h6>
             </span>
           </NavLink>
           {/* <div className="d-flex flex-column flex-grow-1 mr-2">
@@ -407,8 +408,8 @@ export function AsideSearch({ isActive }) {
               <i className="menu-bullet menu-bullet-dot">
                 <span />
               </i>
-              <span className="menu-text">
-                <h6>Expenses</h6>
+              <span className="text-dark nav-link-text">
+                <h6 className="nav-link-text">Expenses</h6>
               </span>
             </NavLink>
             {/* <a
@@ -443,8 +444,8 @@ export function AsideSearch({ isActive }) {
               <i className="menu-bullet menu-bullet-dot">
                 <span />
               </i>
-              <span className="menu-text">
-                <h6>Debts Manager</h6>
+              <span className="text-dark nav-link-text">
+                <h6 className="nav-link-text">Debts Manager</h6>
               </span>
             </NavLink>
             {/* <a
@@ -479,8 +480,8 @@ export function AsideSearch({ isActive }) {
               <i className="menu-bullet menu-bullet-dot">
                 <span />
               </i>
-              <span className="menu-text">
-                <h6>Suppliers</h6>
+              <span className="text-dark nav-link-text">
+                <h6 className="nav-link-text">Suppliers</h6>
               </span>
             </NavLink>
             {/* <a
