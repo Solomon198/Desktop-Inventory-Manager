@@ -420,7 +420,7 @@ export function Aside() {
                 }
               >
                 <a
-                  href="#"
+                  href="/logout"
                   className="btn btn-icon btn-clean btn-lg mb-1 position-relative"
                   id="kt_quick_panel_toggle"
                   data-placement="right"

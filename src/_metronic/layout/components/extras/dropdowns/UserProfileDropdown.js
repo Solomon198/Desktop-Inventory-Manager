@@ -146,7 +146,7 @@ export function UserProfileDropdown() {
 
           <div className="navi-footer  px-8 py-5">
             <Link
-              to="/logout"
+              to="/"
               className="btn btn-light-primary font-weight-bold"
             >
               Sign Out
