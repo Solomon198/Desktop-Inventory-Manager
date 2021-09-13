@@ -1,10 +1,10 @@
-import RealmApp from "../dbConfig/config";
-import * as mongoose from "mongoose";
-import Schemas from "../schemas/index";
-import { ExpenseItemProperties } from "../../types/expensesItem";
-import helperFuncs from "../utils/helpers.func";
-import Realm from "realm";
-import { ExpenseProperties } from "../../types/expense";
+import RealmApp from '../dbConfig/config';
+import * as mongoose from 'mongoose';
+import Schemas from '../schemas/index';
+import { ExpenseItemProperties } from '../../types/expensesItem';
+import helperFuncs from '../utils/helpers.func';
+import Realm from 'realm';
+// import { ExpenseProperties } from "../../types/expense";
 
 const app = RealmApp();
 
@@ -53,7 +53,7 @@ function createExpenseItem(expenseItem: ExpenseItemProperties) {
 
         resolve(expenseItemObject);
       } catch (e) {
-        reject(e.message);
+        reject((e as any).message);
       }
     });
   });
@@ -72,7 +72,7 @@ function getExpenseItemSync(expenseItemId: string) {
 
     let expenseItem = app.objectForPrimaryKey(
       Schemas.ExpenseItemSchema.name,
-      convertIdToObjectId as ObjectId
+      convertIdToObjectId as mongoose.Types.ObjectId
     );
     let expenseItemObject: ExpenseItemProperties = expenseItem?.toJSON() as any;
     expenseItemObject._id = expenseItemObject._id.toHexString();
@@ -96,13 +96,13 @@ function getExpenseItem(expenseItemId: string) {
 
       let expenseItem = app.objectForPrimaryKey(
         Schemas.ExpenseItemSchema.name,
-        convertIdToObjectId as ObjectId
+        convertIdToObjectId as mongoose.Types.ObjectId
       );
       let expenseItemObject: ExpenseItemProperties = expenseItem?.toJSON() as any;
       expenseItemObject._id = expenseItemObject._id.toHexString();
       resolve(expenseItemObject);
     } catch (e) {
-      reject(e.message);
+      reject((e as any).message);
     }
   });
 }
@@ -115,24 +115,24 @@ function getExpenseItem(expenseItemId: string) {
  * @param {number} pageSize - The size of page
  * @returns {Promise<expensesItemResponse>} returns the total expense item count and entities
  */
-function getExpensesItem(page = 1, pageSize = 10, searchQuery = "", type = "") {
+function getExpensesItem(page = 1, pageSize = 10, searchQuery = '', type = '') {
   return new Promise<getExpensesItemResponse>((resolve, reject) => {
     try {
       let expensesItem: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
         expensesItem = app
           .objects(Schemas.ExpenseItemSchema.name)
           .filtered(query, searchQuery, type);
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
         expensesItem = app
           .objects(Schemas.ExpenseItemSchema.name)
           .filtered(query, searchQuery);
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = "cus_type == $0";
+        let query = 'cus_type == $0';
         expensesItem = app
           .objects(Schemas.ExpenseItemSchema.name)
           .filtered(query, type);
@@ -146,7 +146,7 @@ function getExpensesItem(page = 1, pageSize = 10, searchQuery = "", type = "") {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach(obj => {
+      result.forEach((obj) => {
         let newObj = obj.toJSON();
         newObj._id = newObj._id.toHexString();
         objArr.push(newObj);
@@ -156,7 +156,7 @@ function getExpensesItem(page = 1, pageSize = 10, searchQuery = "", type = "") {
 
       resolve(response);
     } catch (e) {
-      reject(e.message);
+      reject((e as any).message);
     }
   });
 }
@@ -175,13 +175,13 @@ function removeExpenseItem(expenseItemId: string) {
       app.write(() => {
         let expenseItem = app.objectForPrimaryKey(
           Schemas.ExpenseItemSchema.name,
-          changeToObjectId as ObjectId
+          changeToObjectId as mongoose.Types.ObjectId
         );
         app.delete(expenseItem);
         resolve(true);
       });
     } catch (e) {
-      reject(e.message);
+      reject((e as any).message);
     }
   });
 }
@@ -196,14 +196,16 @@ function removeExpenseItem(expenseItemId: string) {
 function removeExpensesItem(expenseItemIds: string[]) {
   return new Promise<boolean>((resolve, reject) => {
     try {
-      let changeToObjectIds: ObjectId[] = [];
+      let changeToObjectIds: mongoose.Types.ObjectId[] = [];
 
-      expenseItemIds.forEach(id => {
-        changeToObjectIds.push(mongoose.Types.ObjectId(id) as ObjectId);
+      expenseItemIds.forEach((id) => {
+        changeToObjectIds.push(
+          mongoose.Types.ObjectId(id) as mongoose.Types.ObjectId
+        );
       });
 
       app.write(() => {
-        changeToObjectIds.forEach(id => {
+        changeToObjectIds.forEach((id) => {
           let expenseItem = app.objectForPrimaryKey(
             Schemas.ExpenseItemSchema.name,
             id
@@ -214,7 +216,7 @@ function removeExpensesItem(expenseItemIds: string[]) {
         resolve(true);
       });
     } catch (e) {
-      reject(e.message);
+      reject((e as any).message);
     }
   });
 }
@@ -241,7 +243,7 @@ function updateExpenseItem(expenseForEdit: ExpenseItemProperties) {
         expenseItemObject._id = expenseItemObject._id.toHexString();
         resolve(expenseItemObject);
       } catch (e) {
-        reject(e.message);
+        reject((e as any).message);
       }
     });
   });
@@ -254,5 +256,5 @@ export default {
   getExpensesItem,
   removeExpenseItem,
   removeExpensesItem,
-  updateExpenseItem
+  updateExpenseItem,
 };

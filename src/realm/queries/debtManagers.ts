@@ -1,12 +1,11 @@
-import RealmApp from "../dbConfig/config";
-import * as mongoose from "mongoose";
-import Schemas from "../schemas/index";
-import { DebtManagerProperties } from "../../types/debtManager";
-import { CustomerProperties } from "../../types/customer";
-import helperFuncs from "../utils/helpers.func";
-import Realm from "realm";
-import CustomerAPI from "./customers";
-import helpersFunc from "../utils/helpers.func";
+import RealmApp from '../dbConfig/config';
+import * as mongoose from 'mongoose';
+import Schemas from '../schemas/index';
+import { DebtManagerProperties } from '../../types/debtManager';
+// import { CustomerProperties } from "../../types/customer";
+import helperFuncs from '../utils/helpers.func';
+import Realm from 'realm';
+// import CustomerAPI from "./customers";
 
 const app = RealmApp();
 
@@ -58,7 +57,7 @@ function createCustomerTransaction(customerTransaction: DebtManagerProperties) {
         let newTransaction: Realm.Object;
         let getCustomerTransaction = app
           .objects(Schemas.DebtManagerSchema.name)
-          .filtered("customer_id == $0", customerTransaction.customer_id);
+          .filtered('customer_id == $0', customerTransaction.customer_id);
         if (getCustomerTransaction.length > 0) {
           //run an update
           let objToUpdate: any = getCustomerTransaction[0];
@@ -66,8 +65,8 @@ function createCustomerTransaction(customerTransaction: DebtManagerProperties) {
           objToUpdate.total_outstanding +=
             customerTransaction.total_outstanding;
           let transactionObject: DebtManagerProperties = objToUpdate.toJSON() as any;
-          let cId = transactionObject.customer_id.toHexString();
-          let customer = CustomerAPI.getCustomerSync(cId) as CustomerProperties;
+          // let cId = transactionObject.customer_id.toHexString();
+          // let customer = CustomerAPI.getCustomerSync(cId) as CustomerProperties;
 
           transactionObject._id = transactionObject._id.toHexString();
           transactionObject.customer_id = transactionObject.customer_id.toHexString();
@@ -83,7 +82,7 @@ function createCustomerTransaction(customerTransaction: DebtManagerProperties) {
             );
           } catch (e) {}
           resolve(transactionObject);
-          console.log("First Transaction", transactionObject);
+          console.log('First Transaction', transactionObject);
         } else {
           newTransaction = app.create(
             Schemas.DebtManagerSchema.name,
@@ -92,8 +91,8 @@ function createCustomerTransaction(customerTransaction: DebtManagerProperties) {
           newTransaction = newTransaction.toJSON();
 
           let transactionObject: DebtManagerProperties = newTransaction as any;
-          let cId = transactionObject.customer_id.toHexString();
-          let customer = CustomerAPI.getCustomerSync(cId) as CustomerProperties;
+          // let cId = transactionObject.customer_id.toHexString();
+          // let customer = CustomerAPI.getCustomerSync(cId) as CustomerProperties;
 
           transactionObject._id = transactionObject._id.toHexString();
           transactionObject.customer_id = transactionObject.customer_id.toHexString();
@@ -109,10 +108,10 @@ function createCustomerTransaction(customerTransaction: DebtManagerProperties) {
             );
           } catch (e) {}
           resolve(transactionObject);
-          console.log("Second Transaction", transactionObject);
+          console.log('Second Transaction', transactionObject);
         }
       } catch (e) {
-        reject(e.message);
+        reject((e as any).message);
         console.log(e);
       }
     });
@@ -127,7 +126,7 @@ function createCustomerTransaction(customerTransaction: DebtManagerProperties) {
  * @returns {Promise<CustomerTransaction>} Returns the Customer's sales and debts aggregates.
  */
 function getCustomerTransaction(customerId: string) {
-  console.log("CustomerID", customerId);
+  console.log('CustomerID', customerId);
   return new Promise<any[]>((resolve, reject) => {
     try {
       let customerTransactions: Realm.Results<Realm.Object>;
@@ -135,11 +134,11 @@ function getCustomerTransaction(customerId: string) {
 
       customerTransactions = app
         .objects(Schemas.DebtManagerSchema.name)
-        .filtered("customer_id = $0", convertIdToObjectId);
+        .filtered('customer_id = $0', convertIdToObjectId);
 
       let objArr: any[] = [];
 
-      customerTransactions.forEach(obj => {
+      customerTransactions.forEach((obj) => {
         let newObj = obj.toJSON() as DebtManagerProperties;
 
         newObj._id = newObj._id.toHexString();
@@ -158,10 +157,10 @@ function getCustomerTransaction(customerId: string) {
       });
 
       resolve(objArr);
-      console.log("Get transaction", objArr);
+      console.log('Get transaction', objArr);
     } catch (e) {
-      reject(e.message);
-      console.log("Get Transaction Error", e);
+      reject((e as any).message);
+      console.log('Get Transaction Error', e);
     }
   });
 }
@@ -191,7 +190,7 @@ function updateCustomerTransaction(customerTransaction: transactionToUpdate) {
       try {
         let getCustomerTransaction = app
           .objects(Schemas.DebtManagerSchema.name)
-          .filtered("customer_id == $0", customerTransaction.customer_id);
+          .filtered('customer_id == $0', customerTransaction.customer_id);
         //run an update
         let objToUpdate: any = getCustomerTransaction[0];
         objToUpdate.total_amount += customerTransaction.amount;
@@ -212,9 +211,9 @@ function updateCustomerTransaction(customerTransaction: transactionToUpdate) {
           );
         } catch (e) {}
         resolve(transactionObject);
-        console.log("First Transaction", transactionObject);
+        console.log('First Transaction', transactionObject);
       } catch (e) {
-        reject(e.message);
+        reject((e as any).message);
         console.log(e);
       }
     });
@@ -224,5 +223,5 @@ function updateCustomerTransaction(customerTransaction: transactionToUpdate) {
 export default {
   createCustomerTransaction,
   getCustomerTransaction,
-  updateCustomerTransaction
+  updateCustomerTransaction,
 };

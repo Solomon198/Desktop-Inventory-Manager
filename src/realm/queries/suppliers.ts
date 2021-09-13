@@ -1,9 +1,9 @@
-import RealmApp from "../dbConfig/config";
-import * as mongoose from "mongoose";
-import Schemas from "../schemas/index";
-import { SupplierProperties } from "../../types/supplier";
-import helperFuncs from "../utils/helpers.func";
-import Realm from "realm";
+import RealmApp from '../dbConfig/config';
+import * as mongoose from 'mongoose';
+import Schemas from '../schemas/index';
+import { SupplierProperties } from '../../types/supplier';
+import helperFuncs from '../utils/helpers.func';
+import Realm from 'realm';
 
 const app = RealmApp();
 
@@ -50,7 +50,7 @@ function createSupplier(supplier: SupplierProperties) {
         supplierObject._id = supplierObject._id.toHexString();
         resolve(supplierObject);
       } catch (e) {
-        reject(e.message);
+        reject((e as any).message);
       }
     });
   });
@@ -70,7 +70,7 @@ function getSupplierSync(supplierId: string) {
 
     let supplier = app.objectForPrimaryKey(
       Schemas.SupplierSchema.name,
-      convertIdToObjectId as ObjectId
+      convertIdToObjectId as mongoose.Types.ObjectId
     );
 
     let supplierObject: SupplierProperties = supplier?.toJSON() as any;
@@ -96,13 +96,13 @@ function getSupplier(supplierId: string) {
 
       let supplier = app.objectForPrimaryKey(
         Schemas.SupplierSchema.name,
-        convertIdToObjectId as ObjectId
+        convertIdToObjectId as mongoose.Types.ObjectId
       );
       let supplierObject: SupplierProperties = supplier?.toJSON() as any;
       supplierObject._id = supplierObject._id.toHexString();
       resolve(supplierObject);
     } catch (e) {
-      reject(e.message);
+      reject((e as any).message);
     }
   });
 }
@@ -115,12 +115,12 @@ function getSupplier(supplierId: string) {
  * @param {number} pageSize - The size of page
  * @returns {Promise<suppliersResponse>} returns the total supplier count and entities
  */
-function getSuppliers(page = 1, pageSize = 10, searchQuery = "") {
+function getSuppliers(page = 1, pageSize = 10, searchQuery = '') {
   return new Promise<getSuppliersResponse>((resolve, reject) => {
     try {
       let suppliers: Realm.Results<Realm.Object>;
       if (searchQuery.trim()) {
-        let query = "supplier_name CONTAINS[c] $0 || phone_no CONTAINS[c] $0";
+        let query = 'supplier_name CONTAINS[c] $0 || phone_no CONTAINS[c] $0';
         suppliers = app
           .objects(Schemas.SupplierSchema.name)
           .filtered(query, searchQuery);
@@ -134,7 +134,7 @@ function getSuppliers(page = 1, pageSize = 10, searchQuery = "") {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach(obj => {
+      result.forEach((obj) => {
         let newObj: SupplierProperties = obj.toJSON();
         newObj._id = newObj._id.toHexString();
         objArr.push(newObj);
@@ -144,7 +144,7 @@ function getSuppliers(page = 1, pageSize = 10, searchQuery = "") {
 
       resolve(response);
     } catch (e) {
-      reject(e.message);
+      reject((e as any).message);
     }
   });
 }
@@ -163,13 +163,13 @@ function removeSupplier(supplierId: string) {
       app.write(() => {
         let supplier = app.objectForPrimaryKey(
           Schemas.SupplierSchema.name,
-          changeToObjectId as ObjectId
+          changeToObjectId as mongoose.Types.ObjectId
         );
         app.delete(supplier);
         resolve(true);
       });
     } catch (e) {
-      reject(e.message);
+      reject((e as any).message);
     }
   });
 }
@@ -184,14 +184,16 @@ function removeSupplier(supplierId: string) {
 function removeSuppliers(supplierIds: string[]) {
   return new Promise<boolean>((resolve, reject) => {
     try {
-      let changeToObjectIds: ObjectId[] = [];
+      let changeToObjectIds: mongoose.Types.ObjectId[] = [];
 
-      supplierIds.forEach(id => {
-        changeToObjectIds.push(mongoose.Types.ObjectId(id) as ObjectId);
+      supplierIds.forEach((id) => {
+        changeToObjectIds.push(
+          mongoose.Types.ObjectId(id) as mongoose.Types.ObjectId
+        );
       });
 
       app.write(() => {
-        changeToObjectIds.forEach(id => {
+        changeToObjectIds.forEach((id) => {
           let supplier = app.objectForPrimaryKey(
             Schemas.SupplierSchema.name,
             id
@@ -202,7 +204,7 @@ function removeSuppliers(supplierIds: string[]) {
         resolve(true);
       });
     } catch (e) {
-      reject(e.message);
+      reject((e as any).message);
     }
   });
 }
@@ -229,7 +231,7 @@ function updateSupplier(supplierForEdit: SupplierProperties) {
         supplierObject._id = supplierObject._id.toHexString();
         resolve(supplierObject);
       } catch (e) {
-        reject(e.message);
+        reject((e as any).message);
       }
     });
   });
@@ -242,5 +244,5 @@ export default {
   removeSupplier,
   removeSuppliers,
   updateSupplier,
-  getSupplierSync
+  getSupplierSync,
 };
