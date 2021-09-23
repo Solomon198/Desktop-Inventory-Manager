@@ -1,22 +1,25 @@
-import * as requestFromServer from "./debtsManagerCrud";
-import { debtsManagerSlice, callTypes } from "./debtsManagerSlice";
-import Queries from "../../../../../dist/realm/queries/index";
+import * as requestFromServer from './debtsManagerCrud';
+import { debtsManagerSlice, callTypes } from './debtsManagerSlice';
+import Queries from '../../../../../dist/realm/queries/index';
 const { actions } = debtsManagerSlice;
 const DebtsManagerAPI = Queries.DebtsManagerAPI;
 
-export const createCustomerTransaction = customerTransaction => dispatch => {
+export const createCustomerTransaction = (customerTransaction) => (
+  dispatch
+) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return DebtsManagerAPI.createCustomerTransaction(customerTransaction)
-    .then(customerTransaction => {
+    .then((customerTransaction) => {
       dispatch(actions.customerTransactionCreated({ customerTransaction }));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
+      console.log(error);
     });
 };
 
-export const fetchCustomerTransaction = id => dispatch => {
-  console.log("TransactionAction", id);
+export const fetchCustomerTransaction = (id) => (dispatch) => {
+  console.log('TransactionAction', id);
   if (!id) {
     return dispatch(
       actions.customerTransactionFetched({ debtForEdit: undefined })
@@ -26,25 +29,27 @@ export const fetchCustomerTransaction = id => dispatch => {
   dispatch(actions.startCall({ callType: callTypes.action }));
 
   return DebtsManagerAPI.getCustomerTransaction(id)
-    .then(customerTransaction => {
+    .then((customerTransaction) => {
       dispatch(
         actions.customerTransactionFetched({ debtForEdit: customerTransaction })
       );
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 
-export const updateCustomerTransaction = transactionToUpdate => dispatch => {
-  console.log("ActionTransactionToUpdate", transactionToUpdate);
+export const updateCustomerTransaction = (transactionToUpdate) => (
+  dispatch
+) => {
+  console.log('ActionTransactionToUpdate', transactionToUpdate);
   dispatch(actions.startCall({ callType: callTypes.action }));
   return DebtsManagerAPI.updateCustomerTransaction(transactionToUpdate)
-    .then(customerTransaction => {
-      console.log("ActionPayload", customerTransaction);
+    .then((customerTransaction) => {
+      console.log('ActionPayload', customerTransaction);
       dispatch(actions.customerTransactionUpdated({ customerTransaction }));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };

@@ -1,25 +1,25 @@
 // React bootstrap table next =>
 // DOCS: https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/
 // STORYBOOK: https://react-bootstrap-table.github.io/react-bootstrap-table2/storybook/index.html
-import React, { useEffect, useMemo } from "react";
-import BootstrapTable from "react-bootstrap-table-next";
+import React, { useEffect, useMemo } from 'react';
+import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory, {
-  PaginationProvider
-} from "react-bootstrap-table2-paginator";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import * as actions from "../../../_redux/suppliers/suppliersActions";
+  PaginationProvider,
+} from 'react-bootstrap-table2-paginator';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import * as actions from '../../../_redux/suppliers/suppliersActions';
 import {
   getSelectRow,
   getHandlerTableChange,
   NoRecordsFoundMessage,
   PleaseWaitMessage,
   sortCaret,
-  headerSortingClasses
-} from "../../../../../../_metronic/_helpers";
-import * as uiHelpers from "../CustomersUIHelpers";
-import * as columnFormatters from "./column-formatters";
-import { Pagination } from "../../../../../../_metronic/_partials/controls";
-import { useCustomersUIContext } from "../CustomersUIContext";
+  headerSortingClasses,
+} from '../../../../../../_metronic/_helpers';
+import * as uiHelpers from '../CustomersUIHelpers';
+import * as columnFormatters from './column-formatters';
+import { Pagination } from '../../../../../../_metronic/_partials/controls';
+import { useCustomersUIContext } from '../CustomersUIContext';
 
 export function CustomersTable() {
   // Customers UI Context
@@ -31,13 +31,13 @@ export function CustomersTable() {
       queryParams: customersUIContext.queryParams,
       setQueryParams: customersUIContext.setQueryParams,
       openEditCustomerDialog: customersUIContext.openEditCustomerDialog,
-      openDeleteCustomerDialog: customersUIContext.openDeleteCustomerDialog
+      openDeleteCustomerDialog: customersUIContext.openDeleteCustomerDialog,
     };
   }, [customersUIContext]);
 
   // Getting curret state of suppliers list from store (Redux)
   const { currentState } = useSelector(
-    state => ({ currentState: state.suppliers }),
+    (state) => ({ currentState: state.suppliers }),
     shallowEqual
   );
   const { totalCount, entities, listLoading } = currentState;
@@ -54,40 +54,47 @@ export function CustomersTable() {
   // Table columns
   const columns = [
     {
-      dataField: "supplier_name",
-      text: "Supplier",
+      dataField: 'supplier_name',
+      text: 'Supplier',
       sort: true,
       sortCaret: sortCaret,
-      headerSortingClasses
+      headerSortingClasses,
     },
     {
-      dataField: "phone_no",
-      text: "Mobile",
+      dataField: 'phone_no',
+      text: 'Mobile',
       sort: true,
       sortCaret: sortCaret,
-      headerSortingClasses
+      headerSortingClasses,
     },
     {
-      dataField: "address",
-      text: "Address",
+      dataField: 'address',
+      text: 'Address',
       sort: true,
       sortCaret: sortCaret,
-      headerSortingClasses
+      headerSortingClasses,
     },
     {
-      dataField: "action",
-      text: "Actions",
+      dataField: 'date',
+      text: 'Date',
+      sort: true,
+      sortCaret: sortCaret,
+      headerSortingClasses,
+    },
+    {
+      dataField: 'action',
+      text: 'Actions',
       formatter: columnFormatters.ActionsColumnFormatter,
       formatExtraData: {
         openEditCustomerDialog: customersUIProps.openEditCustomerDialog,
-        openDeleteCustomerDialog: customersUIProps.openDeleteCustomerDialog
+        openDeleteCustomerDialog: customersUIProps.openDeleteCustomerDialog,
       },
-      classes: "text-right pr-0",
-      headerClasses: "text-right pr-3",
+      classes: 'text-right pr-0',
+      headerClasses: 'text-right pr-3',
       style: {
-        minWidth: "100px"
-      }
-    }
+        minWidth: '100px',
+      },
+    },
   ];
   // Table pagination properties
   const paginationOptions = {
@@ -95,7 +102,7 @@ export function CustomersTable() {
     totalSize: totalCount,
     sizePerPageList: uiHelpers.sizePerPageList,
     sizePerPage: customersUIProps.queryParams.pageSize,
-    page: customersUIProps.queryParams.pageNumber
+    page: customersUIProps.queryParams.pageNumber,
   };
 
   return (
@@ -123,7 +130,7 @@ export function CustomersTable() {
                 selectRow={getSelectRow({
                   entities,
                   ids: customersUIProps.ids,
-                  setIds: customersUIProps.setIds
+                  setIds: customersUIProps.setIds,
                 })}
                 {...paginationTableProps}
               >

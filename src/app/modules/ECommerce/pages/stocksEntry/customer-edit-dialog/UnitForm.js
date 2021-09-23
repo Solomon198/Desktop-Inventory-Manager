@@ -2,21 +2,22 @@
 // Data validation is based on Yup
 // Please, be familiar with article first:
 // https://hackernoon.com/react-form-validation-with-formik-and-yup-8b76bda62e10
-import React, { useEffect, useMemo } from "react";
-import { Modal } from "react-bootstrap";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
+import React, { useEffect, useMemo } from 'react';
+import * as moment from 'moment';
+import { Modal } from 'react-bootstrap';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 import {
   Input,
   Select,
-  DatePickerField
-} from "../../../../../../_metronic/_partials/controls";
-import helperFuncs from "../../../../../../dist/realm/utils/helpers.func";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import * as actions from "../../../_redux/products/productsActions";
-import * as unitActions from "../../../_redux/units/unitsActions";
-import helperFuns from "../../utils/helper.funcs";
-import { useCustomersUIContext } from "../CustomersUIContext";
+  DatePickerField,
+} from '../../../../../../_metronic/_partials/controls';
+import helperFuncs from '../../../../../../dist/realm/utils/helpers.func';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import * as actions from '../../../_redux/products/productsActions';
+import * as unitActions from '../../../_redux/units/unitsActions';
+import helperFuns from '../../utils/helper.funcs';
+import { useCustomersUIContext } from '../CustomersUIContext';
 
 export function UnitForm({ actionsLoading, onHide }) {
   //   customer = typeof customer === 'object' ? customer : {};
@@ -26,7 +27,7 @@ export function UnitForm({ actionsLoading, onHide }) {
   const customersUIProps = useMemo(() => {
     return {
       queryParams: customersUIContext.queryParams,
-      setQueryParams: customersUIContext.setQueryParams
+      setQueryParams: customersUIContext.setQueryParams,
       // queryParams: customersUIContext.queryParams,
       // initTransaction: customersUIContext.initTransaction,
       // productsSelected: customersUIContext.productsSelected,
@@ -40,7 +41,7 @@ export function UnitForm({ actionsLoading, onHide }) {
 
   // Getting curret state of products list from store (Redux)
   const { currentState } = useSelector(
-    state => ({ currentState: state.products }),
+    (state) => ({ currentState: state.products }),
     shallowEqual
   );
   const { totalCount, entities } = currentState;
@@ -61,17 +62,19 @@ export function UnitForm({ actionsLoading, onHide }) {
   // Validation schema
   const UnitSchema = Yup.object().shape({
     product_id: Yup.string()
-      .min(2, "Minimum 2 symbols")
-      .max(50, "Maximum 50 symbols")
-      .required("Product is required"),
+      .min(2, 'Minimum 2 symbols')
+      .max(50, 'Maximum 50 symbols')
+      .required('Product is required'),
     name: Yup.string()
-      .min(2, "Minimum 2 symbols")
-      .max(50, "Maximum 50 symbols")
-      .required("Unit name is required"),
+      .min(2, 'Minimum 2 symbols')
+      .max(50, 'Maximum 50 symbols')
+      .required('Unit name is required')
+      .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field '),
     price: Yup.number()
-      .min(1, "$1 is minimum")
-      .max(1000000, "$1000000 is maximum")
-      .required("Price is required")
+      .min(1, '$1 is minimum')
+      .max(1000000, '$1000000 is maximum')
+      .required('Price is required'),
+    date: Yup.date().required('Date is required'),
   });
 
   const saveUnit = (values, resetForm) => {
@@ -82,16 +85,17 @@ export function UnitForm({ actionsLoading, onHide }) {
 
     dispatch(unitActions.createUnit(_newValues));
 
-    resetForm({ values: "" });
+    resetForm({ values: '' });
   };
 
   return (
     <>
       <Formik
         initialValues={{
-          product_id: "",
-          name: "",
-          price: ""
+          product_id: '',
+          name: '',
+          price: '',
+          date: '',
         }}
         enableReinitialize={true}
         validationSchema={UnitSchema}
@@ -106,7 +110,7 @@ export function UnitForm({ actionsLoading, onHide }) {
           handleChange,
           setFieldValue,
           errors,
-          touched
+          touched,
         }) => (
           <>
             <Modal.Body className="overlay overlay-block cursor-default">
@@ -117,7 +121,7 @@ export function UnitForm({ actionsLoading, onHide }) {
               )}
               <Form className="form form-label-right">
                 <div className="form-group row">
-                  <div className="col-lg-12">
+                  <div className="col-lg-4">
                     <div className="form-group">
                       <select
                         className="form-control"
@@ -139,11 +143,11 @@ export function UnitForm({ actionsLoading, onHide }) {
                         <b>Product</b>
                       </small>
                       {errors.product_id && touched.product_id ? (
-                        <div style={{ color: "red" }}>{errors.product_id}</div>
+                        <div style={{ color: 'red' }}>{errors.product_id}</div>
                       ) : null}
                     </div>
                   </div>
-                  <div className="col-lg-12">
+                  <div className="col-lg-4">
                     <div className="form-group">
                       <input
                         type="text"
@@ -153,19 +157,19 @@ export function UnitForm({ actionsLoading, onHide }) {
                         onBlur={handleBlur}
                         // disabled={true}
                         value={values.name}
-                        onChange={e => {
-                          setFieldValue("name", e.target.value);
+                        onChange={(e) => {
+                          setFieldValue('name', e.target.value);
                         }}
                       />
                       <small className="form-text text-muted">
                         <b>Unit</b>
                       </small>
                       {errors.name && touched.name ? (
-                        <div style={{ color: "red" }}>{errors.name}</div>
+                        <div style={{ color: 'red' }}>{errors.name}</div>
                       ) : null}
                     </div>
                   </div>
-                  <div className="col-lg-12">
+                  <div className="col-lg-4">
                     <div className="form-group">
                       <input
                         type="text"
@@ -175,15 +179,15 @@ export function UnitForm({ actionsLoading, onHide }) {
                         onBlur={handleBlur}
                         // disabled={true}
                         value={values.price}
-                        onChange={e => {
-                          setFieldValue("price", e.target.value);
+                        onChange={(e) => {
+                          setFieldValue('price', e.target.value);
                         }}
                       />
                       <small className="form-text text-muted">
                         <b>Price</b>
                       </small>
                       {errors.price && touched.price ? (
-                        <div style={{ color: "red" }}>{errors.price}</div>
+                        <div style={{ color: 'red' }}>{errors.price}</div>
                       ) : null}
                     </div>
                   </div>
@@ -191,7 +195,7 @@ export function UnitForm({ actionsLoading, onHide }) {
                     <div className="form-group">
                       <button
                         type="submit"
-                        style={{ display: "block" }}
+                        style={{ display: 'block' }}
                         className="btn btn-primary"
                         // disabled={disabled}
                       >

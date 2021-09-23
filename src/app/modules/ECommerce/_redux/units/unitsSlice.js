@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialUnitsState = {
   listLoading: false,
@@ -6,15 +6,15 @@ const initialUnitsState = {
   totalCount: 0,
   entities: null,
   unitForEdit: undefined,
-  lastError: null
+  lastError: null,
 };
 export const callTypes = {
-  list: "list",
-  action: "action"
+  list: 'list',
+  action: 'action',
 };
 
 export const unitsSlice = createSlice({
-  name: "units",
+  name: 'units',
   initialState: initialUnitsState,
   reducers: {
     catchError: (state, action) => {
@@ -59,18 +59,18 @@ export const unitsSlice = createSlice({
     unitCreated: (state, action) => {
       state.actionsLoading = false;
       state.error = null;
-      state.entities.push(action.payload.unit);
+      state.entities.unshift(action.payload.unit);
     },
     // updateUnit
     unitUpdated: (state, action) => {
       state.error = null;
       state.actionsLoading = false;
-      state.entities = state.entities.map(entity => {
+      state.entities = state.entities.map((entity) => {
         if (entity._id === action.payload.unit._id) {
           return action.payload.unit;
         }
         return entity;
       });
-    }
-  }
+    },
+  },
 });

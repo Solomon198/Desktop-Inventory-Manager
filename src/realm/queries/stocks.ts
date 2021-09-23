@@ -1,14 +1,14 @@
-import RealmApp from "../dbConfig/config";
-import * as mongoose from "mongoose";
-import Schemas from "../schemas/index";
-import { StockProperties } from "../../types/stock";
-import { ProductProperties } from "../../types/product";
-import { UnitProperties } from "../../types/unit";
-import helperFuncs from "../utils/helpers.func";
-import Realm from "realm";
-import ProductAPI from "./products";
-import UnitAPI from "./units";
-import helpersFunc from "../utils/helpers.func";
+import RealmApp from '../dbConfig/config';
+import * as mongoose from 'mongoose';
+import Schemas from '../schemas/index';
+import { StockProperties } from '../../types/stock';
+import { ProductProperties } from '../../types/product';
+import { UnitProperties } from '../../types/unit';
+import helperFuncs from '../utils/helpers.func';
+import Realm from 'realm';
+import ProductAPI from './products';
+import UnitAPI from './units';
+// import helpersFunc from "../utils/helpers.func";
 
 const app = RealmApp();
 
@@ -79,7 +79,7 @@ function createStock(stock: StockProperties) {
         } catch (e) {}
         resolve(stockObject);
       } catch (e) {
-        reject(e.message);
+        reject((e as any).message);
       }
     });
   });
@@ -111,14 +111,14 @@ function getStock(stockId: string) {
       let unit = UnitAPI.getUnitSync(stockObject.unit_id) as UnitProperties;
       stockObject.product_name = `${product.product_name}`;
       stockObject.unit_name = `${unit.name}`;
-      try {
-        stockObject.date = helperFuncs.transformDateObjectToString(
-          stockObject.date
-        );
-      } catch (e) {}
+      // try {
+      //   stockObject.date = helperFuncs.transformDateObjectToString(
+      //     stockObject.date
+      //   );
+      // } catch (e) {}
       resolve(stockObject);
     } catch (e) {
-      reject(e.message);
+      reject((e as any).message);
     }
   });
 }
@@ -131,24 +131,24 @@ function getStock(stockId: string) {
  * @param {number} pageSize - The size of page
  * @returns {Promise<stocksResponse>} returns the total stock count and entities
 //  */
-function getStocks(page = 1, pageSize = 10, searchQuery = "", type = "") {
+function getStocks(page = 1, pageSize = 10, searchQuery = '', type = '') {
   return new Promise<getStocksResponse>((resolve, reject) => {
     try {
       let stocks: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
         stocks = app
           .objects(Schemas.StockSchema.name)
           .filtered(query, searchQuery, type);
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
         stocks = app
           .objects(Schemas.StockSchema.name)
           .filtered(query, searchQuery);
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = "cus_type == $0";
+        let query = 'cus_type == $0';
         stocks = app.objects(Schemas.StockSchema.name).filtered(query, type);
       } else {
         stocks = app.objects(Schemas.StockSchema.name);
@@ -160,7 +160,7 @@ function getStocks(page = 1, pageSize = 10, searchQuery = "", type = "") {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach(obj => {
+      result.forEach((obj) => {
         let newObj = obj.toJSON() as StockProperties;
         let prodId = newObj.product_id.toHexString();
         let unitId = newObj.unit_id.toHexString();
@@ -178,11 +178,11 @@ function getStocks(page = 1, pageSize = 10, searchQuery = "", type = "") {
 
       let totalCount = objArr.length;
 
-      let response = { totalCount: totalCount, entities: objArr };
+      let response = { totalCount: totalCount, entities: objArr.reverse() };
 
       resolve(response);
     } catch (e) {
-      reject(e.message);
+      reject((e as any).message);
     }
   });
 }
@@ -207,7 +207,7 @@ function removeStock(stockId: string) {
         resolve(true);
       });
     } catch (e) {
-      reject(e.message);
+      reject((e as any).message);
     }
   });
 }
@@ -222,22 +222,27 @@ function removeStock(stockId: string) {
 function removeStocks(stockIds: string[]) {
   return new Promise<boolean>((resolve, reject) => {
     try {
-      let changeToObjectIds: ObjectId[] = [];
+      let changeToObjectIds: mongoose.Types.ObjectId[] = [];
 
-      stockIds.forEach(id => {
-        changeToObjectIds.push(mongoose.Types.ObjectId(id) as ObjectId);
+      stockIds.forEach((id) => {
+        changeToObjectIds.push(
+          mongoose.Types.ObjectId(id) as mongoose.Types.ObjectId
+        );
       });
 
       app.write(() => {
-        changeToObjectIds.forEach(id => {
-          let stock = app.objectForPrimaryKey(Schemas.StockSchema.name, id);
+        changeToObjectIds.forEach((id) => {
+          let stock = app.objectForPrimaryKey(
+            Schemas.StockSchema.name,
+            id as ObjectId
+          );
           app.delete(stock);
         });
 
         resolve(true);
       });
     } catch (e) {
-      reject(e.message);
+      reject((e as any).message);
     }
   });
 }
@@ -264,7 +269,7 @@ function updateStock(stockForEdit: StockProperties) {
         stockObject._id = stockObject._id.toHexString();
         resolve(stockObject);
       } catch (e) {
-        reject(e.message);
+        reject((e as any).message);
       }
     });
   });
@@ -276,5 +281,5 @@ export default {
   getStocks,
   removeStock,
   removeStocks,
-  updateStock
+  updateStock,
 };

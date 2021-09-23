@@ -1,9 +1,9 @@
-import RealmApp from "../dbConfig/config";
-import * as mongoose from "mongoose";
-import Schemas from "../schemas/index";
-import { EmployeeProperties } from "../../types/employee";
-import helperFuncs from "../utils/helpers.func";
-import Realm from "realm";
+import RealmApp from '../dbConfig/config';
+import * as mongoose from 'mongoose';
+import Schemas from '../schemas/index';
+import { EmployeeProperties } from '../../types/employee';
+import helperFuncs from '../utils/helpers.func';
+import Realm from 'realm';
 
 const app = RealmApp();
 
@@ -14,15 +14,15 @@ type getEmployeesResponse = {
 
 /**
  * @typedef {Object} Employee
- * @property {string} title - The title of employee e.g Mr/Mrs e.t.c
  * @property {string} first_name - The employee first name
  * @property {string} last_name - The employee last name
  * @property {string} gender - The gender or sex of employee e.g male or female
- * @property {string} login - unknown
+ * @property {string} default_password - Employee default password assigned by the super admin
  * @property {string} email - email of the employee
  * @property {string} phone_no - phone number of the employee
  * @property {string} home_address - Home address of the employee
  * @property {string} role - Role of the employee
+ * @property {string} date - Employee creation date
  */
 
 /**
@@ -54,9 +54,16 @@ function createEmployee(employee: EmployeeProperties) {
         newEmployee = newEmployee.toJSON();
         let employeeObject: EmployeeProperties = newEmployee as any;
         employeeObject._id = employeeObject._id.toHexString();
+        try {
+          employeeObject.date = helperFuncs.transformDateObjectToString(
+            employeeObject.date
+          );
+        } catch (e) {
+          console.log(e);
+        }
         resolve(employeeObject);
       } catch (e) {
-        reject(e.message);
+        reject((e as any).message);
       }
     });
   });
@@ -80,9 +87,16 @@ function getEmployee(employeeId: string) {
       );
       let employeeObject: EmployeeProperties = employee?.toJSON() as any;
       employeeObject._id = employeeObject._id.toHexString();
+      // try {
+      //   employeeObject.date = helperFuncs.transformDateObjectToString(
+      //     employeeObject.date
+      //   );
+      // } catch (e) {
+      //   console.log(e);
+      // }
       resolve(employeeObject);
     } catch (e) {
-      reject(e.message);
+      reject((e as any).message);
     }
   });
 }
@@ -95,29 +109,32 @@ function getEmployee(employeeId: string) {
  * @param {number} pageSize - The size of page
  * @returns {Promise<employeesResponse>} returns the total employee count and entities
  */
-function getEmployees(page = 1, pageSize = 10, searchQuery = "", type = "") {
+function getEmployees(page = 1, pageSize = 10, searchQuery = '', type = '') {
   return new Promise<getEmployeesResponse>((resolve, reject) => {
     try {
       let employees: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && role CONTAINS[c] $1";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && role CONTAINS[c] $1';
         employees = app
           .objects(Schemas.EmployeeSchema.name)
-          .filtered(query, searchQuery, type);
+          .filtered(query, searchQuery, type)
+          .sorted('date');
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
         employees = app
           .objects(Schemas.EmployeeSchema.name)
-          .filtered(query, searchQuery);
+          .filtered(query, searchQuery)
+          .sorted('date');
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = "role == $0";
+        let query = 'role == $0';
         employees = app
           .objects(Schemas.EmployeeSchema.name)
-          .filtered(query, type);
+          .filtered(query, type)
+          .sorted('date');
       } else {
-        employees = app.objects(Schemas.EmployeeSchema.name);
+        employees = app.objects(Schemas.EmployeeSchema.name).sorted('date');
       }
 
       let partition = helperFuncs.getPaginationPartition(page, pageSize);
@@ -126,17 +143,22 @@ function getEmployees(page = 1, pageSize = 10, searchQuery = "", type = "") {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach(obj => {
-        let newObj = obj.toJSON();
+      result.forEach((obj) => {
+        let newObj: EmployeeProperties = obj.toJSON();
         newObj._id = newObj._id.toHexString();
+        try {
+          newObj.date = helperFuncs.transformDateObjectToString(newObj.date);
+        } catch (e) {
+          console.log(e);
+        }
         objArr.push(newObj);
       });
 
-      let response = { totalCount: totalCount, entities: objArr };
+      let response = { totalCount: totalCount, entities: objArr.reverse() };
 
       resolve(response);
     } catch (e) {
-      reject(e.message);
+      reject((e as any).message);
     }
   });
 }
@@ -161,7 +183,7 @@ function removeEmployee(employeeId: string) {
         resolve(true);
       });
     } catch (e) {
-      reject(e.message);
+      reject((e as any).message);
     }
   });
 }
@@ -176,17 +198,19 @@ function removeEmployee(employeeId: string) {
 function removeEmployees(employeeIds: string[]) {
   return new Promise<boolean>((resolve, reject) => {
     try {
-      let changeToObjectIds: ObjectId[] = [];
+      let changeToObjectIds: mongoose.Types.ObjectId[] = [];
 
-      employeeIds.forEach(id => {
-        changeToObjectIds.push(mongoose.Types.ObjectId(id) as ObjectId);
+      employeeIds.forEach((id) => {
+        changeToObjectIds.push(
+          mongoose.Types.ObjectId(id) as mongoose.Types.ObjectId
+        );
       });
 
       app.write(() => {
-        changeToObjectIds.forEach(id => {
+        changeToObjectIds.forEach((id) => {
           let employee = app.objectForPrimaryKey(
             Schemas.EmployeeSchema.name,
-            id
+            id as ObjectId
           );
           app.delete(employee);
         });
@@ -194,7 +218,7 @@ function removeEmployees(employeeIds: string[]) {
         resolve(true);
       });
     } catch (e) {
-      reject(e.message);
+      reject((e as any).message);
     }
   });
 }
@@ -219,9 +243,16 @@ function updateEmployee(employeeForEdit: EmployeeProperties) {
         );
         let employeeObject: EmployeeProperties = employeeUpdate.toJSON();
         employeeObject._id = employeeObject._id.toHexString();
+        try {
+          employeeObject.date = helperFuncs.transformDateObjectToString(
+            employeeObject.date
+          );
+        } catch (e) {
+          console.log(e);
+        }
         resolve(employeeObject);
       } catch (e) {
-        reject(e.message);
+        reject((e as any).message);
       }
     });
   });
@@ -233,5 +264,5 @@ export default {
   getEmployees,
   removeEmployee,
   removeEmployees,
-  updateEmployee
+  updateEmployee,
 };

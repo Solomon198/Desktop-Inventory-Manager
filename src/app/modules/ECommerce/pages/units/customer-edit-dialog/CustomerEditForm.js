@@ -2,38 +2,37 @@
 // Data validation is based on Yup
 // Please, be familiar with article first:
 // https://hackernoon.com/react-form-validation-with-formik-and-yup-8b76bda62e10
-import React, { useState, useEffect, useMemo } from "react";
-import { Modal } from "react-bootstrap";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
+import React, { useState, useEffect, useMemo } from 'react';
+import { Modal } from 'react-bootstrap';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import * as moment from 'moment';
 import {
   Input,
   Select,
-  DatePickerField
-} from "../../../../../../_metronic/_partials/controls";
-import helperFuncs from "../../../../../../dist/realm/utils/helpers.func";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import * as stockActions from "../../../_redux/stocks/stocksActions";
-import * as actions from "../../../_redux/products/productsActions";
-import * as unitActions from "../../../_redux/units/unitsActions";
-import helperFuns from "../../utils/helper.funcs";
-import { useCustomersUIContext } from "../CustomersUIContext";
+  DatePickerField,
+} from '../../../../../../_metronic/_partials/controls';
+import helperFuncs from '../../../../../../dist/realm/utils/helpers.func';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import * as stockActions from '../../../_redux/stocks/stocksActions';
+import * as actions from '../../../_redux/products/productsActions';
+import * as unitActions from '../../../_redux/units/unitsActions';
+import helperFuns from '../../utils/helper.funcs';
+import { useCustomersUIContext } from '../CustomersUIContext';
 
 // Validation schema
 const UnitEditSchema = Yup.object().shape({
   product_id: Yup.string()
-    .min(2, "Minimum 2 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("Product is required"),
+    .min(2, 'Minimum 2 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('Product is required'),
   name: Yup.string()
-    .min(2, "Minimum 2 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("Unit name is required"),
-  price: Yup.string().required("Price is required")
-  // price: Yup.number()
-  //   .min(1, "$1 is minimum")
-  //   .max(1000000, "$1000000 is maximum")
-  //   .required("Price is required")
+    .min(2, 'Minimum 2 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('Unit name is required')
+    .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field '),
+  price: Yup.string().required('Price is required'),
+  date: Yup.date().required('Date is required'),
 });
 
 export function CustomerEditForm({ saveUnit, unit, actionsLoading, onHide }) {
@@ -46,14 +45,14 @@ export function CustomerEditForm({ saveUnit, unit, actionsLoading, onHide }) {
     return {
       queryParams: customersUIContext.queryParams,
       setQueryParams: customersUIContext.setQueryParams,
-      tab: customersUIContext.tab
+      tab: customersUIContext.tab,
     };
   }, [customersUIContext]);
 
   // Getting curret state of products list from store (Redux)
   const { productCurrentState } = useSelector(
-    state => ({
-      productCurrentState: state.products
+    (state) => ({
+      productCurrentState: state.products,
     }),
     shallowEqual
   );
@@ -87,7 +86,7 @@ export function CustomerEditForm({ saveUnit, unit, actionsLoading, onHide }) {
           handleChange,
           setFieldValue,
           errors,
-          touched
+          touched,
         }) => (
           <>
             <Modal.Body className="overlay overlay-block cursor-default">
@@ -99,7 +98,7 @@ export function CustomerEditForm({ saveUnit, unit, actionsLoading, onHide }) {
               <Form className="form form-label-right">
                 <div className="form-group row">
                   {!unit._id ? (
-                    <div className="col-lg-12">
+                    <div className="col-lg-4">
                       <div className="form-group">
                         <select
                           className="form-control"
@@ -121,16 +120,16 @@ export function CustomerEditForm({ saveUnit, unit, actionsLoading, onHide }) {
                           <b>Product</b>
                         </small>
                         {errors.product_id && touched.product_id ? (
-                          <div style={{ color: "red" }}>
+                          <div style={{ color: 'red' }}>
                             {errors.product_id}
                           </div>
                         ) : null}
                       </div>
                     </div>
                   ) : (
-                    ""
+                    ''
                   )}
-                  <div className="col-lg-12">
+                  <div className="col-lg-4">
                     <div className="form-group">
                       <input
                         type="text"
@@ -140,19 +139,19 @@ export function CustomerEditForm({ saveUnit, unit, actionsLoading, onHide }) {
                         onBlur={handleBlur}
                         // disabled={true}
                         value={values.name}
-                        onChange={e => {
-                          setFieldValue("name", e.target.value);
+                        onChange={(e) => {
+                          setFieldValue('name', e.target.value);
                         }}
                       />
                       <small className="form-text text-muted">
                         <b>Unit</b>
                       </small>
                       {errors.name && touched.name ? (
-                        <div style={{ color: "red" }}>{errors.name}</div>
+                        <div style={{ color: 'red' }}>{errors.name}</div>
                       ) : null}
                     </div>
                   </div>
-                  <div className="col-lg-12">
+                  <div className="col-lg-4">
                     <div className="form-group">
                       <input
                         type="number"
@@ -162,19 +161,19 @@ export function CustomerEditForm({ saveUnit, unit, actionsLoading, onHide }) {
                         onBlur={handleBlur}
                         // disabled={true}
                         value={values.bulk_size}
-                        onChange={e => {
-                          setFieldValue("bulk_size", e.target.value);
+                        onChange={(e) => {
+                          setFieldValue('bulk_size', e.target.value);
                         }}
                       />
                       <small className="form-text text-muted">
                         <b>Bulk Size</b>
                       </small>
                       {errors.bulk_size && touched.bulk_size ? (
-                        <div style={{ color: "red" }}>{errors.bulk_size}</div>
+                        <div style={{ color: 'red' }}>{errors.bulk_size}</div>
                       ) : null}
                     </div>
                   </div>
-                  <div className="col-lg-12">
+                  <div className="col-lg-4">
                     <div className="form-group">
                       <input
                         type="text"
@@ -186,16 +185,25 @@ export function CustomerEditForm({ saveUnit, unit, actionsLoading, onHide }) {
                         value={helperFuns
                           .transformCurrencyStringToNumber(values.price)
                           .toLocaleString()}
-                        onChange={e => {
-                          setFieldValue("price", e.target.value);
+                        onChange={(e) => {
+                          setFieldValue('price', e.target.value);
                         }}
                       />
                       <small className="form-text text-muted">
                         <b>Price</b>
                       </small>
                       {errors.price && touched.price ? (
-                        <div style={{ color: "red" }}>{errors.price}</div>
+                        <div style={{ color: 'red' }}>{errors.price}</div>
                       ) : null}
+                    </div>
+                  </div>
+                  <div className="col-lg-4">
+                    <div className="form-group">
+                      <DatePickerField
+                        name="date"
+                        label="date"
+                        // max={moment().format('YYYY-MM-DD')}
+                      />
                     </div>
                   </div>
                 </div>

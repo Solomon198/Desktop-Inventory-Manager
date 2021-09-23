@@ -12,6 +12,8 @@ export type UnitProperties = {
   bulk_size?: any;
 
   product_name?: string;
+
+  date: string;
 };
 
 export type UnitTypes = {

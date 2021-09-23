@@ -1,12 +1,12 @@
-import RealmApp from "../dbConfig/config";
-import * as mongoose from "mongoose";
-import Schemas from "../schemas/index";
-import { ExpenseProperties } from "../../types/expense";
-import { ExpenseItemProperties } from "../../types/expensesItem";
-import helperFuncs from "../utils/helpers.func";
-import ExpenseItemAPI from "./expensesItem";
-import Realm from "realm";
-import helpersFunc from "../utils/helpers.func";
+import RealmApp from '../dbConfig/config';
+import * as mongoose from 'mongoose';
+import Schemas from '../schemas/index';
+import { ExpenseProperties } from '../../types/expense';
+import { ExpenseItemProperties } from '../../types/expensesItem';
+import helperFuncs from '../utils/helpers.func';
+import ExpenseItemAPI from './expensesItem';
+import Realm from 'realm';
+import helpersFunc from '../utils/helpers.func';
 
 const app = RealmApp();
 
@@ -76,7 +76,7 @@ function createExpense(expense: ExpenseProperties) {
 
         resolve(expenseObject);
       } catch (e) {
-        reject(e.message);
+        reject((e as any).message);
       }
     });
   });
@@ -106,9 +106,9 @@ function getExpense(expenseId: string) {
         expenseObject.amount = helperFuncs.transformToCurrencyString(
           expenseObject.amount
         );
-        expenseObject.date = helperFuncs.transformDateObjectToString(
-          expenseObject.date
-        );
+        // expenseObject.date = helperFuncs.transformDateObjectToString(
+        //   expenseObject.date
+        // );
       } catch (e) {}
 
       let expenseItem = ExpenseItemAPI.getExpenseItemSync(
@@ -117,7 +117,7 @@ function getExpense(expenseId: string) {
       expenseObject.expense_item = `${expenseItem.item}`;
       resolve(expenseObject);
     } catch (e) {
-      reject(e.message);
+      reject((e as any).message);
     }
   });
 }
@@ -130,17 +130,18 @@ function getExpense(expenseId: string) {
  * @param {number} pageSize - The size of page
  * @returns {Promise<expensesResponse>} returns the total expense count and entities
  */
-function getExpenses(page = 1, pageSize = 10, searchQuery = "") {
+function getExpenses(page = 1, pageSize = 10, searchQuery = '') {
   return new Promise<getExpensesResponse>((resolve, reject) => {
     try {
       let expenses: Realm.Results<Realm.Object>;
       if (searchQuery.trim()) {
-        let query = "expense_item CONTAINS[c] $0";
+        let query = 'expense_item CONTAINS[c] $0';
         expenses = app
           .objects(Schemas.ExpenseSchema.name)
-          .filtered(query, searchQuery);
+          .filtered(query, searchQuery)
+          .sorted('date');
       } else {
-        expenses = app.objects(Schemas.ExpenseSchema.name);
+        expenses = app.objects(Schemas.ExpenseSchema.name).sorted('date');
       }
 
       let partition = helperFuncs.getPaginationPartition(page, pageSize);
@@ -149,7 +150,7 @@ function getExpenses(page = 1, pageSize = 10, searchQuery = "") {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach(obj => {
+      result.forEach((obj) => {
         let newObj = obj.toJSON() as ExpenseProperties;
         newObj._id = newObj._id.toHexString();
         newObj.expense_item_id = newObj.expense_item_id.toHexString();
@@ -164,11 +165,11 @@ function getExpenses(page = 1, pageSize = 10, searchQuery = "") {
         objArr.push(newObj);
       });
 
-      let response = { totalCount: totalCount, entities: objArr };
+      let response = { totalCount: totalCount, entities: objArr.reverse() };
 
       resolve(response);
     } catch (e) {
-      reject(e.message);
+      reject((e as any).message);
     }
   });
 }
@@ -193,7 +194,7 @@ function removeExpense(expenseId: string) {
         resolve(true);
       });
     } catch (e) {
-      reject(e.message);
+      reject((e as any).message);
     }
   });
 }
@@ -208,22 +209,27 @@ function removeExpense(expenseId: string) {
 function removeExpenses(expenseIds: string[]) {
   return new Promise<boolean>((resolve, reject) => {
     try {
-      let changeToObjectIds: ObjectId[] = [];
+      let changeToObjectIds: mongoose.Types.ObjectId[] = [];
 
-      expenseIds.forEach(id => {
-        changeToObjectIds.push(mongoose.Types.ObjectId(id) as ObjectId);
+      expenseIds.forEach((id) => {
+        changeToObjectIds.push(
+          mongoose.Types.ObjectId(id) as mongoose.Types.ObjectId
+        );
       });
 
       app.write(() => {
-        changeToObjectIds.forEach(id => {
-          let expense = app.objectForPrimaryKey(Schemas.ExpenseSchema.name, id);
+        changeToObjectIds.forEach((id) => {
+          let expense = app.objectForPrimaryKey(
+            Schemas.ExpenseSchema.name,
+            id as ObjectId
+          );
           app.delete(expense);
         });
 
         resolve(true);
       });
     } catch (e) {
-      reject(e.message);
+      reject((e as any).message);
     }
   });
 }
@@ -266,7 +272,7 @@ function updateExpense(expenseForEdit: ExpenseProperties) {
         } catch (e) {}
         resolve(expenseObject);
       } catch (e) {
-        reject(e.message);
+        reject((e as any).message);
       }
     });
   });
@@ -278,5 +284,5 @@ export default {
   getExpenses,
   removeExpense,
   removeExpenses,
-  updateExpense
+  updateExpense,
 };

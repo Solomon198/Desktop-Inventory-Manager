@@ -32,6 +32,21 @@ export function Demo3Dashboard() {
           <AdminChart1 />
           {/* <MixedWidget4 className="gutter-b card-stretch" /> */}
         </div>
+
+        <div className="col-xl-12">
+          <AdminChart4 />
+          {/* <MixedWidget4 className="gutter-b card-stretch" /> */}
+        </div>
+
+        <div className="col-xl-12">
+          <AdminChart5 />
+          {/* <MixedWidget4 className="gutter-b card-stretch" /> */}
+        </div>
+
+        <div className="col-xl-12">
+          <AdminChart6 />
+          {/* <MixedWidget4 className="gutter-b card-stretch" /> */}
+        </div>
         {/* <div className="col-xl-8">
           <BaseTablesWidget6 className="gutter-b" />
         </div> */}

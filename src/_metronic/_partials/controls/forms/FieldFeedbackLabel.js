@@ -12,11 +12,11 @@ const inputLabel = ({ label, touched, error, customFeedbackLabel }) => {
   return (
     <div className="feedback">
       {customFeedbackLabel && <>{customFeedbackLabel}</>}
-      {!customFeedbackLabel && (
+      {/* {!customFeedbackLabel && (
         <>
           Please enter <b>{label}</b>
         </>
-      )}
+      )} */}
     </div>
   );
 };
@@ -31,7 +31,7 @@ const selectLabel = ({ label, touched, error, customFeedbackLabel }) => {
       {customFeedbackLabel && <>{customFeedbackLabel}</>}
       {!customFeedbackLabel && label && (
         <>
-          Please select <b>{label}</b>
+          <b>{label}</b>
         </>
       )}
     </div>

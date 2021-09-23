@@ -27,7 +27,7 @@ export function Select({
   const { touched, error } = meta;
   return (
     <>
-      {label && <label>Select {label}</label>}
+      {label && <label>{label}</label>}
       <select
         className={getFieldCSSClasses(touched, error)}
         {...field}
@@ -37,9 +37,9 @@ export function Select({
       </select>
       {withFeedbackLabel && (
         <FieldFeedbackLabel
-          erros={error}
+          errors={error}
           touched={touched}
-          label={label}
+          // label={label}
           customFeedbackLabel={customFeedbackLabel}
         />
       )}

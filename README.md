@@ -37,7 +37,6 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 The build is minified and the filenames include the hashes.<br>
 
-
 ### `yarn build`
 
 Builds the app for production to the `build` folder.<br>
@@ -47,15 +46,15 @@ The build is minified and the filenames include the hashes.<br>
 
 ### `yarn lint`
 
-Runs linting for application in the `src` directory, you can also run  `Yarn lint:fix` to fix any issue fixable.
+Runs linting for application in the `src` directory, you can also run `Yarn lint:fix` to fix any issue fixable.
 
 ### `yarn format`
 
-Runs prettier format for codebase and you can specify  `yarn format:watch` to watch for changes.
+Runs prettier format for codebase and you can specify `yarn format:watch` to watch for changes.
 
-# TODO's  [ phase 1 ]
+# TODO's [ phase 1 ]
 
-- Create Realm Schemas for each modules of inventory app inside the directory  `src/realm/schemas`. 
+- Create Realm Schemas for each modules of inventory app inside the directory `src/realm/schemas`.
 
 - Create functionality for adding Products and Customers Using Realm
 
@@ -64,3 +63,9 @@ Runs prettier format for codebase and you can specify  `yarn format:watch` to wa
 - Create functionality for adding Stocks Using Realm
 
 - Create functionality for adding employees
+
+- Change customer transaction from an array of single object to return a single entity
+
+- Redirect user to the last sale invoice page
+
+- Handle the submit button in employee's module.

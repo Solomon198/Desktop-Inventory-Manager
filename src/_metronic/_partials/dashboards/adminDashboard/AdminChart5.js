@@ -60,7 +60,7 @@ export default class AdminChart5 extends React.Component {
       options: {
         chart: {
           height: 350,
-          type: "candlestick"
+          type: "donut"
         },
         xaxis: {
           type: "category"
@@ -99,7 +99,7 @@ export default class AdminChart5 extends React.Component {
         <ReactApexChart
           options={this.state.options}
           series={this.state.series}
-          type="candlestick"
+          type="donut"
           height={350}
         />
       </Card>

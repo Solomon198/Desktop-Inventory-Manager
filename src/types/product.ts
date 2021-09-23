@@ -10,6 +10,8 @@ export type ProductProperties = {
   supplier_name?: string;
 
   description: string;
+
+  date: string;
 };
 
 export type ProductTypes = {

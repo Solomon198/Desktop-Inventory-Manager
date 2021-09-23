@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialSuppliersState = {
   listLoading: false,
@@ -6,15 +6,15 @@ const initialSuppliersState = {
   totalCount: 0,
   entities: null,
   supplierForEdit: undefined,
-  lastError: null
+  lastError: null,
 };
 export const callTypes = {
-  list: "list",
-  action: "action"
+  list: 'list',
+  action: 'action',
 };
 
 export const suppliersSlice = createSlice({
-  name: "suppliers",
+  name: 'suppliers',
   initialState: initialSuppliersState,
   reducers: {
     catchError: (state, action) => {
@@ -51,13 +51,13 @@ export const suppliersSlice = createSlice({
     supplierCreated: (state, action) => {
       state.actionsLoading = false;
       state.error = null;
-      state.entities.push(action.payload.supplier);
+      state.entities.unshift(action.payload.supplier);
     },
     // updateSupplier
     supplierUpdated: (state, action) => {
       state.error = null;
       state.actionsLoading = false;
-      state.entities = state.entities.map(entity => {
+      state.entities = state.entities.map((entity) => {
         if (entity._id === action.payload.supplier._id) {
           return action.payload.supplier;
         }
@@ -69,7 +69,7 @@ export const suppliersSlice = createSlice({
       state.error = null;
       state.actionsLoading = false;
       state.entities = state.entities.filter(
-        el => el._id !== action.payload._id
+        (el) => el._id !== action.payload._id
       );
     },
     // deleteSuppliers
@@ -77,7 +77,7 @@ export const suppliersSlice = createSlice({
       state.error = null;
       state.actionsLoading = false;
       state.entities = state.entities.filter(
-        el => !action.payload.ids.includes(el._id)
+        (el) => !action.payload.ids.includes(el._id)
       );
     },
     // suppliersUpdateState
@@ -85,12 +85,12 @@ export const suppliersSlice = createSlice({
       state.actionsLoading = false;
       state.error = null;
       const { ids, status } = action.payload;
-      state.entities = state.entities.map(entity => {
-        if (ids.findIndex(id => id === entity.id) > -1) {
+      state.entities = state.entities.map((entity) => {
+        if (ids.findIndex((id) => id === entity.id) > -1) {
           entity.status = status;
         }
         return entity;
       });
-    }
-  }
+    },
+  },
 });

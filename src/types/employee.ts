@@ -3,15 +3,13 @@
 export type EmployeeProperties = {
   _id: any;
 
-  title: string;
-
   first_name: string;
 
   last_name: string;
 
   gender: string;
 
-  login: string;
+  default_password: string;
 
   email: string;
 
@@ -20,6 +18,8 @@ export type EmployeeProperties = {
   home_address: string;
 
   role: string;
+
+  date: string;
 };
 
 export type EmployeeTypes = {

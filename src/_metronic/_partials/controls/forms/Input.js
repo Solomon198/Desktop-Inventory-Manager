@@ -25,7 +25,7 @@ export function Input({
 }) {
   return (
     <>
-      {label && <label>Enter {label}</label>}
+      {label && <label>{label}</label>}
       <input
         type={type}
         className={getFieldCSSClasses(touched[field.name], errors[field.name])}

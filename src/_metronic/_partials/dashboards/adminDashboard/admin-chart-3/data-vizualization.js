@@ -449,6 +449,19 @@ export const born = [
     }, {
       year: 'June', expenses: 516.157, sales: 437.966, stocks: 142.087, products: 121.587, debts: 512.777, debts: 52.4, customers: 790,
     },
+    {
+      year: 'July', expenses: 241.142, sales: 482.150, stocks: 230.174, products: 23.640, debts: 17, customers: 570,
+    }, {
+      year: 'Aug', expenses: 511.334, sales: 437.343, stocks: 75.097, products: 108.249, debts: 104, customers: 630,
+    }, {
+      year: 'Sep', expenses: 324.359, sales: 374.867, stocks: 165.284, products: 141.060, debts: 516.040, debts: 23.7, customers: 590,
+    }, {
+      year: 'Oct', expenses: 410.060, sales: 297.513, stocks: 196.877, products: 159.630, debts: 312.821, debts: 28.3, customers: 680,
+    }, {
+      year: 'Nov', expenses: 413.505, sales: 279.225, stocks: 200.318, products: 144.975, debts: 487.106, debts: 79.6, customers: 640,
+    }, {
+      year: 'Dec', expenses: 516.157, sales: 437.966, stocks: 142.087, products: 121.587, debts: 512.777, debts: 52.4, customers: 790,
+    },
   ];
   
   export const ageStructure = [{

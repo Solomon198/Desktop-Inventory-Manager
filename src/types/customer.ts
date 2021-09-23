@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import * as mongoose from "mongoose";
+import * as mongoose from 'mongoose';
 
 export type CustomerProperties = {
   _id: any;
@@ -15,6 +15,8 @@ export type CustomerProperties = {
   phone_no: string;
 
   address: string;
+
+  date: string;
 };
 
 export type CustomerTypes = {

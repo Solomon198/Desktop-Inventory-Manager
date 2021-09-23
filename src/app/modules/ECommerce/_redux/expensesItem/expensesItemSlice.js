@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialExpensesItemState = {
   listLoading: false,
@@ -6,15 +6,15 @@ const initialExpensesItemState = {
   totalCount: 0,
   entities: null,
   expenseItemForEdit: undefined,
-  lastError: null
+  lastError: null,
 };
 export const callTypes = {
-  list: "list",
-  action: "action"
+  list: 'list',
+  action: 'action',
 };
 
 export const expensesItemSlice = createSlice({
-  name: "expensesItem",
+  name: 'expensesItem',
   initialState: initialExpensesItemState,
   reducers: {
     catchError: (state, action) => {
@@ -51,13 +51,13 @@ export const expensesItemSlice = createSlice({
     expenseItemCreated: (state, action) => {
       state.actionsLoading = false;
       state.error = null;
-      state.entities.push(action.payload.expenseItem);
+      state.entities.unshift(action.payload.expenseItem);
     },
     // updateExpenseItem
     expenseItemUpdated: (state, action) => {
       state.error = null;
       state.actionsLoading = false;
-      state.entities = state.entities.map(entity => {
+      state.entities = state.entities.map((entity) => {
         if (entity._id === action.payload.expenseItem._id) {
           return action.payload.expenseItem;
         }
@@ -69,7 +69,7 @@ export const expensesItemSlice = createSlice({
       state.error = null;
       state.actionsLoading = false;
       state.entities = state.entities.filter(
-        el => el._id !== action.payload._id
+        (el) => el._id !== action.payload._id
       );
     },
     // deleteExpensesItem
@@ -77,9 +77,9 @@ export const expensesItemSlice = createSlice({
       state.error = null;
       state.actionsLoading = false;
       state.entities = state.entities.filter(
-        el => !action.payload.ids.includes(el._id)
+        (el) => !action.payload.ids.includes(el._id)
       );
-    }
+    },
     // salesUpdateState
     //     salesStatusUpdated: (state, action) => {
     //       state.actionsLoading = false;
@@ -92,5 +92,5 @@ export const expensesItemSlice = createSlice({
     //         return entity;
     //       });
     //     }
-  }
+  },
 });

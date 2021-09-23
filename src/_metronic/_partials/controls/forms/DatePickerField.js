@@ -30,14 +30,20 @@ export function DatePickerField({ ...props }) {
         onChange={val => {
           setFieldValue(field.name, val);
         }}
+        // maxDate={props.max}
       />
-      {errors[field.name] && touched[field.name] ? (
+      {/* {errors[field.name] && touched[field.name] ? (
         <div className="invalid-datepicker-feedback">
           {errors[field.name].toString()}
         </div>
       ) : (
         <div className="feedback">
           Please enter <b>{props.label}</b> in 'mm/dd/yyyy' format
+        </div>
+      )} */}
+      {errors[field.name] && touched[field.name] && (
+        <div className="invalid-datepicker-feedback text-danger">
+          {errors[field.name].toString()}
         </div>
       )}
     </>

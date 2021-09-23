@@ -88,7 +88,7 @@ export default class AdminChart6 extends React.Component {
 
         <Card>
           <div id="chart">
-            <ReactApexChart options={this.state.options} series={this.state.series} type="line" height={350} />
+            <ReactApexChart options={this.state.options} series={this.state.series} type="donut" height={350} />
           </div>
         </Card>
 

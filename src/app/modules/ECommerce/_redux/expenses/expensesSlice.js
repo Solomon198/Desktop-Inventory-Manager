@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialExpensesState = {
   listLoading: false,
@@ -6,15 +6,15 @@ const initialExpensesState = {
   totalCount: 0,
   entities: null,
   expenseForEdit: undefined,
-  lastError: null
+  lastError: null,
 };
 export const callTypes = {
-  list: "list",
-  action: "action"
+  list: 'list',
+  action: 'action',
 };
 
 export const expensesSlice = createSlice({
-  name: "expenses",
+  name: 'expenses',
   initialState: initialExpensesState,
   reducers: {
     catchError: (state, action) => {
@@ -51,13 +51,13 @@ export const expensesSlice = createSlice({
     expenseCreated: (state, action) => {
       state.actionsLoading = false;
       state.error = null;
-      state.entities.push(action.payload.expense);
+      state.entities.unshift(action.payload.expense);
     },
     // updateExpense
     expenseUpdated: (state, action) => {
       state.error = null;
       state.actionsLoading = false;
-      state.entities = state.entities.map(entity => {
+      state.entities = state.entities.map((entity) => {
         if (entity._id === action.payload.expense._id) {
           return action.payload.expense;
         }
@@ -69,7 +69,7 @@ export const expensesSlice = createSlice({
       state.error = null;
       state.actionsLoading = false;
       state.entities = state.entities.filter(
-        el => el._id !== action.payload._id
+        (el) => el._id !== action.payload._id
       );
     },
     // deleteExpenses
@@ -77,7 +77,7 @@ export const expensesSlice = createSlice({
       state.error = null;
       state.actionsLoading = false;
       state.entities = state.entities.filter(
-        el => !action.payload.ids.includes(el._id)
+        (el) => !action.payload.ids.includes(el._id)
       );
     },
     // expensesUpdateState
@@ -85,12 +85,12 @@ export const expensesSlice = createSlice({
       state.actionsLoading = false;
       state.error = null;
       const { ids, status } = action.payload;
-      state.entities = state.entities.map(entity => {
-        if (ids.findIndex(id => id === entity._id) > -1) {
+      state.entities = state.entities.map((entity) => {
+        if (ids.findIndex((id) => id === entity._id) > -1) {
           entity.status = status;
         }
         return entity;
       });
-    }
-  }
+    },
+  },
 });
