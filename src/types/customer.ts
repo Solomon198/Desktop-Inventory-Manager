@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import * as mongoose from 'mongoose';
+import * as mongoose from "mongoose";
 
 export type CustomerProperties = {
   _id: any;

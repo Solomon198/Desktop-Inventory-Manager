@@ -2,36 +2,36 @@
 // Data validation is based on Yup
 // Please, be familiar with article first:
 // https://hackernoon.com/react-form-validation-with-formik-and-yup-8b76bda62e10
-import React from 'react';
-import * as moment from 'moment';
-import { Formik, Form, Field } from 'formik';
-import { DatePickerField } from '../../../../../../_metronic/_partials/controls';
-import * as Yup from 'yup';
+import React from "react";
+import * as moment from "moment";
+import { Formik, Form, Field } from "formik";
+import { DatePickerField } from "../../../../../../_metronic/_partials/controls";
+import * as Yup from "yup";
 
 // Validation schema
 const SupplierEditSchema = Yup.object().shape({
   supplier_name: Yup.string()
-    .min(2, 'Minimum 2 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Supplier name is required')
-    .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field '),
+    .min(2, "Minimum 2 symbols")
+    .max(50, "Maximum 50 symbols")
+    .required("Supplier name is required")
+    .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field "),
   address: Yup.string()
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Address is required')
-    .matches(/(?!^\d+$)^.+$/, 'Only numbers are not allowed for this field'),
+    .min(3, "Minimum 3 symbols")
+    .max(50, "Maximum 50 symbols")
+    .required("Address is required")
+    .matches(/(?!^\d+$)^.+$/, "Only numbers are not allowed for this field"),
   phone_no: Yup.number()
-    .typeError('Phone Number must be a number')
+    .typeError("Phone Number must be a number")
     .positive('Phone Number must not contain the "-" symbol')
-    .required('Phone Number is required'),
-  date: Yup.date().required('Date is required'),
+    .required("Phone Number is required"),
+  date: Yup.date().required("Date is required")
 });
 
 export function SupplierEditForm({
   supplier,
   btnRef,
   saveSupplier,
-  backToProductsList,
+  backToProductsList
 }) {
   return (
     <>
@@ -41,7 +41,7 @@ export function SupplierEditForm({
         validationSchema={SupplierEditSchema}
         onSubmit={(values, { resetForm }) => {
           saveSupplier(values, resetForm);
-          resetForm({ values: '' });
+          resetForm({ values: "" });
         }}
       >
         {({
@@ -51,7 +51,7 @@ export function SupplierEditForm({
           handleChange,
           setFieldValue,
           errors,
-          touched,
+          touched
         }) => (
           <>
             <Form className="form form-label-right">
@@ -71,7 +71,7 @@ export function SupplierEditForm({
                     <b>Supplier Name</b>
                   </small>
                   {errors.supplier_name && touched.supplier_name ? (
-                    <div style={{ color: 'red' }}>{errors.supplier_name}</div>
+                    <div style={{ color: "red" }}>{errors.supplier_name}</div>
                   ) : null}
                 </div>
                 {/* Address */}
@@ -89,7 +89,7 @@ export function SupplierEditForm({
                     <b>Address</b>
                   </small>
                   {errors.address && touched.address ? (
-                    <div style={{ color: 'red' }}>{errors.address}</div>
+                    <div style={{ color: "red" }}>{errors.address}</div>
                   ) : null}
                 </div>
               </div>
@@ -109,7 +109,7 @@ export function SupplierEditForm({
                     <b>Mobile</b>
                   </small>
                   {errors.phone_no && touched.phone_no ? (
-                    <div style={{ color: 'red' }}>{errors.phone_no}</div>
+                    <div style={{ color: "red" }}>{errors.phone_no}</div>
                   ) : null}
                 </div>
                 {/* Date */}

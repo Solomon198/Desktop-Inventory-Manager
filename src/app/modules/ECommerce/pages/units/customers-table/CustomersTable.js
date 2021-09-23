@@ -1,22 +1,22 @@
 // React bootstrap table next =>
 // DOCS: https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/
 // STORYBOOK: https://react-bootstrap-table.github.io/react-bootstrap-table2/storybook/index.html
-import React, { useEffect, useMemo } from 'react';
-import BootstrapTable from 'react-bootstrap-table-next';
+import React, { useEffect, useMemo } from "react";
+import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory, {
-  PaginationProvider,
-} from 'react-bootstrap-table2-paginator';
+  PaginationProvider
+} from "react-bootstrap-table2-paginator";
 import {
   getHandlerTableChange,
   NoRecordsFoundMessage,
   PleaseWaitMessage,
   sortCaret,
-  headerSortingClasses,
-} from '../../../../../../_metronic/_helpers';
-import * as uiHelpers from '../CustomersUIHelpers';
-import * as columnFormatters from './column-formatters';
-import { Pagination } from '../../../../../../_metronic/_partials/controls';
-import { useCustomersUIContext } from '../CustomersUIContext';
+  headerSortingClasses
+} from "../../../../../../_metronic/_helpers";
+import * as uiHelpers from "../CustomersUIHelpers";
+import * as columnFormatters from "./column-formatters";
+import { Pagination } from "../../../../../../_metronic/_partials/controls";
+import { useCustomersUIContext } from "../CustomersUIContext";
 
 export function CustomersTable({ entities, totalCount, listLoading }) {
   // Customers UI Context
@@ -28,53 +28,53 @@ export function CustomersTable({ entities, totalCount, listLoading }) {
       initStock: customersUIContext.initStock,
       queryParams: customersUIContext.queryParams,
       setQueryParams: customersUIContext.setQueryParams,
-      openEditCustomerDialog: customersUIContext.openEditCustomerDialog,
+      openEditCustomerDialog: customersUIContext.openEditCustomerDialog
     };
   }, [customersUIContext]);
 
   // Table columns
   const columns = [
     {
-      dataField: 'name',
-      text: 'Unit',
+      dataField: "name",
+      text: "Unit",
       sort: true,
       sortCaret: sortCaret,
-      headerSortingClasses,
+      headerSortingClasses
     },
     {
-      dataField: 'bulk_size',
-      text: 'Bulk Size',
+      dataField: "bulk_size",
+      text: "Bulk Size",
       sort: true,
       sortCaret: sortCaret,
-      headerSortingClasses,
+      headerSortingClasses
     },
     {
-      dataField: 'price',
-      text: 'Price',
+      dataField: "price",
+      text: "Price",
       sort: true,
       sortCaret: sortCaret,
-      headerSortingClasses,
+      headerSortingClasses
     },
     {
-      dataField: 'date',
-      text: 'Date',
+      dataField: "date",
+      text: "Date",
       sort: true,
       sortCaret: sortCaret,
-      headerSortingClasses,
+      headerSortingClasses
     },
     {
-      dataField: 'action',
-      text: 'Actions',
+      dataField: "action",
+      text: "Actions",
       formatter: columnFormatters.ActionsColumnFormatter,
       formatExtraData: {
-        openEditCustomerDialog: customersUIProps.openEditCustomerDialog,
+        openEditCustomerDialog: customersUIProps.openEditCustomerDialog
       },
-      classes: 'text-right pr-0',
-      headerClasses: 'text-right pr-3',
+      classes: "text-right pr-0",
+      headerClasses: "text-right pr-3",
       style: {
-        minWidth: '100px',
-      },
-    },
+        minWidth: "100px"
+      }
+    }
   ];
   // Table pagination properties
   const paginationOptions = {
@@ -82,7 +82,7 @@ export function CustomersTable({ entities, totalCount, listLoading }) {
     totalSize: totalCount,
     sizePerPageList: uiHelpers.sizePerPageList,
     sizePerPage: customersUIProps.queryParams.pageSize,
-    page: customersUIProps.queryParams.pageNumber,
+    page: customersUIProps.queryParams.pageNumber
   };
 
   return (

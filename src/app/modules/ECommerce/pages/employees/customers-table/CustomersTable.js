@@ -1,25 +1,25 @@
 // React bootstrap table next =>
 // DOCS: https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/
 // STORYBOOK: https://react-bootstrap-table.github.io/react-bootstrap-table2/storybook/index.html
-import React, { useEffect, useMemo } from 'react';
-import BootstrapTable from 'react-bootstrap-table-next';
+import React, { useEffect, useMemo } from "react";
+import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory, {
-  PaginationProvider,
-} from 'react-bootstrap-table2-paginator';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import * as actions from '../../../_redux/employees/employeesActions';
+  PaginationProvider
+} from "react-bootstrap-table2-paginator";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as actions from "../../../_redux/employees/employeesActions";
 import {
   getSelectRow,
   getHandlerTableChange,
   NoRecordsFoundMessage,
   PleaseWaitMessage,
   sortCaret,
-  headerSortingClasses,
-} from '../../../../../../_metronic/_helpers';
-import * as uiHelpers from '../CustomersUIHelpers';
-import * as columnFormatters from './column-formatters';
-import { Pagination } from '../../../../../../_metronic/_partials/controls';
-import { useEmployeesUIContext } from '../CustomersUIContext';
+  headerSortingClasses
+} from "../../../../../../_metronic/_helpers";
+import * as uiHelpers from "../CustomersUIHelpers";
+import * as columnFormatters from "./column-formatters";
+import { Pagination } from "../../../../../../_metronic/_partials/controls";
+import { useEmployeesUIContext } from "../CustomersUIContext";
 
 export function EmployeesTable() {
   // Employees UI Context
@@ -31,13 +31,13 @@ export function EmployeesTable() {
       queryParams: employeesUIContext.queryParams,
       setQueryParams: employeesUIContext.setQueryParams,
       openEditEmployeeDialog: employeesUIContext.openEditEmployeeDialog,
-      openDeleteEmployeeDialog: employeesUIContext.openDeleteEmployeeDialog,
+      openDeleteEmployeeDialog: employeesUIContext.openDeleteEmployeeDialog
     };
   }, [employeesUIContext]);
 
   // Getting curret state of employees list from store (Redux)
   const { currentState } = useSelector(
-    (state) => ({ currentState: state.employees }),
+    state => ({ currentState: state.employees }),
     shallowEqual
   );
   const { totalCount, entities, listLoading } = currentState;
@@ -54,53 +54,53 @@ export function EmployeesTable() {
   // Table columns
   const columns = [
     {
-      dataField: 'first_name',
-      text: 'Firstname',
+      dataField: "first_name",
+      text: "Firstname",
       sort: true,
       sortCaret: sortCaret,
-      headerSortingClasses,
+      headerSortingClasses
     },
     {
-      dataField: 'last_name',
-      text: 'Lastname',
+      dataField: "last_name",
+      text: "Lastname",
       sort: true,
       sortCaret: sortCaret,
-      headerSortingClasses,
+      headerSortingClasses
     },
     {
-      dataField: 'gender',
-      text: 'Gender',
+      dataField: "gender",
+      text: "Gender",
       sort: false,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
-      dataField: 'role',
-      text: 'Role',
+      dataField: "role",
+      text: "Role",
       sort: true,
       sortCaret: sortCaret,
       headerSortingClasses,
-      formatter: columnFormatters.TypeColumnFormatter,
+      formatter: columnFormatters.TypeColumnFormatter
     },
     {
-      dataField: 'date',
-      text: 'Date',
+      dataField: "date",
+      text: "Date",
       sort: false,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
-      dataField: 'action',
-      text: 'Actions',
+      dataField: "action",
+      text: "Actions",
       formatter: columnFormatters.ActionsColumnFormatter,
       formatExtraData: {
         openEditEmployeeDialog: employeesUIProps.openEditEmployeeDialog,
-        openDeleteEmployeeDialog: employeesUIProps.openDeleteEmployeeDialog,
+        openDeleteEmployeeDialog: employeesUIProps.openDeleteEmployeeDialog
       },
-      classes: 'text-right pr-0',
-      headerClasses: 'text-right pr-3',
+      classes: "text-right pr-0",
+      headerClasses: "text-right pr-3",
       style: {
-        minWidth: '100px',
-      },
-    },
+        minWidth: "100px"
+      }
+    }
   ];
   // Table pagination properties
   const paginationOptions = {
@@ -108,7 +108,7 @@ export function EmployeesTable() {
     totalSize: totalCount,
     sizePerPageList: uiHelpers.sizePerPageList,
     sizePerPage: employeesUIProps.queryParams.pageSize,
-    page: employeesUIProps.queryParams.pageNumber,
+    page: employeesUIProps.queryParams.pageNumber
   };
 
   return (
@@ -136,7 +136,7 @@ export function EmployeesTable() {
                 selectRow={getSelectRow({
                   entities,
                   ids: employeesUIProps.ids,
-                  setIds: employeesUIProps.setIds,
+                  setIds: employeesUIProps.setIds
                 })}
                 {...paginationTableProps}
               >

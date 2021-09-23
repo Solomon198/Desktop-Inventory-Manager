@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialEmployeesState = {
   listLoading: false,
@@ -6,15 +6,15 @@ const initialEmployeesState = {
   totalCount: 0,
   entities: null,
   employeeForEdit: undefined,
-  lastError: null,
+  lastError: null
 };
 export const callTypes = {
-  list: 'list',
-  action: 'action',
+  list: "list",
+  action: "action"
 };
 
 export const employeesSlice = createSlice({
-  name: 'employees',
+  name: "employees",
   initialState: initialEmployeesState,
   reducers: {
     catchError: (state, action) => {
@@ -57,7 +57,7 @@ export const employeesSlice = createSlice({
     employeeUpdated: (state, action) => {
       state.error = null;
       state.actionsLoading = false;
-      state.entities = state.entities.map((entity) => {
+      state.entities = state.entities.map(entity => {
         if (entity._id === action.payload.employee._id) {
           return action.payload.employee;
         }
@@ -69,7 +69,7 @@ export const employeesSlice = createSlice({
       state.error = null;
       state.actionsLoading = false;
       state.entities = state.entities.filter(
-        (el) => el._id !== action.payload._id
+        el => el._id !== action.payload._id
       );
     },
     // deleteEmployees
@@ -77,7 +77,7 @@ export const employeesSlice = createSlice({
       state.error = null;
       state.actionsLoading = false;
       state.entities = state.entities.filter(
-        (el) => !action.payload.ids.includes(el._id)
+        el => !action.payload.ids.includes(el._id)
       );
     },
     // employeesUpdateState
@@ -85,12 +85,12 @@ export const employeesSlice = createSlice({
       state.actionsLoading = false;
       state.error = null;
       const { ids, status } = action.payload;
-      state.entities = state.entities.map((entity) => {
-        if (ids.findIndex((id) => id === entity.id) > -1) {
+      state.entities = state.entities.map(entity => {
+        if (ids.findIndex(id => id === entity.id) > -1) {
           entity.status = status;
         }
         return entity;
       });
-    },
-  },
+    }
+  }
 });

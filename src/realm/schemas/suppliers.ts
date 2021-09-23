@@ -1,21 +1,21 @@
-import { SupplierType } from '../../types/supplier';
+import { SupplierType } from "../../types/supplier";
 
 const SupplierSchema: SupplierType = {
-  name: 'suppliers',
+  name: "suppliers",
 
-  primaryKey: '_id',
+  primaryKey: "_id",
 
   properties: {
-    _id: 'objectId',
+    _id: "objectId",
 
-    supplier_name: 'string?',
+    supplier_name: "string?",
 
-    address: 'string?',
+    address: "string?",
 
-    phone_no: 'string?',
+    phone_no: "string?",
 
-    date: 'date',
-  },
+    date: "date"
+  }
 };
 
 export default SupplierSchema;
