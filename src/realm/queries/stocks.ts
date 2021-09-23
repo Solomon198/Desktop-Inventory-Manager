@@ -1,13 +1,13 @@
-import RealmApp from "../dbConfig/config";
-import * as mongoose from "mongoose";
-import Schemas from "../schemas/index";
-import { StockProperties } from "../../types/stock";
-import { ProductProperties } from "../../types/product";
-import { UnitProperties } from "../../types/unit";
-import helperFuncs from "../utils/helpers.func";
-import Realm from "realm";
-import ProductAPI from "./products";
-import UnitAPI from "./units";
+import RealmApp from '../dbConfig/config';
+import * as mongoose from 'mongoose';
+import Schemas from '../schemas/index';
+import { StockProperties } from '../../types/stock';
+import { ProductProperties } from '../../types/product';
+import { UnitProperties } from '../../types/unit';
+import helperFuncs from '../utils/helpers.func';
+import Realm from 'realm';
+import ProductAPI from './products';
+import UnitAPI from './units';
 // import helpersFunc from "../utils/helpers.func";
 
 const app = RealmApp();
@@ -15,6 +15,13 @@ const app = RealmApp();
 type getStocksResponse = {
   totalCount: number;
   entities: any[];
+};
+
+type filterRange = {
+  start_date: string;
+  end_date: string;
+  pageNumber: number;
+  pageSize: number;
 };
 
 /**
@@ -131,24 +138,24 @@ function getStock(stockId: string) {
  * @param {number} pageSize - The size of page
  * @returns {Promise<stocksResponse>} returns the total stock count and entities
 //  */
-function getStocks(page = 1, pageSize = 10, searchQuery = "", type = "") {
+function getStocks(page = 1, pageSize = 10, searchQuery = '', type = '') {
   return new Promise<getStocksResponse>((resolve, reject) => {
     try {
       let stocks: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
         stocks = app
           .objects(Schemas.StockSchema.name)
           .filtered(query, searchQuery, type);
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
         stocks = app
           .objects(Schemas.StockSchema.name)
           .filtered(query, searchQuery);
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = "cus_type == $0";
+        let query = 'cus_type == $0';
         stocks = app.objects(Schemas.StockSchema.name).filtered(query, type);
       } else {
         stocks = app.objects(Schemas.StockSchema.name);
@@ -160,7 +167,58 @@ function getStocks(page = 1, pageSize = 10, searchQuery = "", type = "") {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach(obj => {
+      result.forEach((obj) => {
+        let newObj = obj.toJSON() as StockProperties;
+        let prodId = newObj.product_id.toHexString();
+        let unitId = newObj.unit_id.toHexString();
+        let product = ProductAPI.getProductSync(prodId) as ProductProperties;
+        let unit = UnitAPI.getUnitSync(unitId) as UnitProperties;
+        newObj._id = newObj._id.toHexString();
+        newObj.product_name = product.product_name;
+        newObj.unit_name = unit.name;
+        try {
+          newObj.date = helperFuncs.transformDateObjectToString(newObj.date);
+          newObj.quantity = newObj.quantity.toString();
+        } catch (e) {}
+        objArr.push(newObj);
+      });
+
+      let totalCount = objArr.length;
+
+      let response = { totalCount: totalCount, entities: objArr.reverse() };
+
+      resolve(response);
+    } catch (e) {
+      reject((e as any).message);
+    }
+  });
+}
+
+/**
+ * @description Get filter products in stock
+ * @async
+ * @function getFilterProducts
+ * @param {number} [page=1] - The page number of the requested filtered products
+ * @param {number} [pageSize=10] - The page size of the requested filtered products
+ * @param {filterRange} - An object that contain the start and end date for filtering products
+ * @returns {Promise<stocksResponse>} returns the total filtered products count and entities
+//  */
+function getFilterProducts(filterRange: filterRange) {
+  return new Promise<getStocksResponse>((resolve, reject) => {
+    try {
+      let stocks: Realm.Results<Realm.Object>;
+      stocks = app.objects(Schemas.StockSchema.name);
+
+      let partition = helperFuncs.getPaginationPartition(
+        filterRange.pageNumber,
+        filterRange.pageSize
+      );
+      // let totalCount = stocks.length;
+      let result = stocks.slice(partition.pageStart, partition.pageEnd);
+
+      let objArr: any[] = [];
+      //converting to array of Object
+      result.forEach((obj) => {
         let newObj = obj.toJSON() as StockProperties;
         let prodId = newObj.product_id.toHexString();
         let unitId = newObj.unit_id.toHexString();
@@ -224,14 +282,14 @@ function removeStocks(stockIds: string[]) {
     try {
       let changeToObjectIds: mongoose.Types.ObjectId[] = [];
 
-      stockIds.forEach(id => {
+      stockIds.forEach((id) => {
         changeToObjectIds.push(
           mongoose.Types.ObjectId(id) as mongoose.Types.ObjectId
         );
       });
 
       app.write(() => {
-        changeToObjectIds.forEach(id => {
+        changeToObjectIds.forEach((id) => {
           let stock = app.objectForPrimaryKey(
             Schemas.StockSchema.name,
             id as ObjectId
@@ -279,7 +337,8 @@ export default {
   createStock,
   getStock,
   getStocks,
+  getFilterProducts,
   removeStock,
   removeStocks,
-  updateStock
+  updateStock,
 };

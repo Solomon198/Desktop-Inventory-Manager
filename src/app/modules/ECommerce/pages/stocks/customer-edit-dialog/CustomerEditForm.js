@@ -2,46 +2,46 @@
 // Data validation is based on Yup
 // Please, be familiar with article first:
 // https://hackernoon.com/react-form-validation-with-formik-and-yup-8b76bda62e10
-import React, { useState, useEffect, useMemo } from "react";
-import { Modal } from "react-bootstrap";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import * as moment from "moment";
+import React, { useState, useEffect, useMemo } from 'react';
+import { Modal } from 'react-bootstrap';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import * as moment from 'moment';
 import {
   Input,
   Select,
-  DatePickerField
-} from "../../../../../../_metronic/_partials/controls";
-import helperFuncs from "../../../../../../dist/realm/utils/helpers.func";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import * as stockActions from "../../../_redux/stocks/stocksActions";
-import * as actions from "../../../_redux/products/productsActions";
-import * as unitActions from "../../../_redux/units/unitsActions";
-import helperFuns from "../../utils/helper.funcs";
-import { useCustomersUIContext } from "../CustomersUIContext";
+  DatePickerField,
+} from '../../../../../../_metronic/_partials/controls';
+import helperFuncs from '../../../../../../dist/realm/utils/helpers.func';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import * as stockActions from '../../../_redux/stocks/stocksActions';
+import * as actions from '../../../_redux/products/productsActions';
+import * as unitActions from '../../../_redux/units/unitsActions';
+import helperFuns from '../../utils/helper.funcs';
+import { useCustomersUIContext } from '../CustomersUIContext';
 
 // Validation schema
 const CustomerEditSchema = Yup.object().shape({
   product_id: Yup.string()
-    .min(2, "Mininum 2 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("Product is required"),
+    .min(2, 'Mininum 2 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('Product is required'),
   unit_id: Yup.string()
-    .min(3, "Minimum 3 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("Unit is required"),
+    .min(3, 'Minimum 3 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('Unit is required'),
   product_name: Yup.string()
-    .min(2, "Mininum 2 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("Product is required"),
+    .min(2, 'Mininum 2 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('Product is required'),
   unit_name: Yup.string()
-    .min(2, "Mininum 2 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("Product is required"),
+    .min(2, 'Mininum 2 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('Product is required'),
   quantity: Yup.number()
-    .min(1, "Minimum 3 symbols")
-    .required("Quantity is required"),
-  date: Yup.date().required("Date is required")
+    .min(1, 'Minimum 3 symbols')
+    .required('Quantity is required'),
+  date: Yup.date().required('Date is required'),
 });
 
 export function CustomerEditForm({ saveStock, stock, actionsLoading, onHide }) {
@@ -54,15 +54,15 @@ export function CustomerEditForm({ saveStock, stock, actionsLoading, onHide }) {
     return {
       queryParams: customersUIContext.queryParams,
       setQueryParams: customersUIContext.setQueryParams,
-      tab: customersUIContext.tab
+      tab: customersUIContext.tab,
     };
   }, [customersUIContext]);
 
   // Getting curret state of products list from store (Redux)
   const { productCurrentState, unitCurrentState } = useSelector(
-    state => ({
+    (state) => ({
       productCurrentState: state.products,
-      unitCurrentState: state.units
+      unitCurrentState: state.units,
     }),
     shallowEqual
   );
@@ -95,7 +95,7 @@ export function CustomerEditForm({ saveStock, stock, actionsLoading, onHide }) {
           handleChange,
           setFieldValue,
           errors,
-          touched
+          touched,
         }) => (
           <>
             <Modal.Body className="overlay overlay-block cursor-default">
@@ -113,17 +113,17 @@ export function CustomerEditForm({ saveStock, stock, actionsLoading, onHide }) {
                         placeholder="Product"
                         name="product_id"
                         onBlur={handleBlur}
-                        onChange={e => {
+                        onChange={(e) => {
                           let selectedProductId = e.target.value;
-                          if (selectedProductId === "select") return false;
+                          if (selectedProductId === 'select') return false;
                           let product = {};
-                          productCurrentState.entities.map(prod => {
+                          productCurrentState.entities.map((prod) => {
                             if (prod._id === selectedProductId) {
                               product = prod;
                             }
                           });
-                          setFieldValue("product_id", product._id);
-                          setFieldValue("product_name", product.product_name);
+                          setFieldValue('product_id', product._id);
+                          setFieldValue('product_name', product.product_name);
                           setProductId(product._id);
                           productId
                             ? setDisabledUnit(false)
@@ -143,7 +143,7 @@ export function CustomerEditForm({ saveStock, stock, actionsLoading, onHide }) {
                         <b>Product</b>
                       </small>
                       {errors.product_id && touched.product_id ? (
-                        <div style={{ color: "red" }}>{errors.product_id}</div>
+                        <div style={{ color: 'red' }}>{errors.product_id}</div>
                       ) : null}
                     </div>
                   </div>
@@ -155,17 +155,17 @@ export function CustomerEditForm({ saveStock, stock, actionsLoading, onHide }) {
                         name="unit_id"
                         // disabled={disabledUnit}
                         onBlur={handleBlur}
-                        onChange={e => {
+                        onChange={(e) => {
                           let selectedUnitId = e.target.value;
-                          if (selectedUnitId === "select") return false;
+                          if (selectedUnitId === 'select') return false;
                           let unitObj = {};
-                          unitCurrentState.entities.map(unit => {
+                          unitCurrentState.entities.map((unit) => {
                             if (unit._id === selectedUnitId) {
                               unitObj = unit;
                             }
                           });
-                          setFieldValue("unit_id", unitObj._id);
-                          setFieldValue("unit_name", unitObj.name);
+                          setFieldValue('unit_id', unitObj._id);
+                          setFieldValue('unit_name', unitObj.name);
                         }}
                         value={values.unit_id}
                       >
@@ -181,7 +181,7 @@ export function CustomerEditForm({ saveStock, stock, actionsLoading, onHide }) {
                         <b>Unit</b>
                       </small>
                       {errors.unit_id && touched.unit_id ? (
-                        <div style={{ color: "red" }}>{errors.unit_id}</div>
+                        <div style={{ color: 'red' }}>{errors.unit_id}</div>
                       ) : null}
                     </div>
                   </div>
@@ -195,15 +195,15 @@ export function CustomerEditForm({ saveStock, stock, actionsLoading, onHide }) {
                         onBlur={handleBlur}
                         // disabled={true}
                         value={values.quantity}
-                        onChange={e => {
-                          setFieldValue("quantity", e.target.value);
+                        onChange={(e) => {
+                          setFieldValue('quantity', e.target.value);
                         }}
                       />
                       <small className="form-text text-muted">
                         <b>Quantity</b>
                       </small>
                       {errors.quantity && touched.quantity ? (
-                        <div style={{ color: "red" }}>{errors.quantity}</div>
+                        <div style={{ color: 'red' }}>{errors.quantity}</div>
                       ) : null}
                     </div>
                   </div>
@@ -217,31 +217,19 @@ export function CustomerEditForm({ saveStock, stock, actionsLoading, onHide }) {
                         onBlur={handleBlur}
                         // disabled={true}
                         value={values.date}
-                        onChange={e => {
-                          setFieldValue("date", e.target.value);
+                        onChange={(e) => {
+                          setFieldValue('date', e.target.value);
                         }}
-                        max={moment().format("YYYY-MM-DD")}
+                        max={moment().format('YYYY-MM-DD')}
                       />
                       <small className="form-text text-muted">
                         <b>Date</b>
                       </small>
                       {errors.date && touched.date ? (
-                        <div style={{ color: "red" }}>{errors.date}</div>
+                        <div style={{ color: 'red' }}>{errors.date}</div>
                       ) : null}
                     </div>
                   </div>
-                  {/* <div className="col-lg-12">
-                    <div className="form-group">
-                      <button
-                        type="submit"
-                        style={{ display: "block" }}
-                        className="btn btn-primary"
-                        // disabled={disabled}
-                      >
-                        Finish sale
-                      </button>
-                    </div>
-                  </div> */}
                 </div>
               </Form>
             </Modal.Body>
