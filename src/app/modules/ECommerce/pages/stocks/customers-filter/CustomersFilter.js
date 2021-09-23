@@ -1,14 +1,14 @@
-import React, { useState, useMemo } from 'react';
-import { useDispatch } from 'react-redux';
-import { Formik } from 'formik';
-import { isEqual } from 'lodash';
-import * as Yup from 'yup';
-import * as actions from '../../../_redux/stocks/stocksActions';
-import { useCustomersUIContext } from '../CustomersUIContext';
+import React, { useState, useMemo } from "react";
+import { useDispatch } from "react-redux";
+import { Formik } from "formik";
+import { isEqual } from "lodash";
+import * as Yup from "yup";
+import * as actions from "../../../_redux/stocks/stocksActions";
+import { useCustomersUIContext } from "../CustomersUIContext";
 
 const FilterProductsSchema = Yup.object().shape({
-  start_date: Yup.date().required('Start Date is required.'),
-  end_date: Yup.date().required('End Date is required.'),
+  start_date: Yup.date().required("Start Date is required."),
+  end_date: Yup.date().required("End Date is required.")
 });
 
 const prepareFilter = (queryParams, values) => {
@@ -16,9 +16,9 @@ const prepareFilter = (queryParams, values) => {
   const newQueryParams = { ...queryParams };
   const filter = {};
   // Filter by status
-  filter.status = status !== '' ? +status : undefined;
+  filter.status = status !== "" ? +status : undefined;
   // Filter by type
-  filter.type = type !== '' ? +type : undefined;
+  filter.type = type !== "" ? +type : undefined;
   // Filter by all fields
   filter.lastName = searchText;
   if (searchText) {
@@ -32,20 +32,20 @@ const prepareFilter = (queryParams, values) => {
 
 export function CustomersFilter({ listLoading }) {
   // Component State
-  const [firstDate, setFirstDate] = useState('');
+  const [firstDate, setFirstDate] = useState("");
   // Customers UI Context
   const customersUIContext = useCustomersUIContext();
   const customersUIProps = useMemo(() => {
     return {
       queryParams: customersUIContext.queryParams,
-      setQueryParams: customersUIContext.setQueryParams,
+      setQueryParams: customersUIContext.setQueryParams
     };
   }, [customersUIContext]);
 
   const dispatch = useDispatch();
 
   // queryParams, setQueryParams,
-  const applyFilter = (values) => {
+  const applyFilter = values => {
     const newQueryParams = prepareFilter(customersUIProps.queryParams, values);
     if (!isEqual(newQueryParams, customersUIProps.queryParams)) {
       newQueryParams.pageNumber = 1;
@@ -54,16 +54,16 @@ export function CustomersFilter({ listLoading }) {
     }
   };
 
-  const applyProductsFilter = (values) => {
+  const applyProductsFilter = values => {
     console.log(values);
     dispatch(actions.fetchFilteredProducts(values));
   };
 
   const productsFilter = {
-    start_date: '',
-    end_date: '',
+    start_date: "",
+    end_date: "",
     pageNumber: 1,
-    pageSize: 10,
+    pageSize: 10
   };
 
   return (
@@ -72,11 +72,11 @@ export function CustomersFilter({ listLoading }) {
         <div className="col-lg-5">
           <Formik
             initialValues={{
-              status: '', // values => All=""/Susspended=0/Active=1/Pending=2
-              type: '', // values => All=""/Business=0/Individual=1
-              searchText: '',
+              status: "", // values => All=""/Susspended=0/Active=1/Pending=2
+              type: "", // values => All=""/Business=0/Individual=1
+              searchText: ""
             }}
-            onSubmit={(values) => {
+            onSubmit={values => {
               applyFilter(values);
             }}
           >
@@ -85,7 +85,7 @@ export function CustomersFilter({ listLoading }) {
               handleSubmit,
               handleBlur,
               handleChange,
-              setFieldValue,
+              setFieldValue
             }) => (
               <form onSubmit={handleSubmit} className="form form-label-right">
                 <div className="form-group row">
@@ -97,8 +97,8 @@ export function CustomersFilter({ listLoading }) {
                       placeholder="Search"
                       onBlur={handleBlur}
                       value={values.searchText}
-                      onChange={(e) => {
-                        setFieldValue('searchText', e.target.value);
+                      onChange={e => {
+                        setFieldValue("searchText", e.target.value);
                         handleSubmit();
                       }}
                     />
@@ -115,7 +115,7 @@ export function CustomersFilter({ listLoading }) {
           <Formik
             initialValues={productsFilter}
             validationSchema={FilterProductsSchema}
-            onSubmit={(values) => {
+            onSubmit={values => {
               applyProductsFilter(values);
             }}
           >
@@ -126,7 +126,7 @@ export function CustomersFilter({ listLoading }) {
               handleChange,
               setFieldValue,
               errors,
-              touched,
+              touched
             }) => (
               <form onSubmit={handleSubmit} className="form form-label-right">
                 <div className="form-group row">
@@ -138,8 +138,8 @@ export function CustomersFilter({ listLoading }) {
                       placeholder="Start date"
                       onBlur={handleBlur}
                       value={values.start_date}
-                      onChange={(e) => {
-                        setFieldValue('start_date', e.target.value);
+                      onChange={e => {
+                        setFieldValue("start_date", e.target.value);
                         setFirstDate(e.target.value);
                       }}
                       // onChange={handleChange}
