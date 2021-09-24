@@ -149,7 +149,7 @@ export function Aside() {
               {/* end::Item */}
 
               {/* begin::Item */}
-              <li
+              {/* <li
                 className="nav-item mb-3"
                 data-toggle="tooltip"
                 data-placement="rigth"
@@ -177,7 +177,7 @@ export function Aside() {
                     </span>
                   </a>
                 </OverlayTrigger>
-              </li>
+              </li> */}
               {/* end::Item */}
 
               {/* begin::Item */}

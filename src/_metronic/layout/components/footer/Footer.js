@@ -33,18 +33,18 @@ export function Footer() {
             </span>
             {` `}
             <a
-              href="http://keenthemes.com/metronic"
+              href="https://dixre.com"
               rel="noopener noreferrer"
               target="_blank"
               className="text-dark-75 text-hover-primary"
             >
-              Keenthemes
+              Dixre
             </a>
           </div>
           {/* end::Copyright */}
           {` `}
           {/* begin::Nav */}
-          <div className="nav nav-dark order-1 order-md-2">
+          {/* <div className="nav nav-dark order-1 order-md-2">
             <a
               href="http://keenthemes.com/metronic"
               target="_blank"
@@ -69,7 +69,7 @@ export function Footer() {
             >
               Contact
             </a>
-          </div>
+          </div> */}
           {/* end::Nav */}
         </div>
         {/* end::Container */}

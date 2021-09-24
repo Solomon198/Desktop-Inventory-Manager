@@ -22,7 +22,7 @@ export function QuickPanel() {
             role="tablist"
             className="nav nav-bold nav-tabs nav-tabs-line nav-tabs-line-3x nav-tabs-primary flex-grow-1 px-10"
           >
-            <Nav.Item as="li">
+            {/* <Nav.Item as="li">
               <Nav.Link
                 eventKey="AuditLogs"
                 className={`nav-link ${
@@ -31,7 +31,7 @@ export function QuickPanel() {
               >
                 Audit Logs
               </Nav.Link>
-            </Nav.Item>
+            </Nav.Item> */}
             <Nav.Item className="nav-item" as="li">
               <Nav.Link
                 eventKey="Notifications"
@@ -42,7 +42,7 @@ export function QuickPanel() {
                 Notifications
               </Nav.Link>
             </Nav.Item>
-            <Nav.Item as="li">
+            {/* <Nav.Item as="li">
               <Nav.Link
                 eventKey="Settings"
                 className={`nav-link ${
@@ -51,7 +51,7 @@ export function QuickPanel() {
               >
                 Settings
               </Nav.Link>
-            </Nav.Item>
+            </Nav.Item> */}
           </Nav>
 
           <div
