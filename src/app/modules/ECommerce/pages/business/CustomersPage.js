@@ -1,25 +1,25 @@
-import React from 'react';
+import React from "react";
 // import { useSelector, useDispatch } from 'react-redux';
-import { Route } from 'react-router-dom';
-import { CustomersLoadingDialog } from './customers-loading-dialog/CustomersLoadingDialog';
-import { CustomerEditDialog } from './customer-edit-dialog/CustomerEditDialog';
-import { CustomerDeleteDialog } from './customer-delete-dialog/CustomerDeleteDialog';
-import { CustomersDeleteDialog } from './customers-delete-dialog/CustomersDeleteDialog';
-import { CustomersFetchDialog } from './customers-fetch-dialog/CustomersFetchDialog';
-import { CustomersUpdateStateDialog } from './customers-update-status-dialog/CustomersUpdateStateDialog';
-import { CustomersUIProvider } from './CustomersUIContext';
-import { CustomersCard } from './CustomersCard';
-import { CustomerProfile } from './customer-profile/CustomerProfile';
+import { Route } from "react-router-dom";
+import { CustomersLoadingDialog } from "./customers-loading-dialog/CustomersLoadingDialog";
+import { CustomerEditDialog } from "./customer-edit-dialog/CustomerEditDialog";
+import { CustomerDeleteDialog } from "./customer-delete-dialog/CustomerDeleteDialog";
+import { CustomersDeleteDialog } from "./customers-delete-dialog/CustomersDeleteDialog";
+import { CustomersFetchDialog } from "./customers-fetch-dialog/CustomersFetchDialog";
+import { CustomersUpdateStateDialog } from "./customers-update-status-dialog/CustomersUpdateStateDialog";
+import { CustomersUIProvider } from "./CustomersUIContext";
+import { CustomersCard } from "./CustomersCard";
+import { CustomerProfile } from "./customer-profile/CustomerProfile";
 
 export function BusinessPage({ history }) {
   const customersUIEvents = {
     newCustomerButtonClick: () => {
-      history.push('/e-commerce/business/new');
+      history.push("/e-commerce/business/new");
     },
-    openEditCustomerDialog: (id) => {
+    openEditCustomerDialog: id => {
       history.push(`/e-commerce/business/${id}/edit`);
     },
-    openDeleteCustomerDialog: (id) => {
+    openDeleteCustomerDialog: id => {
       history.push(`/e-commerce/business/${id}/delete`);
     },
     openDeleteCustomersDialog: () => {
@@ -29,11 +29,11 @@ export function BusinessPage({ history }) {
       history.push(`/e-commerce/business/fetch`);
     },
     openUpdateCustomersStatusDialog: () => {
-      history.push('/e-commerce/business/updateStatus');
+      history.push("/e-commerce/business/updateStatus");
     },
-    viewCustomerProfileButtonClick: (id) => {
+    viewCustomerProfileButtonClick: id => {
       history.push(`/e-commerce/customer-profile/${id}/view`);
-    },
+    }
   };
 
   return (
@@ -45,7 +45,7 @@ export function BusinessPage({ history }) {
             <CustomerEditDialog
               show={match != null}
               onHide={() => {
-                history.push('/e-commerce/business');
+                history.push("/e-commerce/business");
               }}
             />
           )}
@@ -56,7 +56,7 @@ export function BusinessPage({ history }) {
               show={match != null}
               id={match && match.params.id}
               onHide={() => {
-                history.push('/e-commerce/business');
+                history.push("/e-commerce/business");
               }}
             />
           )}
@@ -66,7 +66,7 @@ export function BusinessPage({ history }) {
             <CustomersDeleteDialog
               show={match != null}
               onHide={() => {
-                history.push('/e-commerce/business');
+                history.push("/e-commerce/business");
               }}
             />
           )}
@@ -77,7 +77,7 @@ export function BusinessPage({ history }) {
               show={match != null}
               id={match && match.params.id}
               onHide={() => {
-                history.push('/e-commerce/business');
+                history.push("/e-commerce/business");
               }}
             />
           )}
@@ -87,7 +87,7 @@ export function BusinessPage({ history }) {
             <CustomersFetchDialog
               show={match != null}
               onHide={() => {
-                history.push('/e-commerce/business');
+                history.push("/e-commerce/business");
               }}
             />
           )}
@@ -97,7 +97,7 @@ export function BusinessPage({ history }) {
             <CustomersUpdateStateDialog
               show={match != null}
               onHide={() => {
-                history.push('/e-commerce/business');
+                history.push("/e-commerce/business");
               }}
             />
           )}

@@ -1,28 +1,28 @@
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid,no-undef */
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo } from "react";
 import {
   Card,
   CardBody,
   CardHeader,
-  CardHeaderToolbar,
-} from '../../../../../_metronic/_partials/controls';
-import SVG from 'react-inlinesvg';
-import { Tabs, Tab, Nav } from 'react-bootstrap';
-import { BusinessAccount } from './business-account/BusinessAccount';
-import { useCustomersUIContext } from './CustomersUIContext';
+  CardHeaderToolbar
+} from "../../../../../_metronic/_partials/controls";
+import SVG from "react-inlinesvg";
+import { Tabs, Tab, Nav } from "react-bootstrap";
+import { BusinessAccount } from "./business-account/BusinessAccount";
+import { useCustomersUIContext } from "./CustomersUIContext";
 
 export function CustomersCard() {
   const customersUIContext = useCustomersUIContext();
   const customersUIProps = useMemo(() => {
     return {
       ids: customersUIContext.ids,
-      newCustomerButtonClick: customersUIContext.newCustomerButtonClick,
+      newCustomerButtonClick: customersUIContext.newCustomerButtonClick
     };
   }, [customersUIContext]);
-  const [selectedTab, setSelectedTab] = useState('AuditLogs');
-  const [key, setKey] = useState('basicInfo');
+  const [selectedTab, setSelectedTab] = useState("AuditLogs");
+  const [key, setKey] = useState("basicInfo");
 
-  const setTab = (_tabName) => {
+  const setTab = _tabName => {
     setSelectedTab(_tabName);
   };
 
@@ -44,7 +44,7 @@ export function CustomersCard() {
           <Tabs
             id="controlled-tab-example"
             activeKey={key}
-            onSelect={(k) => setKey(k)}
+            onSelect={k => setKey(k)}
             className="mb-3"
           >
             <Tab eventKey="basicInfo" title="Basic Info">
