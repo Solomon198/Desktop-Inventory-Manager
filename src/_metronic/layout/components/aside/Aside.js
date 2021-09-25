@@ -11,6 +11,7 @@ import { LanguageSelectorDropdown } from "../extras/dropdowns/LanguageSelectorDr
 import { QuickUserToggler } from "../extras/QuickUserToggler";
 import { Brand } from "../brand/Brand";
 import { KTUtil } from "./../../../_assets/js/components/util";
+import BusinessIcon from '@material-ui/icons/Business';
 
 export function Aside() {
   const uiService = useHtmlClassService();
@@ -121,27 +122,29 @@ export function Aside() {
                 data-placement="rigth"
                 data-container="body"
                 data-boundary="window"
-                title="Settings"
+                // title="Business Account"
               >
                 <OverlayTrigger
                   placement="right"
-                  overlay={<Tooltip id="metronic-features">Settings</Tooltip>}
+                  overlay={<Tooltip id="metronic-features">Business Account</Tooltip>}
                 >
                   <a
-                    href="#"
-                    className={`nav-link btn btn-icon btn-clean btn-lg ${activeTab ===
-                      tabs.tabId2 && "active"}`}
-                    data-toggle="tab"
-                    data-target={`#${tabs.tabId2}`}
-                    onClick={() => handleTabChange(tabs.tabId2)}
-                    role="tab"
+                    href="/e-commerce/business"
+                    className="nav-link btn btn-icon btn-clean btn-lg"
+                    // className={`nav-link btn btn-icon btn-clean btn-lg ${activeTab ===
+                    //   tabs.tabId2 && "active"}`}
+                    // data-toggle="tab"
+                    // data-target={`#${tabs.tabId2}`}
+                    // onClick={() => handleTabChange(tabs.tabId2)}
+                    // role="tab"
                   >
                     <span className="svg-icon svg-icon-lg">
-                      <SVG
+                      {/* <SVG
                         src={toAbsoluteUrl(
                           "/media/svg/icons/Communication/Group.svg"
                         )}
-                      />
+                      /> */}
+                      <BusinessIcon />
                     </span>
                   </a>
                 </OverlayTrigger>
