@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
 import { isEqual, isFunction } from 'lodash';
 import { initialFilter } from './CustomersUIHelpers';
-import { history, useHistory } from 'react-router-dom';
 
 const CustomersUIContext = createContext();
 
@@ -14,10 +13,7 @@ export const CustomersUIConsumer = CustomersUIContext.Consumer;
 export function CustomersUIProvider({ customersUIEvents, children }) {
   const [queryParams, setQueryParamsBase] = useState(initialFilter);
   const [ids, setIds] = useState([]);
-  const [productsSelected, setProductsSelected] = useState([]);
-  const [itemForEdit, setItemForEdit] = useState();
-  const [unitsSelected, setUnitsSelected] = useState([]);
-
+  const [showSnackbar, setShowSnackbar] = useState(false);
   const setQueryParams = useCallback((nextQueryParams) => {
     setQueryParamsBase((prevQueryParams) => {
       if (isFunction(nextQueryParams)) {
@@ -32,19 +28,10 @@ export function CustomersUIProvider({ customersUIEvents, children }) {
     });
   }, []);
 
-  const initCustomer = {
+  const initRole = {
     _id: '',
-    title: '',
-    first_name: '',
-    last_name: '',
-    display_name: '',
-    gender: '',
-    email: '',
-    phone_no: '',
-    ip_address: '',
-    login: '',
-    website: '',
-    cus_type: '1',
+    role_name: '',
+    date: '',
   };
 
   const value = {
@@ -52,14 +39,10 @@ export function CustomersUIProvider({ customersUIEvents, children }) {
     setQueryParamsBase,
     ids,
     setIds,
-    productsSelected,
-    setProductsSelected,
-    itemForEdit,
-    setItemForEdit,
-    unitsSelected,
-    setUnitsSelected,
+    showSnackbar,
+    setShowSnackbar,
     setQueryParams,
-    initCustomer,
+    initRole,
     newCustomerButtonClick: customersUIEvents.newCustomerButtonClick,
     openEditCustomerDialog: customersUIEvents.openEditCustomerDialog,
     openDeleteCustomerDialog: customersUIEvents.openDeleteCustomerDialog,
@@ -67,6 +50,8 @@ export function CustomersUIProvider({ customersUIEvents, children }) {
     openFetchCustomersDialog: customersUIEvents.openFetchCustomersDialog,
     openUpdateCustomersStatusDialog:
       customersUIEvents.openUpdateCustomersStatusDialog,
+    viewCustomerProfileButtonClick:
+      customersUIEvents.viewCustomerProfileButtonClick,
   };
 
   return (

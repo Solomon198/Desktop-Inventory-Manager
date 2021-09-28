@@ -1,27 +1,27 @@
-import React, { useMemo, useEffect, useState } from "react";
-import { Formik } from "formik";
-import * as Yup from "yup";
-import { isEqual } from "lodash";
-import { useHistory } from "react-router-dom";
-import { useCustomersUIContext } from "../CustomersUIContext";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import * as actions from "../../../_redux/products/productsActions";
-import * as unitActions from "../../../_redux/units/unitsActions";
-import * as stockEntryActions from "../../../_redux/stocksEntry/stocksEntryActions";
-import * as saleActions from "../../../_redux/sales/salesActions";
-import AlertDialog from "../../../../../../_metronic/_partials/controls/AlertDialog";
-import helperFuncs from "../../utils/helper.funcs";
-import AlertDialogSlide from "../../../../../../_metronic/_partials/controls/AlertDialog2";
-import Slide from "@material-ui/core/Slide";
+import React, { useMemo, useEffect, useState } from 'react';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import { isEqual } from 'lodash';
+import { useHistory } from 'react-router-dom';
+import { useCustomersUIContext } from '../CustomersUIContext';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import * as actions from '../../../_redux/products/productsActions';
+import * as unitActions from '../../../_redux/units/unitsActions';
+import * as stockEntryActions from '../../../_redux/stocksEntry/stocksEntryActions';
+import * as saleActions from '../../../_redux/sales/salesActions';
+import AlertDialog from '../../../../../../_metronic/_partials/controls/AlertDialog';
+import helperFuncs from '../../utils/helper.funcs';
+import AlertDialogSlide from '../../../../../../_metronic/_partials/controls/AlertDialog2';
+import Slide from '@material-ui/core/Slide';
 
 const prepareFilter = (queryParams, values) => {
   const { status, type, searchText } = values;
   const newQueryParams = { ...queryParams };
   const filter = {};
   // Filter by status
-  filter.status = status !== "" ? +status : undefined;
+  filter.status = status !== '' ? +status : undefined;
   // Filter by type
-  filter.type = type !== "" ? +type : undefined;
+  filter.type = type !== '' ? +type : undefined;
   // Filter by all fields
   filter.lastName = searchText;
   if (searchText) {
@@ -35,17 +35,17 @@ const prepareFilter = (queryParams, values) => {
 
 const CustomerTransactionSchema = Yup.object().shape({
   unit_id: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
   product: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
   quantity: Yup.number()
-    .min(1, "Too Short!")
-    .required("Required"),
-  amount: Yup.string().required("Required")
+    .min(1, 'Too Short!')
+    .required('Required'),
+  amount: Yup.string().required('Required'),
 });
 
 export function CustomersFilter({ listLoading }) {
@@ -67,16 +67,18 @@ export function CustomersFilter({ listLoading }) {
       queryParams: customersUIContext.queryParams,
       initTransaction: customersUIContext.initTransaction,
       productsSelected: customersUIContext.productsSelected,
-      setProduct: customersUIContext.setProduct,
+      setProductsSelected: customersUIContext.setProductsSelected,
       itemForEdit: customersUIContext.itemForEdit,
       setItemForEdit: customersUIContext.setItemForEdit,
+      unitsSelected: customersUIContext.unitsSelected,
+      setUnitsSelected: customersUIContext.setUnitsSelected,
       insertSale: customersUIContext.insertSale,
-      setInsertSale: customersUIContext.setInsertSale
+      setInsertSale: customersUIContext.setInsertSale,
     };
   }, [customersUIContext]);
 
   // queryParams, setQueryParams,
-  const applyFilter = values => {
+  const applyFilter = (values) => {
     const newQueryParams = prepareFilter(customersUIProps.queryParams, values);
     if (!isEqual(newQueryParams, customersUIProps.queryParams)) {
       newQueryParams.pageNumber = 1;
@@ -89,17 +91,21 @@ export function CustomersFilter({ listLoading }) {
   const {
     currentState,
     unitCurrentState,
-    stocksEntryCurrentState
+    stocksEntryCurrentState,
   } = useSelector(
-    state => ({
+    (state) => ({
       currentState: state.products,
       unitCurrentState: state.units,
-      stocksEntryCurrentState: state.stocksEntry
+      stocksEntryCurrentState: state.stocksEntry,
     }),
     shallowEqual
   );
   const { totalCount } = currentState;
   const _products = currentState.entities;
+  const _units = unitCurrentState.entities;
+
+  console.log('Unit Entities', _units);
+
   let quantityOfUnit;
   if (
     stocksEntryCurrentState &&
@@ -124,41 +130,76 @@ export function CustomersFilter({ listLoading }) {
     // productsUIProps.setIds([]);
     // server call by queryParams
     dispatch(actions.fetchProductsForSale(customersUIProps.queryParams));
-    dispatch(unitActions.fetchUnitsForProduct(selectedProductId));
+    dispatch(unitActions.fetchUnits(customersUIProps.queryParams));
+    // dispatch(unitActions.fetchUnitsForProduct(selectedProductId));
     if (selectedUnitId) {
       dispatch(stockEntryActions.fetchQuantityByUnitId(selectedUnitId));
     }
 
     // customersUIProps.setInsertSale(saveSale);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, selectedProductId, selectedUnitId]);
+  }, [
+    dispatch,
+    selectedProductId,
+    selectedUnitId,
+    customersUIProps.unitsSelected,
+  ]);
 
   // server request for saving customer
 
   const initialValues = {
-    product: "", // values => All=""/Susspended=0/Active=1/Pending=2,
-    productId: "",
-    quantity: "", // values => All=""/Business=0/Individual=1
-    amount: "0",
-    unit_id: "",
-    unit: "",
-    totalAmount: ""
+    product: '', // values => All=""/Susspended=0/Active=1/Pending=2,
+    productId: '',
+    quantity: '', // values => All=""/Business=0/Individual=1
+    amount: '0',
+    unit_id: '',
+    unit: '',
+    totalAmount: '',
   };
 
-  const _oldEntities = _products;
-  const selectedEntities = customersUIProps.productsSelected;
-  let entitiesIds = _oldEntities ? _oldEntities.map(val => val._id) : [];
-  let selectedEntitiesIds = selectedEntities.map(val => val.productId);
-  let entities = [];
-  let counter = 0;
-  for (let item of entitiesIds) {
-    let search = selectedEntitiesIds.indexOf(item);
+  let unitsForProduct = [];
+
+  // const _oldEntities = _products;
+  // const selectedEntities = customersUIProps.productsSelected;
+  // let entitiesIds = _oldEntities ? _oldEntities.map((val) => val._id) : [];
+  // let selectedEntitiesIds = selectedEntities.map((val) => val.productId);
+  // let entities = [];
+  // let counter = 0;
+  // for (let item of entitiesIds) {
+  //   let search = selectedEntitiesIds.indexOf(item);
+
+  //   if (search === -1) {
+  //     entities.push(_oldEntities[counter]);
+  //   }
+  //   counter++;
+  // }
+
+  const _oldUnits = _units;
+  const selectedUnitEntities = customersUIProps.unitsSelected;
+  let unitEntitiesId = _oldUnits ? _oldUnits.map((val) => val._id) : [];
+  let selectedUnitEntitiesIds = selectedUnitEntities.map((val) => val.unit_id);
+  let unitEntities = [];
+  let unitCounter = 0;
+
+  for (let item of unitEntitiesId) {
+    let search = selectedUnitEntitiesIds.indexOf(item);
 
     if (search === -1) {
-      entities.push(_oldEntities[counter]);
+      unitEntities.push(_oldUnits[unitCounter]);
     }
-    counter++;
+    unitCounter++;
   }
+
+  if (selectedProductId) {
+    unitEntities.map((unit) => {
+      if (unit.product_id === selectedProductId) {
+        unitsForProduct.push(unit);
+      }
+      return unit;
+    });
+  }
+
+  console.log(unitsForProduct);
 
   const initialValuesForEdit = customersUIProps.itemForEdit;
   return (
@@ -178,7 +219,7 @@ export function CustomersFilter({ listLoading }) {
             // stockEntry obj for checking if product is out of stock or not
             let stockEntry = {
               unit_id: values.unit_id,
-              quantity: values.quantity
+              quantity: values.quantity,
             };
 
             try {
@@ -198,9 +239,14 @@ export function CustomersFilter({ listLoading }) {
                 let productsSelected = [...customersUIProps.productsSelected];
                 productsSelected.push(values);
 
-                customersUIProps.setProduct(productsSelected);
-                resetForm({ values: "" });
-                setSelectedProductId("");
+                customersUIProps.setProductsSelected(productsSelected);
+
+                let unitsSelected = [...customersUIProps.unitsSelected];
+                unitsSelected.push(values);
+
+                customersUIProps.setUnitsSelected(unitsSelected);
+                resetForm({ values: '' });
+                setSelectedProductId('');
               } else {
                 setIsOutOfStock(isOutOfStock);
                 // resetForm({ values: "" });
@@ -221,8 +267,11 @@ export function CustomersFilter({ listLoading }) {
           let _productForEdit = customersUIProps.productsSelected;
           _productForEdit.push(productsForEdit);
 
-          customersUIProps.setProduct(_productForEdit);
-          resetForm({ values: "" });
+          console.log('ProductForEdit', _productForEdit);
+
+          customersUIProps.setProductsSelected(_productForEdit);
+          customersUIProps.setUnitsSelected(_productForEdit);
+          resetForm({ values: '' });
         }}
       >
         {({
@@ -232,7 +281,7 @@ export function CustomersFilter({ listLoading }) {
           handleChange,
           setFieldValue,
           errors,
-          touched
+          touched,
         }) => (
           <form onSubmit={handleSubmit} className="form form-label-right">
             <div className="form-group row">
@@ -242,24 +291,24 @@ export function CustomersFilter({ listLoading }) {
                   placeholder="Product"
                   name="product"
                   onBlur={handleBlur}
-                  onChange={e => {
+                  onChange={(e) => {
                     let productId = e.target.value;
-                    if (productId == "select") return false;
+                    if (productId == 'select') return false;
                     let product = {};
-                    entities.forEach(item => {
+                    _products.forEach((item) => {
                       if (item._id === productId) {
                         product = item;
                       }
                     });
-                    setFieldValue("product", product.product_name);
-                    setFieldValue("productId", product._id);
+                    setFieldValue('product', product.product_name);
+                    setFieldValue('productId', product._id);
                     setSelectedProductId(product._id);
                   }}
                   value={values.productId}
                 >
                   <option value="select">Select product</option>
-                  {entities &&
-                    entities.map((product, index) => (
+                  {_products &&
+                    _products.map((product, index) => (
                       <option key={product._id} value={product._id}>
                         {product.product_name}
                       </option>
@@ -269,7 +318,7 @@ export function CustomersFilter({ listLoading }) {
                   <b>Product</b>
                 </small>
                 {errors.product && touched.product ? (
-                  <div style={{ color: "red" }}>{errors.product}</div>
+                  <div style={{ color: 'red' }}>{errors.product}</div>
                 ) : null}
               </div>
               <div className="col-lg-2">
@@ -278,26 +327,26 @@ export function CustomersFilter({ listLoading }) {
                   placeholder="Unit"
                   name="unit_id"
                   onBlur={handleBlur}
-                  onChange={e => {
+                  onChange={(e) => {
                     let _selectedUnitId = e.target.value;
-                    if (_selectedUnitId === "select") return false;
+                    if (_selectedUnitId === 'select') return false;
                     let selectedUnit = {};
-                    unitCurrentState.entities.forEach(unit => {
+                    unitsForProduct.forEach((unit) => {
                       if (unit._id === _selectedUnitId) {
                         selectedUnit = unit;
                       }
                     });
 
-                    setFieldValue("unit_id", selectedUnit._id);
-                    setFieldValue("unit", selectedUnit.name);
-                    setFieldValue("amount", selectedUnit.price);
+                    setFieldValue('unit_id', selectedUnit._id);
+                    setFieldValue('unit', selectedUnit.name);
+                    setFieldValue('amount', selectedUnit.price);
                     setSelectedUnitId(selectedUnit._id);
                   }}
                   value={values.unit_id}
                 >
                   <option value="select">Select Unit</option>
-                  {unitCurrentState.entities &&
-                    unitCurrentState.entities.map(unit => (
+                  {unitsForProduct &&
+                    unitsForProduct.map((unit) => (
                       <option value={unit._id} key={unit._id}>
                         {unit.name}
                       </option>
@@ -307,7 +356,7 @@ export function CustomersFilter({ listLoading }) {
                   <b>Unit</b>
                 </small>
                 {errors.unit_id && touched.unit_id ? (
-                  <div style={{ color: "red" }}>{errors.unit_id}</div>
+                  <div style={{ color: 'red' }}>{errors.unit_id}</div>
                 ) : null}
               </div>
               <div className="col-lg-2">
@@ -319,15 +368,15 @@ export function CustomersFilter({ listLoading }) {
                   onBlur={handleBlur}
                   disabled={true}
                   value={values.amount}
-                  onChange={e => {
-                    setFieldValue("amount", e.target.value);
+                  onChange={(e) => {
+                    setFieldValue('amount', e.target.value);
                   }}
                 />
                 <small className="form-text text-muted">
                   <b>Amount</b>
                 </small>
                 {errors.amount && touched.amount ? (
-                  <div style={{ color: "red" }}>{errors.amount}</div>
+                  <div style={{ color: 'red' }}>{errors.amount}</div>
                 ) : null}
               </div>
               <div className="col-lg-2">
@@ -338,8 +387,8 @@ export function CustomersFilter({ listLoading }) {
                   placeholder="Quantity"
                   // onBlur={handleBlur}
                   value={values.quantity}
-                  onChange={e => {
-                    setFieldValue("quantity", e.target.value);
+                  onChange={(e) => {
+                    setFieldValue('quantity', e.target.value);
                     setUnitQuantity(quantityOfUnit);
                   }}
                 />
@@ -347,13 +396,13 @@ export function CustomersFilter({ listLoading }) {
                   <b>Quantity</b>
                 </small>
                 {errors.quantity && touched.quantity ? (
-                  <div style={{ color: "red" }}>{errors.quantity}</div>
+                  <div style={{ color: 'red' }}>{errors.quantity}</div>
                 ) : null}
               </div>
               <div className="col-lg-2">
                 <button
                   type="submit"
-                  style={{ display: "block" }}
+                  style={{ display: 'block' }}
                   className="btn btn-primary"
                 >
                   Add
