@@ -1,31 +1,31 @@
-import { EmployeeTypes } from "../../types/employee"; // typescript type validation for daily attendance
+import { EmployeeTypes } from '../../types/employee'; // typescript type validation for daily attendance
 
 const EmployeeSchema: EmployeeTypes = {
-  name: "employees",
+  name: 'employees',
 
-  primaryKey: "_id",
+  primaryKey: '_id',
 
   properties: {
-    _id: "objectId",
+    _id: 'objectId',
 
-    first_name: "string?",
+    role_id: 'objectId',
 
-    last_name: "string?",
+    first_name: 'string?',
 
-    gender: "string?",
+    last_name: 'string?',
 
-    default_password: "string?",
+    gender: 'string?',
 
-    email: "string?",
+    default_password: 'string?',
 
-    phone_no: "string?",
+    email: 'string?',
 
-    home_address: "string?",
+    phone_no: 'string?',
 
-    role: "string?",
+    home_address: 'string?',
 
-    date: "date"
-  }
+    date: 'date',
+  },
 };
 
 export default EmployeeSchema;

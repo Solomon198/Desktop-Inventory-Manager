@@ -3,6 +3,8 @@
 export type EmployeeProperties = {
   _id: any;
 
+  role_id: any;
+
   first_name: string;
 
   last_name: string;
@@ -17,7 +19,7 @@ export type EmployeeProperties = {
 
   home_address: string;
 
-  role: string;
+  role_name?: string;
 
   date: string;
 };
