@@ -1,27 +1,27 @@
-import * as requestFromServer from './rolesCrud';
-import { rolesSlice, callTypes } from './rolesSlice';
-import { setSnackbar } from '../snackbar/snackbarActions';
-import Queries from '../../../../../dist/realm/queries/index';
+import * as requestFromServer from "./rolesCrud";
+import { rolesSlice, callTypes } from "./rolesSlice";
+import { setSnackbar } from "../snackbar/snackbarActions";
+import Queries from "../../../../../dist/realm/queries/index";
 const { actions } = rolesSlice;
 const RoleAPI = Queries.RoleAPI;
 
-export const fetchRoles = (queryParams) => (dispatch) => {
+export const fetchRoles = queryParams => dispatch => {
   dispatch(actions.startCall({ callType: callTypes.list }));
 
   let { pageNumber, pageSize, filter } = queryParams;
   let { role_name } = filter;
 
   return RoleAPI.getRoles(pageNumber, pageSize, role_name)
-    .then((roles) => {
+    .then(roles => {
       let { totalCount, entities } = roles;
       dispatch(actions.rolesFetched({ totalCount, entities }));
     })
-    .catch((error) => {
+    .catch(error => {
       dispatch(actions.catchError({ error, callType: callTypes.list }));
     });
 };
 
-export const fetchRole = (id) => (dispatch) => {
+export const fetchRole = id => dispatch => {
   if (!id) {
     return dispatch(actions.roleFetched({ roleForEdit: undefined }));
   }
@@ -29,19 +29,19 @@ export const fetchRole = (id) => (dispatch) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
 
   return RoleAPI.getRole(id)
-    .then((role) => {
+    .then(role => {
       dispatch(actions.roleFetched({ roleForEdit: role }));
     })
-    .catch((error) => {
+    .catch(error => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 
-export const createRole = (roleForCreation) => (dispatch) => {
+export const createRole = roleForCreation => dispatch => {
   dispatch(actions.startCall({ callType: callTypes.action }));
 
   return RoleAPI.createRole(roleForCreation)
-    .then((role) => {
+    .then(role => {
       dispatch(actions.roleCreated({ role }));
       // dispatch(
       //   setSnackbar({
@@ -51,47 +51,47 @@ export const createRole = (roleForCreation) => (dispatch) => {
       //   })
       // );
     })
-    .catch((error) => {
+    .catch(error => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
       dispatch(
         setSnackbar({
-          status: 'error',
+          status: "error",
           messager: error,
-          show: true,
+          show: true
         })
       );
     });
 };
 
-export const updateRole = (roleUpdates) => (dispatch) => {
+export const updateRole = roleUpdates => dispatch => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return RoleAPI.updateRole(roleUpdates)
-    .then((role) => {
+    .then(role => {
       dispatch(actions.roleUpdated({ role }));
     })
-    .catch((error) => {
+    .catch(error => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 
-export const deleteRole = (id) => (dispatch) => {
+export const deleteRole = id => dispatch => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return RoleAPI.removeRole(id)
-    .then((result) => {
+    .then(result => {
       dispatch(actions.roleDeleted({ id }));
     })
-    .catch((error) => {
+    .catch(error => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 
-export const deleteRoles = (ids) => (dispatch) => {
+export const deleteRoles = ids => dispatch => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return RoleAPI.removeRoles(ids)
     .then(() => {
       dispatch(actions.rolesDeleted({ ids }));
     })
-    .catch((error) => {
+    .catch(error => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };

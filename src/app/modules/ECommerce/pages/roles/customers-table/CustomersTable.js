@@ -1,25 +1,25 @@
 // React bootstrap table next =>
 // DOCS: https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/
 // STORYBOOK: https://react-bootstrap-table.github.io/react-bootstrap-table2/storybook/index.html
-import React, { useEffect, useMemo } from 'react';
-import BootstrapTable from 'react-bootstrap-table-next';
+import React, { useEffect, useMemo } from "react";
+import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory, {
-  PaginationProvider,
-} from 'react-bootstrap-table2-paginator';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import * as actions from '../../../_redux/roles/rolesActions';
+  PaginationProvider
+} from "react-bootstrap-table2-paginator";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as actions from "../../../_redux/roles/rolesActions";
 import {
   getSelectRow,
   getHandlerTableChange,
   NoRecordsFoundMessage,
   PleaseWaitMessage,
   sortCaret,
-  headerSortingClasses,
-} from '../../../../../../_metronic/_helpers';
-import * as uiHelpers from '../CustomersUIHelpers';
-import * as columnFormatters from './column-formatters';
-import { Pagination } from '../../../../../../_metronic/_partials/controls';
-import { useCustomersUIContext } from '../CustomersUIContext';
+  headerSortingClasses
+} from "../../../../../../_metronic/_helpers";
+import * as uiHelpers from "../CustomersUIHelpers";
+import * as columnFormatters from "./column-formatters";
+import { Pagination } from "../../../../../../_metronic/_partials/controls";
+import { useCustomersUIContext } from "../CustomersUIContext";
 
 export function CustomersTable() {
   // Roles UI Context
@@ -35,13 +35,13 @@ export function CustomersTable() {
       openEditCustomerDialog: rolesUIContext.openEditCustomerDialog,
       openDeleteCustomerDialog: rolesUIContext.openDeleteCustomerDialog,
       viewCustomerProfileButtonClick:
-        rolesUIContext.viewCustomerProfileButtonClick,
+        rolesUIContext.viewCustomerProfileButtonClick
     };
   }, [rolesUIContext]);
 
   // Getting curret state of roles list from store (Redux)
   const { currentState } = useSelector(
-    (state) => ({ currentState: state.roles }),
+    state => ({ currentState: state.roles }),
     shallowEqual
   );
   const { totalCount, entities, listLoading } = currentState;
@@ -58,32 +58,32 @@ export function CustomersTable() {
   // Table columns
   const columns = [
     {
-      dataField: 'role_name',
-      text: 'Role',
+      dataField: "role_name",
+      text: "Role",
       sort: true,
       sortCaret: sortCaret,
-      headerSortingClasses,
+      headerSortingClasses
     },
     {
-      dataField: 'date',
-      text: 'Date',
+      dataField: "date",
+      text: "Date",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
-      dataField: 'action',
-      text: 'Actions',
+      dataField: "action",
+      text: "Actions",
       formatter: columnFormatters.ActionsColumnFormatter,
       formatExtraData: {
         openEditCustomerDialog: rolesUIProps.openEditCustomerDialog,
-        openDeleteCustomerDialog: rolesUIProps.openDeleteCustomerDialog,
+        openDeleteCustomerDialog: rolesUIProps.openDeleteCustomerDialog
       },
-      classes: 'text-right pr-0',
-      headerClasses: 'text-right pr-3',
+      classes: "text-right pr-0",
+      headerClasses: "text-right pr-3",
       style: {
-        minWidth: '100px',
-      },
-    },
+        minWidth: "100px"
+      }
+    }
   ];
   // Table pagination properties
   const paginationOptions = {
@@ -91,7 +91,7 @@ export function CustomersTable() {
     totalSize: totalCount,
     sizePerPageList: uiHelpers.sizePerPageList,
     sizePerPage: rolesUIProps.queryParams.pageSize,
-    page: rolesUIProps.queryParams.pageNumber,
+    page: rolesUIProps.queryParams.pageNumber
   };
 
   return (
@@ -119,7 +119,7 @@ export function CustomersTable() {
                 selectRow={getSelectRow({
                   entities,
                   ids: rolesUIProps.ids,
-                  setIds: rolesUIProps.setIds,
+                  setIds: rolesUIProps.setIds
                 })}
                 {...paginationTableProps}
               >

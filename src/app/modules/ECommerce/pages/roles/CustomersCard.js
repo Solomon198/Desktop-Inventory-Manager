@@ -1,22 +1,22 @@
-import React, { useMemo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useMemo } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Card,
   CardBody,
   CardHeader,
-  CardHeaderToolbar,
-} from '../../../../../_metronic/_partials/controls';
-import { CustomersFilter } from './customers-filter/CustomersFilter';
-import { CustomersTable } from './customers-table/CustomersTable';
-import { CustomersGrouping } from './customers-grouping/CustomersGrouping';
-import { useCustomersUIContext } from './CustomersUIContext';
+  CardHeaderToolbar
+} from "../../../../../_metronic/_partials/controls";
+import { CustomersFilter } from "./customers-filter/CustomersFilter";
+import { CustomersTable } from "./customers-table/CustomersTable";
+import { CustomersGrouping } from "./customers-grouping/CustomersGrouping";
+import { useCustomersUIContext } from "./CustomersUIContext";
 
 export function CustomersCard() {
   const customersUIContext = useCustomersUIContext();
   const customersUIProps = useMemo(() => {
     return {
       ids: customersUIContext.ids,
-      newCustomerButtonClick: customersUIContext.newCustomerButtonClick,
+      newCustomerButtonClick: customersUIContext.newCustomerButtonClick
     };
   }, [customersUIContext]);
 

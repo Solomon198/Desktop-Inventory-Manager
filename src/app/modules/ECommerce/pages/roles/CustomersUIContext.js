@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
-import { isEqual, isFunction } from 'lodash';
-import { initialFilter } from './CustomersUIHelpers';
+import React, { createContext, useContext, useState, useCallback } from "react";
+import { isEqual, isFunction } from "lodash";
+import { initialFilter } from "./CustomersUIHelpers";
 
 const CustomersUIContext = createContext();
 
@@ -14,8 +14,8 @@ export function CustomersUIProvider({ customersUIEvents, children }) {
   const [queryParams, setQueryParamsBase] = useState(initialFilter);
   const [ids, setIds] = useState([]);
   const [showSnackbar, setShowSnackbar] = useState(false);
-  const setQueryParams = useCallback((nextQueryParams) => {
-    setQueryParamsBase((prevQueryParams) => {
+  const setQueryParams = useCallback(nextQueryParams => {
+    setQueryParamsBase(prevQueryParams => {
       if (isFunction(nextQueryParams)) {
         nextQueryParams = nextQueryParams(prevQueryParams);
       }
@@ -29,9 +29,9 @@ export function CustomersUIProvider({ customersUIEvents, children }) {
   }, []);
 
   const initRole = {
-    _id: '',
-    role_name: '',
-    date: '',
+    _id: "",
+    role_name: "",
+    date: ""
   };
 
   const value = {
@@ -51,7 +51,7 @@ export function CustomersUIProvider({ customersUIEvents, children }) {
     openUpdateCustomersStatusDialog:
       customersUIEvents.openUpdateCustomersStatusDialog,
     viewCustomerProfileButtonClick:
-      customersUIEvents.viewCustomerProfileButtonClick,
+      customersUIEvents.viewCustomerProfileButtonClick
   };
 
   return (

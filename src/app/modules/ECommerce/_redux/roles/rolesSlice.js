@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialRolesState = {
   listLoading: false,
@@ -6,15 +6,15 @@ const initialRolesState = {
   totalCount: 0,
   entities: null,
   roleForEdit: undefined,
-  lastError: null,
+  lastError: null
 };
 export const callTypes = {
-  list: 'list',
-  action: 'action',
+  list: "list",
+  action: "action"
 };
 
 export const rolesSlice = createSlice({
-  name: 'roles',
+  name: "roles",
   initialState: initialRolesState,
   reducers: {
     catchError: (state, action) => {
@@ -57,7 +57,7 @@ export const rolesSlice = createSlice({
     roleUpdated: (state, action) => {
       state.error = null;
       state.actionsLoading = false;
-      state.entities = state.entities.map((entity) => {
+      state.entities = state.entities.map(entity => {
         if (entity._id === action.payload.role._id) {
           return action.payload.role;
         }
@@ -69,7 +69,7 @@ export const rolesSlice = createSlice({
       state.error = null;
       state.actionsLoading = false;
       state.entities = state.entities.filter(
-        (el) => el._id !== action.payload._id
+        el => el._id !== action.payload._id
       );
     },
     // deleteRoles
@@ -77,7 +77,7 @@ export const rolesSlice = createSlice({
       state.error = null;
       state.actionsLoading = false;
       state.entities = state.entities.filter(
-        (el) => !action.payload.ids.includes(el._id)
+        el => !action.payload.ids.includes(el._id)
       );
     },
     // rolesUpdateState
@@ -85,12 +85,12 @@ export const rolesSlice = createSlice({
       state.actionsLoading = false;
       state.error = null;
       const { ids, status } = action.payload;
-      state.entities = state.entities.map((entity) => {
-        if (ids.findIndex((id) => id === entity.id) > -1) {
+      state.entities = state.entities.map(entity => {
+        if (ids.findIndex(id => id === entity.id) > -1) {
           entity.status = status;
         }
         return entity;
       });
-    },
-  },
+    }
+  }
 });

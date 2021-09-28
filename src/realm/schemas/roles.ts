@@ -1,17 +1,17 @@
-import { RoleTypes } from '../../types/role';
+import { RoleTypes } from "../../types/role";
 
 const RoleSchema: RoleTypes = {
-  name: 'roles',
+  name: "roles",
 
-  primaryKey: '_id',
+  primaryKey: "_id",
 
   properties: {
-    _id: 'objectId',
+    _id: "objectId",
 
-    role_name: 'string',
+    role_name: "string",
 
-    date: 'date',
-  },
+    date: "date"
+  }
 };
 
 export default RoleSchema;

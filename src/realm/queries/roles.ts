@@ -1,9 +1,9 @@
-import RealmApp from '../dbConfig/config';
-import * as mongoose from 'mongoose';
-import Schemas from '../schemas/index';
-import { RoleProperties } from '../../types/role';
-import helperFuncs from '../utils/helpers.func';
-import Realm from 'realm';
+import RealmApp from "../dbConfig/config";
+import * as mongoose from "mongoose";
+import Schemas from "../schemas/index";
+import { RoleProperties } from "../../types/role";
+import helperFuncs from "../utils/helpers.func";
+import Realm from "realm";
 
 const app = RealmApp();
 
@@ -121,18 +121,18 @@ function getRole(roleId: string) {
  * @param {number} pageSize - The size of page
  * @returns {Promise<rolesResponse>} returns the total role count and entities
  */
-function getRoles(page = 1, pageSize = 10, searchQuery = '') {
+function getRoles(page = 1, pageSize = 10, searchQuery = "") {
   return new Promise<getRolesResponse>((resolve, reject) => {
     try {
       let roles: Realm.Results<Realm.Object>;
       if (searchQuery.trim()) {
-        let query = 'role_name CONTAINS[c] $0';
+        let query = "role_name CONTAINS[c] $0";
         roles = app
           .objects(Schemas.RoleSchema.name)
           .filtered(query, searchQuery)
-          .sorted('date');
+          .sorted("date");
       } else {
-        roles = app.objects(Schemas.RoleSchema.name).sorted('date');
+        roles = app.objects(Schemas.RoleSchema.name).sorted("date");
       }
 
       let partition = helperFuncs.getPaginationPartition(page, pageSize);
@@ -141,7 +141,7 @@ function getRoles(page = 1, pageSize = 10, searchQuery = '') {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach((obj) => {
+      result.forEach(obj => {
         let newObj: RoleProperties = obj.toJSON();
         newObj._id = newObj._id.toHexString();
         newObj.date = helperFuncs.transformDateObjectToString(newObj.date);
@@ -195,12 +195,12 @@ function removeRoles(roleIds: string[]) {
     try {
       let changeToObjectIds: mongoose.Types.ObjectId[] = [];
 
-      roleIds.forEach((id) => {
+      roleIds.forEach(id => {
         changeToObjectIds.push(mongoose.Types.ObjectId(id));
       });
 
       app.write(() => {
-        changeToObjectIds.forEach((id) => {
+        changeToObjectIds.forEach(id => {
           let role = app.objectForPrimaryKey(
             Schemas.RoleSchema.name,
             id as ObjectId
@@ -254,5 +254,5 @@ export default {
   removeRole,
   removeRoles,
   updateRole,
-  getRoleSync,
+  getRoleSync
 };
