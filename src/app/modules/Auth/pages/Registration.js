@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { useFormik } from 'formik';
-import { connect } from 'react-redux';
-import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
-import { FormattedMessage, injectIntl } from 'react-intl';
-import * as auth from '../_redux/authRedux';
-import { register } from '../_redux/authCrud';
+import React, { useState } from "react";
+import { useFormik } from "formik";
+import { connect } from "react-redux";
+import * as Yup from "yup";
+import { Link } from "react-router-dom";
+import { FormattedMessage, injectIntl } from "react-intl";
+import * as auth from "../_redux/authRedux";
+import { register } from "../_redux/authCrud";
 
 const initialValues = {
-  fullname: '',
-  email: '',
-  username: '',
-  password: '',
-  changepassword: '',
-  acceptTerms: false,
+  fullname: "",
+  email: "",
+  username: "",
+  password: "",
+  changepassword: "",
+  acceptTerms: false
 };
 
 function Registration(props) {
@@ -21,54 +21,52 @@ function Registration(props) {
   const [loading, setLoading] = useState(false);
   const RegistrationSchema = Yup.object().shape({
     fullname: Yup.string()
-      .min(3, 'Minimum 3 symbols')
-      .max(50, 'Maximum 50 symbols')
+      .min(3, "Minimum 3 symbols")
+      .max(50, "Maximum 50 symbols")
       .required(
         intl.formatMessage({
-          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
+          id: "AUTH.VALIDATION.REQUIRED_FIELD"
         })
       ),
     email: Yup.string()
-      .email('Wrong email format')
-      .min(3, 'Minimum 3 symbols')
-      .max(50, 'Maximum 50 symbols')
+      .email("Wrong email format")
+      .min(3, "Minimum 3 symbols")
+      .max(50, "Maximum 50 symbols")
       .required(
         intl.formatMessage({
-          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
+          id: "AUTH.VALIDATION.REQUIRED_FIELD"
         })
       ),
     username: Yup.string()
-      .min(3, 'Minimum 3 symbols')
-      .max(50, 'Maximum 50 symbols')
+      .min(3, "Minimum 3 symbols")
+      .max(50, "Maximum 50 symbols")
       .required(
         intl.formatMessage({
-          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
+          id: "AUTH.VALIDATION.REQUIRED_FIELD"
         })
       ),
     password: Yup.string()
-      .min(3, 'Minimum 3 symbols')
-      .max(50, 'Maximum 50 symbols')
+      .min(3, "Minimum 3 symbols")
+      .max(50, "Maximum 50 symbols")
       .required(
         intl.formatMessage({
-          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
+          id: "AUTH.VALIDATION.REQUIRED_FIELD"
         })
       ),
     changepassword: Yup.string()
       .required(
         intl.formatMessage({
-          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
+          id: "AUTH.VALIDATION.REQUIRED_FIELD"
         })
       )
-      .when('password', {
-        is: (val) => (val && val.length > 0 ? true : false),
+      .when("password", {
+        is: val => (val && val.length > 0 ? true : false),
         then: Yup.string().oneOf(
-          [Yup.ref('password')],
+          [Yup.ref("password")],
           "Password and Confirm Password didn't match"
-        ),
+        )
       }),
-    acceptTerms: Yup.bool().required(
-      'You must accept the terms and conditions'
-    ),
+    acceptTerms: Yup.bool().required("You must accept the terms and conditions")
   });
 
   const enableLoading = () => {
@@ -79,16 +77,16 @@ function Registration(props) {
     setLoading(false);
   };
 
-  const getInputClasses = (fieldname) => {
+  const getInputClasses = fieldname => {
     if (formik.touched[fieldname] && formik.errors[fieldname]) {
-      return 'is-invalid';
+      return "is-invalid";
     }
 
     if (formik.touched[fieldname] && !formik.errors[fieldname]) {
-      return 'is-valid';
+      return "is-valid";
     }
 
-    return '';
+    return "";
   };
 
   const formik = useFormik({
@@ -107,16 +105,16 @@ function Registration(props) {
           setSubmitting(false);
           setStatus(
             intl.formatMessage({
-              id: 'AUTH.VALIDATION.INVALID_LOGIN',
+              id: "AUTH.VALIDATION.INVALID_LOGIN"
             })
           );
           disableLoading();
         });
-    },
+    }
   });
 
   return (
-    <div className="login-form login-signin" style={{ display: 'block' }}>
+    <div className="login-form login-signin" style={{ display: "block" }}>
       <div className="text-center mb-10 mb-lg-20">
         <h3 className="font-size-h1">
           <FormattedMessage id="AUTH.REGISTER.TITLE" />
@@ -145,10 +143,10 @@ function Registration(props) {
             placeholder="Full name"
             type="text"
             className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
-              'fullname'
+              "fullname"
             )}`}
             name="fullname"
-            {...formik.getFieldProps('fullname')}
+            {...formik.getFieldProps("fullname")}
           />
           {formik.touched.fullname && formik.errors.fullname ? (
             <div className="fv-plugins-message-container">
@@ -164,10 +162,10 @@ function Registration(props) {
             placeholder="Email"
             type="email"
             className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
-              'email'
+              "email"
             )}`}
             name="email"
-            {...formik.getFieldProps('email')}
+            {...formik.getFieldProps("email")}
           />
           {formik.touched.email && formik.errors.email ? (
             <div className="fv-plugins-message-container">
@@ -183,10 +181,10 @@ function Registration(props) {
             placeholder="User name"
             type="text"
             className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
-              'username'
+              "username"
             )}`}
             name="username"
-            {...formik.getFieldProps('username')}
+            {...formik.getFieldProps("username")}
           />
           {formik.touched.username && formik.errors.username ? (
             <div className="fv-plugins-message-container">
@@ -202,10 +200,10 @@ function Registration(props) {
             placeholder="Password"
             type="password"
             className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
-              'password'
+              "password"
             )}`}
             name="password"
-            {...formik.getFieldProps('password')}
+            {...formik.getFieldProps("password")}
           />
           {formik.touched.password && formik.errors.password ? (
             <div className="fv-plugins-message-container">
@@ -221,10 +219,10 @@ function Registration(props) {
             placeholder="Confirm Password"
             type="password"
             className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
-              'changepassword'
+              "changepassword"
             )}`}
             name="changepassword"
-            {...formik.getFieldProps('changepassword')}
+            {...formik.getFieldProps("changepassword")}
           />
           {formik.touched.changepassword && formik.errors.changepassword ? (
             <div className="fv-plugins-message-container">
@@ -243,10 +241,10 @@ function Registration(props) {
               type="checkbox"
               name="acceptTerms"
               className="m-1"
-              {...formik.getFieldProps('acceptTerms')}
+              {...formik.getFieldProps("acceptTerms")}
             />
             <Link
-              style={{ color: '#b00' }}
+              style={{ color: "#b00" }}
               to="/terms"
               target="_blank"
               className="mr-1"
@@ -265,7 +263,7 @@ function Registration(props) {
         {/* end: Terms and Conditions */}
         <div className="form-group d-flex flex-wrap flex-center">
           <button
-            style={{ backgroundColor: '#b00', color: '#fff' }}
+            style={{ backgroundColor: "#b00", color: "#fff" }}
             type="submit"
             disabled={
               formik.isSubmitting ||
@@ -281,9 +279,9 @@ function Registration(props) {
           <Link to="/auth/login">
             <button
               style={{
-                backgroundColor: '#f44',
-                color: '#600',
-                outline: 'none',
+                backgroundColor: "#f44",
+                color: "#600",
+                outline: "none"
               }}
               type="button"
               className="btn btn-light-primary font-weight-bold px-9 py-4 my-3 mx-4"

@@ -1,16 +1,16 @@
-import * as React from 'react';
-import { Typography, Button, Link } from '@material-ui/core';
-import PhoneIcon from '@material-ui/icons/Phone';
-import './AppBar.css';
+import * as React from "react";
+import { Typography, Button, Link } from "@material-ui/core";
+import PhoneIcon from "@material-ui/icons/Phone";
+import "./AppBar.css";
 
 export default function AppBar() {
   return (
     <div>
       <div
         style={{
-          backgroundColor: '#fff',
-          position: 'static',
-          padding: '25px',
+          backgroundColor: "#fff",
+          position: "static",
+          padding: "25px"
         }}
       >
         <div className="d-flex justify-content-between">
@@ -19,7 +19,7 @@ export default function AppBar() {
               className="heading-text"
               variant="h4"
               component="div"
-              style={{ color: '#000', fontWeight: '500' }}
+              style={{ color: "#000", fontWeight: "500" }}
               sx={{ flexGrow: 1 }}
             >
               Dixre

@@ -1,15 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
-import { Link, Switch, Redirect } from 'react-router-dom';
-import { toAbsoluteUrl } from '../../../../_metronic/_helpers';
-import { ContentRoute } from '../../../../_metronic/layout';
-import InitAuth from './InitAuth';
-import Login from './Login';
-import Registration from './Registration';
-import ForgotPassword from './ForgotPassword';
-import '../../../../_metronic/_assets/sass/pages/login/classic/login-1.scss';
-import AppBar from './app-bar/AppBar';
-import { Button } from '@material-ui/core';
+import React from "react";
+import { Link, Switch, Redirect } from "react-router-dom";
+import { toAbsoluteUrl } from "../../../../_metronic/_helpers";
+import { ContentRoute } from "../../../../_metronic/layout";
+import InitAuth from "./InitAuth";
+import Login from "./Login";
+import Registration from "./Registration";
+import ForgotPassword from "./ForgotPassword";
+import "../../../../_metronic/_assets/sass/pages/login/classic/login-1.scss";
+import AppBar from "./app-bar/AppBar";
+import { Button } from "@material-ui/core";
 
 export function AuthPage() {
   return (
@@ -25,10 +25,10 @@ export function AuthPage() {
             className="login-aside d-flex flex-row-auto bgi-size-cover bgi-no-repeat p-10 p-lg-10"
             style={{
               backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url(${toAbsoluteUrl(
-                '/media/bg/inventory-bg.jpg'
+                "/media/bg/inventory-bg.jpg"
               )})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
+              backgroundSize: "cover",
+              backgroundPosition: "center"
             }}
           >
             {/*begin: Aside Container*/}
@@ -38,8 +38,8 @@ export function AuthPage() {
                 <img
                   alt="Logo"
                   className="max-h-70px"
-                  src={toAbsoluteUrl('/media/logos/dixre-logo.jpg')}
-                  style={{ borderRadius: '50%' }}
+                  src={toAbsoluteUrl("/media/logos/dixre-logo.jpg")}
+                  style={{ borderRadius: "50%" }}
                 />
               </Link>
               {/* end:: Aside header */}
@@ -50,18 +50,18 @@ export function AuthPage() {
                   Welcome to Dixre!
                 </h3>
                 <p
-                  style={{ marginBottom: '10px' }}
+                  style={{ marginBottom: "10px" }}
                   className="font-weight-lighter text-white opacity-80 mb-3"
                 >
                   Building a reputation for information technology in Africa...
                 </p>
 
                 <Button
-                  style={{ backgroundColor: '#b00', color: '#fff' }}
+                  style={{ backgroundColor: "#b00", color: "#fff" }}
                   variant="outlined"
                   size="medium"
                 >
-                  <Link style={{ color: '#fff' }} to="/">
+                  <Link style={{ color: "#fff" }} to="/">
                     GET STARTED NOW
                   </Link>
                 </Button>
@@ -94,7 +94,7 @@ export function AuthPage() {
           {/*begin::Content*/}
           <div
             className="d-flex flex-column flex-row-fluid position-relative overflow-hidden"
-            style={{ backgroundColor: '#fff' }}
+            style={{ backgroundColor: "#fff" }}
           >
             <AppBar />
             {/*begin::Content header*/}
@@ -106,7 +106,7 @@ export function AuthPage() {
                 to="/auth/registration"
                 className="font-weight-bold ml-2"
                 id="kt_login_signup"
-                style={{ color: '#b00' }}
+                style={{ color: "#b00" }}
               >
                 Sign Up!
               </Link>

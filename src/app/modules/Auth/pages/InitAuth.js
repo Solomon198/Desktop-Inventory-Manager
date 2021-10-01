@@ -1,21 +1,21 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react';
-import { Link, Switch, Redirect } from 'react-router-dom';
-import { injectIntl } from 'react-intl';
-import { connect } from 'react-redux';
-import { toAbsoluteUrl } from '../../../../_metronic/_helpers';
+import React, { useState } from "react";
+import { Link, Switch, Redirect } from "react-router-dom";
+import { injectIntl } from "react-intl";
+import { connect } from "react-redux";
+import { toAbsoluteUrl } from "../../../../_metronic/_helpers";
 // import { ContentRoute } from '../../../../_metronic/layout';
 // import Login from './Login';
 // import Registration from './Registration';
 // import ForgotPassword from './ForgotPassword';
-import '../../../../_metronic/_assets/sass/pages/login/classic/login-1.scss';
-import ButtonAppBar from './app-bar/AppBar';
-import { Typography, Button } from '@material-ui/core';
-import * as auth from '../_redux/authRedux';
-import { connectAcct } from '../_redux/authCrud';
+import "../../../../_metronic/_assets/sass/pages/login/classic/login-1.scss";
+import ButtonAppBar from "./app-bar/AppBar";
+import { Typography, Button } from "@material-ui/core";
+import * as auth from "../_redux/authRedux";
+import { connectAcct } from "../_redux/authCrud";
 
 const initialValues = {
-  businessName: 'dixre',
+  businessName: "dixre"
 };
 
 function InitAuth(props) {
@@ -29,7 +29,7 @@ function InitAuth(props) {
     setLoading(false);
   };
 
-  const handleConnect = (values) => {
+  const handleConnect = values => {
     enableLoading();
     setTimeout(() => {
       connectAcct(values.businessName)
@@ -47,19 +47,19 @@ function InitAuth(props) {
     <>
       <div
         style={{
-          width: '700px',
+          width: "700px",
           marginTop: 0,
           marginBottom: 0,
-          marginRight: 'auto',
-          marginLeft: 'auto',
+          marginRight: "auto",
+          marginLeft: "auto"
         }}
       >
         <Typography
           variant="h3"
           style={{
-            color: '#000',
-            fontWeight: '500',
-            marginBottom: '20px',
+            color: "#000",
+            fontWeight: "500",
+            marginBottom: "20px"
           }}
           sx={{ flexGrow: 1 }}
         >
@@ -68,9 +68,9 @@ function InitAuth(props) {
         <Typography
           className="text-muted"
           style={{
-            fontSize: '16px',
-            lineHeight: '150%',
-            marginBottom: '40px',
+            fontSize: "16px",
+            lineHeight: "150%",
+            marginBottom: "40px"
           }}
         >
           Enter your Business portal name below. Once connected, you can log in
@@ -81,7 +81,7 @@ function InitAuth(props) {
         <div className="input-group input-group-lg mb-3">
           <div className="input-group-prepend">
             <span
-              style={{ backgroundColor: '#f9f9f9' }}
+              style={{ backgroundColor: "#f9f9f9" }}
               className="input-group-text"
               id="basic-addon3"
             >
@@ -89,7 +89,7 @@ function InitAuth(props) {
             </span>
           </div>
           <input
-            style={{ outlineColor: '#b00' }}
+            style={{ outlineColor: "#b00" }}
             type="text"
             name="businessName"
             placeholder="Enter your business name"
@@ -101,10 +101,10 @@ function InitAuth(props) {
             onClick={() => handleConnect(initialValues)}
             // startIcon={<LoginIcon style={{ color: '#fff' }} />}
             style={{
-              backgroundColor: '#b00',
-              color: '#fff',
-              textTransform: 'uppercase',
-              marginLeft: '5px',
+              backgroundColor: "#b00",
+              color: "#fff",
+              textTransform: "uppercase",
+              marginLeft: "5px"
             }}
           >
             <span>connect</span>
@@ -113,9 +113,9 @@ function InitAuth(props) {
         </div>
         <div className="d-flex justify-content-between">
           <Link to="/auth/registration">
-            <Typography style={{ color: '#b00' }}>
-              <span className="text-dark">Don't have an account?</span>{' '}
-              <span style={{ color: '#b00', fontWeight: '500' }}>
+            <Typography style={{ color: "#b00" }}>
+              <span className="text-dark">Don't have an account?</span>{" "}
+              <span style={{ color: "#b00", fontWeight: "500" }}>
                 Get started now
               </span>
             </Typography>
@@ -124,8 +124,8 @@ function InitAuth(props) {
             <Typography>
               <span className="text-dark">
                 Can't remember your portal name?
-              </span>{' '}
-              <span style={{ color: '#b00', fontWeight: '500' }}>
+              </span>{" "}
+              <span style={{ color: "#b00", fontWeight: "500" }}>
                 Click here
               </span>
             </Typography>

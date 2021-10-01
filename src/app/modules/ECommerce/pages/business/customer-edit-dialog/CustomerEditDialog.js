@@ -1,12 +1,12 @@
-import React, { useEffect, useMemo } from 'react';
-import { Modal } from 'react-bootstrap';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import * as moment from 'moment';
-import * as actions from '../../../_redux/customers/customersActions';
-import { CustomerEditDialogHeader } from './CustomerEditDialogHeader';
-import { CustomerEditForm } from './CustomerEditForm';
-import { useCustomersUIContext } from '../CustomersUIContext';
-import { setSnackbar } from '../../../_redux/snackbar/snackbarActions';
+import React, { useEffect, useMemo } from "react";
+import { Modal } from "react-bootstrap";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as moment from "moment";
+import * as actions from "../../../_redux/customers/customersActions";
+import { CustomerEditDialogHeader } from "./CustomerEditDialogHeader";
+import { CustomerEditForm } from "./CustomerEditForm";
+import { useCustomersUIContext } from "../CustomersUIContext";
+import { setSnackbar } from "../../../_redux/snackbar/snackbarActions";
 
 export function CustomerEditDialog({ id, show, onHide }) {
   // Customers UI Context
@@ -14,17 +14,17 @@ export function CustomerEditDialog({ id, show, onHide }) {
   const customersUIProps = useMemo(() => {
     return {
       initCustomer: customersUIContext.initCustomer,
-      setShowSnackbar: customersUIContext.setShowSnackbar,
+      setShowSnackbar: customersUIContext.setShowSnackbar
     };
   }, [customersUIContext]);
 
   // Customers Redux state
   const dispatch = useDispatch();
   const { actionsLoading, customerForEdit, error } = useSelector(
-    (state) => ({
+    state => ({
       actionsLoading: state.customers.actionsLoading,
       customerForEdit: state.customers.customerForEdit,
-      error: state.customers.error,
+      error: state.customers.error
     }),
     shallowEqual
   );
@@ -33,7 +33,7 @@ export function CustomerEditDialog({ id, show, onHide }) {
 
   if (customerForEdit) {
     _customerForEdit = Object.assign({}, customerForEdit, {
-      date: moment(customerForEdit.date).format('YYYY-MM-DD'),
+      date: moment(customerForEdit.date).format("YYYY-MM-DD")
     });
   }
 
@@ -43,18 +43,18 @@ export function CustomerEditDialog({ id, show, onHide }) {
   }, [id, dispatch]);
 
   // server request for saving customer
-  const saveCustomer = (customer) => {
+  const saveCustomer = customer => {
     if (!id) {
       // server request for creating customer
       dispatch(actions.createCustomer(customer)).then(() => {
         onHide();
         dispatch(
           setSnackbar({
-            status: !error ? 'success' : 'error',
+            status: !error ? "success" : "error",
             message: (
-              <p style={{ fontSize: '16px' }}>Customer added successfully!</p>
+              <p style={{ fontSize: "16px" }}>Customer added successfully!</p>
             ),
-            show: true,
+            show: true
           })
         );
       });
@@ -64,11 +64,11 @@ export function CustomerEditDialog({ id, show, onHide }) {
         onHide();
         dispatch(
           setSnackbar({
-            status: !error ? 'success' : 'error',
+            status: !error ? "success" : "error",
             message: (
-              <p style={{ fontSize: '16px' }}>Customer updated successfully!</p>
+              <p style={{ fontSize: "16px" }}>Customer updated successfully!</p>
             ),
-            show: true,
+            show: true
           })
         );
       });
