@@ -1,12 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
-import { Link, Switch, Redirect } from "react-router-dom";
-import { toAbsoluteUrl } from "../../../../_metronic/_helpers";
-import { ContentRoute } from "../../../../_metronic/layout";
-import Login from "./Login";
-import Registration from "./Registration";
-import ForgotPassword from "./ForgotPassword";
-import "../../../../_metronic/_assets/sass/pages/login/classic/login-1.scss";
+import React from 'react';
+import { Link, Switch, Redirect } from 'react-router-dom';
+import { toAbsoluteUrl } from '../../../../_metronic/_helpers';
+import { ContentRoute } from '../../../../_metronic/layout';
+import InitAuth from './InitAuth';
+import Login from './Login';
+import Registration from './Registration';
+import ForgotPassword from './ForgotPassword';
+import '../../../../_metronic/_assets/sass/pages/login/classic/login-1.scss';
+import AppBar from './app-bar/AppBar';
+import { Button } from '@material-ui/core';
 
 export function AuthPage() {
   return (
@@ -21,7 +24,11 @@ export function AuthPage() {
           <div
             className="login-aside d-flex flex-row-auto bgi-size-cover bgi-no-repeat p-10 p-lg-10"
             style={{
-              backgroundImage: `url(${toAbsoluteUrl("/media/bg/bg-4.jpg")})`
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url(${toAbsoluteUrl(
+                '/media/bg/inventory-bg.jpg'
+              )})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
             }}
           >
             {/*begin: Aside Container*/}
@@ -31,7 +38,8 @@ export function AuthPage() {
                 <img
                   alt="Logo"
                   className="max-h-70px"
-                  src={toAbsoluteUrl("/media/logos/logo-letter-1.png")}
+                  src={toAbsoluteUrl('/media/logos/dixre-logo.jpg')}
+                  style={{ borderRadius: '50%' }}
                 />
               </Link>
               {/* end:: Aside header */}
@@ -39,19 +47,31 @@ export function AuthPage() {
               {/* start:: Aside content */}
               <div className="flex-column-fluid d-flex flex-column justify-content-center">
                 <h3 className="font-size-h1 mb-5 text-white">
-                  Welcome to Metronic!
+                  Welcome to Dixre!
                 </h3>
-                <p className="font-weight-lighter text-white opacity-80">
-                  The ultimate Bootstrap & React 16 admin theme framework for
-                  next generation web apps.
+                <p
+                  style={{ marginBottom: '10px' }}
+                  className="font-weight-lighter text-white opacity-80 mb-3"
+                >
+                  Building a reputation for information technology in Africa...
                 </p>
+
+                <Button
+                  style={{ backgroundColor: '#b00', color: '#fff' }}
+                  variant="outlined"
+                  size="medium"
+                >
+                  <Link style={{ color: '#fff' }} to="/">
+                    GET STARTED NOW
+                  </Link>
+                </Button>
               </div>
               {/* end:: Aside content */}
 
               {/* start:: Aside footer for desktop */}
               <div className="d-none flex-column-auto d-lg-flex justify-content-between mt-10">
                 <div className="opacity-70 font-weight-bold	text-white">
-                  &copy; 2020 Metronic
+                  &copy; 2021 Dixre
                 </div>
                 <div className="d-flex">
                   <Link to="/terms" className="text-white">
@@ -72,7 +92,11 @@ export function AuthPage() {
           {/*begin::Aside*/}
 
           {/*begin::Content*/}
-          <div className="d-flex flex-column flex-row-fluid position-relative p-7 overflow-hidden">
+          <div
+            className="d-flex flex-column flex-row-fluid position-relative overflow-hidden"
+            style={{ backgroundColor: '#fff' }}
+          >
+            <AppBar />
             {/*begin::Content header*/}
             <div className="position-absolute top-0 right-0 text-right mt-5 mb-15 mb-lg-0 flex-column-auto justify-content-center py-5 px-10">
               <span className="font-weight-bold text-dark-50">
@@ -82,6 +106,7 @@ export function AuthPage() {
                 to="/auth/registration"
                 className="font-weight-bold ml-2"
                 id="kt_login_signup"
+                style={{ color: '#b00' }}
               >
                 Sign Up!
               </Link>
@@ -91,6 +116,7 @@ export function AuthPage() {
             {/* begin::Content body */}
             <div className="d-flex flex-column-fluid flex-center mt-30 mt-lg-0">
               <Switch>
+                <ContentRoute path="/auth/init" component={InitAuth} />
                 <ContentRoute path="/auth/login" component={Login} />
                 <ContentRoute
                   path="/auth/registration"
@@ -100,8 +126,8 @@ export function AuthPage() {
                   path="/auth/forgot-password"
                   component={ForgotPassword}
                 />
-                <Redirect from="/auth" exact={true} to="/auth/login" />
-                <Redirect to="/auth/login" />
+                <Redirect from="/auth" exact={true} to="/auth/init" />
+                <Redirect to="/auth/init" />
               </Switch>
             </div>
             {/*end::Content body*/}
@@ -109,7 +135,7 @@ export function AuthPage() {
             {/* begin::Mobile footer */}
             <div className="d-flex d-lg-none flex-column-auto flex-column flex-sm-row justify-content-between align-items-center mt-5 p-5">
               <div className="text-dark-50 font-weight-bold order-2 order-sm-1 my-2">
-                &copy; 2020 Metronic
+                &copy; 2021 Dixre
               </div>
               <div className="d-flex order-1 order-sm-2 my-2">
                 <Link to="/terms" className="text-dark-75 text-hover-primary">

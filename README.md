@@ -68,4 +68,4 @@ Runs prettier format for codebase and you can specify `yarn format:watch` to wat
 
 - Redirect user to the last sale invoice page
 
-- Handle the submit button in employee's module.
+- Fix bug at the point of updating expense date field.

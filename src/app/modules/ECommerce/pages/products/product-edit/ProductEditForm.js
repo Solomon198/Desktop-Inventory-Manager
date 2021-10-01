@@ -2,20 +2,20 @@
 // Data validation is based on Yup
 // Please, be familiar with article first:
 // https://hackernoon.com/react-form-validation-with-formik-and-yup-8b76bda62e10
-import React from "react";
-import { Formik, Form, Field } from "formik";
-import { DatePickerField } from "../../../../../../_metronic/_partials/controls";
-import * as moment from "moment";
-import * as Yup from "yup";
+import React from 'react';
+import { Formik, Form, Field } from 'formik';
+import { DatePickerField } from '../../../../../../_metronic/_partials/controls';
+import * as moment from 'moment';
+import * as Yup from 'yup';
 
 // Validation schema
 const ProductEditSchema = Yup.object().shape({
   product_name: Yup.string()
-    .min(2, "Minimum 2 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("Product name is required")
-    .matches(/(?!^\d+$)^.+$/, "Only numbers are not allowed for this field"),
-  date: Yup.date().required("Date is required")
+    .min(2, 'Minimum 2 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('Product name is required')
+    .matches(/(?!^\d+$)^.+$/, 'Only numbers are not allowed for this field'),
+  date: Yup.date().required('Date is required'),
 });
 
 export function ProductEditForm({
@@ -23,7 +23,7 @@ export function ProductEditForm({
   supplierEntities,
   btnRef,
   saveProduct,
-  backToProductsList
+  backToProductsList,
 }) {
   return (
     <>
@@ -31,7 +31,7 @@ export function ProductEditForm({
         enableReinitialize={true}
         initialValues={product}
         validationSchema={ProductEditSchema}
-        onSubmit={values => {
+        onSubmit={(values) => {
           saveProduct(values);
         }}
       >
@@ -42,7 +42,7 @@ export function ProductEditForm({
           handleChange,
           setFieldValue,
           errors,
-          touched
+          touched,
         }) => (
           <>
             <Form className="form form-label-right">
@@ -60,7 +60,7 @@ export function ProductEditForm({
                     <b>Product</b>
                   </small>
                   {errors.product_name && touched.product_name ? (
-                    <div style={{ color: "red" }}>{errors.product_name}</div>
+                    <div style={{ color: 'red' }}>{errors.product_name}</div>
                   ) : null}
                 </div>
                 <div className="col-lg-4">
@@ -73,7 +73,7 @@ export function ProductEditForm({
                   >
                     <option value="">Select Supplier</option>
                     {supplierEntities &&
-                      supplierEntities.map(entity => (
+                      supplierEntities.map((entity) => (
                         <option key={entity._id} value={entity._id}>
                           {entity.supplier_name}
                         </option>
@@ -83,15 +83,26 @@ export function ProductEditForm({
                     <b>Supplier</b>
                   </small>
                   {errors.supplier_id && touched.supplier_id ? (
-                    <div style={{ color: "red" }}>{errors.supplier_id}</div>
+                    <div style={{ color: 'red' }}>{errors.supplier_id}</div>
                   ) : null}
                 </div>
                 <div className="col-lg-4">
-                  <DatePickerField
+                  <input
+                    type="date"
+                    className="form-control"
                     name="date"
-                    label="date"
-                    // max={moment().format('YYYY-MM-DD')}
+                    placeholder="Select Date"
+                    value={values.date}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    max={moment().format('YYYY-MM-DD')}
                   />
+                  <small className="form-text text-muted">
+                    <b>Date</b>
+                  </small>
+                  {errors.date && touched.date ? (
+                    <div className="text-danger">{errors.date}</div>
+                  ) : null}
                 </div>
               </div>
               <div className="form-group row"></div>

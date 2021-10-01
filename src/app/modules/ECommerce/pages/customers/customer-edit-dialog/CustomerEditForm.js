@@ -2,44 +2,44 @@
 // Data validation is based on Yup
 // Please, be familiar with article first:
 // https://hackernoon.com/react-form-validation-with-formik-and-yup-8b76bda62e10
-import React from "react";
-import { Modal } from "react-bootstrap";
-import { Formik, Form, Field } from "formik";
-import * as moment from "moment";
-import * as Yup from "yup";
+import React from 'react';
+import { Modal } from 'react-bootstrap';
+import { Formik, Form, Field } from 'formik';
+import * as moment from 'moment';
+import * as Yup from 'yup';
 import {
   Input,
   Select,
-  DatePickerField
-} from "../../../../../../_metronic/_partials/controls";
-import helperFuncs from "../../../../../../dist/realm/utils/helpers.func";
+  DatePickerField,
+} from '../../../../../../_metronic/_partials/controls';
+import helperFuncs from '../../../../../../dist/realm/utils/helpers.func';
 // Validation schema
 const CustomerEditSchema = Yup.object().shape({
   first_name: Yup.string()
-    .min(3, "Minimum 3 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("First Name is required")
-    .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field "),
+    .min(3, 'Minimum 3 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('First Name is required')
+    .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field '),
   last_name: Yup.string()
-    .min(3, "Minimum 3 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("Last Name is required")
-    .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field "),
+    .min(3, 'Minimum 3 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('Last Name is required')
+    .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field '),
   phone_no: Yup.number()
-    .typeError("Phone Number must be a number")
+    .typeError('Phone Number must be a number')
     .positive('Phone Number must not contain the minus "-" symbol')
     .integer(`Phone Number can't include a decimal point`)
-    .required("Phone Number is required"),
-  date: Yup.date().required("Date is required")
+    .required('Phone Number is required'),
+  date: Yup.date().required('Date is required'),
 });
 
 export function CustomerEditForm({
   saveCustomer,
   customer,
   actionsLoading,
-  onHide
+  onHide,
 }) {
-  customer = typeof customer === "object" ? customer : {};
+  customer = typeof customer === 'object' ? customer : {};
 
   return (
     <>
@@ -47,11 +47,18 @@ export function CustomerEditForm({
         enableReinitialize={true}
         initialValues={customer}
         validationSchema={CustomerEditSchema}
-        onSubmit={values => {
+        onSubmit={(values) => {
           saveCustomer(values);
         }}
       >
-        {({ handleSubmit }) => (
+        {({
+          values,
+          handleSubmit,
+          handleChange,
+          handleBlur,
+          errors,
+          touched,
+        }) => (
           <>
             <Modal.Body className="overlay overlay-block cursor-default">
               {actionsLoading && (
@@ -121,11 +128,19 @@ export function CustomerEditForm({
                 <div className="form-group row">
                   {/* Date */}
                   <div className="col-lg-4">
-                    <DatePickerField
+                    <input
+                      type="date"
+                      className="form-control"
                       name="date"
-                      label="Date"
-                      // max={moment().format('YYYY-MM-DD')}
+                      placeholder="Select Date"
+                      value={values.date}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      max={moment().format('YYYY-MM-DD')}
                     />
+                    {errors.date && touched.date ? (
+                      <div className="text-danger">{errors.date}</div>
+                    ) : null}
                   </div>
                 </div>
               </Form>

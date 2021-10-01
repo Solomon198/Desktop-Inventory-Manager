@@ -15,7 +15,8 @@ export function getInitLayoutConfig() {
         theme: {
           base: {
             white: "#ffffff",
-            primary: "#1BC5BD",
+            // primary: "#1BC5BD",
+            primary: "#B00",
             secondary: "#E5EAEE",
             success: "#1BC5BD",
             info: "#6993FF",
@@ -26,7 +27,8 @@ export function getInitLayoutConfig() {
           },
           light: {
             white: "#ffffff",
-            primary: "#1BC5BD",
+            // primary: "#1BC5BD",
+            primary: "#B00",
             secondary: "#ECF0F3",
             success: "#C9F7F5",
             info: "#E1E9FF",

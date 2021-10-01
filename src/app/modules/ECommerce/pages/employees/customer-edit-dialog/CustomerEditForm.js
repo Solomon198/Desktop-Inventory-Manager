@@ -2,45 +2,45 @@
 // Data validation is based on Yup
 // Please, be familiar with article first:
 // https://hackernoon.com/react-form-validation-with-formik-and-yup-8b76bda62e10
-import React from "react";
-import { Modal } from "react-bootstrap";
-import { Formik, Form, Field } from "formik";
-import * as moment from "moment";
-import * as Yup from "yup";
+import React from 'react';
+import { Modal } from 'react-bootstrap';
+import { Formik, Form, Field } from 'formik';
+import * as moment from 'moment';
+import * as Yup from 'yup';
 import {
   Input,
   Select,
-  DatePickerField
-} from "../../../../../../_metronic/_partials/controls";
-import helperFuncs from "../../../../../../dist/realm/utils/helpers.func";
+  DatePickerField,
+} from '../../../../../../_metronic/_partials/controls';
+import helperFuncs from '../../../../../../dist/realm/utils/helpers.func';
 // Validation schema
 const EmployeeEditSchema = Yup.object().shape({
   first_name: Yup.string()
-    .min(3, "Minimum 3 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("Firstname is required")
-    .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field "),
+    .min(3, 'Minimum 3 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('Firstname is required')
+    .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field '),
   last_name: Yup.string()
-    .min(3, "Minimum 3 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("Lastname is required")
-    .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field "),
-  gender: Yup.string().required("Gender is required"),
-  role_id: Yup.string().required("Role is required"),
+    .min(3, 'Minimum 3 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('Lastname is required')
+    .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field '),
+  gender: Yup.string().required('Gender is required'),
+  role_id: Yup.string().required('Role is required'),
   email: Yup.string()
-    .email("Invalid email")
-    .required("Email is required"),
+    .email('Invalid email')
+    .required('Email is required'),
   default_password: Yup.string().required(
-    "Provide a default password of this employee"
+    'Provide a default password of this employee'
   ),
   phone_no: Yup.number()
-    .typeError("Phone Number must be a number")
+    .typeError('Phone Number must be a number')
     .positive('Phone Number must not contain the "-" symbol')
-    .required("Phone Number is required"),
+    .required('Phone Number is required'),
   home_address: Yup.string()
-    .required("Home address is required")
-    .matches(/(?!^\d+$)^.+$/, "Only numbers are not allowed for this field"),
-  date: Yup.date().required("Date is required")
+    .required('Home address is required')
+    .matches(/(?!^\d+$)^.+$/, 'Only numbers are not allowed for this field'),
+  date: Yup.date().required('Date is required'),
 });
 
 export function EmployeeEditForm({
@@ -48,9 +48,9 @@ export function EmployeeEditForm({
   employee,
   roleEntities,
   actionsLoading,
-  onHide
+  onHide,
 }) {
-  employee = typeof employee === "object" ? employee : {};
+  employee = typeof employee === 'object' ? employee : {};
 
   return (
     <>
@@ -58,13 +58,20 @@ export function EmployeeEditForm({
         enableReinitialize={true}
         initialValues={employee}
         validationSchema={EmployeeEditSchema}
-        onSubmit={values => {
+        onSubmit={(values) => {
           saveEmployee(values);
           // console.log(values);
           // alert('Hello');
         }}
       >
-        {({ handleSubmit }) => (
+        {({
+          values,
+          handleSubmit,
+          handleChange,
+          handleBlur,
+          errors,
+          touched,
+        }) => (
           <>
             <Modal.Body className="overlay overlay-block cursor-default">
               {actionsLoading && (
@@ -152,7 +159,7 @@ export function EmployeeEditForm({
                       <option value="">Select Role</option>
                       {roleEntities &&
                         roleEntities.length > 0 &&
-                        roleEntities.map(role => (
+                        roleEntities.map((role) => (
                           <option key={role._id} value={role._id}>
                             {role.role_name}
                           </option>
@@ -160,11 +167,20 @@ export function EmployeeEditForm({
                     </Select>
                   </div>
                   <div className="col-lg-6">
-                    <DatePickerField
+                    <label>Date</label>
+                    <input
+                      type="date"
+                      className="form-control"
                       name="date"
-                      label="Date"
-                      // max={moment().format('YYYY-MM-DD')}
+                      placeholder="Select Date"
+                      value={values.date}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      max={moment().format('YYYY-MM-DD')}
                     />
+                    {errors.date && touched.date ? (
+                      <div className="text-danger">{errors.date}</div>
+                    ) : null}
                   </div>
                 </div>
               </Form>

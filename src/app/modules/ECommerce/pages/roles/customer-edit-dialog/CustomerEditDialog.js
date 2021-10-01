@@ -1,11 +1,12 @@
-import React, { useEffect, useMemo } from "react";
-import { Modal } from "react-bootstrap";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import * as actions from "../../../_redux/roles/rolesActions";
-import { CustomerEditDialogHeader } from "./CustomerEditDialogHeader";
-import { CustomerEditForm } from "./CustomerEditForm";
-import { useCustomersUIContext } from "../CustomersUIContext";
-import { setSnackbar } from "../../../_redux/snackbar/snackbarActions";
+import React, { useEffect, useMemo } from 'react';
+import { Modal } from 'react-bootstrap';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import * as moment from 'moment';
+import * as actions from '../../../_redux/roles/rolesActions';
+import { CustomerEditDialogHeader } from './CustomerEditDialogHeader';
+import { CustomerEditForm } from './CustomerEditForm';
+import { useCustomersUIContext } from '../CustomersUIContext';
+import { setSnackbar } from '../../../_redux/snackbar/snackbarActions';
 
 export function CustomerEditDialog({ id, show, onHide }) {
   // Customers UI Context
@@ -13,20 +14,28 @@ export function CustomerEditDialog({ id, show, onHide }) {
   const rolesUIProps = useMemo(() => {
     return {
       initRole: customersUIContext.initRole,
-      setShowSnackbar: customersUIContext.setShowSnackbar
+      setShowSnackbar: customersUIContext.setShowSnackbar,
     };
   }, [customersUIContext]);
 
   // Customers Redux state
   const dispatch = useDispatch();
   const { actionsLoading, roleForEdit, error } = useSelector(
-    state => ({
+    (state) => ({
       actionsLoading: state.roles.actionsLoading,
       roleForEdit: state.roles.roleForEdit,
-      error: state.roles.error
+      error: state.roles.error,
     }),
     shallowEqual
   );
+
+  let _roleForEdit;
+
+  if (roleForEdit) {
+    _roleForEdit = Object.assign({}, roleForEdit, {
+      date: moment(roleForEdit.date).format('YYYY-MM-DD'),
+    });
+  }
 
   useEffect(() => {
     // server call for getting Role by id
@@ -34,18 +43,18 @@ export function CustomerEditDialog({ id, show, onHide }) {
   }, [id, dispatch]);
 
   // server request for saving role
-  const saveRole = role => {
+  const saveRole = (role) => {
     if (!id) {
       // server request for creating role
       dispatch(actions.createRole(role)).then(() => {
         onHide();
         dispatch(
           setSnackbar({
-            status: !error ? "success" : "error",
+            status: !error ? 'success' : 'error',
             message: (
-              <p style={{ fontSize: "16px" }}>Role added successfully!</p>
+              <p style={{ fontSize: '16px' }}>Role added successfully!</p>
             ),
-            show: true
+            show: true,
           })
         );
       });
@@ -55,11 +64,11 @@ export function CustomerEditDialog({ id, show, onHide }) {
         onHide();
         dispatch(
           setSnackbar({
-            status: !error ? "success" : "error",
+            status: !error ? 'success' : 'error',
             message: (
-              <p style={{ fontSize: "16px" }}>Role updated successfully!</p>
+              <p style={{ fontSize: '16px' }}>Role updated successfully!</p>
             ),
-            show: true
+            show: true,
           })
         );
       });
@@ -77,7 +86,7 @@ export function CustomerEditDialog({ id, show, onHide }) {
       <CustomerEditForm
         saveRole={saveRole}
         actionsLoading={actionsLoading}
-        role={roleForEdit || rolesUIProps.initRole}
+        role={_roleForEdit || rolesUIProps.initRole}
         onHide={onHide}
       />
     </Modal>

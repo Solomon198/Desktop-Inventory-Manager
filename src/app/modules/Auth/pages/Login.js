@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { connect } from "react-redux";
-import { FormattedMessage, injectIntl } from "react-intl";
-import * as auth from "../_redux/authRedux";
-import { login } from "../_redux/authCrud";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { connect } from 'react-redux';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import * as auth from '../_redux/authRedux';
+import { login } from '../_redux/authCrud';
 
 /*
   INTL (i18n) docs:
@@ -18,8 +18,8 @@ import { login } from "../_redux/authCrud";
 */
 
 const initialValues = {
-  email: "admin@demo.com",
-  password: "demo"
+  email: 'admin@demo.com',
+  password: 'demo',
 };
 
 function Login(props) {
@@ -27,22 +27,22 @@ function Login(props) {
   const [loading, setLoading] = useState(false);
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
-      .email("Wrong email format")
-      .min(3, "Minimum 3 symbols")
-      .max(50, "Maximum 50 symbols")
+      .email('Wrong email format')
+      .min(3, 'Minimum 3 symbols')
+      .max(50, 'Maximum 50 symbols')
       .required(
         intl.formatMessage({
-          id: "AUTH.VALIDATION.REQUIRED_FIELD"
+          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
         })
       ),
     password: Yup.string()
-      .min(3, "Minimum 3 symbols")
-      .max(50, "Maximum 50 symbols")
+      .min(3, 'Minimum 3 symbols')
+      .max(50, 'Maximum 50 symbols')
       .required(
         intl.formatMessage({
-          id: "AUTH.VALIDATION.REQUIRED_FIELD"
+          id: 'AUTH.VALIDATION.REQUIRED_FIELD',
         })
-      )
+      ),
   });
 
   const enableLoading = () => {
@@ -53,16 +53,16 @@ function Login(props) {
     setLoading(false);
   };
 
-  const getInputClasses = fieldname => {
+  const getInputClasses = (fieldname) => {
     if (formik.touched[fieldname] && formik.errors[fieldname]) {
-      return "is-invalid";
+      return 'is-invalid';
     }
 
     if (formik.touched[fieldname] && !formik.errors[fieldname]) {
-      return "is-valid";
+      return 'is-valid';
     }
 
-    return "";
+    return '';
   };
 
   const formik = useFormik({
@@ -81,12 +81,12 @@ function Login(props) {
             setSubmitting(false);
             setStatus(
               intl.formatMessage({
-                id: "AUTH.VALIDATION.INVALID_LOGIN"
+                id: 'AUTH.VALIDATION.INVALID_LOGIN',
               })
             );
           });
       }, 1000);
-    }
+    },
   });
 
   return (
@@ -107,28 +107,31 @@ function Login(props) {
         onSubmit={formik.handleSubmit}
         className="form fv-plugins-bootstrap fv-plugins-framework"
       >
-        {formik.status ? (
+        {formik.status && (
           <div className="mb-10 alert alert-custom alert-light-danger alert-dismissible">
             <div className="alert-text font-weight-bold">{formik.status}</div>
           </div>
-        ) : (
-          <div className="mb-10 alert alert-custom alert-light-info alert-dismissible">
-            <div className="alert-text ">
-              Use account <strong>admin@demo.com</strong> and password{" "}
-              <strong>demo</strong> to continue.
-            </div>
-          </div>
-        )}
+        )
+        // ) : (
+        //   <div className="mb-10 alert alert-custom alert-light-info alert-dismissible">
+        //     <div className="alert-text ">
+        //       {/* Use account <strong>admin@demo.com</strong> and password{' '}
+        //       <strong>demo</strong> to continue. */}
+        //       Use your valid email and password to continue
+        //     </div>
+        //   </div>
+        // )
+        }
 
         <div className="form-group fv-plugins-icon-container">
           <input
             placeholder="Email"
             type="email"
             className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
-              "email"
+              'email'
             )}`}
             name="email"
-            {...formik.getFieldProps("email")}
+            {...formik.getFieldProps('email')}
           />
           {formik.touched.email && formik.errors.email ? (
             <div className="fv-plugins-message-container">
@@ -141,10 +144,10 @@ function Login(props) {
             placeholder="Password"
             type="password"
             className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
-              "password"
+              'password'
             )}`}
             name="password"
-            {...formik.getFieldProps("password")}
+            {...formik.getFieldProps('password')}
           />
           {formik.touched.password && formik.errors.password ? (
             <div className="fv-plugins-message-container">
@@ -155,16 +158,17 @@ function Login(props) {
         <div className="form-group d-flex flex-wrap justify-content-between align-items-center">
           <Link
             to="/auth/forgot-password"
-            className="text-dark-50 text-hover-primary my-3 mr-2"
+            className="text-dark-50 text-hover-danger my-3 mr-2"
             id="kt_login_forgot"
           >
             <FormattedMessage id="AUTH.GENERAL.FORGOT_BUTTON" />
           </Link>
           <button
+            style={{ backgroundColor: '#b00', color: '#fff' }}
             id="kt_login_signin_submit"
             type="submit"
             disabled={formik.isSubmitting}
-            className={`btn btn-primary font-weight-bold px-9 py-4 my-3`}
+            className={`btn font-weight-bold px-9 py-4 my-3`}
           >
             <span>Sign In</span>
             {loading && <span className="ml-3 spinner spinner-white"></span>}
