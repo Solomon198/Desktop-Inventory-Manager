@@ -1,14 +1,15 @@
-import React from "react";
+import React from 'react';
 import {
   Card,
   CardHeader,
-  CardHeaderToolbar
-} from "../../../../../_metronic/_partials/controls";
+  CardHeaderToolbar,
+} from '../../../../../_metronic/_partials/controls';
 
 export function CustomerProfileHeader({ history, customer }) {
   if (!customer) return null;
-  const backToCustomersList = () => {
-    history.push("/e-commerce/customers");
+  const backToPreviousPath = () => {
+    // history.push("/e-commerce/customers");
+    history.goBack();
   };
   return (
     <Card>
@@ -16,11 +17,11 @@ export function CustomerProfileHeader({ history, customer }) {
         <CardHeaderToolbar>
           <button
             type="button"
-            onClick={backToCustomersList}
+            onClick={backToPreviousPath}
             className="btn btn-light"
           >
             <i className="fa fa-arrow-left"></i>
-            Back
+            Go Back
           </button>
         </CardHeaderToolbar>
       </CardHeader>
