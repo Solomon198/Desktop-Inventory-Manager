@@ -30,7 +30,15 @@ const CustomerTransactionSchema = Yup.object().shape({
 });
 
 export function CustomersFilter({ listLoading }) {
-  const [selectedProductId, setSelectedProductId] = useState('');
+  const [selectedProductId, setSelectedProductId] = useState();
+  const [selectedUnitId, setSelectedUnitId] = useState();
+  const [unitQuantity, setUnitQuantity] = useState(0);
+  const [isOutOfStock, setIsOutOfStock] = useState(false);
+
+  // const Transition = React.forwardRef(function Transition(props, ref) {
+  //   return <Slide direction="up" ref={ref} {...props} />;
+  // });
+
   // Customers UI Context
   const customersUIContext = useCustomersUIContext();
   const customersUIProps = useMemo(() => {
@@ -50,15 +58,36 @@ export function CustomersFilter({ listLoading }) {
     };
   }, [customersUIContext]);
 
-  const { productsForSaleEntities, unitCurrentState } = useSelector(
+  // Getting curret state of products list from store (Redux)
+  const {
+    currentState,
+    unitCurrentState,
+    stocksEntryCurrentState,
+  } = useSelector(
     (state) => ({
-      productsForSaleEntities: state.products.entities,
+      currentState: state.products,
       unitCurrentState: state.units,
+      stocksEntryCurrentState: state.stocksEntry,
     }),
     shallowEqual
   );
-
+  const { totalCount } = currentState;
+  const _products = currentState.entities;
   const _units = unitCurrentState.entities;
+
+  let quantityOfUnit;
+  if (
+    stocksEntryCurrentState &&
+    stocksEntryCurrentState.entities &&
+    stocksEntryCurrentState.entities.length > 0
+  ) {
+    let stocksEntryEntities = stocksEntryCurrentState.entities[0];
+
+    if (stocksEntryEntities) {
+      quantityOfUnit = stocksEntryEntities.quantity;
+      // setUnitQuantity(stocksEntryEntities.quantity);
+    }
+  }
 
   const history = useHistory();
 
@@ -71,41 +100,30 @@ export function CustomersFilter({ listLoading }) {
     // server call by queryParams
     dispatch(actions.fetchProductsForSale(customersUIProps.queryParams));
     dispatch(unitActions.fetchUnits(customersUIProps.queryParams));
-  }, [dispatch, customersUIProps.unitsSelected]);
-
-  const handleOnSubmit = async (values, resetForm) => {
-    let _values = { ...values };
-    if (initialValues) {
-      // Converting both the amount and quantity to number
-      _values.amount = helperFuncs.transformCurrencyStringToNumber(
-        _values.amount
-      );
-      _values.quantity = parseInt(_values.quantity);
-
-      // Creating the object schema to be passed as a parameter for checking if product is out of stock
-      const outOfStockParams = {
-        unit_id: _values.unit_id,
-        quantity: _values.quantity,
-      };
-
-      try {
-        // Getting response from an API for determining if the selected product is out of stock
-        let isOutOfStock = await stockEntryActions.getIsOutOfStocksEntryResponse(
-          outOfStockParams
-        );
-
-        if (!isOutOfStock) {
-          console.log('__values', _values);
-          console.log('initialValues', initialValues);
-          resetForm({ values: '' });
-        } else {
-          // alert('The selected product is out of stock.');
-          console.log('The selected product is out of stock.');
-        }
-      } catch (e) {
-        console.log('Error: ', e);
-      }
+    // dispatch(unitActions.fetchUnitsForProduct(selectedProductId));
+    if (selectedUnitId) {
+      dispatch(stockEntryActions.fetchQuantityByUnitId(selectedUnitId));
     }
+
+    // customersUIProps.setInsertSale(saveSale);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    dispatch,
+    selectedProductId,
+    selectedUnitId,
+    customersUIProps.unitsSelected,
+  ]);
+
+  // server request for saving customer
+
+  const initialValues = {
+    product: '', // values => All=""/Susspended=0/Active=1/Pending=2,
+    productId: '',
+    quantity: '', // values => All=""/Business=0/Individual=1
+    amount: '0',
+    unit_id: '',
+    unit: '',
+    totalAmount: '',
   };
 
   let unitsForProduct = [];
@@ -135,15 +153,7 @@ export function CustomersFilter({ listLoading }) {
     });
   }
 
-  const initialValues = {
-    product: '', // values => All=""/Susspended=0/Active=1/Pending=2,
-    productId: '',
-    quantity: '', // values => All=""/Business=0/Individual=1
-    amount: '0',
-    unit_id: '',
-    unit: '',
-    totalAmount: '',
-  };
+  console.log(unitsForProduct);
 
   const initialValuesForEdit = customersUIProps.itemForEdit;
   return (
@@ -152,7 +162,71 @@ export function CustomersFilter({ listLoading }) {
         initialValues={initialValuesForEdit || initialValues}
         enableReinitialize={true}
         validationSchema={CustomerTransactionSchema}
-        onSubmit={(values, { resetForm }) => handleOnSubmit(values, resetForm)}
+        onSubmit={async (values, { resetForm }) => {
+          if (initialValues) {
+            values.amount = helperFuncs.transformCurrencyStringToNumber(
+              values.amount
+            );
+            // values.totalAmount = parseInt(values.totalAmount);
+            values.quantity = parseInt(values.quantity);
+
+            // stockEntry obj for checking if product is out of stock or not
+            let stockEntry = {
+              unit_id: values.unit_id,
+              quantity: values.quantity,
+            };
+
+            try {
+              // getting response for the API if product is out of stock
+              let isOutOfStock = await stockEntryActions.getIsOutOfStocksEntryResponse(
+                stockEntry
+              );
+
+              if (!isOutOfStock) {
+                values.totalAmount = values.amount * values.quantity;
+                // values.amount = helperFuncs.transformToCurrencyString(
+                //   values.amount
+                // );
+                // values.totalAmount = helperFuncs.transformToCurrencyString(
+                //   values.totalAmount
+                // );
+                let productsSelected = [...customersUIProps.productsSelected];
+                productsSelected.push(values);
+
+                customersUIProps.setProductsSelected(productsSelected);
+
+                let unitsSelected = [...customersUIProps.unitsSelected];
+                unitsSelected.push(values);
+
+                customersUIProps.setUnitsSelected(unitsSelected);
+                resetForm({ values: '' });
+                setSelectedProductId('');
+              } else {
+                setIsOutOfStock(isOutOfStock);
+                // resetForm({ values: "" });
+                // setSelectedProductId("");
+                // return;
+              }
+            } catch (e) {
+              return e.message;
+            }
+          }
+          values.totalAmount = values.amount * values.quantity;
+          values.amount = helperFuncs.transformToCurrencyString(values.amount);
+          values.totalAmount = helperFuncs.transformToCurrencyString(
+            values.totalAmount
+          );
+          let productsForEdit = { ...customersUIProps.itemForEdit };
+          productsForEdit = values;
+          let _productForEdit = customersUIProps.productsSelected;
+          _productForEdit.push(productsForEdit);
+
+          console.log('ProductForEdit', _productForEdit);
+
+          customersUIProps.setProductsSelected(_productForEdit);
+          customersUIProps.setUnitsSelected(_productForEdit);
+          resetForm({ values: '' });
+        }}
       >
         {({
           values,
@@ -173,37 +247,33 @@ export function CustomersFilter({ listLoading }) {
                   onBlur={handleBlur}
                   onChange={(e) => {
                     let productId = e.target.value;
-                    if (productId === 'select') return false;
-
+                    if (productId == 'select') return false;
                     let product = {};
-                    productsForSaleEntities.forEach((item) => {
+                    _products.forEach((item) => {
                       if (item._id === productId) {
                         product = item;
                       }
                     });
-
-                    setFieldValue('productId', product._id);
                     setFieldValue('product', product.product_name);
-                    setSelectedProductId(e.target.value);
+                    setFieldValue('productId', product._id);
+                    setSelectedProductId(product._id);
                   }}
                   value={values.productId}
                 >
                   <option value="select">Select product</option>
-                  {productsForSaleEntities &&
-                    productsForSaleEntities.length > 0 &&
-                    productsForSaleEntities.map((product) => (
+                  {_products &&
+                    _products.map((product, index) => (
                       <option key={product._id} value={product._id}>
                         {product.product_name}
                       </option>
                     ))}
                 </select>
+                <small className="form-text text-muted">
+                  <b>Product</b>
+                </small>
                 {errors.product && touched.product ? (
                   <div style={{ color: 'red' }}>{errors.product}</div>
-                ) : (
-                  <small className="form-text text-muted">
-                    <b>Product</b>
-                  </small>
-                )}
+                ) : null}
               </div>
               <div className="col-lg-2">
                 <select
@@ -212,38 +282,36 @@ export function CustomersFilter({ listLoading }) {
                   name="unit_id"
                   onBlur={handleBlur}
                   onChange={(e) => {
-                    let unitId = e.target.value;
-                    if (unitId === 'select') return false;
-
-                    let unit = {};
-                    unitsForProduct.forEach((item) => {
-                      if (item._id === unitId) {
-                        unit = item;
+                    let _selectedUnitId = e.target.value;
+                    if (_selectedUnitId === 'select') return false;
+                    let selectedUnit = {};
+                    unitsForProduct.forEach((unit) => {
+                      if (unit._id === _selectedUnitId) {
+                        selectedUnit = unit;
                       }
                     });
 
-                    setFieldValue('unit_id', unit._id);
-                    setFieldValue('unit', unit.name);
-                    setFieldValue('amount', unit.price);
+                    setFieldValue('unit_id', selectedUnit._id);
+                    setFieldValue('unit', selectedUnit.name);
+                    setFieldValue('amount', selectedUnit.price);
+                    setSelectedUnitId(selectedUnit._id);
                   }}
                   value={values.unit_id}
                 >
                   <option value="select">Select Unit</option>
                   {unitsForProduct &&
-                    unitsForProduct.length > 0 &&
                     unitsForProduct.map((unit) => (
-                      <option key={unit._id} value={unit._id}>
+                      <option value={unit._id} key={unit._id}>
                         {unit.name}
                       </option>
                     ))}
                 </select>
+                <small className="form-text text-muted">
+                  <b>Unit</b>
+                </small>
                 {errors.unit_id && touched.unit_id ? (
                   <div style={{ color: 'red' }}>{errors.unit_id}</div>
-                ) : (
-                  <small className="form-text text-muted">
-                    <b>Unit</b>
-                  </small>
-                )}
+                ) : null}
               </div>
               <div className="col-lg-2">
                 <input
@@ -258,13 +326,12 @@ export function CustomersFilter({ listLoading }) {
                     setFieldValue('amount', e.target.value);
                   }}
                 />
+                <small className="form-text text-muted">
+                  <b>Amount</b>
+                </small>
                 {errors.amount && touched.amount ? (
                   <div style={{ color: 'red' }}>{errors.amount}</div>
-                ) : (
-                  <small className="form-text text-muted">
-                    <b>Amount</b>
-                  </small>
-                )}
+                ) : null}
               </div>
               <div className="col-lg-2">
                 <input
@@ -272,19 +339,19 @@ export function CustomersFilter({ listLoading }) {
                   className="form-control"
                   name="quantity"
                   placeholder="Quantity"
-                  onBlur={handleBlur}
+                  // onBlur={handleBlur}
                   value={values.quantity}
-                  onChange={async (e) => {
+                  onChange={(e) => {
                     setFieldValue('quantity', e.target.value);
+                    setUnitQuantity(quantityOfUnit);
                   }}
                 />
+                <small className="form-text text-muted">
+                  <b>Quantity</b>
+                </small>
                 {errors.quantity && touched.quantity ? (
                   <div style={{ color: 'red' }}>{errors.quantity}</div>
-                ) : (
-                  <small className="form-text text-muted">
-                    <b>Quantity</b>
-                  </small>
-                )}
+                ) : null}
               </div>
               <div className="col-lg-2">
                 <button
@@ -300,7 +367,7 @@ export function CustomersFilter({ listLoading }) {
         )}
       </Formik>
 
-      {/* <AlertDialogSlide
+      <AlertDialogSlide
         open={isOutOfStock}
         title={`You're out of stock!!!`}
         text={`Oops! Sorry, you've exceeded the total number of quantities in stock. You only have ${unitQuantity} left. Would you love to convert now?`}
@@ -314,7 +381,7 @@ export function CustomersFilter({ listLoading }) {
         }}
         handleClose={() => setIsOutOfStock(false)}
         // Transition={Transition}
-      /> */}
+      />
     </>
   );
 }

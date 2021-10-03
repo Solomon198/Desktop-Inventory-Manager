@@ -33,43 +33,18 @@ export function Demo3Dashboard() {
           {/* <MixedWidget4 className="gutter-b card-stretch" /> */}
         </div>
 
-        <div className="col-xl-12">
+        {/* <div className="col-xl-12">
           <AdminChart4 />
-          {/* <MixedWidget4 className="gutter-b card-stretch" /> */}
-        </div>
-
-        <div className="col-xl-12">
-          <AdminChart5 />
-          {/* <MixedWidget4 className="gutter-b card-stretch" /> */}
-        </div>
-
-        <div className="col-xl-12">
-          <AdminChart6 />
-          {/* <MixedWidget4 className="gutter-b card-stretch" /> */}
-        </div>
-        {/* <div className="col-xl-8">
-          <BaseTablesWidget6 className="gutter-b" />
+          {/* <MixedWidget4 className="gutter-b card-stretch" /> 
         </div> */}
-      </div>
+
+        {/* <div className="col-xl-12">
+          <AdminChart5 />
+          {/* <MixedWidget4 className="gutter-b card-stretch" /> 
       {/* end::Row */}
+        </div> 
 
       {/* begin::Row */}
-      <div className="row">
-        <div className="col-xl-12">
-          <div className="row">
-            {/* <div className="col-xl-12">
-              <StatsWidget10
-                className="gutter-b"
-                symbolShape="circle"
-                baseColor="info"
-              />
-            </div> */}
-          </div>
-        </div>
-        {/* <div className="col-xl-8">
-          <ListsWidget14 className="gutter-b card-stretch" />
-        </div> */}
-      </div>
       {/* end::Row */}
 
       {/* begin::Row */}

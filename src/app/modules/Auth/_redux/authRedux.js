@@ -1,30 +1,34 @@
-import { persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import { put, takeLatest } from "redux-saga/effects";
-import { getUserByToken } from "./authCrud";
-import { getBusinessNameByToken } from "./authCrud";
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import { put, takeLatest } from 'redux-saga/effects';
+import { getUserByToken } from './authCrud';
+import { getBusinessNameByToken } from './authCrud';
 
 export const actionTypes = {
-  Login: "[Login] Action",
-  Logout: "[Logout] Action",
-  Register: "[Register] Action",
-  Connect: "[Connect] Action",
-  UserRequested: "[Request User] Action",
-  UserLoaded: "[Load User] Auth API",
-  SetUser: "[Set User] Action",
-  BusinessNameRequested: "[Request BusinessName] Action",
-  BusinessNameLoaded: "[Load BusinessName] Auth API",
-  SetBusinessName: "[Set BusinessName] Action"
+  Login: '[Login] Action',
+  Logout: '[Logout] Action',
+  Register: '[Register] Action',
+  Connect: '[Connect] Action',
+  UserRequested: '[Request User] Action',
+  UserLoaded: '[Load User] Auth API',
+  SetUser: '[Set User] Action',
+  BusinessNameRequested: '[Request BusinessName] Action',
+  BusinessNameLoaded: '[Load BusinessName] Auth API',
+  SetBusinessName: '[Set BusinessName] Action',
 };
 
 const initialAuthState = {
   user: undefined,
   businessName: undefined,
-  authToken: undefined
+  authToken: undefined,
 };
 
 export const reducer = persistReducer(
-  { storage, key: "v713-demo1-auth", whitelist: ["user", "authToken"] },
+  {
+    storage,
+    key: 'v713-demo1-auth',
+    whitelist: ['user', 'authToken', 'businessName'],
+  },
   (state = initialAuthState, action) => {
     switch (action.type) {
       case actionTypes.Login: {
@@ -77,34 +81,34 @@ export const reducer = persistReducer(
 );
 
 export const actions = {
-  login: authToken => ({ type: actionTypes.Login, payload: { authToken } }),
-  connect: authToken => ({
+  login: (authToken) => ({ type: actionTypes.Login, payload: { authToken } }),
+  connect: (authToken) => ({
     type: actionTypes.Connect,
-    payload: { authToken }
+    payload: { authToken },
   }),
-  register: authToken => ({
+  register: (authToken) => ({
     type: actionTypes.Register,
-    payload: { authToken }
+    payload: { authToken },
   }),
   logout: () => ({ type: actionTypes.Logout }),
-  requestUser: user => ({
+  requestUser: (user) => ({
     type: actionTypes.UserRequested,
-    payload: { user }
+    payload: { user },
   }),
-  fulfillUser: user => ({ type: actionTypes.UserLoaded, payload: { user } }),
-  setUser: user => ({ type: actionTypes.SetUser, payload: { user } }),
-  requestBusinessName: businessName => ({
+  fulfillUser: (user) => ({ type: actionTypes.UserLoaded, payload: { user } }),
+  setUser: (user) => ({ type: actionTypes.SetUser, payload: { user } }),
+  requestBusinessName: (businessName) => ({
     type: actionTypes.BusinessNameRequested,
-    payload: { businessName }
+    payload: { businessName },
   }),
-  fulfillBusinessName: businessName => ({
+  fulfillBusinessName: (businessName) => ({
     type: actionTypes.BusinessNameLoaded,
-    payload: { businessName }
+    payload: { businessName },
   }),
-  SetBusinessName: businessName => ({
+  SetBusinessName: (businessName) => ({
     type: actionTypes.SetBusinessName,
-    payload: { businessName }
-  })
+    payload: { businessName },
+  }),
 };
 
 export function* saga() {
@@ -113,7 +117,7 @@ export function* saga() {
   });
 
   yield takeLatest(actionTypes.Connect, function* connectSaga() {
-    yield put(actions.requestUser());
+    yield put(actions.requestBusinessName());
   });
 
   yield takeLatest(actionTypes.Register, function* registerSaga() {
@@ -122,6 +126,7 @@ export function* saga() {
 
   yield takeLatest(actionTypes.UserRequested, function* userRequested() {
     const { data: user } = yield getUserByToken();
+    console.log('RequestedUser', user);
 
     yield put(actions.fulfillUser(user));
   });
@@ -130,6 +135,7 @@ export function* saga() {
     actionTypes.BusinessNameRequested,
     function* businessNameRequested() {
       const { data: businessName } = yield getBusinessNameByToken();
+      console.log('RequestedBusinessName_', businessName);
 
       yield put(actions.fulfillBusinessName(businessName));
     }
