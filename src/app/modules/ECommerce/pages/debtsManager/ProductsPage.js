@@ -1,25 +1,25 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-import { ProductsLoadingDialog } from './products-loading-dialog/ProductsLoadingDialog';
-import { ProductDeleteDialog } from './product-delete-dialog/ProductDeleteDialog';
-import { ProductsDeleteDialog } from './products-delete-dialog/ProductsDeleteDialog';
-import { ProductsFetchDialog } from './products-fetch-dialog/ProductsFetchDialog';
-import { ProductsUpdateStatusDialog } from './products-update-status-dialog/ProductsUpdateStatusDialog';
-import { ProductsCard } from './ProductsCard';
-import { SalesUIProvider } from './ProductsUIContext';
+import React from "react";
+import { Route } from "react-router-dom";
+import { ProductsLoadingDialog } from "./products-loading-dialog/ProductsLoadingDialog";
+import { ProductDeleteDialog } from "./product-delete-dialog/ProductDeleteDialog";
+import { ProductsDeleteDialog } from "./products-delete-dialog/ProductsDeleteDialog";
+import { ProductsFetchDialog } from "./products-fetch-dialog/ProductsFetchDialog";
+import { ProductsUpdateStatusDialog } from "./products-update-status-dialog/ProductsUpdateStatusDialog";
+import { ProductsCard } from "./ProductsCard";
+import { SalesUIProvider } from "./ProductsUIContext";
 
 export function DebtsManagerPage({ history }) {
   const salesUIEvents = {
     newSaleButtonClick: () => {
       // history.push('/e-commerce/sales/new');
-      history.push('/e-commerce/customer-debts-manager');
+      history.push("/e-commerce/customer-debts-manager");
 
       // alert('Hello');
     },
-    openEditSalePage: (id) => {
+    openEditSalePage: id => {
       history.push(`/e-commerce/debts-manager/${id}/edit`);
     },
-    openDeleteSaleDialog: (id) => {
+    openDeleteSaleDialog: id => {
       history.push(`/e-commerce/debts-manager/${id}/delete`);
     },
     openDeleteSalesDialog: () => {
@@ -29,11 +29,11 @@ export function DebtsManagerPage({ history }) {
       history.push(`/e-commerce/debts-manager/fetch`);
     },
     openUpdateSalesStatusDialog: () => {
-      history.push('/e-commerce/debts-manager/updateStatus');
+      history.push("/e-commerce/debts-manager/updateStatus");
     },
-    viewCustomerProfileButtonClick: (id) => {
+    viewCustomerProfileButtonClick: id => {
       history.push(`/e-commerce/customer-profile/${id}/view`);
-    },
+    }
   };
 
   return (
@@ -44,7 +44,7 @@ export function DebtsManagerPage({ history }) {
           <ProductsDeleteDialog
             show={match != null}
             onHide={() => {
-              history.push('/e-commerce/debts-manager');
+              history.push("/e-commerce/debts-manager");
             }}
           />
         )}
@@ -55,7 +55,7 @@ export function DebtsManagerPage({ history }) {
             show={match != null}
             id={match && match.params.id}
             onHide={() => {
-              history.push('/e-commerce/debts-manager');
+              history.push("/e-commerce/debts-manager");
             }}
           />
         )}
@@ -65,7 +65,7 @@ export function DebtsManagerPage({ history }) {
           <ProductsFetchDialog
             show={match != null}
             onHide={() => {
-              history.push('/e-commerce/debts-manager');
+              history.push("/e-commerce/debts-manager");
             }}
           />
         )}
@@ -75,7 +75,7 @@ export function DebtsManagerPage({ history }) {
           <ProductsUpdateStatusDialog
             show={match != null}
             onHide={() => {
-              history.push('/e-commerce/debts-manager');
+              history.push("/e-commerce/debts-manager");
             }}
           />
         )}

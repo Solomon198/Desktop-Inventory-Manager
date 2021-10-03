@@ -1,10 +1,10 @@
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
-import React from 'react';
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import SVG from 'react-inlinesvg';
-import { toAbsoluteUrl } from '../../../../../../../_metronic/_helpers';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import { ViewAgenda } from '@material-ui/icons';
+import React from "react";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import SVG from "react-inlinesvg";
+import { toAbsoluteUrl } from "../../../../../../../_metronic/_helpers";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import { ViewAgenda } from "@material-ui/icons";
 
 export const ActionsColumnFormatter = (
   cellContent,

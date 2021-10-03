@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 import {
   Card,
   CardHeader,
-  CardHeaderToolbar,
-} from '../../../../../_metronic/_partials/controls';
+  CardHeaderToolbar
+} from "../../../../../_metronic/_partials/controls";
 
 export function CustomerProfileHeader({ history, customer }) {
   if (!customer) return null;

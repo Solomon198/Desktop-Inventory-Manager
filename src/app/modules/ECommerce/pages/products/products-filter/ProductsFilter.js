@@ -1,16 +1,16 @@
-import React, { useMemo } from 'react';
-import { Formik } from 'formik';
-import { isEqual } from 'lodash';
-import { useProductsUIContext } from '../ProductsUIContext';
+import React, { useMemo } from "react";
+import { Formik } from "formik";
+import { isEqual } from "lodash";
+import { useProductsUIContext } from "../ProductsUIContext";
 
 const prepareFilter = (queryParams, values) => {
   const { status, condition, searchText } = values;
   const newQueryParams = { ...queryParams };
   const filter = {};
   // Filter by status
-  filter.status = status !== '' ? +status : undefined;
+  filter.status = status !== "" ? +status : undefined;
   // Filter by condition
-  filter.condition = condition !== '' ? +condition : undefined;
+  filter.condition = condition !== "" ? +condition : undefined;
   // Filter by all fields
   filter.product_name = searchText;
   if (searchText) {
@@ -26,11 +26,11 @@ export function ProductsFilter({ listLoading }) {
   const productsUIProps = useMemo(() => {
     return {
       setQueryParams: productsUIContext.setQueryParams,
-      queryParams: productsUIContext.queryParams,
+      queryParams: productsUIContext.queryParams
     };
   }, [productsUIContext]);
 
-  const applyFilter = (values) => {
+  const applyFilter = values => {
     const newQueryParams = prepareFilter(productsUIProps.queryParams, values);
     if (!isEqual(newQueryParams, productsUIProps.queryParams)) {
       newQueryParams.pageNumber = 1;
@@ -42,11 +42,11 @@ export function ProductsFilter({ listLoading }) {
     <>
       <Formik
         initialValues={{
-          status: '', // values => All=""/Selling=0/Sold=1
-          condition: '', // values => All=""/New=0/Used=1
-          searchText: '',
+          status: "", // values => All=""/Selling=0/Sold=1
+          condition: "", // values => All=""/New=0/Used=1
+          searchText: ""
         }}
-        onSubmit={(values) => {
+        onSubmit={values => {
           applyFilter(values);
         }}
       >
@@ -55,7 +55,7 @@ export function ProductsFilter({ listLoading }) {
           handleSubmit,
           handleBlur,
           handleChange,
-          setFieldValue,
+          setFieldValue
         }) => (
           <form onSubmit={handleSubmit} className="form form-label-right">
             <div className="form-group row">
@@ -67,8 +67,8 @@ export function ProductsFilter({ listLoading }) {
                   placeholder="Search"
                   onBlur={handleBlur}
                   value={values.searchText}
-                  onChange={(e) => {
-                    setFieldValue('searchText', e.target.value);
+                  onChange={e => {
+                    setFieldValue("searchText", e.target.value);
                     handleSubmit();
                   }}
                 />
