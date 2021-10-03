@@ -4,9 +4,9 @@ import {
   ME_URL,
   BUSINESS_URL,
   REGISTER_URL,
-  REQUEST_PASSWORD_URL,
-} from '../_redux/authCrud';
-import userTableMock from './userTableMock';
+  REQUEST_PASSWORD_URL
+} from "../_redux/authCrud";
+import userTableMock from "./userTableMock";
 
 export default function mockAuth(mock) {
   mock.onPost(LOGIN_URL).reply(({ data }) => {
@@ -14,7 +14,7 @@ export default function mockAuth(mock) {
 
     if (email && password) {
       const user = userTableMock.find(
-        (x) =>
+        x =>
           x.email.toLowerCase() === email.toLowerCase() &&
           x.password === password
       );
@@ -32,7 +32,7 @@ export default function mockAuth(mock) {
 
     if (businessName) {
       const _businessName = userTableMock.find(
-        (x) => x.businessName.toLowerCase() === businessName.toLowerCase()
+        x => x.businessName.toLowerCase() === businessName.toLowerCase()
       );
 
       if (_businessName) {
@@ -52,9 +52,9 @@ export default function mockAuth(mock) {
         username,
         password,
         roles: [2], // Manager
-        accessToken: 'access-token-' + Math.random(),
-        refreshToken: 'access-token-' + Math.random(),
-        pic: process.env.PUBLIC_URL + '/media/users/default.jpg',
+        accessToken: "access-token-" + Math.random(),
+        refreshToken: "access-token-" + Math.random(),
+        pic: process.env.PUBLIC_URL + "/media/users/default.jpg"
       };
 
       userTableMock.push(user);
@@ -70,7 +70,7 @@ export default function mockAuth(mock) {
 
     if (email) {
       const user = userTableMock.find(
-        (x) => x.email.toLowerCase() === email.toLowerCase()
+        x => x.email.toLowerCase() === email.toLowerCase()
       );
 
       if (user) {
@@ -86,11 +86,11 @@ export default function mockAuth(mock) {
   mock.onGet(ME_URL).reply(({ headers: { Authorization } }) => {
     const accessToken =
       Authorization &&
-      Authorization.startsWith('Bearer ') &&
-      Authorization.slice('Bearer '.length);
+      Authorization.startsWith("Bearer ") &&
+      Authorization.slice("Bearer ".length);
 
     if (accessToken) {
-      const user = userTableMock.find((x) => x.accessToken === accessToken);
+      const user = userTableMock.find(x => x.accessToken === accessToken);
 
       if (user) {
         return [200, { ...user, password: undefined }];
@@ -103,12 +103,12 @@ export default function mockAuth(mock) {
   mock.onGet(BUSINESS_URL).reply(({ headers: { Authorization } }) => {
     const accessToken =
       Authorization &&
-      Authorization.startsWith('Bearer ') &&
-      Authorization.slice('Bearer '.length);
+      Authorization.startsWith("Bearer ") &&
+      Authorization.slice("Bearer ".length);
 
     if (accessToken) {
       const businessName = userTableMock.find(
-        (x) => x.accessToken === accessToken
+        x => x.accessToken === accessToken
       );
 
       if (businessName) {
@@ -120,7 +120,7 @@ export default function mockAuth(mock) {
   });
 
   function generateUserId() {
-    const ids = userTableMock.map((el) => el.id);
+    const ids = userTableMock.map(el => el.id);
     const maxId = Math.max(...ids);
     return maxId + 1;
   }

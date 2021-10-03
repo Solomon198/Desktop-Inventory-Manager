@@ -1,32 +1,32 @@
-import React, { useMemo, useEffect, useState } from 'react';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
-import { isEqual } from 'lodash';
-import { useHistory } from 'react-router-dom';
-import { useCustomersUIContext } from '../CustomersUIContext';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import * as actions from '../../../_redux/products/productsActions';
-import * as unitActions from '../../../_redux/units/unitsActions';
-import * as stockEntryActions from '../../../_redux/stocksEntry/stocksEntryActions';
-import * as saleActions from '../../../_redux/sales/salesActions';
-import AlertDialog from '../../../../../../_metronic/_partials/controls/AlertDialog';
-import helperFuncs from '../../utils/helper.funcs';
-import AlertDialogSlide from '../../../../../../_metronic/_partials/controls/AlertDialog2';
-import Slide from '@material-ui/core/Slide';
+import React, { useMemo, useEffect, useState } from "react";
+import { Formik } from "formik";
+import * as Yup from "yup";
+import { isEqual } from "lodash";
+import { useHistory } from "react-router-dom";
+import { useCustomersUIContext } from "../CustomersUIContext";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as actions from "../../../_redux/products/productsActions";
+import * as unitActions from "../../../_redux/units/unitsActions";
+import * as stockEntryActions from "../../../_redux/stocksEntry/stocksEntryActions";
+import * as saleActions from "../../../_redux/sales/salesActions";
+import AlertDialog from "../../../../../../_metronic/_partials/controls/AlertDialog";
+import helperFuncs from "../../utils/helper.funcs";
+import AlertDialogSlide from "../../../../../../_metronic/_partials/controls/AlertDialog2";
+import Slide from "@material-ui/core/Slide";
 
 const CustomerTransactionSchema = Yup.object().shape({
   unit_id: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
   product: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
   quantity: Yup.number()
-    .min(1, 'Too Short!')
-    .required('Required'),
-  amount: Yup.string().required('Required'),
+    .min(1, "Too Short!")
+    .required("Required"),
+  amount: Yup.string().required("Required")
 });
 
 export function CustomersFilter({ listLoading }) {
@@ -54,7 +54,7 @@ export function CustomersFilter({ listLoading }) {
       unitsSelected: customersUIContext.unitsSelected,
       setUnitsSelected: customersUIContext.setUnitsSelected,
       insertSale: customersUIContext.insertSale,
-      setInsertSale: customersUIContext.setInsertSale,
+      setInsertSale: customersUIContext.setInsertSale
     };
   }, [customersUIContext]);
 
@@ -62,12 +62,12 @@ export function CustomersFilter({ listLoading }) {
   const {
     currentState,
     unitCurrentState,
-    stocksEntryCurrentState,
+    stocksEntryCurrentState
   } = useSelector(
-    (state) => ({
+    state => ({
       currentState: state.products,
       unitCurrentState: state.units,
-      stocksEntryCurrentState: state.stocksEntry,
+      stocksEntryCurrentState: state.stocksEntry
     }),
     shallowEqual
   );
@@ -111,27 +111,27 @@ export function CustomersFilter({ listLoading }) {
     dispatch,
     selectedProductId,
     selectedUnitId,
-    customersUIProps.unitsSelected,
+    customersUIProps.unitsSelected
   ]);
 
   // server request for saving customer
 
   const initialValues = {
-    product: '', // values => All=""/Susspended=0/Active=1/Pending=2,
-    productId: '',
-    quantity: '', // values => All=""/Business=0/Individual=1
-    amount: '0',
-    unit_id: '',
-    unit: '',
-    totalAmount: '',
+    product: "", // values => All=""/Susspended=0/Active=1/Pending=2,
+    productId: "",
+    quantity: "", // values => All=""/Business=0/Individual=1
+    amount: "0",
+    unit_id: "",
+    unit: "",
+    totalAmount: ""
   };
 
   let unitsForProduct = [];
 
   const _oldUnits = _units;
   const selectedUnitEntities = customersUIProps.unitsSelected;
-  let unitEntitiesId = _oldUnits ? _oldUnits.map((val) => val._id) : [];
-  let selectedUnitEntitiesIds = selectedUnitEntities.map((val) => val.unit_id);
+  let unitEntitiesId = _oldUnits ? _oldUnits.map(val => val._id) : [];
+  let selectedUnitEntitiesIds = selectedUnitEntities.map(val => val.unit_id);
   let unitEntities = [];
   let unitCounter = 0;
 
@@ -145,7 +145,7 @@ export function CustomersFilter({ listLoading }) {
   }
 
   if (selectedProductId) {
-    unitEntities.map((unit) => {
+    unitEntities.map(unit => {
       if (unit.product_id === selectedProductId) {
         unitsForProduct.push(unit);
       }
@@ -173,7 +173,7 @@ export function CustomersFilter({ listLoading }) {
             // stockEntry obj for checking if product is out of stock or not
             let stockEntry = {
               unit_id: values.unit_id,
-              quantity: values.quantity,
+              quantity: values.quantity
             };
 
             try {
@@ -199,8 +199,8 @@ export function CustomersFilter({ listLoading }) {
                 unitsSelected.push(values);
 
                 customersUIProps.setUnitsSelected(unitsSelected);
-                resetForm({ values: '' });
-                setSelectedProductId('');
+                resetForm({ values: "" });
+                setSelectedProductId("");
               } else {
                 setIsOutOfStock(isOutOfStock);
                 // resetForm({ values: "" });
@@ -221,11 +221,11 @@ export function CustomersFilter({ listLoading }) {
           let _productForEdit = customersUIProps.productsSelected;
           _productForEdit.push(productsForEdit);
 
-          console.log('ProductForEdit', _productForEdit);
+          console.log("ProductForEdit", _productForEdit);
 
           customersUIProps.setProductsSelected(_productForEdit);
           customersUIProps.setUnitsSelected(_productForEdit);
-          resetForm({ values: '' });
+          resetForm({ values: "" });
         }}
       >
         {({
@@ -235,7 +235,7 @@ export function CustomersFilter({ listLoading }) {
           handleChange,
           setFieldValue,
           errors,
-          touched,
+          touched
         }) => (
           <form onSubmit={handleSubmit} className="form form-label-right">
             <div className="form-group row">
@@ -245,17 +245,17 @@ export function CustomersFilter({ listLoading }) {
                   placeholder="Product"
                   name="product"
                   onBlur={handleBlur}
-                  onChange={(e) => {
+                  onChange={e => {
                     let productId = e.target.value;
-                    if (productId == 'select') return false;
+                    if (productId == "select") return false;
                     let product = {};
-                    _products.forEach((item) => {
+                    _products.forEach(item => {
                       if (item._id === productId) {
                         product = item;
                       }
                     });
-                    setFieldValue('product', product.product_name);
-                    setFieldValue('productId', product._id);
+                    setFieldValue("product", product.product_name);
+                    setFieldValue("productId", product._id);
                     setSelectedProductId(product._id);
                   }}
                   value={values.productId}
@@ -272,7 +272,7 @@ export function CustomersFilter({ listLoading }) {
                   <b>Product</b>
                 </small>
                 {errors.product && touched.product ? (
-                  <div style={{ color: 'red' }}>{errors.product}</div>
+                  <div style={{ color: "red" }}>{errors.product}</div>
                 ) : null}
               </div>
               <div className="col-lg-2">
@@ -281,26 +281,26 @@ export function CustomersFilter({ listLoading }) {
                   placeholder="Unit"
                   name="unit_id"
                   onBlur={handleBlur}
-                  onChange={(e) => {
+                  onChange={e => {
                     let _selectedUnitId = e.target.value;
-                    if (_selectedUnitId === 'select') return false;
+                    if (_selectedUnitId === "select") return false;
                     let selectedUnit = {};
-                    unitsForProduct.forEach((unit) => {
+                    unitsForProduct.forEach(unit => {
                       if (unit._id === _selectedUnitId) {
                         selectedUnit = unit;
                       }
                     });
 
-                    setFieldValue('unit_id', selectedUnit._id);
-                    setFieldValue('unit', selectedUnit.name);
-                    setFieldValue('amount', selectedUnit.price);
+                    setFieldValue("unit_id", selectedUnit._id);
+                    setFieldValue("unit", selectedUnit.name);
+                    setFieldValue("amount", selectedUnit.price);
                     setSelectedUnitId(selectedUnit._id);
                   }}
                   value={values.unit_id}
                 >
                   <option value="select">Select Unit</option>
                   {unitsForProduct &&
-                    unitsForProduct.map((unit) => (
+                    unitsForProduct.map(unit => (
                       <option value={unit._id} key={unit._id}>
                         {unit.name}
                       </option>
@@ -310,7 +310,7 @@ export function CustomersFilter({ listLoading }) {
                   <b>Unit</b>
                 </small>
                 {errors.unit_id && touched.unit_id ? (
-                  <div style={{ color: 'red' }}>{errors.unit_id}</div>
+                  <div style={{ color: "red" }}>{errors.unit_id}</div>
                 ) : null}
               </div>
               <div className="col-lg-2">
@@ -322,15 +322,15 @@ export function CustomersFilter({ listLoading }) {
                   onBlur={handleBlur}
                   disabled={true}
                   value={values.amount}
-                  onChange={(e) => {
-                    setFieldValue('amount', e.target.value);
+                  onChange={e => {
+                    setFieldValue("amount", e.target.value);
                   }}
                 />
                 <small className="form-text text-muted">
                   <b>Amount</b>
                 </small>
                 {errors.amount && touched.amount ? (
-                  <div style={{ color: 'red' }}>{errors.amount}</div>
+                  <div style={{ color: "red" }}>{errors.amount}</div>
                 ) : null}
               </div>
               <div className="col-lg-2">
@@ -341,8 +341,8 @@ export function CustomersFilter({ listLoading }) {
                   placeholder="Quantity"
                   // onBlur={handleBlur}
                   value={values.quantity}
-                  onChange={(e) => {
-                    setFieldValue('quantity', e.target.value);
+                  onChange={e => {
+                    setFieldValue("quantity", e.target.value);
                     setUnitQuantity(quantityOfUnit);
                   }}
                 />
@@ -350,13 +350,13 @@ export function CustomersFilter({ listLoading }) {
                   <b>Quantity</b>
                 </small>
                 {errors.quantity && touched.quantity ? (
-                  <div style={{ color: 'red' }}>{errors.quantity}</div>
+                  <div style={{ color: "red" }}>{errors.quantity}</div>
                 ) : null}
               </div>
               <div className="col-lg-2">
                 <button
                   type="submit"
-                  style={{ display: 'block' }}
+                  style={{ display: "block" }}
                   className="btn btn-primary"
                 >
                   Add

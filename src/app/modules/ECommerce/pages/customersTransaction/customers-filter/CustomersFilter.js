@@ -1,36 +1,36 @@
-import React, { useMemo, useEffect, useState } from 'react';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
-import { isEqual } from 'lodash';
-import { useHistory } from 'react-router-dom';
-import { useCustomersUIContext } from '../CustomersUIContext';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import * as actions from '../../../_redux/products/productsActions';
-import * as unitActions from '../../../_redux/units/unitsActions';
-import * as stockEntryActions from '../../../_redux/stocksEntry/stocksEntryActions';
-import * as saleActions from '../../../_redux/sales/salesActions';
-import AlertDialog from '../../../../../../_metronic/_partials/controls/AlertDialog';
-import helperFuncs from '../../utils/helper.funcs';
-import AlertDialogSlide from '../../../../../../_metronic/_partials/controls/AlertDialog2';
-import Slide from '@material-ui/core/Slide';
+import React, { useMemo, useEffect, useState } from "react";
+import { Formik } from "formik";
+import * as Yup from "yup";
+import { isEqual } from "lodash";
+import { useHistory } from "react-router-dom";
+import { useCustomersUIContext } from "../CustomersUIContext";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as actions from "../../../_redux/products/productsActions";
+import * as unitActions from "../../../_redux/units/unitsActions";
+import * as stockEntryActions from "../../../_redux/stocksEntry/stocksEntryActions";
+import * as saleActions from "../../../_redux/sales/salesActions";
+import AlertDialog from "../../../../../../_metronic/_partials/controls/AlertDialog";
+import helperFuncs from "../../utils/helper.funcs";
+import AlertDialogSlide from "../../../../../../_metronic/_partials/controls/AlertDialog2";
+import Slide from "@material-ui/core/Slide";
 
 const CustomerTransactionSchema = Yup.object().shape({
   unit_id: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
   product: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
   quantity: Yup.number()
-    .min(1, 'Too Short!')
-    .required('Required'),
-  amount: Yup.string().required('Required'),
+    .min(1, "Too Short!")
+    .required("Required"),
+  amount: Yup.string().required("Required")
 });
 
 export function CustomersFilter({ listLoading }) {
-  const [selectedProductId, setSelectedProductId] = useState('');
+  const [selectedProductId, setSelectedProductId] = useState("");
   // Customers UI Context
   const customersUIContext = useCustomersUIContext();
   const customersUIProps = useMemo(() => {
@@ -46,14 +46,14 @@ export function CustomersFilter({ listLoading }) {
       unitsSelected: customersUIContext.unitsSelected,
       setUnitsSelected: customersUIContext.setUnitsSelected,
       insertSale: customersUIContext.insertSale,
-      setInsertSale: customersUIContext.setInsertSale,
+      setInsertSale: customersUIContext.setInsertSale
     };
   }, [customersUIContext]);
 
   const { productsForSaleEntities, unitCurrentState } = useSelector(
-    (state) => ({
+    state => ({
       productsForSaleEntities: state.products.entities,
-      unitCurrentState: state.units,
+      unitCurrentState: state.units
     }),
     shallowEqual
   );
@@ -71,7 +71,7 @@ export function CustomersFilter({ listLoading }) {
     // server call by queryParams
     dispatch(actions.fetchProductsForSale(customersUIProps.queryParams));
     dispatch(unitActions.fetchUnits(customersUIProps.queryParams));
-  }, [dispatch, customersUIProps.unitsSelected]);
+  }, [dispatch, customersUIProps.unitsSelected, customersUIProps.queryParams]);
 
   const handleOnSubmit = async (values, resetForm) => {
     let _values = { ...values };
@@ -85,7 +85,7 @@ export function CustomersFilter({ listLoading }) {
       // Creating the object schema to be passed as a parameter for checking if product is out of stock
       const outOfStockParams = {
         unit_id: _values.unit_id,
-        quantity: _values.quantity,
+        quantity: _values.quantity
       };
 
       try {
@@ -95,15 +95,15 @@ export function CustomersFilter({ listLoading }) {
         );
 
         if (!isOutOfStock) {
-          console.log('__values', _values);
-          console.log('initialValues', initialValues);
-          resetForm({ values: '' });
+          console.log("__values", _values);
+          console.log("initialValues", initialValues);
+          resetForm({ values: "" });
         } else {
           // alert('The selected product is out of stock.');
-          console.log('The selected product is out of stock.');
+          console.log("The selected product is out of stock.");
         }
       } catch (e) {
-        console.log('Error: ', e);
+        console.log("Error: ", e);
       }
     }
   };
@@ -112,8 +112,8 @@ export function CustomersFilter({ listLoading }) {
 
   const _oldUnits = _units;
   const selectedUnitEntities = customersUIProps.unitsSelected;
-  let unitEntitiesId = _oldUnits ? _oldUnits.map((val) => val._id) : [];
-  let selectedUnitEntitiesIds = selectedUnitEntities.map((val) => val.unit_id);
+  let unitEntitiesId = _oldUnits ? _oldUnits.map(val => val._id) : [];
+  let selectedUnitEntitiesIds = selectedUnitEntities.map(val => val.unit_id);
   let unitEntities = [];
   let unitCounter = 0;
 
@@ -127,7 +127,7 @@ export function CustomersFilter({ listLoading }) {
   }
 
   if (selectedProductId) {
-    unitEntities.map((unit) => {
+    unitEntities.map(unit => {
       if (unit.product_id === selectedProductId) {
         unitsForProduct.push(unit);
       }
@@ -136,13 +136,13 @@ export function CustomersFilter({ listLoading }) {
   }
 
   const initialValues = {
-    product: '', // values => All=""/Susspended=0/Active=1/Pending=2,
-    productId: '',
-    quantity: '', // values => All=""/Business=0/Individual=1
-    amount: '0',
-    unit_id: '',
-    unit: '',
-    totalAmount: '',
+    product: "", // values => All=""/Susspended=0/Active=1/Pending=2,
+    productId: "",
+    quantity: "", // values => All=""/Business=0/Individual=1
+    amount: "0",
+    unit_id: "",
+    unit: "",
+    totalAmount: ""
   };
 
   const initialValuesForEdit = customersUIProps.itemForEdit;
@@ -161,7 +161,7 @@ export function CustomersFilter({ listLoading }) {
           handleChange,
           setFieldValue,
           errors,
-          touched,
+          touched
         }) => (
           <form onSubmit={handleSubmit} className="form form-label-right">
             <div className="form-group row">
@@ -171,19 +171,19 @@ export function CustomersFilter({ listLoading }) {
                   placeholder="Product"
                   name="product"
                   onBlur={handleBlur}
-                  onChange={(e) => {
+                  onChange={e => {
                     let productId = e.target.value;
-                    if (productId === 'select') return false;
+                    if (productId === "select") return false;
 
                     let product = {};
-                    productsForSaleEntities.forEach((item) => {
+                    productsForSaleEntities.forEach(item => {
                       if (item._id === productId) {
                         product = item;
                       }
                     });
 
-                    setFieldValue('productId', product._id);
-                    setFieldValue('product', product.product_name);
+                    setFieldValue("productId", product._id);
+                    setFieldValue("product", product.product_name);
                     setSelectedProductId(e.target.value);
                   }}
                   value={values.productId}
@@ -191,14 +191,14 @@ export function CustomersFilter({ listLoading }) {
                   <option value="select">Select product</option>
                   {productsForSaleEntities &&
                     productsForSaleEntities.length > 0 &&
-                    productsForSaleEntities.map((product) => (
+                    productsForSaleEntities.map(product => (
                       <option key={product._id} value={product._id}>
                         {product.product_name}
                       </option>
                     ))}
                 </select>
                 {errors.product && touched.product ? (
-                  <div style={{ color: 'red' }}>{errors.product}</div>
+                  <div style={{ color: "red" }}>{errors.product}</div>
                 ) : (
                   <small className="form-text text-muted">
                     <b>Product</b>
@@ -211,34 +211,34 @@ export function CustomersFilter({ listLoading }) {
                   placeholder="Unit"
                   name="unit_id"
                   onBlur={handleBlur}
-                  onChange={(e) => {
+                  onChange={e => {
                     let unitId = e.target.value;
-                    if (unitId === 'select') return false;
+                    if (unitId === "select") return false;
 
                     let unit = {};
-                    unitsForProduct.forEach((item) => {
+                    unitsForProduct.forEach(item => {
                       if (item._id === unitId) {
                         unit = item;
                       }
                     });
 
-                    setFieldValue('unit_id', unit._id);
-                    setFieldValue('unit', unit.name);
-                    setFieldValue('amount', unit.price);
+                    setFieldValue("unit_id", unit._id);
+                    setFieldValue("unit", unit.name);
+                    setFieldValue("amount", unit.price);
                   }}
                   value={values.unit_id}
                 >
                   <option value="select">Select Unit</option>
                   {unitsForProduct &&
                     unitsForProduct.length > 0 &&
-                    unitsForProduct.map((unit) => (
+                    unitsForProduct.map(unit => (
                       <option key={unit._id} value={unit._id}>
                         {unit.name}
                       </option>
                     ))}
                 </select>
                 {errors.unit_id && touched.unit_id ? (
-                  <div style={{ color: 'red' }}>{errors.unit_id}</div>
+                  <div style={{ color: "red" }}>{errors.unit_id}</div>
                 ) : (
                   <small className="form-text text-muted">
                     <b>Unit</b>
@@ -254,12 +254,12 @@ export function CustomersFilter({ listLoading }) {
                   onBlur={handleBlur}
                   disabled={true}
                   value={values.amount}
-                  onChange={(e) => {
-                    setFieldValue('amount', e.target.value);
+                  onChange={e => {
+                    setFieldValue("amount", e.target.value);
                   }}
                 />
                 {errors.amount && touched.amount ? (
-                  <div style={{ color: 'red' }}>{errors.amount}</div>
+                  <div style={{ color: "red" }}>{errors.amount}</div>
                 ) : (
                   <small className="form-text text-muted">
                     <b>Amount</b>
@@ -274,12 +274,12 @@ export function CustomersFilter({ listLoading }) {
                   placeholder="Quantity"
                   onBlur={handleBlur}
                   value={values.quantity}
-                  onChange={async (e) => {
-                    setFieldValue('quantity', e.target.value);
+                  onChange={async e => {
+                    setFieldValue("quantity", e.target.value);
                   }}
                 />
                 {errors.quantity && touched.quantity ? (
-                  <div style={{ color: 'red' }}>{errors.quantity}</div>
+                  <div style={{ color: "red" }}>{errors.quantity}</div>
                 ) : (
                   <small className="form-text text-muted">
                     <b>Quantity</b>
@@ -289,7 +289,7 @@ export function CustomersFilter({ listLoading }) {
               <div className="col-lg-2">
                 <button
                   type="submit"
-                  style={{ display: 'block' }}
+                  style={{ display: "block" }}
                   className="btn btn-primary"
                 >
                   Add
