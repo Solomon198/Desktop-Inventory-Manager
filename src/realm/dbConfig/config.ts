@@ -1,5 +1,5 @@
-import Realm from "realm";
-import Schemas from "../schemas/index";
+import Realm from 'realm';
+import Schemas from '../schemas/index';
 
 let APPLICATION: Realm;
 
@@ -16,15 +16,16 @@ export default function RealmApp() {
         Schemas.ExpenseItemSchema,
         Schemas.EmployeeSchema,
         Schemas.DebtManagerSchema,
+        Schemas.DebtPaymentSchema,
         Schemas.ProductForSaleSchema,
         Schemas.UnitSchema,
         Schemas.SupplierSchema,
-        Schemas.RoleSchema
-      ]
+        Schemas.RoleSchema,
+      ],
     });
     return APPLICATION;
   } else {
-    console.log("runing");
+    console.log('runing');
     return APPLICATION;
   }
 }
