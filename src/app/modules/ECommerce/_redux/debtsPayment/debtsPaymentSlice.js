@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialDebtsPaymentState = {
   listLoading: false,
@@ -6,15 +6,15 @@ const initialDebtsPaymentState = {
   totalCount: 0,
   entities: [],
   debtPaymentForEdit: undefined,
-  lastError: null,
+  lastError: null
 };
 export const callTypes = {
-  list: 'list',
-  action: 'action',
+  list: "list",
+  action: "action"
 };
 
 export const debtsPaymentSlice = createSlice({
-  name: 'debtsPayment',
+  name: "debtsPayment",
   initialState: initialDebtsPaymentState,
   reducers: {
     catchError: (state, action) => {
@@ -65,7 +65,7 @@ export const debtsPaymentSlice = createSlice({
     debtPaymentUpdated: (state, action) => {
       state.error = null;
       state.actionsLoading = false;
-      state.entities = state.entities.map((entity) => {
+      state.entities = state.entities.map(entity => {
         if (entity._id === action.payload.debtPayment._id) {
           return action.payload.debtPayment;
         }
@@ -77,7 +77,7 @@ export const debtsPaymentSlice = createSlice({
       state.error = null;
       state.actionsLoading = false;
       state.entities = state.entities.filter(
-        (el) => el._id !== action.payload._id
+        el => el._id !== action.payload._id
       );
     },
     // deleteDebtsPayment
@@ -85,8 +85,8 @@ export const debtsPaymentSlice = createSlice({
       state.error = null;
       state.actionsLoading = false;
       state.entities = state.entities.filter(
-        (el) => !action.payload.ids.includes(el._id)
+        el => !action.payload.ids.includes(el._id)
       );
-    },
-  },
+    }
+  }
 });
