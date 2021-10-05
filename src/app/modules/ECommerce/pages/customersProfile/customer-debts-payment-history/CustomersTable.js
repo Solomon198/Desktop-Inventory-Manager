@@ -1,26 +1,26 @@
 // React bootstrap table next =>
 // DOCS: https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/
 // STORYBOOK: https://react-bootstrap-table.github.io/react-bootstrap-table2/storybook/index.html
-import React, { useEffect, useMemo } from 'react';
-import BootstrapTable from 'react-bootstrap-table-next';
+import React, { useEffect, useMemo } from "react";
+import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory, {
-  PaginationProvider,
-} from 'react-bootstrap-table2-paginator';
-import { Card } from '../../../../../../_metronic/_partials/controls';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import * as actions from '../../../_redux/debtsPayment/debtsPaymentActions';
+  PaginationProvider
+} from "react-bootstrap-table2-paginator";
+import { Card } from "../../../../../../_metronic/_partials/controls";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as actions from "../../../_redux/debtsPayment/debtsPaymentActions";
 import {
   getSelectRow,
   getHandlerTableChange,
   NoRecordsFoundMessage,
   PleaseWaitMessage,
   sortCaret,
-  headerSortingClasses,
-} from '../../../../../../_metronic/_helpers';
-import * as uiHelpers from '../CustomersUIHelpers';
-import * as columnFormatters from './column-formatters';
-import { Pagination } from '../../../../../../_metronic/_partials/controls';
-import { useCustomersUIContext } from '../CustomersUIContext';
+  headerSortingClasses
+} from "../../../../../../_metronic/_helpers";
+import * as uiHelpers from "../CustomersUIHelpers";
+import * as columnFormatters from "./column-formatters";
+import { Pagination } from "../../../../../../_metronic/_partials/controls";
+import { useCustomersUIContext } from "../CustomersUIContext";
 
 export function CustomerDebtsPaymentHistoryTable({ customerId }) {
   // Customers UI Context
@@ -36,14 +36,14 @@ export function CustomerDebtsPaymentHistoryTable({ customerId }) {
       openEditCustomerDialog: customersUIContext.openEditCustomerDialog,
       openDeleteCustomerDialog: customersUIContext.openDeleteCustomerDialog,
       viewCustomerProfileButtonClick:
-        customersUIContext.viewCustomerProfileButtonClick,
+        customersUIContext.viewCustomerProfileButtonClick
     };
   }, [customersUIContext]);
 
   // Getting curret state of customers list from store (Redux)
   const { currentState } = useSelector(
-    (state) => ({
-      currentState: state.debtsPayment,
+    state => ({
+      currentState: state.debtsPayment
     }),
     shallowEqual
   );
@@ -66,25 +66,25 @@ export function CustomerDebtsPaymentHistoryTable({ customerId }) {
   // Table columns
   const columns = [
     {
-      dataField: 'prev_total_outstanding',
-      text: 'Previous Outstanding',
+      dataField: "prev_total_outstanding",
+      text: "Previous Outstanding"
     },
     {
-      dataField: 'paid_amount',
-      text: 'Paid Amount',
+      dataField: "paid_amount",
+      text: "Paid Amount"
     },
     {
-      dataField: 'new_total_outstanding',
-      text: 'New Outstanding',
+      dataField: "new_total_outstanding",
+      text: "New Outstanding"
     },
     // {
     //   dataField: "totalAmount",
     //   text: "Total Amount"
     // },
     {
-      dataField: 'date',
-      text: 'Date',
-    },
+      dataField: "date",
+      text: "Date"
+    }
     // {
     //   dataField: 'action',
     //   text: 'Actions',
@@ -108,7 +108,7 @@ export function CustomerDebtsPaymentHistoryTable({ customerId }) {
     totalSize: totalCount,
     sizePerPageList: uiHelpers.sizePerPageList,
     sizePerPage: customersUIProps.queryParams.pageSize,
-    page: customersUIProps.queryParams.pageNumber,
+    page: customersUIProps.queryParams.pageNumber
   };
 
   return (
