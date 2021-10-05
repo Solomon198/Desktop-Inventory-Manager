@@ -5,7 +5,9 @@ export type DebtPaymentProperties = {
 
   paid_amount: string;
 
-  total_outstanding: string;
+  prev_total_outstanding: string;
+
+  new_total_outstanding: string;
 
   date: string;
 };

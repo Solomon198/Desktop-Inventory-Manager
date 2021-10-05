@@ -1,10 +1,10 @@
-import RealmApp from "../dbConfig/config";
-import * as mongoose from "mongoose";
-import Schemas from "../schemas/index";
+import RealmApp from '../dbConfig/config';
+import * as mongoose from 'mongoose';
+import Schemas from '../schemas/index';
 // import { DebtPaymentProperties } from "../../types/customer";
-import { DebtPaymentProperties } from "../../types/debtPayment";
-import helperFuncs from "../utils/helpers.func";
-import Realm from "realm";
+import { DebtPaymentProperties } from '../../types/debtPayment';
+import helperFuncs from '../utils/helpers.func';
+import Realm from 'realm';
 
 const app = RealmApp();
 
@@ -56,6 +56,15 @@ function createDebtPayment(debtPayment: DebtPaymentProperties) {
         let debtPaymentObject: DebtPaymentProperties = newDebtPayment as any;
         debtPaymentObject._id = debtPaymentObject._id.toHexString();
         debtPaymentObject.customer_id = debtPaymentObject.customer_id.toHexString();
+        debtPaymentObject.paid_amount = helperFuncs.transformToCurrencyString(
+          debtPaymentObject.paid_amount
+        );
+        debtPaymentObject.prev_total_outstanding = helperFuncs.transformToCurrencyString(
+          debtPaymentObject.prev_total_outstanding
+        );
+        debtPaymentObject.new_total_outstanding = helperFuncs.transformToCurrencyString(
+          debtPaymentObject.new_total_outstanding
+        );
         debtPaymentObject.date = helperFuncs.transformDateObjectToString(
           debtPaymentObject.date
         );
@@ -87,6 +96,15 @@ function getDebtPaymentSync(customerId: string) {
     let debtPaymentObject: DebtPaymentProperties = debtPayment?.toJSON() as any;
     debtPaymentObject._id = debtPaymentObject._id.toHexString();
     debtPaymentObject.customer_id = debtPaymentObject.customer_id.toHexString();
+    debtPaymentObject.paid_amount = helperFuncs.transformToCurrencyString(
+      debtPaymentObject.paid_amount
+    );
+    debtPaymentObject.prev_total_outstanding = helperFuncs.transformToCurrencyString(
+      debtPaymentObject.prev_total_outstanding
+    );
+    debtPaymentObject.new_total_outstanding = helperFuncs.transformToCurrencyString(
+      debtPaymentObject.new_total_outstanding
+    );
     debtPaymentObject.date = helperFuncs.transformDateObjectToString(
       debtPaymentObject.date
     );
@@ -116,6 +134,15 @@ function getDebtPayment(customerId: string) {
       let debtPaymentObject: DebtPaymentProperties = debtPayment?.toJSON() as any;
       debtPaymentObject._id = debtPaymentObject._id.toHexString();
       debtPaymentObject.customer_id = debtPaymentObject.customer_id.toHexString();
+      debtPaymentObject.paid_amount = helperFuncs.transformToCurrencyString(
+        debtPaymentObject.paid_amount
+      );
+      debtPaymentObject.prev_total_outstanding = helperFuncs.transformToCurrencyString(
+        debtPaymentObject.prev_total_outstanding
+      );
+      debtPaymentObject.new_total_outstanding = helperFuncs.transformToCurrencyString(
+        debtPaymentObject.new_total_outstanding
+      );
       // debtPaymentObject.date = helperFuncs.transformDateObjectToString(
       //   debtPaymentObject.date
       // );
@@ -146,7 +173,7 @@ function getCustomerDebtPaymentsHistory(
 
       customerDebtPaymentsHistory = app
         .objects(Schemas.DebtPaymentSchema.name)
-        .filtered("customer_id = $0", convertIdToObjectId);
+        .filtered('customer_id = $0', convertIdToObjectId);
 
       let partition = helperFuncs.getPaginationPartition(pageNumber, pageSize);
       // let totalCount = customerDebtPaymentsHistory.length;
@@ -157,7 +184,7 @@ function getCustomerDebtPaymentsHistory(
 
       let objArr: any[] = [];
 
-      result.forEach(obj => {
+      result.forEach((obj) => {
         let newObj = obj.toJSON() as DebtPaymentProperties;
         newObj._id = newObj._id.toHexString();
         newObj.customer_id = newObj.customer_id.toHexString();
@@ -165,8 +192,11 @@ function getCustomerDebtPaymentsHistory(
         newObj.paid_amount = helperFuncs.transformToCurrencyString(
           newObj.paid_amount
         );
-        newObj.total_outstanding = helperFuncs.transformToCurrencyString(
-          newObj.total_outstanding
+        newObj.prev_total_outstanding = helperFuncs.transformToCurrencyString(
+          newObj.prev_total_outstanding
+        );
+        newObj.new_total_outstanding = helperFuncs.transformToCurrencyString(
+          newObj.new_total_outstanding
         );
 
         objArr.push(newObj);
@@ -190,12 +220,12 @@ function getCustomerDebtPaymentsHistory(
  * @param {number} pageSize - The size of page
  * @returns {Promise<DebtPaymentsResponse>} returns the total debt payments count and entities
  */
-function getDebtPayments(page = 1, pageSize = 10, searchQuery = "", type = "") {
+function getDebtPayments(page = 1, pageSize = 10, searchQuery = '', type = '') {
   return new Promise<getDebtPaymentsResponse>((resolve, reject) => {
     try {
       let debtPayments: Realm.Results<Realm.Object>;
 
-      debtPayments = app.objects(Schemas.DebtPaymentSchema.name).sorted("date");
+      debtPayments = app.objects(Schemas.DebtPaymentSchema.name).sorted('date');
 
       let partition = helperFuncs.getPaginationPartition(page, pageSize);
       let totalCount = debtPayments.length;
@@ -203,10 +233,19 @@ function getDebtPayments(page = 1, pageSize = 10, searchQuery = "", type = "") {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach(obj => {
+      result.forEach((obj) => {
         let newObj: DebtPaymentProperties = obj.toJSON();
         newObj._id = newObj._id.toHexString();
         newObj.customer_id = newObj.customer_id.toHexString();
+        newObj.paid_amount = helperFuncs.transformToCurrencyString(
+          newObj.paid_amount
+        );
+        newObj.prev_total_outstanding = helperFuncs.transformToCurrencyString(
+          newObj.prev_total_outstanding
+        );
+        newObj.new_total_outstanding = helperFuncs.transformToCurrencyString(
+          newObj.new_total_outstanding
+        );
         newObj.date = helperFuncs.transformDateObjectToString(newObj.date);
 
         objArr.push(newObj);
@@ -258,12 +297,12 @@ function removeDebtPayments(debtPaymentIds: string[]) {
     try {
       let changeToObjectIds: mongoose.Types.ObjectId[] = [];
 
-      debtPaymentIds.forEach(id => {
+      debtPaymentIds.forEach((id) => {
         changeToObjectIds.push(mongoose.Types.ObjectId(id));
       });
 
       app.write(() => {
-        changeToObjectIds.forEach(id => {
+        changeToObjectIds.forEach((id) => {
           let debtPayment = app.objectForPrimaryKey(
             Schemas.DebtPaymentSchema.name,
             id as ObjectId
@@ -300,6 +339,15 @@ function updateDebtPayment(debtPaymentForEdit: DebtPaymentProperties) {
         let debtPaymentObject: DebtPaymentProperties = debtPaymentUpdate.toJSON();
         debtPaymentObject._id = debtPaymentObject._id.toHexString();
         debtPaymentObject.customer_id = debtPaymentObject.customer_id.toHexString();
+        debtPaymentObject.paid_amount = helperFuncs.transformToCurrencyString(
+          debtPaymentObject.paid_amount
+        );
+        debtPaymentObject.prev_total_outstanding = helperFuncs.transformToCurrencyString(
+          debtPaymentObject.prev_total_outstanding
+        );
+        debtPaymentObject.new_total_outstanding = helperFuncs.transformToCurrencyString(
+          debtPaymentObject.new_total_outstanding
+        );
         debtPaymentObject.date = helperFuncs.transformDateObjectToString(
           debtPaymentObject.date
         );
@@ -319,5 +367,5 @@ export default {
   removeDebtPayment,
   removeDebtPayments,
   updateDebtPayment,
-  getDebtPaymentSync
+  getDebtPaymentSync,
 };

@@ -1,21 +1,23 @@
-import { DebtPaymentTypes } from "../../types/debtPayment";
+import { DebtPaymentTypes } from '../../types/debtPayment';
 
 const DebtPaymentSchema: DebtPaymentTypes = {
-  name: "debtPayments",
+  name: 'debtPayments',
 
-  primaryKey: "_id",
+  primaryKey: '_id',
 
   properties: {
-    _id: "objectId",
+    _id: 'objectId',
 
-    customer_id: "objectId?",
+    customer_id: 'objectId?',
 
-    paid_amount: "double?",
+    paid_amount: 'double?',
 
-    total_outstanding: "double?",
+    prev_total_outstanding: 'double?',
 
-    date: "date?"
-  }
+    new_total_outstanding: 'double?',
+
+    date: 'date?',
+  },
 };
 
 export default DebtPaymentSchema;
