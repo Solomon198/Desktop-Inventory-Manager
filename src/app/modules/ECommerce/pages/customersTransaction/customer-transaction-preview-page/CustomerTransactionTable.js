@@ -1,15 +1,15 @@
 // React bootstrap table next =>
 // DOCS: https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/
 // STORYBOOK: https://react-bootstrap-table.github.io/react-bootstrap-table2/storybook/index.html
-import React, { useEffect, useMemo } from 'react';
-import BootstrapTable from 'react-bootstrap-table-next';
+import React, { useEffect, useMemo } from "react";
+import BootstrapTable from "react-bootstrap-table-next";
 import {
   NoRecordsFoundMessage,
   PleaseWaitMessage,
-  sortCaret,
-} from '../../../../../../_metronic/_helpers';
-import helperFuncs from '../../utils/helper.funcs';
-import { useCustomersUIContext } from '../CustomersUIContext';
+  sortCaret
+} from "../../../../../../_metronic/_helpers";
+import helperFuncs from "../../utils/helper.funcs";
+import { useCustomersUIContext } from "../CustomersUIContext";
 
 export function CustomerTransactionTable() {
   // Customers UI Context
@@ -25,7 +25,7 @@ export function CustomerTransactionTable() {
       queryParams: customersUIContext.queryParams,
       setQueryParams: customersUIContext.setQueryParams,
       openEditCustomerDialog: customersUIContext.openEditCustomerDialog,
-      openDeleteCustomerDialog: customersUIContext.openDeleteCustomerDialog,
+      openDeleteCustomerDialog: customersUIContext.openDeleteCustomerDialog
     };
   }, [customersUIContext]);
 
@@ -33,7 +33,7 @@ export function CustomerTransactionTable() {
   let grossTotal;
 
   if (customersUIProps.productsSelected) {
-    customersUIProps.productsSelected.forEach((obj) => {
+    customersUIProps.productsSelected.forEach(obj => {
       let _newObj = Object.assign({}, obj);
       // _newObj.amount = helperFuncs.transformToCurrencyString(_newObj.amount);
       // _newObj.totalAmount = helperFuncs.transformToCurrencyString(
@@ -44,41 +44,41 @@ export function CustomerTransactionTable() {
   }
 
   if (grossTotal) {
-    console.log('Gross Total: ', grossTotal);
+    console.log("Gross Total: ", grossTotal);
   }
 
   // Table columns
   const columns = [
     {
-      dataField: 'product',
-      text: 'Product',
+      dataField: "product",
+      text: "Product",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
-      dataField: 'quantity',
-      text: 'Quantity',
+      dataField: "quantity",
+      text: "Quantity",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
-      dataField: 'unit',
-      text: 'Unit',
+      dataField: "unit",
+      text: "Unit",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
-      dataField: 'amount',
-      text: 'Amount',
+      dataField: "amount",
+      text: "Amount",
       sort: true,
-      sortCaret: sortCaret,
+      sortCaret: sortCaret
     },
     {
-      dataField: 'totalAmount',
-      text: 'TotalAmount',
+      dataField: "totalAmount",
+      text: "TotalAmount",
       sort: true,
-      sortCaret: sortCaret,
-    },
+      sortCaret: sortCaret
+    }
   ];
 
   return (

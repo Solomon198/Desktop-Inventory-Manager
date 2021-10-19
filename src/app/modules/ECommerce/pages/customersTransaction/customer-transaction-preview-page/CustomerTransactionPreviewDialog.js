@@ -1,28 +1,28 @@
-import React, { useEffect, useMemo } from 'react';
-import { Modal } from 'react-bootstrap';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import * as actions from '../../../_redux/customers/customersActions';
-import { CustomerTransactionPreviewDialogHeader } from './CustomerTransactionPreviewDialogHeader';
+import React, { useEffect, useMemo } from "react";
+import { Modal } from "react-bootstrap";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import * as actions from "../../../_redux/customers/customersActions";
+import { CustomerTransactionPreviewDialogHeader } from "./CustomerTransactionPreviewDialogHeader";
 // import * as actions from '../../../_redux/sales/salesActions';
-import helperFuns from '../../utils/helper.funcs';
-import { useCustomersUIContext } from '../CustomersUIContext';
-import { CustomerTransactionTable } from './CustomerTransactionTable';
-import CustomerTransactionForm from './CustomerTransactionForm';
+import helperFuns from "../../utils/helper.funcs";
+import { useCustomersUIContext } from "../CustomersUIContext";
+import { CustomerTransactionTable } from "./CustomerTransactionTable";
+import CustomerTransactionForm from "./CustomerTransactionForm";
 
 export function CustomerTransactionPreviewDialog({ id, show, onHide }) {
   // Customers UI Context
   const customersUIContext = useCustomersUIContext;
   const customersUIProps = useMemo(() => {
     return {
-      productsSelected: customersUIContext.productsSelected,
+      productsSelected: customersUIContext.productsSelected
     };
   }, [customersUIContext]);
 
-  console.log('Products Selectd', customersUIProps.productsSelected);
+  console.log("Products Selectd", customersUIProps.productsSelected);
 
   let grossTotal;
   if (customersUIProps.productsSelected) {
-    customersUIProps.productsSelected.map((prod) => {
+    customersUIProps.productsSelected.map(prod => {
       let _prod = { ...prod };
 
       _prod.totalAmount = helperFuns.transformCurrencyStringToNumber(
@@ -33,7 +33,7 @@ export function CustomerTransactionPreviewDialog({ id, show, onHide }) {
   }
 
   if (grossTotal) {
-    console.log('Gross Total', grossTotal);
+    console.log("Gross Total", grossTotal);
   }
   // Customers UI Context
   //   const customersUIContext = useCustomersUIContext();
@@ -89,7 +89,7 @@ export function CustomerTransactionPreviewDialog({ id, show, onHide }) {
       <Modal.Footer>
         <button
           className="btn btn-default"
-          onClick={() => alert('Transaction will be cancelled')}
+          onClick={() => alert("Transaction will be cancelled")}
         >
           Cancel Transaction
         </button>

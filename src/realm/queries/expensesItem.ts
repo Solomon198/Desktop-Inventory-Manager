@@ -1,9 +1,9 @@
-import RealmApp from '../dbConfig/config';
-import * as mongoose from 'mongoose';
-import Schemas from '../schemas/index';
-import { ExpenseItemProperties } from '../../types/expensesItem';
-import helperFuncs from '../utils/helpers.func';
-import Realm from 'realm';
+import RealmApp from "../dbConfig/config";
+import * as mongoose from "mongoose";
+import Schemas from "../schemas/index";
+import { ExpenseItemProperties } from "../../types/expensesItem";
+import helperFuncs from "../utils/helpers.func";
+import Realm from "realm";
 // import { ExpenseProperties } from "../../types/expense";
 
 const app = RealmApp();
@@ -115,24 +115,24 @@ function getExpenseItem(expenseItemId: string) {
  * @param {number} pageSize - The size of page
  * @returns {Promise<expensesItemResponse>} returns the total expense item count and entities
  */
-function getExpensesItem(page = 1, pageSize = 10, searchQuery = '', type = '') {
+function getExpensesItem(page = 1, pageSize = 10, searchQuery = "", type = "") {
   return new Promise<getExpensesItemResponse>((resolve, reject) => {
     try {
       let expensesItem: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
+          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1";
         expensesItem = app
           .objects(Schemas.ExpenseItemSchema.name)
           .filtered(query, searchQuery, type);
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
+          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
         expensesItem = app
           .objects(Schemas.ExpenseItemSchema.name)
           .filtered(query, searchQuery);
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = 'cus_type == $0';
+        let query = "cus_type == $0";
         expensesItem = app
           .objects(Schemas.ExpenseItemSchema.name)
           .filtered(query, type);
@@ -146,7 +146,7 @@ function getExpensesItem(page = 1, pageSize = 10, searchQuery = '', type = '') {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach((obj) => {
+      result.forEach(obj => {
         let newObj = obj.toJSON();
         newObj._id = newObj._id.toHexString();
         objArr.push(newObj);
@@ -198,14 +198,14 @@ function removeExpensesItem(expenseItemIds: string[]) {
     try {
       let changeToObjectIds: mongoose.Types.ObjectId[] = [];
 
-      expenseItemIds.forEach((id) => {
+      expenseItemIds.forEach(id => {
         changeToObjectIds.push(
           mongoose.Types.ObjectId(id) as mongoose.Types.ObjectId
         );
       });
 
       app.write(() => {
-        changeToObjectIds.forEach((id) => {
+        changeToObjectIds.forEach(id => {
           let expenseItem = app.objectForPrimaryKey(
             Schemas.ExpenseItemSchema.name,
             id as any
@@ -256,5 +256,5 @@ export default {
   getExpensesItem,
   removeExpenseItem,
   removeExpensesItem,
-  updateExpenseItem,
+  updateExpenseItem
 };

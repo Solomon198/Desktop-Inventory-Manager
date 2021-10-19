@@ -1,9 +1,9 @@
-import RealmApp from '../dbConfig/config';
-import * as mongoose from 'mongoose';
-import Schemas from '../schemas/index';
-import { CustomerProperties } from '../../types/customer';
-import helperFuncs from '../utils/helpers.func';
-import Realm from 'realm';
+import RealmApp from "../dbConfig/config";
+import * as mongoose from "mongoose";
+import Schemas from "../schemas/index";
+import { CustomerProperties } from "../../types/customer";
+import helperFuncs from "../utils/helpers.func";
+import Realm from "realm";
 
 const app = RealmApp();
 const ObjectID = mongoose.Types.ObjectId;
@@ -127,32 +127,32 @@ function getCustomer(customerId: string) {
  * @param {number} pageSize - The size of page
  * @returns {Promise<customersResponse>} returns the total customer count and entities
  */
-function getCustomers(page = 1, pageSize = 10, searchQuery = '', type = '') {
+function getCustomers(page = 1, pageSize = 10, searchQuery = "", type = "") {
   return new Promise<getCustomersResponse>((resolve, reject) => {
     try {
       let customers: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || gender CONTAINS[c] $0 && cus_type == $1';
+          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || gender CONTAINS[c] $0 && cus_type == $1";
         customers = app
           .objects(Schemas.CustomerSchema.name)
           .filtered(query, searchQuery, type)
-          .sorted('date');
+          .sorted("date");
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || gender CONTAINS[c] $0';
+          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || gender CONTAINS[c] $0";
         customers = app
           .objects(Schemas.CustomerSchema.name)
           .filtered(query, searchQuery)
-          .sorted('date');
+          .sorted("date");
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = 'cus_type == $0';
+        let query = "cus_type == $0";
         customers = app
           .objects(Schemas.CustomerSchema.name)
           .filtered(query, type)
-          .sorted('date');
+          .sorted("date");
       } else {
-        customers = app.objects(Schemas.CustomerSchema.name).sorted('date');
+        customers = app.objects(Schemas.CustomerSchema.name).sorted("date");
       }
 
       let partition = helperFuncs.getPaginationPartition(page, pageSize);
@@ -161,7 +161,7 @@ function getCustomers(page = 1, pageSize = 10, searchQuery = '', type = '') {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach((obj) => {
+      result.forEach(obj => {
         let newObj: CustomerProperties = obj.toJSON();
         newObj._id = newObj._id.toHexString();
         newObj.date = helperFuncs.transformDateObjectToString(newObj.date);
@@ -215,12 +215,12 @@ function removeCustomers(customerIds: string[]) {
     try {
       let changeToObjectIds: mongoose.Types.ObjectId[] = [];
 
-      customerIds.forEach((id) => {
+      customerIds.forEach(id => {
         changeToObjectIds.push(mongoose.Types.ObjectId(id));
       });
 
       app.write(() => {
-        changeToObjectIds.forEach((id) => {
+        changeToObjectIds.forEach(id => {
           let customer = app.objectForPrimaryKey(
             Schemas.CustomerSchema.name,
             id as any
@@ -274,5 +274,5 @@ export default {
   removeCustomer,
   removeCustomers,
   updateCustomer,
-  getCustomerSync,
+  getCustomerSync
 };

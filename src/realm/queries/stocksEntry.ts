@@ -1,13 +1,13 @@
-import RealmApp from '../dbConfig/config';
-import * as mongoose from 'mongoose';
-import Schemas from '../schemas/index';
-import { StockEntryProperties } from '../../types/stockEntry';
-import { ProductProperties } from '../../types/product';
-import { UnitProperties } from '../../types/unit';
-import helperFuncs from '../utils/helpers.func';
-import Realm from 'realm';
-import ProductAPI from './products';
-import UnitAPI from './units';
+import RealmApp from "../dbConfig/config";
+import * as mongoose from "mongoose";
+import Schemas from "../schemas/index";
+import { StockEntryProperties } from "../../types/stockEntry";
+import { ProductProperties } from "../../types/product";
+import { UnitProperties } from "../../types/unit";
+import helperFuncs from "../utils/helpers.func";
+import Realm from "realm";
+import ProductAPI from "./products";
+import UnitAPI from "./units";
 // import helpersFunc from "../utils/helpers.func";
 
 const app = RealmApp();
@@ -60,7 +60,7 @@ function createStockEntry(stock: StockEntryProperties) {
         let newStock: Realm.Object;
         let getStockEntry = app
           .objects(Schemas.StockEntrySchema.name)
-          .filtered('unit_id == $0', stock.unit_id);
+          .filtered("unit_id == $0", stock.unit_id);
         if (getStockEntry.length > 0) {
           //run an update
           let objToUpdate: any = getStockEntry[0];
@@ -162,7 +162,7 @@ function getQuantityByUnitId(unitId: string) {
       if (changeToObjectId) {
         stocks = app
           .objects(Schemas.StockEntrySchema.name)
-          .filtered('unit_id = $0', changeToObjectId);
+          .filtered("unit_id = $0", changeToObjectId);
       } else {
         return false;
       }
@@ -171,7 +171,7 @@ function getQuantityByUnitId(unitId: string) {
 
       let objArr: any[] = [];
 
-      result.forEach((obj) => {
+      result.forEach(obj => {
         let newObj = obj.toJSON() as StockEntryProperties;
         newObj._id = newObj._id.toHexString();
         newObj.product_id = newObj.product_id.toHexString();
@@ -210,7 +210,7 @@ function isOutOfStocksEntry(stocksEntry: {
         app.write(() => {
           stock = app
             .objects(Schemas.StockEntrySchema.name)
-            .filtered('unit_id = $0', changeToObjectId);
+            .filtered("unit_id = $0", changeToObjectId);
         });
       } else {
         return false;
@@ -247,7 +247,7 @@ function incrementStockEntry(stockEntry: decrementStockEntry) {
         app.write(() => {
           stock = app
             .objects(Schemas.StockEntrySchema.name)
-            .filtered('unit_id = $0', stockEntry.unit_id);
+            .filtered("unit_id = $0", stockEntry.unit_id);
           stock[0].quantity += stockEntry.quantity;
         });
         resolve(true);
@@ -279,7 +279,7 @@ function decrementStockEntry(stockEntry: decrementStockEntry) {
         app.write(() => {
           stock = app
             .objects(Schemas.StockEntrySchema.name)
-            .filtered('unit_id = $0', stockEntry.unit_id);
+            .filtered("unit_id = $0", stockEntry.unit_id);
           stock[0].quantity -= stockEntry.quantity;
         });
         resolve(true);
@@ -306,19 +306,19 @@ function decrementStocksEntry(stocksEntry: any[]) {
       let stocks;
       let stocksEntryArr: any[] = [];
 
-      stocksEntry.forEach((val) => {
+      stocksEntry.forEach(val => {
         stocksEntryArr.push({
           unit_id: mongoose.Types.ObjectId(val.unit_id) as any,
-          quantity: val.quantity,
+          quantity: val.quantity
         });
       });
 
       if (stocksEntryArr) {
         app.write(() => {
-          stocksEntryArr.forEach((valz) => {
+          stocksEntryArr.forEach(valz => {
             stocks = app
               .objects(Schemas.StockEntrySchema.name)
-              .filtered('unit_id = $0', valz.unit_id);
+              .filtered("unit_id = $0", valz.unit_id);
             stocks[0].quantity -= valz.quantity;
           });
         });
@@ -343,9 +343,9 @@ function decrementStocksEntry(stocksEntry: any[]) {
 function getStocksEntryForUnitQuatity(
   page = 1,
   pageSize = 10,
-  searchQuery = '',
-  type = '',
-  unitId = ''
+  searchQuery = "",
+  type = "",
+  unitId = ""
 ) {
   console.log(unitId);
   return new Promise<getStocksEntryResponse>((resolve, reject) => {
@@ -353,18 +353,18 @@ function getStocksEntryForUnitQuatity(
       let stocks: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
+          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1";
         stocks = app
           .objects(Schemas.StockEntrySchema.name)
           .filtered(query, searchQuery, type);
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
+          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
         stocks = app
           .objects(Schemas.StockEntrySchema.name)
           .filtered(query, searchQuery);
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = 'cus_type == $0';
+        let query = "cus_type == $0";
         stocks = app
           .objects(Schemas.StockEntrySchema.name)
           .filtered(query, type);
@@ -378,7 +378,7 @@ function getStocksEntryForUnitQuatity(
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach((obj) => {
+      result.forEach(obj => {
         let newObj = obj.toJSON() as StockEntryProperties;
         let unitId = newObj.unit_id.toHexString();
         let unit = UnitAPI.getUnitSync(unitId) as UnitProperties;
@@ -409,24 +409,24 @@ function getStocksEntryForUnitQuatity(
  * @param {number} pageSize - The size of page
  * @returns {Promise<stocksEntryResponse>} returns the total stock entry count and entities
 //  */
-function getStocksEntry(page = 1, pageSize = 10, searchQuery = '', type = '') {
+function getStocksEntry(page = 1, pageSize = 10, searchQuery = "", type = "") {
   return new Promise<getStocksEntryResponse>((resolve, reject) => {
     try {
       let stocks: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
+          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1";
         stocks = app
           .objects(Schemas.StockEntrySchema.name)
           .filtered(query, searchQuery, type);
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
+          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
         stocks = app
           .objects(Schemas.StockEntrySchema.name)
           .filtered(query, searchQuery);
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = 'cus_type == $0';
+        let query = "cus_type == $0";
         stocks = app
           .objects(Schemas.StockEntrySchema.name)
           .filtered(query, type);
@@ -440,7 +440,7 @@ function getStocksEntry(page = 1, pageSize = 10, searchQuery = '', type = '') {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach((obj) => {
+      result.forEach(obj => {
         let newObj = obj.toJSON() as StockEntryProperties;
         let unitId = newObj.unit_id.toHexString();
         let unit = UnitAPI.getUnitSync(unitId) as UnitProperties;
@@ -505,14 +505,14 @@ function removeStocksEntry(stockIds: string[]) {
     try {
       let changeToObjectIds: mongoose.Types.ObjectId[] = [];
 
-      stockIds.forEach((id) => {
+      stockIds.forEach(id => {
         changeToObjectIds.push(
           mongoose.Types.ObjectId(id) as mongoose.Types.ObjectId
         );
       });
 
       app.write(() => {
-        changeToObjectIds.forEach((id) => {
+        changeToObjectIds.forEach(id => {
           let stock = app.objectForPrimaryKey(
             Schemas.StockEntrySchema.name,
             id as any
@@ -568,5 +568,5 @@ export default {
   decrementStocksEntry,
   removeStockEntry,
   removeStocksEntry,
-  updateStockEntry,
+  updateStockEntry
 };

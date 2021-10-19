@@ -1,13 +1,13 @@
-import RealmApp from '../dbConfig/config';
-import * as mongoose from 'mongoose';
-import Schemas from '../schemas/index';
-import { UnitProperties } from '../../types/unit';
-import { ProductProperties } from '../../types/product';
+import RealmApp from "../dbConfig/config";
+import * as mongoose from "mongoose";
+import Schemas from "../schemas/index";
+import { UnitProperties } from "../../types/unit";
+import { ProductProperties } from "../../types/product";
 // import { productForSaleProps } from '../../types/productForSale';
-import helperFuncs from '../utils/helpers.func';
-import Realm from 'realm';
-import ProductAPI from './products';
-import helpersFunc from '../utils/helpers.func';
+import helperFuncs from "../utils/helpers.func";
+import Realm from "realm";
+import ProductAPI from "./products";
+import helpersFunc from "../utils/helpers.func";
 
 const app = RealmApp();
 
@@ -170,7 +170,7 @@ function getUnitsForProduct(productId: string) {
       if (changeToObjectId) {
         units = app
           .objects(Schemas.UnitSchema.name)
-          .filtered('product_id = $0', changeToObjectId);
+          .filtered("product_id = $0", changeToObjectId);
       } else {
         return false;
       }
@@ -178,7 +178,7 @@ function getUnitsForProduct(productId: string) {
       let result = units.slice();
 
       let objArr: any[] = [];
-      result.forEach((obj) => {
+      result.forEach(obj => {
         let newObj = obj.toJSON() as UnitProperties;
         newObj.product_id = newObj.product_id.toHexString();
         newObj._id = newObj._id.toHexString();
@@ -207,32 +207,32 @@ function getUnitsForProduct(productId: string) {
  * @param {number} pageSize - The size of page
  * @returns {Promise<unitsResponse>} returns the total unit count and entities
  */
-function getUnits(page = 1, pageSize = 10, searchQuery = '', type = '') {
+function getUnits(page = 1, pageSize = 10, searchQuery = "", type = "") {
   return new Promise<getUnitsResponse>((resolve, reject) => {
     try {
       let units: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && type.trim()) {
         let query =
-          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1';
+          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0 && cus_type == $1";
         units = app
           .objects(Schemas.UnitSchema.name)
           .filtered(query, searchQuery, type)
-          .sorted('date');
+          .sorted("date");
       } else if (searchQuery.trim() && !type.trim()) {
         let query =
-          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0';
+          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || email CONTAINS[c] $0";
         units = app
           .objects(Schemas.UnitSchema.name)
           .filtered(query, searchQuery)
-          .sorted('date');
+          .sorted("date");
       } else if (!searchQuery.trim() && type.trim()) {
-        let query = 'cus_type == $0';
+        let query = "cus_type == $0";
         units = app
           .objects(Schemas.UnitSchema.name)
           .filtered(query, type)
-          .sorted('date');
+          .sorted("date");
       } else {
-        units = app.objects(Schemas.UnitSchema.name).sorted('date');
+        units = app.objects(Schemas.UnitSchema.name).sorted("date");
       }
 
       let partition = helperFuncs.getPaginationPartition(page, pageSize);
@@ -241,7 +241,7 @@ function getUnits(page = 1, pageSize = 10, searchQuery = '', type = '') {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach((obj) => {
+      result.forEach(obj => {
         let newObj = obj.toJSON() as UnitProperties;
         let prodId = newObj.product_id.toHexString();
         let product = ProductAPI.getProductSync(prodId) as ProductProperties;
@@ -278,7 +278,7 @@ function getUnits(page = 1, pageSize = 10, searchQuery = '', type = '') {
 function updateUnit(unitForEdit: UnitProperties) {
   let unit = Object.assign({}, unitForEdit);
   return new Promise<UnitProperties>((resolve, reject) => {
-    if (unit.price.indexOf('₦') >= 0) {
+    if (unit.price.indexOf("₦") >= 0) {
       unit._id = mongoose.Types.ObjectId(unit._id);
       unit.product_id = mongoose.Types.ObjectId(unit.product_id);
       unit.bulk_size = parseInt(unit.bulk_size);
@@ -326,5 +326,5 @@ export default {
   getUnit,
   getUnits,
   getUnitSync,
-  updateUnit,
+  updateUnit
 };
