@@ -1,11 +1,11 @@
-import RealmApp from "../dbConfig/config";
-import * as mongoose from "mongoose";
-import Schemas from "../schemas/index";
-import { EmployeeProperties } from "../../types/employee";
-import { RoleProperties } from "../../types/role";
-import helperFuncs from "../utils/helpers.func";
-import RoleAPI from "./roles";
-import Realm from "realm";
+import RealmApp from '../dbConfig/config';
+import * as mongoose from 'mongoose';
+import Schemas from '../schemas/index';
+import { EmployeeProperties } from '../../types/employee';
+import { RoleProperties } from '../../types/role';
+import helperFuncs from '../utils/helpers.func';
+import RoleAPI from './roles';
+import Realm from 'realm';
 
 const app = RealmApp();
 
@@ -63,7 +63,7 @@ function createEmployee(employee: EmployeeProperties) {
         if (Object.keys(role).length !== 0) {
           employeeObject.role_name = role.role_name;
         } else {
-          employeeObject.role_name = "N/A";
+          employeeObject.role_name = 'N/A';
         }
 
         employeeObject._id = employeeObject._id.toHexString();
@@ -98,7 +98,7 @@ function getEmployee(employeeId: string) {
 
       let employee = app.objectForPrimaryKey(
         Schemas.EmployeeSchema.name,
-        convertIdToObjectId as ObjectId
+        convertIdToObjectId as any
       );
       let employeeObject: EmployeeProperties = employee?.toJSON() as any;
       employeeObject._id = employeeObject._id.toHexString();
@@ -108,7 +108,7 @@ function getEmployee(employeeId: string) {
       if (Object.keys(role).length !== 0) {
         employeeObject.role_name = role.role_name;
       } else {
-        employeeObject.role_name = "N/A";
+        employeeObject.role_name = 'N/A';
       }
       // try {
       //   employeeObject.date = helperFuncs.transformDateObjectToString(
@@ -132,33 +132,33 @@ function getEmployee(employeeId: string) {
  * @param {number} pageSize - The size of page
  * @returns {Promise<employeesResponse>} returns the total employee count and entities
  */
-function getEmployees(page = 1, pageSize = 10, searchQuery = "", role = "") {
+function getEmployees(page = 1, pageSize = 10, searchQuery = '', role = '') {
   return new Promise<getEmployeesResponse>((resolve, reject) => {
     try {
       let employees: Realm.Results<Realm.Object>;
       if (searchQuery.trim() && role.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || gender CONTAINS[c] $0 && role_id CONTAINS[c] $1";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || gender CONTAINS[c] $0 && role_id CONTAINS[c] $1';
         employees = app
           .objects(Schemas.EmployeeSchema.name)
           .filtered(query, searchQuery, role)
-          .sorted("date");
+          .sorted('date');
       } else if (searchQuery.trim() && !role.trim()) {
         let query =
-          "first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || gender CONTAINS[c] $0";
+          'first_name CONTAINS[c] $0 || last_name CONTAINS[c] $0 || gender CONTAINS[c] $0';
         employees = app
           .objects(Schemas.EmployeeSchema.name)
           .filtered(query, searchQuery)
-          .sorted("date");
+          .sorted('date');
       } else if (!searchQuery.trim() && role.trim()) {
         // let query = 'role_id CONTAINS[c] $0';
-        let query = "role_id == $0";
+        let query = 'role_id == $0';
         employees = app
           .objects(Schemas.EmployeeSchema.name)
           .filtered(query, role)
-          .sorted("date");
+          .sorted('date');
       } else {
-        employees = app.objects(Schemas.EmployeeSchema.name).sorted("date");
+        employees = app.objects(Schemas.EmployeeSchema.name).sorted('date');
       }
 
       let partition = helperFuncs.getPaginationPartition(page, pageSize);
@@ -167,7 +167,7 @@ function getEmployees(page = 1, pageSize = 10, searchQuery = "", role = "") {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach(obj => {
+      result.forEach((obj) => {
         let newObj: EmployeeProperties = obj.toJSON();
         newObj._id = newObj._id.toHexString();
         newObj.role_id = newObj.role_id.toHexString();
@@ -176,7 +176,7 @@ function getEmployees(page = 1, pageSize = 10, searchQuery = "", role = "") {
         if (Object.keys(role).length !== 0) {
           newObj.role_name = role.role_name;
         } else {
-          newObj.role_name = "N/A";
+          newObj.role_name = 'N/A';
         }
 
         try {
@@ -210,7 +210,7 @@ function removeEmployee(employeeId: string) {
       app.write(() => {
         let employee = app.objectForPrimaryKey(
           Schemas.EmployeeSchema.name,
-          changeToObjectId as ObjectId
+          changeToObjectId as any
         );
         app.delete(employee);
         resolve(true);
@@ -233,17 +233,17 @@ function removeEmployees(employeeIds: string[]) {
     try {
       let changeToObjectIds: mongoose.Types.ObjectId[] = [];
 
-      employeeIds.forEach(id => {
+      employeeIds.forEach((id) => {
         changeToObjectIds.push(
           mongoose.Types.ObjectId(id) as mongoose.Types.ObjectId
         );
       });
 
       app.write(() => {
-        changeToObjectIds.forEach(id => {
+        changeToObjectIds.forEach((id) => {
           let employee = app.objectForPrimaryKey(
             Schemas.EmployeeSchema.name,
-            id as ObjectId
+            id as any
           );
           app.delete(employee);
         });
@@ -285,7 +285,7 @@ function updateEmployee(employeeForEdit: EmployeeProperties) {
         if (Object.keys(role).length !== 0) {
           employeeObject.role_name = role.role_name;
         } else {
-          employeeObject.role_name = "N/A";
+          employeeObject.role_name = 'N/A';
         }
 
         try {
@@ -309,5 +309,5 @@ export default {
   getEmployees,
   removeEmployee,
   removeEmployees,
-  updateEmployee
+  updateEmployee,
 };

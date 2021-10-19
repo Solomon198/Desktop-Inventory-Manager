@@ -2,39 +2,41 @@
 // Data validation is based on Yup
 // Please, be familiar with article first:
 // https://hackernoon.com/react-form-validation-with-formik-and-yup-8b76bda62e10
-import React from "react";
-import { Modal } from "react-bootstrap";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
+import React from 'react';
+import { Modal } from 'react-bootstrap';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import * as moment from 'moment';
 import {
   Input,
   Select,
-  DatePickerField
-} from "../../../../../../_metronic/_partials/controls";
-import helperFuncs from "../../../../../../dist/realm/utils/helpers.func";
+  DatePickerField,
+} from '../../../../../../_metronic/_partials/controls';
+import helperFuncs from '../../../../../../dist/realm/utils/helpers.func';
 // Validation schema
 const CustomerEditSchema = Yup.object().shape({
   first_name: Yup.string()
-    .min(3, "Minimum 3 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("Firstname is required"),
+    .min(3, 'Minimum 3 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('Firstname is required'),
   last_name: Yup.string()
-    .min(3, "Minimum 3 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("Lastname is required"),
+    .min(3, 'Minimum 3 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('Lastname is required'),
   // email: Yup.string()
   //   .email("Invalid email")
   //   .required("Email is required"),
-  phone_no: Yup.number().required("Phone Number is required")
+  phone_no: Yup.number().required('Phone Number is required'),
+  date: Yup.date().required('Date is requied?'),
 });
 
 export function CustomerEditForm({
   saveCustomer,
   customer,
   actionsLoading,
-  onHide
+  onHide,
 }) {
-  customer = typeof customer === "object" ? customer : {};
+  customer = typeof customer === 'object' ? customer : {};
 
   return (
     <>
@@ -42,11 +44,18 @@ export function CustomerEditForm({
         enableReinitialize={true}
         initialValues={customer}
         validationSchema={CustomerEditSchema}
-        onSubmit={values => {
+        onSubmit={(values) => {
           saveCustomer(values);
         }}
       >
-        {({ handleSubmit }) => (
+        {({
+          values,
+          handleSubmit,
+          handleChange,
+          handleBlur,
+          errors,
+          touched,
+        }) => (
           <>
             <Modal.Body className="overlay overlay-block cursor-default">
               {actionsLoading && (
@@ -111,6 +120,24 @@ export function CustomerEditForm({
                       placeholder="Address"
                       label="Address"
                     />
+                  </div>
+                </div>
+                <div className="form-group row">
+                  {/* Date */}
+                  <div className="col-lg-4">
+                    <input
+                      type="date"
+                      className="form-control"
+                      name="date"
+                      placeholder="Select Date"
+                      value={values.date}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      max={moment().format('YYYY-MM-DD')}
+                    />
+                    {errors.date && touched.date ? (
+                      <div className="text-danger">{errors.date}</div>
+                    ) : null}
                   </div>
                 </div>
               </Form>

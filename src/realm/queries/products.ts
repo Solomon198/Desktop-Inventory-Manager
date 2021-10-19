@@ -1,11 +1,11 @@
-import RealmApp from "../dbConfig/config";
-import * as mongoose from "mongoose";
-import Schemas from "../schemas/index";
-import { ProductProperties } from "../../types/product";
-import { SupplierProperties } from "../../types/supplier";
-import helperFuncs from "../utils/helpers.func";
-import SupplierAPI from "./suppliers";
-import Realm from "realm";
+import RealmApp from '../dbConfig/config';
+import * as mongoose from 'mongoose';
+import Schemas from '../schemas/index';
+import { ProductProperties } from '../../types/product';
+import { SupplierProperties } from '../../types/supplier';
+import helperFuncs from '../utils/helpers.func';
+import SupplierAPI from './suppliers';
+import Realm from 'realm';
 
 const app = RealmApp();
 
@@ -75,7 +75,7 @@ function createProduct(product: ProductProperties) {
         resolve(productObject);
       } catch (e) {
         reject(e as any);
-        console.log("Created product", e);
+        console.log('Created product', e);
       }
     });
   });
@@ -94,7 +94,7 @@ function getProductSync(productId: string) {
 
     let product = app.objectForPrimaryKey(
       Schemas.ProductSchema.name,
-      convertIdToObjectId as ObjectId
+      convertIdToObjectId as any
     );
     let productObject: ProductProperties = product?.toJSON() as any;
     productObject._id = productObject._id.toHexString();
@@ -114,7 +114,7 @@ function getProductSync(productId: string) {
     if (Object.keys(supplier).length !== 0) {
       productObject.supplier_name = supplier.supplier_name;
     } else {
-      productObject.supplier_name = "N/A";
+      productObject.supplier_name = 'N/A';
     }
 
     return productObject as ProductProperties;
@@ -137,7 +137,7 @@ function getProduct(productId: string) {
 
       let product = app.objectForPrimaryKey(
         Schemas.ProductSchema.name,
-        convertIdToObjectId as ObjectId
+        convertIdToObjectId as any
       );
       let productObject: ProductProperties = product?.toJSON() as any;
       productObject._id = productObject._id.toHexString();
@@ -156,7 +156,7 @@ function getProduct(productId: string) {
       if (Object.keys(supplier).length !== 0) {
         productObject.supplier_name = supplier.supplier_name;
       } else {
-        productObject.supplier_name = "N/A";
+        productObject.supplier_name = 'N/A';
       }
 
       resolve(productObject);
@@ -174,18 +174,18 @@ function getProduct(productId: string) {
  * @param {number} pageSize - The size of page
  * @returns {Promise<productsResponse>} returns the total product count and entities
  */
-function getProducts(page = 1, pageSize = 10, searchQuery = "") {
+function getProducts(page = 1, pageSize = 10, searchQuery = '') {
   return new Promise<getProductsResponse>((resolve, reject) => {
     try {
       let products: Realm.Results<Realm.Object>;
       if (searchQuery.trim()) {
-        let query = "product_name CONTAINS[c] $0";
+        let query = 'product_name CONTAINS[c] $0';
         products = app
           .objects(Schemas.ProductSchema.name)
           .filtered(query, searchQuery)
-          .sorted("date");
+          .sorted('date');
       } else {
-        products = app.objects(Schemas.ProductSchema.name).sorted("date");
+        products = app.objects(Schemas.ProductSchema.name).sorted('date');
       }
 
       let partition = helperFuncs.getPaginationPartition(page, pageSize);
@@ -194,7 +194,7 @@ function getProducts(page = 1, pageSize = 10, searchQuery = "") {
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach(obj => {
+      result.forEach((obj) => {
         let newObj: ProductProperties = obj.toJSON();
         newObj._id = newObj._id.toHexString();
         newObj.supplier_id = newObj.supplier_id.toHexString();
@@ -211,18 +211,18 @@ function getProducts(page = 1, pageSize = 10, searchQuery = "") {
         if (Object.keys(supplier).length !== 0) {
           newObj.supplier_name = supplier.supplier_name;
         } else {
-          newObj.supplier_name = "N/A";
+          newObj.supplier_name = 'N/A';
         }
 
         objArr.push(newObj);
       });
 
       let response = { totalCount: totalCount, entities: objArr.reverse() };
-      console.log("Response", response);
+      console.log('Response', response);
       resolve(response);
     } catch (e) {
       reject((e as any).message);
-      console.log("Get all products", e);
+      console.log('Get all products', e);
     }
   });
 }
@@ -238,13 +238,13 @@ function getProductsForUnitManager() {
     try {
       let products: Realm.Results<Realm.Object>;
 
-      products = app.objects(Schemas.ProductSchema.name).sorted("date");
+      products = app.objects(Schemas.ProductSchema.name).sorted('date');
       let totalCount = products.length;
       let result = products.slice();
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach(obj => {
+      result.forEach((obj) => {
         let newObj: ProductProperties = obj.toJSON();
         newObj._id = newObj._id.toHexString();
         newObj.supplier_id = newObj.supplier_id.toHexString();
@@ -261,7 +261,7 @@ function getProductsForUnitManager() {
         if (Object.keys(supplier).length !== 0) {
           newObj.supplier_name = supplier.supplier_name;
         } else {
-          newObj.supplier_name = "N/A";
+          newObj.supplier_name = 'N/A';
         }
 
         objArr.push(newObj);
@@ -287,14 +287,14 @@ function getProductsForUnitManager() {
 function getProductsForSale(
   page = 1,
   pageSize = 10,
-  searchQuery = "",
-  type = ""
+  searchQuery = '',
+  type = ''
 ) {
   return new Promise<getProductsResponse>((resolve, reject) => {
     try {
       let products: Realm.Results<Realm.Object>;
 
-      products = app.objects(Schemas.ProductSchema.name).sorted("date");
+      products = app.objects(Schemas.ProductSchema.name).sorted('date');
 
       // let partition = helperFuncs.getPaginationPartition(page, pageSize);
       let totalCount = products.length;
@@ -302,7 +302,7 @@ function getProductsForSale(
 
       let objArr: any[] = [];
       //converting to array of Object
-      result.forEach(obj => {
+      result.forEach((obj) => {
         let newObj: ProductProperties = obj.toJSON();
         newObj._id = newObj._id.toHexString();
         try {
@@ -336,7 +336,7 @@ function removeProduct(productId: string) {
       app.write(() => {
         let product = app.objectForPrimaryKey(
           Schemas.ProductSchema.name,
-          changeToObjectId as ObjectId
+          changeToObjectId as any
         );
         app.delete(product);
         resolve(true);
@@ -359,17 +359,17 @@ function removeProducts(productIds: string[]) {
     try {
       let changeToObjectIds: mongoose.Types.ObjectId[] = [];
 
-      productIds.forEach(id => {
+      productIds.forEach((id) => {
         changeToObjectIds.push(
           mongoose.Types.ObjectId(id) as mongoose.Types.ObjectId
         );
       });
 
       app.write(() => {
-        changeToObjectIds.forEach(id => {
+        changeToObjectIds.forEach((id) => {
           let product = app.objectForPrimaryKey(
             Schemas.ProductSchema.name,
-            id as ObjectId
+            id as any
           );
           app.delete(product);
         });
@@ -411,7 +411,7 @@ function updateProduct(productForEdit: ProductProperties) {
         if (Object.keys(supplier).length !== 0) {
           productObject.supplier_name = supplier.supplier_name;
         } else {
-          productObject.supplier_name = "N/A";
+          productObject.supplier_name = 'N/A';
         }
         try {
           productObject.date = helperFuncs.transformDateObjectToString(
@@ -423,7 +423,7 @@ function updateProduct(productForEdit: ProductProperties) {
         resolve(productObject);
       } catch (e) {
         reject((e as any).message);
-        console.log("Updated product", e);
+        console.log('Updated product', e);
       }
     });
   });
@@ -438,5 +438,5 @@ export default {
   getProductsForSale,
   removeProduct,
   removeProducts,
-  updateProduct
+  updateProduct,
 };
