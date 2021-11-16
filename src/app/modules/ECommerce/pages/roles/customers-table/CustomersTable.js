@@ -52,7 +52,7 @@ export function CustomersTable() {
     // clear selections list
     rolesUIProps.setIds([]);
     // server call by queryParams
-    dispatch(actions.fetchRoles(rolesUIProps.queryParams));
+    // dispatch(actions.fetchRoles(rolesUIProps.queryParams));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rolesUIProps.queryParams, dispatch]);
   // Table columns
